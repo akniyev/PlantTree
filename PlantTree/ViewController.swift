@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SwiftyJSON
 
 class ViewController: UIViewController {
     let realm = try! Realm()
@@ -26,6 +27,12 @@ class ViewController: UIViewController {
 //            e.name = "HJK"
 //            self.realm.add(e)
 //        }
+        var pd = PersonalData()
+        pd.firstname = "Ivan"
+        pd.secondname = "Ivanov"
+        pd.gender = Gender.Male
+        pd.birthdate = Date(timeIntervalSince1970: 0)
+        Server.RegisterWithEmail(email: "a@b.ru", password: "12345", personalData: pd, SUCCESS: nil, ERROR: nil)
     }
 
     override func didReceiveMemoryWarning() {
