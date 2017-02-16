@@ -7,19 +7,34 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController {
-
+    let realm = try! Realm()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+//        var entities: Results<Entity> = {
+//            self.realm.objects(Entity)
+//        }()
+//        
+//        print(entities)
+//        
+//        try! realm.write {
+//            var e = Entity()
+//            e.name = "HJK"
+//            self.realm.add(e)
+//        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
 
-
+class Entity: Object {
+    dynamic var name = ""
 }
 

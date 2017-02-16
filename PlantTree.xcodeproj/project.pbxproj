@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		123FB4D8BE93C6BC8D0443ED /* Pods_PlantTree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */; };
+		84B3A7481E55D350000CA32E /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3A7471E55D350000CA32E /* Server.swift */; };
 		84DDFA731E546BCD0073DFFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA721E546BCD0073DFFC /* AppDelegate.swift */; };
 		84DDFA751E546BCD0073DFFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA741E546BCD0073DFFC /* ViewController.swift */; };
 		84DDFA781E546BCD0073DFFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DDFA761E546BCD0073DFFC /* Main.storyboard */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180EB9DF55E29EA8A1AB54A4 /* Pods-PlantTree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTree.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree.debug.xcconfig"; sourceTree = "<group>"; };
+		84B3A7471E55D350000CA32E /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		84DDFA6F1E546BCD0073DFFC /* PlantTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DDFA721E546BCD0073DFFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84DDFA741E546BCD0073DFFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +28,8 @@
 		84DDFA7C1E546BCD0073DFFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84DDFA7F1E546BCD0073DFFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84DDFA811E546BCD0073DFFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTree.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree.release.xcconfig"; sourceTree = "<group>"; };
+		F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlantTree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +37,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				123FB4D8BE93C6BC8D0443ED /* Pods_PlantTree.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38316CFB5B70F8A94AF4B988 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		84B3A7461E55D31A000CA32E /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				84B3A7471E55D350000CA32E /* Server.swift */,
+			);
+			name = Server;
+			sourceTree = "<group>";
+		};
 		84DDFA661E546BCC0073DFFC = {
 			isa = PBXGroup;
 			children = (
 				84DDFA711E546BCD0073DFFC /* PlantTree */,
 				84DDFA701E546BCD0073DFFC /* Products */,
+				90B15CB9257F614FA2407054 /* Pods */,
+				38316CFB5B70F8A94AF4B988 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +81,7 @@
 		84DDFA711E546BCD0073DFFC /* PlantTree */ = {
 			isa = PBXGroup;
 			children = (
+				84B3A7461E55D31A000CA32E /* Server */,
 				84DDFA721E546BCD0073DFFC /* AppDelegate.swift */,
 				84DDFA741E546BCD0073DFFC /* ViewController.swift */,
 				84DDFA761E546BCD0073DFFC /* Main.storyboard */,
@@ -67,6 +93,15 @@
 			path = PlantTree;
 			sourceTree = "<group>";
 		};
+		90B15CB9257F614FA2407054 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				180EB9DF55E29EA8A1AB54A4 /* Pods-PlantTree.debug.xcconfig */,
+				EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +109,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84DDFA841E546BCD0073DFFC /* Build configuration list for PBXNativeTarget "PlantTree" */;
 			buildPhases = (
+				A129F03DC9560F89AD002DBA /* [CP] Check Pods Manifest.lock */,
 				84DDFA6B1E546BCC0073DFFC /* Sources */,
 				84DDFA6C1E546BCC0073DFFC /* Frameworks */,
 				84DDFA6D1E546BCC0073DFFC /* Resources */,
+				A6439C11962D036AE153B1F1 /* [CP] Embed Pods Frameworks */,
+				6CEFB908FC188A0AF5392AF4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -135,6 +173,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6CEFB908FC188A0AF5392AF4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A129F03DC9560F89AD002DBA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A6439C11962D036AE153B1F1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		84DDFA6B1E546BCC0073DFFC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -142,6 +228,7 @@
 			files = (
 				84DDFA751E546BCD0073DFFC /* ViewController.swift in Sources */,
 				84DDFA731E546BCD0073DFFC /* AppDelegate.swift in Sources */,
+				84B3A7481E55D350000CA32E /* Server.swift in Sources */,
 				84DDFA7B1E546BCD0073DFFC /* PlantTree.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +348,7 @@
 		};
 		84DDFA851E546BCD0073DFFC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 180EB9DF55E29EA8A1AB54A4 /* Pods-PlantTree.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 67D4E7YPP9;
@@ -274,6 +362,7 @@
 		};
 		84DDFA861E546BCD0073DFFC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 67D4E7YPP9;
@@ -304,6 +393,7 @@
 				84DDFA861E546BCD0073DFFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
