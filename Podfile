@@ -12,6 +12,7 @@ target 'PlantTree' do
   pod 'SwiftyJSON'
   pod 'Kingfisher'
   pod 'Alamofire'
+  pod 'ImageRow'
 end
 
 post_install do |installer|

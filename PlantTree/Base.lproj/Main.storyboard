@@ -28,6 +28,24 @@
             </objects>
             <point key="canvasLocation" x="-140" y="1024"/>
         </scene>
+        <!--Payment History View Controller-->
+        <scene sceneID="wfG-Oy-aS2">
+            <objects>
+                <viewController id="EZ7-n1-qft" customClass="PaymentHistoryViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nr2-hv-jkG"/>
+                        <viewControllerLayoutGuide type="bottom" id="fh2-05-fnq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6eP-Ti-xut">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sma-zm-osw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1567" y="1887"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="aUv-8w-Ty0">
             <objects>
@@ -106,27 +124,27 @@
             </objects>
             <point key="canvasLocation" x="2212" y="317.99100449775113"/>
         </scene>
-        <!--Item-->
+        <!--Аккаунт-->
         <scene sceneID="5y5-tV-Ad0">
             <objects>
                 <navigationController id="67Q-US-pL3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="AWT-cr-mYl"/>
+                    <tabBarItem key="tabBarItem" title="Аккаунт" id="AWT-cr-mYl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yxm-RJ-SVX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="YCd-SO-VyK" kind="relationship" relationship="rootViewController" id="h0Q-1y-s9Y"/>
+                        <segue destination="YCd-SO-VyK" kind="relationship" relationship="rootViewController" id="aHP-s2-uAI"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TvB-Wb-ibC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1273" y="1023"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="TyZ-NB-hvW">
             <objects>
-                <viewController id="YCd-SO-VyK" customClass="LoginViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YCd-SO-VyK" customClass="SettingsViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="30X-91-aIW"/>
                         <viewControllerLayoutGuide type="bottom" id="FYb-iL-t5P"/>
@@ -140,6 +158,10 @@
                     <connections>
                         <segue destination="sq5-5G-6NS" kind="show" identifier="openRegistration" id="dL7-eZ-M8z"/>
                         <segue destination="Trh-PC-nQq" kind="show" identifier="openForgotPassword" id="mee-Km-7OC"/>
+                        <segue destination="7DO-Gj-NmK" kind="show" identifier="openPersonalData" id="9eP-sB-LyW"/>
+                        <segue destination="EZ7-n1-qft" kind="show" identifier="openOperationHistory" id="MKI-B6-iX1"/>
+                        <segue destination="G9Q-KM-wbQ" kind="show" identifier="openChangePassword" id="jeu-Ns-Ohw"/>
+                        <segue destination="PyL-E2-Ygh" kind="show" identifier="openChangeEmail" id="MJJ-Pf-ZFZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F79-N6-cA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -162,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HnC-08-cYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4012" y="633.73313343328346"/>
+            <point key="canvasLocation" x="4406" y="318"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="aG6-iS-xYr">
@@ -180,13 +202,67 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6O6-6d-lkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4012" y="1363"/>
+            <point key="canvasLocation" x="4406" y="1022"/>
         </scene>
-        <!--Item 1-->
+        <!--Change Password View Controller-->
+        <scene sceneID="0Cb-rR-P5C">
+            <objects>
+                <viewController id="G9Q-KM-wbQ" customClass="ChangePasswordViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qkr-Oy-6Ox"/>
+                        <viewControllerLayoutGuide type="bottom" id="8GX-FU-Rsh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BBv-7c-B7N">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sgg-CH-GVx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2521" y="1887"/>
+        </scene>
+        <!--Change Email View Controller-->
+        <scene sceneID="YnS-dB-CI9">
+            <objects>
+                <viewController id="PyL-E2-Ygh" customClass="ChangeEmailViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Jd1-gn-vnQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="16d-xU-ALV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4tk-VB-dg2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xqV-yb-NeJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3345" y="1887"/>
+        </scene>
+        <!--Change Personal Data View Controller-->
+        <scene sceneID="epb-Jd-Ued">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="7DO-Gj-NmK" customClass="ChangePersonalDataViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="29Y-7l-Pdy"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ue4-Ym-z5a"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6Sb-cz-G1O">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Bq-RG-rMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4230" y="1804"/>
+        </scene>
+        <!--Активные-->
         <scene sceneID="3O3-rh-BD0">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZoF-gV-VcU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="Xr2-hH-GxQ"/>
+                    <tabBarItem key="tabBarItem" title="Активные" id="Xr2-hH-GxQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nlR-zt-CgS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -201,11 +277,11 @@
             </objects>
             <point key="canvasLocation" x="1272.8" y="-1058.3208395802101"/>
         </scene>
-        <!--Item 2-->
+        <!--Избранные-->
         <scene sceneID="ICx-Lt-RGQ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3mt-qY-vfg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 2" id="ab0-v4-Oa2"/>
+                    <tabBarItem key="tabBarItem" title="Избранные" id="ab0-v4-Oa2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hvo-bn-tbt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -220,11 +296,11 @@
             </objects>
             <point key="canvasLocation" x="1272.8" y="-345.87706146926541"/>
         </scene>
-        <!--Item-->
+        <!--Завершенные-->
         <scene sceneID="G3M-jf-PkC">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dMP-ph-5Bu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="EIj-W5-ODn"/>
+                    <tabBarItem key="tabBarItem" title="Завершенные" id="EIj-W5-ODn"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oNb-Qo-XtZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
