@@ -11,4 +11,9 @@ class PersonalData {
     var gender : Gender = Gender.None
     var birthdate : Date? = nil
     var photoUrl : String = ""
+    var photoUrlSmall : String = ""
+    var moneyDonated : Int = 0
+    var donatedProjectCount : Int = 0
+    var email : String = ""
+    var email_confirmed : Bool = false
 }

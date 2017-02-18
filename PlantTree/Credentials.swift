@@ -7,8 +7,8 @@ import Foundation
 
 class Credentials {
     //Expire time for each token in seconds
-    static let accessTokenExpireTime : Double = 1000
-    static let refreshTokenExpireTime : Double = (14 * 60) * 3600
+    var accessTokenExpireTime : Double = 1000
+    static var refreshTokenExpireTime : Double = (14 * 60) * 3600
     static let socialTokenExpireTime : Double = (24 * 60) * 3600
 
     var email = ""
@@ -36,7 +36,7 @@ class Credentials {
 //        print("CURRENT TIME: \(Date())")
 //        print(access_token_created)
 //        print("EXPIRATION: \(current_unixtime() - get_access_token_created_unixtime())")
-        return (current_unixtime() - get_access_token_created_unixtime()) > (Credentials.accessTokenExpireTime * 0.9)
+        return (current_unixtime() - get_access_token_created_unixtime()) > (accessTokenExpireTime * 0.9)
     }
 
     func is_refresh_token_expired() -> Bool {

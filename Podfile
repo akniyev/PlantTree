@@ -13,6 +13,7 @@ target 'PlantTree' do
   pod 'Kingfisher'
   pod 'Alamofire'
   pod 'ImageRow'
+  pod 'GRDB.swift'
 end
 
 post_install do |installer|

@@ -28,7 +28,6 @@ class ForgotPasswordViewController : FormViewController {
     }
     
     func resetPasswordAction(cell: ButtonCellOf<String>, row: ButtonRow) {
-        form.validate()
         let errors = form.validate()
         
         for row in form.allRows {

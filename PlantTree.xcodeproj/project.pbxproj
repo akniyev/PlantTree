@@ -23,6 +23,8 @@
 		84BF51231E57107900B50ADB /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF51221E57107900B50ADB /* ChangeEmailViewController.swift */; };
 		84BF51251E57137000B50ADB /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF51241E57137000B50ADB /* ChangePasswordViewController.swift */; };
 		84BF51271E5713D900B50ADB /* PaymentHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF51261E5713D900B50ADB /* PaymentHistoryViewController.swift */; };
+		84BF512C1E571DC100B50ADB /* Db.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF512B1E571DC100B50ADB /* Db.swift */; };
+		84BF512E1E571E0500B50ADB /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF512D1E571E0500B50ADB /* MyTabBarController.swift */; };
 		84DDFA731E546BCD0073DFFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA721E546BCD0073DFFC /* AppDelegate.swift */; };
 		84DDFA751E546BCD0073DFFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA741E546BCD0073DFFC /* ViewController.swift */; };
 		84DDFA781E546BCD0073DFFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DDFA761E546BCD0073DFFC /* Main.storyboard */; };
@@ -48,6 +50,8 @@
 		84BF51221E57107900B50ADB /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
 		84BF51241E57137000B50ADB /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		84BF51261E5713D900B50ADB /* PaymentHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentHistoryViewController.swift; sourceTree = "<group>"; };
+		84BF512B1E571DC100B50ADB /* Db.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Db.swift; sourceTree = "<group>"; };
+		84BF512D1E571E0500B50ADB /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		84DDFA6F1E546BCD0073DFFC /* PlantTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DDFA721E546BCD0073DFFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84DDFA741E546BCD0073DFFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 		84B3A7461E55D31A000CA32E /* Server */ = {
 			isa = PBXGroup;
 			children = (
+				84BF512B1E571DC100B50ADB /* Db.swift */,
+				58603BE30150ED19634B35F9 /* Credentials.swift */,
 				84B3A7471E55D350000CA32E /* Server.swift */,
 			);
 			name = Server;
@@ -91,7 +97,6 @@
 		84B3A7491E55D874000CA32E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				58603BE30150ED19634B35F9 /* Credentials.swift */,
 				58603135716173F73461979F /* ErrorType.swift */,
 				586030BA04E460DBB4F34CBC /* PersonalData.swift */,
 				5860375EB16C4E315B72FDF4 /* Gender.swift */,
@@ -106,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				84BF51281E57143700B50ADB /* Settings */,
+				84BF512D1E571E0500B50ADB /* MyTabBarController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -317,6 +323,7 @@
 				58603675DB7B89C392D9F207 /* Credentials.swift in Sources */,
 				84BF51231E57107900B50ADB /* ChangeEmailViewController.swift in Sources */,
 				5860321E46D4171318DC8DED /* ErrorType.swift in Sources */,
+				84BF512E1E571E0500B50ADB /* MyTabBarController.swift in Sources */,
 				84B3A74E1E563F8F000CA32E /* RegistrationViewController.swift in Sources */,
 				58603FB0E67EDEC6EF6CB540 /* PersonalData.swift in Sources */,
 				84BF511F1E56E3A000B50ADB /* SettingsViewController.swift in Sources */,
@@ -325,6 +332,7 @@
 				5860351528CE5E42FF05A832 /* Gender.swift in Sources */,
 				5860310FAC58B23CBBD0FC0A /* ApiTargets.swift in Sources */,
 				586038664639E0FC529136A4 /* Date.swift in Sources */,
+				84BF512C1E571DC100B50ADB /* Db.swift in Sources */,
 				84BF51271E5713D900B50ADB /* PaymentHistoryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

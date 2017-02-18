@@ -31,7 +31,7 @@
         <!--Payment History View Controller-->
         <scene sceneID="wfG-Oy-aS2">
             <objects>
-                <viewController id="EZ7-n1-qft" customClass="PaymentHistoryViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="EZ7-n1-qft" customClass="PaymentHistoryViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Nr2-hv-jkG"/>
                         <viewControllerLayoutGuide type="bottom" id="fh2-05-fnq"/>
@@ -207,7 +207,7 @@
         <!--Change Password View Controller-->
         <scene sceneID="0Cb-rR-P5C">
             <objects>
-                <viewController id="G9Q-KM-wbQ" customClass="ChangePasswordViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="G9Q-KM-wbQ" customClass="ChangePasswordViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qkr-Oy-6Ox"/>
                         <viewControllerLayoutGuide type="bottom" id="8GX-FU-Rsh"/>
@@ -225,7 +225,7 @@
         <!--Change Email View Controller-->
         <scene sceneID="YnS-dB-CI9">
             <objects>
-                <viewController id="PyL-E2-Ygh" customClass="ChangeEmailViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="PyL-E2-Ygh" customClass="ChangeEmailViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jd1-gn-vnQ"/>
                         <viewControllerLayoutGuide type="bottom" id="16d-xU-ALV"/>
@@ -256,7 +256,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Bq-RG-rMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4230" y="1804"/>
+            <point key="canvasLocation" x="4217" y="1887"/>
         </scene>
         <!--Активные-->
         <scene sceneID="3O3-rh-BD0">

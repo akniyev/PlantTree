@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.3.0)
   - Eureka (2.0.1)
+  - GRDB.swift (0.101.1)
   - ImageRow (1.0.0):
     - Eureka (~> 2.0.0-beta.1)
   - Kingfisher (3.4.0)
@@ -20,6 +21,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Eureka
+  - GRDB.swift
   - ImageRow
   - Kingfisher
   - Moya
@@ -29,6 +31,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   Eureka: ae837bb1dfae0c07bc1bda7aeef87876eeb537c2
+  GRDB.swift: bfa07c313355fe41424f03be0297953a4556e6ea
   ImageRow: 1e37db26f61a0c4ad3bc9a3a803c32d968782857
   Kingfisher: 5690cfb3d1bddf3a98d679a3a34d0b7294974ed2
   Moya: 47f61da5b634aa71f676431b64ee0f81e976296d
@@ -37,6 +40,6 @@ SPEC CHECKSUMS:
   Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 5ebae395c885fc85558abccb98980d4f9df98eb3
+PODFILE CHECKSUM: 125e449172a06a3f1b558a0bc966f2f902e0e28a
 
 COCOAPODS: 1.2.0

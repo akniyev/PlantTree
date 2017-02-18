@@ -13,7 +13,7 @@ class ChangeEmailViewController : FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Смена email"
-        form +++ Section("Введите данные")
+        form
             +++ Section("Введите адрес почты")
             <<< EmailRow() { row in
                 row.tag = "email1"
