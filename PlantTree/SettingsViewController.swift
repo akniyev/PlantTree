@@ -9,119 +9,205 @@
 import UIKit
 import Eureka
 import ImageRow
+import Kingfisher
 
 class SettingsViewController : FormViewController {
+    var loginSections : [Section] = []
+    var settingsSections : [Section] = []
+    var downloadFailedSections : [Section] = []
+    
+    var personalData : PersonalData? = nil
+    var email : String = ""
+//    var photoView : ImageView? = nil
+    
     override func viewWillAppear(_ animated: Bool) {
-        if Db.isAuthorized() {
-            ShowPersonalSettings()
-        } else {
-            ShowLoginScreen()
-        }
+        reloadPersonalSettingsForm()
     }
+
+    func CreateForm() {
+        let loginSection01 = Section("Введите ваши данные") <<< EmailRow() { row in
+            row.tag = "login_email"
+            row.placeholder = "Enter your email"
+            row.add(rule: RuleEmail())
+            row.add(rule: RuleRequired())
+        } <<< PasswordRow() { row in
+            row.tag = "login_password"
+            row.placeholder = "Enter your password"
+            row.add(rule: RuleRequired())
+        } <<< ButtonRow() { row in
+            row.title = "Войти"
+            row.onCellSelection(self.signInAction)
+        }
+        let loginSection02 = Section() <<< ButtonRow() { row in
+            row.title = "Войти через Facebook"
+            row.onCellSelection(self.facebookSignInAction)
+        }
+        let loginSection03 = Section() <<< ButtonRow() { row in
+            row.title = "Регистрация"
+            row.onCellSelection(self.registrationAction)
+        } <<< ButtonRow() { row in
+            row.title = "Забыли пароль?"
+            row.onCellSelection(self.forgotPasswordAction)
+        }
+        loginSections = [loginSection01, loginSection02, loginSection03]
+        self.form +++ loginSection01 +++ loginSection02 +++ loginSection03
+
+        let settingsSection01 = Section("Персональные данные") <<< UserInfoRow() { row in
+            row.tag = "userInfo"
+        } <<< ButtonRow() { row in
+            row.title = "Изменить личные данные"
+            row.onCellSelection(self.changePersonalDataAction)
+        }
+        let settingsSection02 = Section() <<< LabelRow() { row in
+            row.tag = "projectCount"
+            row.title = "-р, - проектов"
+        } <<< ButtonRow() { row in
+            row.title = "Просмотреть историю операций"
+            row.onCellSelection(self.showOperationHistoryAction)
+        }
+        let settingsSection03 = Section() <<< LabelRow() { row in
+            row.tag = "settings_email"
+            row.title = "Email: -"
+        } <<< ButtonRow() { row in
+            row.title = "Изменить email"
+            row.onCellSelection(self.changeEmailAction)
+        } <<< ButtonRow() { row in
+            row.title = "Сменить пароль"
+            row.onCellSelection(self.changePasswordAction)
+        }
+        let settingsSection04 = Section("Вы не подтвердили свой email") <<< ButtonRow() { row in
+            row.title = "Подтвердить email"
+        }
+        settingsSection04.tag = "confirmEmail"
+        let settingsSection05 = Section() <<< ButtonRow() { row in
+            row.title = "Выход"
+            row.onCellSelection(self.signOutAction)
+        }
+        settingsSections = [settingsSection01, settingsSection02, settingsSection03,
+        settingsSection04, settingsSection05]
+        self.form +++ settingsSection01 +++ settingsSection02 +++ settingsSection03
+            +++ settingsSection04 +++ settingsSection05
+        
+        let downloadFailedSections01 = Section("Не удалось загрузить данные с сервера") <<< ButtonRow() { row in
+            row.title = "Повторить"
+            row.onCellSelection(self.reloadPersonalDataAction)
+        }
+        downloadFailedSections = [downloadFailedSections01]
+        self.form +++ downloadFailedSections01
+    }
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        CreateForm()
     }
 
     func ShowLoginScreen() {
-        form.removeAll()
         self.navigationItem.title = "Вход"
-        self.form +++ Section("Введите ваши данные")
-            <<< EmailRow() { row in
-                row.tag = "email"
-                row.placeholder = "Enter your email"
-                row.add(rule: RuleEmail())
-                row.add(rule: RuleRequired())
-            }
-            <<< PasswordRow() { row in
-                row.tag = "password"
-                row.placeholder = "Enter your password"
-                row.add(rule: RuleRequired())
-            }
-            <<< ButtonRow() { row in
-                row.title = "Войти"
-                row.onCellSelection(self.signInAction)
-            }
-            +++ Section()
-            <<< ButtonRow() { row in
-                row.title = "Войти через Facebook"
-                row.onCellSelection(self.facebookSignInAction)
-            }
-            +++ Section()
-            <<< ButtonRow() { row in
-                row.title = "Регистрация"
-                row.onCellSelection(self.registrationAction)
-            }
-            <<< ButtonRow() { row in
-                row.title = "Забыли пароль?"
-                row.onCellSelection(self.forgotPasswordAction)
+        for s in loginSections {
+            s.hidden = false
+            s.evaluateHidden()
         }
+        for s in settingsSections {
+            s.hidden = true
+            s.evaluateHidden()
+        }
+        for s in downloadFailedSections {
+            s.hidden = true
+            s.evaluateHidden()
+        }
+    }
+    
+    func HideAllForms() {
+        for s in form.allSections {
+            s.hidden = true
+            s.evaluateHidden()
+        }
+    }
+    
+    func ShowDownloadFailedButton() {
+        for s in loginSections {
+            s.hidden = true
+            s.evaluateHidden()
+        }
+        for s in settingsSections {
+            s.hidden = true
+            s.evaluateHidden()
+        }
+        for s in downloadFailedSections {
+            s.hidden = false
+            s.evaluateHidden()
+        }
+    }
+    
+    func SetPersonalData(pd: PersonalData) {
+        (self.form.rowBy(tag: "userInfo") as! UserInfoRow).value = pd
+        (self.form.rowBy(tag: "userInfo") as! UserInfoRow).reload()
+        
+        self.form.rowBy(tag: "projectCount")?.title = "\(pd.moneyDonated)р, \(pd.donatedProjectCount) проектах"
+        self.form.rowBy(tag: "projectCount")?.reload()
+        
+        self.form.rowBy(tag: "settings_email")?.title = "Email: \(pd.email)"
+        self.form.rowBy(tag: "settings_email")?.reload()
+        
+        self.form.sectionBy(tag: "confirmEmail")?.hidden = pd.email_confirmed ? true : false
+        self.form.sectionBy(tag: "confirmEmail")?.evaluateHidden()
     }
 
     func ShowPersonalSettings() {
         self.navigationItem.title = "Аккаунт"
-        form.removeAll()
+        for s in loginSections {
+            s.hidden = true
+            s.evaluateHidden()
+        }
+        for s in settingsSections {
+            s.hidden = false
+            s.evaluateHidden()
+        }
+        for s in downloadFailedSections {
+            s.hidden = true
+            s.evaluateHidden()
+        }
+
         Server.GetAccountInfo(SUCCESS: { pd in
-            let c = Db.readCredentials()!
-
-            self.form
-                    +++ Section("Персональные данные")
-                    <<< ImageRow() { row in
-                                        row.title = "Ваша фотография:"
-                                        row.sourceTypes = [.PhotoLibrary, .Camera, .SavedPhotosAlbum]
-                                        row.clearAction = .yes(style: UIAlertActionStyle.destructive)
-                                   }.cellUpdate { cell, row in
-                                                    cell.accessoryView?.layer.cornerRadius = 17
-                                                    cell.accessoryView?.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
-                                                }
-                    <<< LabelRow() { row in
-                        row.title = "\(pd.firstname) \(pd.secondname)"
-                                   }
-                    <<< LabelRow() { row in
-                                        row.title = "Дата рождения: \(pd.birthdate?.toRussianFormat() ?? "" )"
-                                   }
-                    <<< ButtonRow() { row in
-                                        row.title = "Изменить личные данные"
-                                        row.onCellSelection(self.changePersonalDataAction)
-                                    }
-                    +++ Section()
-
-                        <<< LabelRow() { row in
-                    row.title = "\(pd.moneyDonated)р, \(pd.donatedProjectCount) проектов"
-                }
-                        <<< ButtonRow() { row in
-                    row.title = "Просмотреть историю операций"
-                    row.onCellSelection(self.showOperationHistoryAction)
-                }
-                        +++ Section()
-                        <<< LabelRow() { row in
-                    row.title = "Email: \(pd.email)"
-                }
-                        <<< ButtonRow() { row in
-                    row.title = "Изменить email"
-                    row.onCellSelection(self.changeEmailAction)
-                }
-                    <<< ButtonRow() { row in
-                row.title = "Сменить пароль"
-                row.onCellSelection(self.changePasswordAction)
-            }
-                    +++ Section()
-                    <<< ButtonRow() { row in
-                row.title = "Подтвердить email"
-            }
-                    +++ Section()
-                    <<< ButtonRow() { row in
-                row.title = "Выход"
-                row.onCellSelection(self.signOutAction)
-            }
+            
         }, ERROR: { et, msg in
-            Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: msg, completion: nil)
+            
         })
     }
 
     func personalDataSaveAction(cell: ButtonCellOf<String>, row: ButtonRow) {
 
+    }
+    
+    func reloadPersonalSettingsForm() {
+        if Db.isAuthorized() {
+            LoadingIndicatorView.show(self.view, loadingText: "Загрузка...")
+            if personalData == nil {
+                HideAllForms()
+            }
+            Server.GetAccountInfo(SUCCESS: { pd in
+                self.ShowPersonalSettings()
+                self.SetPersonalData(pd: pd)
+                self.personalData = pd
+                LoadingIndicatorView.hide()
+            }, ERROR: { et, msg in
+                if et == ErrorType.Unauthorized {
+                    Server.SignOut()
+                    self.ShowLoginScreen()
+                } else {
+                    self.ShowDownloadFailedButton()
+                }
+                LoadingIndicatorView.hide()
+            })
+        } else {
+            ShowLoginScreen()
+        }
+    }
+    
+    func reloadPersonalDataAction(cell: ButtonCellOf<String>, row: ButtonRow) {
+        reloadPersonalSettingsForm()
     }
 
     func signInAction(cell: ButtonCellOf<String>, row: ButtonRow) {
@@ -139,8 +225,8 @@ class SettingsViewController : FormViewController {
             Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: "Проверьте введенные данные!", completion: nil)
         } else {
             let values = form.values()
-            let email = values["email"] as! String
-            let password = values["password"] as! String
+            let email = values["login_email"] as! String
+            let password = values["login_password"] as! String
 
             Server.SignInWithEmail(
                     email: email,
@@ -195,5 +281,16 @@ class SettingsViewController : FormViewController {
         Db.writeCredentials(c: nil)
         ShowLoginScreen()
     }
+
+    override func prepare(`for` segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(`for`: segue, sender: sender)
+        let vc = segue.destination
+        if vc is ChangePersonalDataViewController {
+            (vc as! ChangePersonalDataViewController).pd = personalData
+        } else if vc is ChangeEmailViewController {
+            (vc as! ChangeEmailViewController).currentEmail = personalData?.email ?? ""
+        }
+    }
+
 }
 

@@ -183,8 +183,9 @@ class Server {
                         let data = moyaResponse.data
                         let json = JSON(data: data)
                         print(json)
-                        if paramsInJson(json: json, params: ["photo", "photo_small", "first_name", "second_name",
+                        if paramsInJson(json: json, params: ["user_id", "photo", "photo_small", "first_name", "second_name",
                         "gender", "birthdate", "email", "email_confirmed", "login_type", "donated", "donatedProjectCount"]) {
+                            let user_id = json["user_id"].intValue
                             let photo = json["photo"].stringValue
                             let photo_small = json["photo_small"].stringValue
                             let first_name = json["first_name"].stringValue
@@ -198,7 +199,8 @@ class Server {
 
                             let pd = PersonalData()
                             pd.email = email
-                            
+
+                            pd.userid = user_id
                             pd.firstname = first_name
                             pd.secondname = second_name
                             pd.birthdate = birthdate

@@ -14,7 +14,7 @@ class ChangePasswordViewController : FormViewController {
         super.viewDidLoad()
         navigationItem.title = "Смена пароля"
         form
-            +++ Section("Введите адрес почты")
+            +++ Section()
             <<< PasswordRow() { row in
                 row.tag = "password_old"
                 row.placeholder = "Введите старый пароль"

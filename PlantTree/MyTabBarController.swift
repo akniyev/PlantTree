@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MyTabBarController : UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Db.CreateDbFile()
+        ImageCache.default.maxDiskCacheSize = UInt(100 * 1024 * 1024)
     }
 }

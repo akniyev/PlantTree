@@ -5,7 +5,8 @@
 
 import Foundation
 
-class PersonalData {
+class PersonalData : Equatable {
+    var userid : Int = 0
     var firstname = ""
     var secondname = ""
     var gender : Gender = Gender.None
@@ -16,4 +17,8 @@ class PersonalData {
     var donatedProjectCount : Int = 0
     var email : String = ""
     var email_confirmed : Bool = false
+    
+    static func ==(lhs: PersonalData, rhs: PersonalData) -> Bool {
+        return lhs.email == rhs.email
+    }
 }
