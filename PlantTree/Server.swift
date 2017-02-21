@@ -13,6 +13,19 @@ import SwiftyJSON
 class Server {
     static let provider = MoyaProvider<ApiTargets>()
 
+    static func test() {
+        provider.request(.test, completion: { result in
+            switch result {
+            case let .success(moyaResponse):
+                let data = moyaResponse.data
+                let json = JSON(data: data)
+                print(json)
+            case .failure(_): break
+            }
+
+        })
+    }
+    
     static func RegisterWithEmail(
             email: String,
             password: String,
@@ -119,6 +132,43 @@ class Server {
             //If user is unauthorized, we call UNAUTHORIZED function
             UNAUTHORIZED?()
         }
+    }
+
+    static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
+        MakeAuthorizedRequest(SUCCESS: { c in
+            let authorization = "Authorization \(c.access_token)"
+            provider.request(.getProjectList(type: type, page: page, pagesize: pagesize, authorization: authorization),
+                    completion: { result in
+                        switch result {
+                        case let .success(moyaResponse):
+                            if moyaResponse.statusCode == 200 {
+                                let data = moyaResponse.data
+                                let json = JSON(data: data)
+                                for j in json {
+                                    print(j)
+                                }
+                            } else {
+                                let data = moyaResponse.data
+                                let json = JSON(data: data)
+                                if json["error_title"].exists() && json["rus_description"].exists() {
+                                    ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
+                                } else {
+                                    ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
+                                }
+                            }
+                        case .failure(_):
+                            ERROR?(ErrorType.NetworkError, "Не могу получить ответ от сервера")
+                        }
+                    })
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            let authorization = "GUEST"
+            provider.request(.getProjectList(type: type, page: page, pagesize: pagesize, authorization: authorization),
+                    completion: { result in
+
+                    })
+        })
     }
 
     static func RenewAccessToken(SUCCESS: ((Credentials) -> ())?, ERROR: ((ErrorType, String) -> ())?) {

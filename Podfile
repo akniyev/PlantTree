@@ -14,6 +14,7 @@ target 'PlantTree' do
   pod 'Alamofire'
   pod 'ImageRow'
   pod 'GRDB.swift'
+  pod 'UICircularProgressRing'
 end
 
 post_install do |installer|

@@ -14,5 +14,6 @@ class MyTabBarController : UITabBarController {
         super.viewDidLoad()
         Db.CreateDbFile()
         ImageCache.default.maxDiskCacheSize = UInt(100 * 1024 * 1024)
+        Server.GetProjectList(type: .active, page: 1, pagesize: 10, SUCCESS: nil, ERROR: nil)
     }
 }

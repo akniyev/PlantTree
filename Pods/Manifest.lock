@@ -17,6 +17,7 @@ PODS:
     - Realm (= 2.4.2)
   - Result (3.1.0)
   - SwiftyJSON (3.1.4)
+  - UICircularProgressRing (1.2.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -27,6 +28,7 @@ DEPENDENCIES:
   - Moya
   - RealmSwift
   - SwiftyJSON
+  - UICircularProgressRing
 
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
@@ -39,7 +41,8 @@ SPEC CHECKSUMS:
   RealmSwift: 9556c0fe0f0cfecacfb755ae9e68ff379fc6bead
   Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  UICircularProgressRing: 8eca1c123d323dcef59ba3ca86b81c8d7e751ae4
 
-PODFILE CHECKSUM: 125e449172a06a3f1b558a0bc966f2f902e0e28a
+PODFILE CHECKSUM: 312c4dbcb801aa8ebbcdb2b1b9d6cb8304dbbf58
 
 COCOAPODS: 1.2.0
