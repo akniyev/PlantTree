@@ -16,6 +16,7 @@
 		5860362AF819362FBB73FB2C /* ProjectListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603409395A75D84F2DE371 /* ProjectListType.swift */; };
 		58603675DB7B89C392D9F207 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603BE30150ED19634B35F9 /* Credentials.swift */; };
 		586038664639E0FC529136A4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586032E557DCBB5F1A09BFBF /* Date.swift */; };
+		58603A987F70AD3CB3D08BF7 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603D7525C0023FD803DF7F /* Int.swift */; };
 		58603BAC16FB696E0F8962B4 /* ProjectInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586036CA3D3F69AC7DC0D73C /* ProjectInfo.swift */; };
 		58603FB0E67EDEC6EF6CB540 /* PersonalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586030BA04E460DBB4F34CBC /* PersonalData.swift */; };
 		848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F96E41E59C75300CC07CC /* UserInfoCell.swift */; };
@@ -58,6 +59,7 @@
 		586036CA3D3F69AC7DC0D73C /* ProjectInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectInfo.swift; sourceTree = "<group>"; };
 		5860375EB16C4E315B72FDF4 /* Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		58603BE30150ED19634B35F9 /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		58603D7525C0023FD803DF7F /* Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		848F96E41E59C75300CC07CC /* UserInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
 		848F96E51E59C75300CC07CC /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
 		848F96E81E59CA9300CC07CC /* UserInfoRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoRow.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				586036CA3D3F69AC7DC0D73C /* ProjectInfo.swift */,
 				586032694D2F3E51B731467D /* ProjectStatus.swift */,
 				58603409395A75D84F2DE371 /* ProjectListType.swift */,
+				58603D7525C0023FD803DF7F /* Int.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				58603BAC16FB696E0F8962B4 /* ProjectInfo.swift in Sources */,
 				586032733EB1FDEFA0082231 /* ProjectStatus.swift in Sources */,
 				5860362AF819362FBB73FB2C /* ProjectListType.swift in Sources */,
+				58603A987F70AD3CB3D08BF7 /* Int.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,4 +10,17 @@ enum ProjectStatus {
     case active
     case collected
     case finished
+
+    static func fromString(s : String) -> ProjectStatus {
+        switch s.lowercased() {
+        case "active":
+            return .active
+        case "collected":
+            return .collected
+        case "finished":
+            return .finished
+        default:
+            return .none
+        }
+    }
 }

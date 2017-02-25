@@ -17,4 +17,5 @@ class ProjectInfo {
     var likeCount : Int = 0
     var isLikedByMe : Bool? = nil
     var treePrice : Double = 0.0
+    var sponsorCount : Int = 0
 }

@@ -133,10 +133,20 @@ class Server {
             UNAUTHORIZED?()
         }
     }
-
-    static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
+    
+    static func MakeRequestWithOptionalAuthorization(SUCCESS: ((Credentials?)->())?, ERROR: ((ErrorType, String)->())?) {
         MakeAuthorizedRequest(SUCCESS: { c in
-            let authorization = "Authorization \(c.access_token)"
+            SUCCESS?(c)
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            SUCCESS?(nil)
+        })
+    }
+
+    static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
+        MakeRequestWithOptionalAuthorization(SUCCESS: { c in
+            let authorization = c == nil ? "GUEST" : "Bearer \(c!.access_token)"
             provider.request(.getProjectList(type: type, page: page, pagesize: pagesize, authorization: authorization),
                     completion: { result in
                         switch result {
@@ -144,9 +154,40 @@ class Server {
                             if moyaResponse.statusCode == 200 {
                                 let data = moyaResponse.data
                                 let json = JSON(data: data)
-                                for j in json {
-                                    print(j)
+                                var projects : [ProjectInfo] = []
+                                for (i, j) in json {
+                                    var p : ProjectInfo = ProjectInfo()
+                                    if (paramsInJson(json: j, params: ["id", "name", "description", "goal", "reached", "status", "mainImageUrlSmall", "likesCount", "isLikedByMe", "treePrice", "sponsorsCount"])) {
+                                        let id = j["id"].intValue
+                                        let name = j["name"].stringValue
+                                        let description = j["description"].stringValue
+                                        let goal = j["goal"].intValue
+                                        let reached = j["reached"].intValue
+                                        let status = ProjectStatus.fromString(s: json["status"].stringValue)
+                                        let mainImageUrlSmall = j["mainImageUrlSmall"].stringValue
+                                        let likeCount = j["likesCount"].intValue
+                                        let isLikedByMe = j["isLikedByMe"].boolValue
+                                        let treePrice = j["treePrice"].doubleValue
+                                        let sponsorCount = j["sponsorsCount"].intValue
+                                        p.id = id
+                                        p.name = name
+                                        p.description = description
+                                        p.goal = goal
+                                        p.reached = reached
+                                        p.projectStatus = status
+                                        p.mainImageUrlSmall = mainImageUrlSmall
+                                        p.likeCount = likeCount
+                                        p.isLikedByMe = isLikedByMe
+                                        p.treePrice = treePrice
+                                        p.sponsorCount = sponsorCount
+
+                                        projects.append(p)
+                                    } else {
+                                        ERROR?(ErrorType.InvalidData, "Неправильный формат данных")
+                                        return
+                                    }
                                 }
+                                SUCCESS?(projects)
                             } else {
                                 let data = moyaResponse.data
                                 let json = JSON(data: data)
@@ -162,12 +203,6 @@ class Server {
                     })
         }, ERROR: { et, msg in
             ERROR?(et, msg)
-        }, UNAUTHORIZED: {
-            let authorization = "GUEST"
-            provider.request(.getProjectList(type: type, page: page, pagesize: pagesize, authorization: authorization),
-                    completion: { result in
-
-                    })
         })
     }
 
@@ -288,6 +323,48 @@ class Server {
 
     static func SignOut() {
         Db.writeCredentials(c: nil)
+    }
+
+    static func Like(projectId: Int, SUCCESS: (()->())?, ERROR: (()->())?) {
+        MakeAuthorizedRequest(SUCCESS: { cred in
+            provider.request(.like(id: projectId, a_token: cred.access_token), completion: { result in
+                switch result {
+                case let .success(moyaResponse):
+                    if moyaResponse.statusCode == 200 {
+                        SUCCESS?()
+                    } else {
+                        ERROR?()
+                    }
+                case .failure(_):
+                    ERROR?()
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?()
+        }, UNAUTHORIZED: {
+            ERROR?()
+        })
+    }
+    
+    static func Unlike(projectId: Int, SUCCESS: (()->())?, ERROR: (()->())?) {
+        MakeAuthorizedRequest(SUCCESS: { cred in
+            provider.request(.unlike(id: projectId, a_token: cred.access_token), completion: { result in
+                switch result {
+                case let .success(moyaResponse):
+                    if moyaResponse.statusCode == 200 {
+                        SUCCESS?()
+                    } else {
+                        ERROR?()
+                    }
+                case .failure(_):
+                    ERROR?()
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?()
+        }, UNAUTHORIZED: {
+            ERROR?()
+        })
     }
 
     static func paramsInJson(json: JSON, params: [String]) -> Bool {

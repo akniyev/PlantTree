@@ -46,29 +46,10 @@
             </objects>
             <point key="canvasLocation" x="1567" y="1887"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="aUv-8w-Ty0">
-            <objects>
-                <viewController id="4Ly-aO-LHA" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="FSN-de-mp7"/>
-                        <viewControllerLayoutGuide type="bottom" id="M8o-mA-hbn"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XHZ-cT-9p0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="WcJ-AT-BgW"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p2b-Ha-6rt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2212" y="-345.87706146926541"/>
-        </scene>
-        <!--Projects Table View Controller-->
+        <!--Активные проекты-->
         <scene sceneID="TVR-iy-y3o">
             <objects>
-                <tableViewController id="7zx-zV-TwE" customClass="ProjectsTableViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Активные проекты" id="7zx-zV-TwE" customClass="ProjectsTableViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iKg-D6-I5Y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,7 +59,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dIs-Bp-3uB" id="aUo-1f-qp4">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -88,7 +69,10 @@
                             <outlet property="delegate" destination="7zx-zV-TwE" id="9E3-oo-GDc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="DSS-ey-rPV"/>
+                    <navigationItem key="navigationItem" title="Активные проекты" id="DSS-ey-rPV"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="projectListTypeCode" value="active"/>
+                    </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4J-jI-teZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -114,25 +98,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCl-ub-56w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="320" y="-74"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="KmM-kX-ZGv">
-            <objects>
-                <viewController id="wRw-59-6mt" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Mwf-lL-brM"/>
-                        <viewControllerLayoutGuide type="bottom" id="0xb-0P-KKL"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="zHc-wj-BOY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="bZy-de-r1n"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sYw-vC-RO0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2212" y="317.99100449775113"/>
         </scene>
         <!--Аккаунт-->
         <scene sceneID="5y5-tV-Ad0">
@@ -299,7 +264,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="4Ly-aO-LHA" kind="relationship" relationship="rootViewController" id="bXU-P4-bjs"/>
+                        <segue destination="egz-HB-faD" kind="relationship" relationship="rootViewController" id="CmK-Gy-UqC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zFB-sb-40o" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -318,12 +283,76 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="wRw-59-6mt" kind="relationship" relationship="rootViewController" id="ztK-72-j2Q"/>
+                        <segue destination="Hug-z8-WnN" kind="relationship" relationship="rootViewController" id="Sw8-ql-vh8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Et-sU-6b6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1272.8" y="317.99100449775113"/>
+        </scene>
+        <!--Избранное-->
+        <scene sceneID="3AC-ct-9Lo">
+            <objects>
+                <tableViewController title="Избранное" id="egz-HB-faD" customClass="ProjectsTableViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fCs-Ma-ggc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="TZV-j6-13G">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TZV-j6-13G" id="qEn-RP-S2y">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="egz-HB-faD" id="bci-Yc-nr3"/>
+                            <outlet property="delegate" destination="egz-HB-faD" id="54M-Qe-jHd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Избранные" id="5aO-lx-l50"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="projectListTypeCode" value="favorites"/>
+                    </userDefinedRuntimeAttributes>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TT1-Zv-18j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2230" y="-346"/>
+        </scene>
+        <!--Завершенные-->
+        <scene sceneID="qR8-ba-hCD">
+            <objects>
+                <tableViewController title="Завершенные" id="Hug-z8-WnN" customClass="ProjectsTableViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tvu-j5-fMU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nro-l1-lOe">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nro-l1-lOe" id="hJS-AD-LYU">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Hug-z8-WnN" id="MJx-ln-psn"/>
+                            <outlet property="delegate" destination="Hug-z8-WnN" id="scO-XK-vx6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Завершенные" id="dKa-Qg-Fgi"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="projectListTypeCode" value="completed"/>
+                    </userDefinedRuntimeAttributes>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MbD-vf-8v8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2230" y="318"/>
         </scene>
     </scenes>
 </document>

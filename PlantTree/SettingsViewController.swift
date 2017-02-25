@@ -169,12 +169,6 @@ class SettingsViewController : FormViewController {
             s.hidden = true
             s.evaluateHidden()
         }
-
-        Server.GetAccountInfo(SUCCESS: { pd in
-            
-        }, ERROR: { et, msg in
-            
-        })
     }
 
     func personalDataSaveAction(cell: ButtonCellOf<String>, row: ButtonRow) {
@@ -232,8 +226,10 @@ class SettingsViewController : FormViewController {
                     email: email,
                     password: password,
                     SUCCESS: { c in
+                        (self.form.rowBy(tag: "login_password") as? PasswordRow)?.value = ""
                         if Db.writeCredentials(c: c) {
                             self.ShowPersonalSettings()
+                            self.reloadPersonalSettingsForm()
                         } else {
                             Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: "Ошибка базы данных!", completion: nil)
                         }
