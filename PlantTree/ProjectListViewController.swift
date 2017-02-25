@@ -1,14 +1,14 @@
 //
-//  ProjectsTableViewController.swift
+//  ProjectListViewController.swift
 //  PlantTree
 //
-//  Created by Admin on 20/02/2017.
+//  Created by Admin on 25/02/2017.
 //  Copyright © 2017 greenworld. All rights reserved.
 //
 
 import UIKit
 
-class ProjectsTableViewController : UITableViewController {
+class ProjectListViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     var projects : [ProjectInfo] = []
     let rowHeight : Double = 230
     let pageSize = 10
@@ -17,6 +17,14 @@ class ProjectsTableViewController : UITableViewController {
     var currentlyLoading = false
     var signedOnLoading = true
     var reloadView : ReloadView? = nil
+    var unauthorizedView : TableViewUnauthorized? = nil
+    var tableView : UITableView = UITableView()
+    var active = true
+    var firstLaunch = true
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     @IBInspectable
     var projectListTypeCode : String = "active"
@@ -56,41 +64,65 @@ class ProjectsTableViewController : UITableViewController {
         }
         return self.reloadView
     }
-
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    
+    func showUnauthorizedView() {
+        if let v = getUnauthorizedView() {
+            v.frame = self.view.bounds
+            self.view.addSubview(v)
+        }
+    }
+    
+    func hideUnauthorizedView() {
+        if let v = unauthorizedView {
+            v.removeFromSuperview()
+        }
+    }
+    
+    func getUnauthorizedView() -> TableViewUnauthorized? {
+        if let unauthorizedView = Bundle.main.loadNibNamed("TableViewUnauthorized", owner: self, options: nil)?.first as? TableViewUnauthorized {
+            self.unauthorizedView = unauthorizedView
+            self.unauthorizedView?.authorizeAction = {
+                self.tabBarController?.selectedIndex = 3
+            }
+        } else {
+            self.unauthorizedView = nil
+        }
+        return self.unauthorizedView
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         (cell as? ProjectCell)?.LoadPhoto()
     }
-
-    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         (cell as? ProjectCell)?.StopLoadingPhoto()
     }
-
-    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         print(indexPath.row)
         return false
     }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return projects.count
     }
-
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = Double(scrollView.contentOffset.y + scrollView.contentInset.top)
         let pageHeight = rowHeight * Double(pageSize)
-
+        
         let bottomOfFrame = offset + Double(scrollView.frame.height)
         let pageCountFractional = bottomOfFrame / pageHeight
-
+        
         if pageCountFractional - Double(self.loadedPagesCount - 1) > 0.7 {
             self.loadAdditionalPage()
         }
-        //print(pageCountFractional - Double(self.loadedPagesCount - 1))
     }
-
+    
     func clearList() {
         projects.removeAll()
         loadedPagesCount = 0
@@ -99,18 +131,18 @@ class ProjectsTableViewController : UITableViewController {
     }
     
     func loadAdditionalPage() {
+        if !active { return }
         if currentlyLoading || endReached { return }
         print("loading page!")
         
         hideReloadView()
         
-        if projects.count == 0 {
-            self.refreshControl?.beginRefreshing()
-            //self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentOffset.y-(self.refreshControl?.frame.size.height ?? 0)), animated: false)
+        if !(self.tableView.refreshControl?.isRefreshing ?? false) && projects.isEmpty {
+            LoadingIndicatorView.show(self.view, loadingText: "Загрузка...")
         }
-        
+                
         signedOnLoading = Db.isAuthorized()
-
+        
         currentlyLoading = true
         let pageToLoadNumber = loadedPagesCount + 1
         Server.GetProjectList(type: projectListType, page: pageToLoadNumber, pagesize: pageSize, SUCCESS: { ps in
@@ -120,17 +152,19 @@ class ProjectsTableViewController : UITableViewController {
             self.endReached = ps.count < self.pageSize
             self.currentlyLoading = false
             self.tableView.reloadData()
-            self.refreshControl?.endRefreshing()
+            self.tableView.refreshControl?.endRefreshing()
+            LoadingIndicatorView.hide()
         }, ERROR: { et, msg in
             self.currentlyLoading = false
-            self.refreshControl?.endRefreshing()
+            self.tableView.refreshControl?.endRefreshing()
             self.showReloadView()
+            LoadingIndicatorView.hide()
         })
     }
     
     func likeProject(p : ProjectInfo, b : UIButton, row: Int) {
         if Db.isAuthorized() && (p.isLikedByMe != nil) {
-            let l = p.isLikedByMe!  
+            let l = p.isLikedByMe!
             b.isEnabled = false
             if l {
                 Server.Unlike(projectId: p.id, SUCCESS: {
@@ -153,30 +187,44 @@ class ProjectsTableViewController : UITableViewController {
             Alerts.ShowErrorAlertWithOK(sender: self, title: "Авторизация", message: "Необходимо авторизоваться для выполнения данного действия", completion: nil)
         }
     }
-
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var opCell = tableView.dequeueReusableCell(withIdentifier: "ProjectListCell", for: indexPath) as? ProjectCell
         if opCell == nil {
             opCell = ProjectCell()
         }
         let cell = opCell!
-
+        
         cell.id = indexPath.row
         cell.SetProjectInfo(newP: projects[indexPath.row])
         cell.likeAction = { p, b, r in
             self.likeProject(p: p, b: b, row: r)
         }
-
+        
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(rowHeight)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if signedOnLoading != Db.isAuthorized() {
+        if projectListType == .favorites && !Db.isAuthorized() {
+            active = false
+            clearList()
+            showUnauthorizedView()
+        } else {
+            hideUnauthorizedView()
+            active = true
+        }
+        
+        if projects.isEmpty && !endReached {
+            firstLaunch = true
+        }
+        
+        if firstLaunch || (signedOnLoading != Db.isAuthorized()) {
+            firstLaunch = false
             clearList()
             loadAdditionalPage()
         }
@@ -184,6 +232,12 @@ class ProjectsTableViewController : UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.frame = self.view.bounds
+        self.view.addSubview(self.tableView)
+        
         if !projectListTypeCode.isEmpty {
             projectListType = ProjectListType.fromCode(code: projectListTypeCode)
         }
@@ -192,14 +246,7 @@ class ProjectsTableViewController : UITableViewController {
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "ProjectCell", bundle: nil), forCellReuseIdentifier: "ProjectListCell")
         
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: #selector(pullRefreshPage), for: .valueChanged)
-        
-        self.loadAdditionalPage()
-//        Server.GetProjectList(type: projectListType, page: 1, pagesize: pageSize, SUCCESS: { ps in
-//            
-//        }, ERROR: { et, msg in
-//            Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: msg, completion: nil)
-//        })
+        self.tableView.refreshControl = UIRefreshControl()
+        self.tableView.refreshControl?.addTarget(self, action: #selector(pullRefreshPage), for: .valueChanged)
     }
 }

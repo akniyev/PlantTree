@@ -279,7 +279,7 @@ class SettingsViewController : FormViewController {
     }
 
     override func prepare(`for` segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(`for`: segue, sender: sender)
+        super.prepare(for: segue, sender: sender)
         let vc = segue.destination
         if vc is ChangePersonalDataViewController {
             (vc as! ChangePersonalDataViewController).pd = personalData
