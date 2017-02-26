@@ -9,6 +9,13 @@
 import UIKit
 
 class PaymentHistoryCell: UITableViewCell {
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lblCard: UILabel!
+    @IBOutlet weak var lblDonated: UILabel!
+    @IBOutlet weak var lblTreeCount: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
+    
+    var operation : OperationInfo? = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,4 +37,12 @@ class PaymentHistoryCell: UITableViewCell {
         return 66.0 + s.height + 10.0
     }
     
+    func setData(operation: OperationInfo) {
+        self.operation = operation
+        lblTitle.text = operation.projectTitle
+        lblDate.text = "\(operation.date.toRussianFormat())"
+        lblDonated.text = "\(Int(operation.donated))р."
+        lblTreeCount.text = "\(operation.treePlanted)"
+        lblCard.text = "Карта: **** \(operation.cardLastDigits)"
+    }
 }

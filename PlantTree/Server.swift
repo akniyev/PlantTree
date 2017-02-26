@@ -216,7 +216,7 @@ class Server {
                         let data = moyaResponse.data
                         let json = JSON(data: data)
                         if paramsInJson(json: json, params: ["id", "name", "description", "goal", "reached", "status", "isLikedByMe", "treePrice", "sponsorCount", "creationDate", "allImagesBig"]) {
-                            var p = ProjectInfo()
+                            let p = ProjectInfo()
                             let id = json["id"].intValue
                             let name = json["name"].stringValue
                             let description = json["description"].stringValue
@@ -243,11 +243,12 @@ class Server {
                             p.news = []
                             for (_, newsJson) in news {
                                 if paramsInJson(json: newsJson, params: ["id", "url", "title", "date", "imageUrl"]) {
-                                    var np = NewsPiece()
+                                    let np = NewsPiece()
                                     np.id = newsJson["id"].intValue
                                     np.title = newsJson["title"].stringValue
                                     np.date = Date.fromRussianFormat(s: newsJson["date"].stringValue)
                                     np.imageUrl = newsJson["imageUrl"].stringValue
+                                    np.url = newsJson["url"].stringValue
                                     p.news.append(np)
                                 }
                             }
@@ -270,7 +271,56 @@ class Server {
                 }
             })
         }, ERROR: { et, msg in
-            // TODO: Show loading error and refresh button
+            ERROR?(et, msg)
+        })
+    }
+    
+    static func GetOperationHistory(SUCCESS: (([OperationInfo]) -> ())?, ERROR: ((ErrorType, String) -> ())?) {
+        MakeAuthorizedRequest(SUCCESS: { c in
+            provider.request(ApiTargets.getOperationHistory(access_token: c.access_token),
+                             completion: { result in
+                                switch result {
+                                case let .success(moyaResponse):
+                                    if moyaResponse.statusCode == 200 {
+                                        let data = moyaResponse.data
+                                        let json = JSON(data: data)
+                                        var operations : [OperationInfo] = []
+                                        for (_, j) in json {
+                                            let o : OperationInfo = OperationInfo()
+                                            if (paramsInJson(json: j, params: ["id", "projectTitle", "projectId", "date", "donated", "treePlanted", "cardLastDigits"])) {
+                                                
+                                                o.id = j["id"].intValue
+                                                o.projectTitle = j["projectTitle"].stringValue
+                                                o.projectId = j["projectId"].intValue
+                                                o.date = Date.fromRussianFormat(s: j["date"].stringValue)!
+                                                o.donated = j["donated"].doubleValue
+                                                o.treePlanted = j["treePlanted"].intValue
+                                                o.cardLastDigits = j["cardLastDigits"].stringValue
+                                                
+                                                operations.append(o)
+                                            } else {
+                                                ERROR?(ErrorType.InvalidData, "Неправильный формат данных")
+                                                return
+                                            }
+                                        }
+                                        SUCCESS?(operations)
+                                    } else {
+                                        let data = moyaResponse.data
+                                        let json = JSON(data: data)
+                                        if json["error_title"].exists() && json["rus_description"].exists() {
+                                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
+                                        } else {
+                                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
+                                        }
+                                    }
+                                case .failure(_):
+                                    ERROR?(ErrorType.NetworkError, "Не могу получить ответ от сервера")
+                                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться!")
         })
     }
 

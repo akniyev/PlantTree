@@ -17,6 +17,8 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     
     var projectDetailsCell : ProjectDetailsCell? = nil
     
+    var newsIdForSegue = -1
+    
     var project: ProjectInfo? = nil
     @IBOutlet weak var tvDetails: UITableView!
     
@@ -154,9 +156,18 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         let newsId = indexPath.row - 1
         if newsId > -1 {
+            self.newsIdForSegue = newsId
             self.performSegue(withIdentifier: "showNews", sender: self)
         }
         
         return false
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = (segue.destination as? NewsViewController) {
+            if let p = project {
+                vc.url = p.news[newsIdForSegue].url
+            }
+        }
     }
 }

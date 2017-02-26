@@ -15,6 +15,7 @@ class NewsViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Новость"
         if !url.isEmpty {
             webView.loadRequest(URLRequest(url: URL(string: url)!))
         }

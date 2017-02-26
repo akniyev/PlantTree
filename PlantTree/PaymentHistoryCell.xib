@@ -82,6 +82,13 @@
                     <constraint firstItem="TTL-4x-ax2" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.4" id="xhO-Ud-CDD"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="lblCard" destination="QaV-eY-Vtc" id="HjY-dK-WNG"/>
+                <outlet property="lblDate" destination="oXO-nT-fPE" id="1Z1-YT-QyC"/>
+                <outlet property="lblDonated" destination="TTL-4x-ax2" id="eSZ-tr-kga"/>
+                <outlet property="lblTitle" destination="Efv-Qk-plE" id="HhS-dQ-4I0"/>
+                <outlet property="lblTreeCount" destination="xZZ-aa-dbs" id="Oi1-an-mUH"/>
+            </connections>
             <point key="canvasLocation" x="70.5" y="125.5"/>
         </tableViewCell>
     </objects>
