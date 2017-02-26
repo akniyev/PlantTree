@@ -9,10 +9,23 @@
 import UIKit
 
 class ProjectNewsCell: UITableViewCell {
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var img: UIImageView!
+    
+    var newsPiece : NewsPiece? = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    func setNewsInfo(np : NewsPiece) {
+        lblTitle.text = np.title
+        lblDate.text = "Дата публикации: \(np.date?.toRussianFormat() ?? "")"
+        let url = URL(string: np.imageUrl)
+        img.kf.setImage(with: url)
+        self.newsPiece = np
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

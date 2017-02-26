@@ -228,6 +228,7 @@ class Server {
                             let isLikedByMe = json["isLikedByMe"].boolValue
                             let treePrice = json["treePrice"].doubleValue
                             let sponsorCount = json["sponsorsCount"].intValue
+                            let news = json["news"]
                             p.id = id
                             p.name = name
                             p.description = description
@@ -239,6 +240,17 @@ class Server {
                             p.isLikedByMe = isLikedByMe
                             p.treePrice = treePrice
                             p.sponsorCount = sponsorCount
+                            p.news = []
+                            for (_, newsJson) in news {
+                                if paramsInJson(json: newsJson, params: ["id", "url", "title", "date", "imageUrl"]) {
+                                    var np = NewsPiece()
+                                    np.id = newsJson["id"].intValue
+                                    np.title = newsJson["title"].stringValue
+                                    np.date = Date.fromRussianFormat(s: newsJson["date"].stringValue)
+                                    np.imageUrl = newsJson["imageUrl"].stringValue
+                                    p.news.append(np)
+                                }
+                            }
                             SUCCESS?(p)
                         } else {
                             ERROR?(ErrorType.InvalidData, "Неправильный формат данных")

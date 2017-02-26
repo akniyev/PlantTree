@@ -34,6 +34,9 @@
                             <constraint firstAttribute="width" constant="60" id="d0C-wz-Jh8"/>
                         </constraints>
                         <state key="normal" image="LikeActive"/>
+                        <connections>
+                            <action selector="likeTouched:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="i2y-sS-Gh8"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="80/160" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfK-iG-7vX">
                         <rect key="frame" x="301" y="335.5" width="95" height="21"/>
@@ -103,6 +106,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="btnLike" destination="al9-nJ-Ofx" id="bT8-js-nK5"/>
                 <outlet property="lblDescription" destination="Bgd-zS-u35" id="7xN-Lr-RFy"/>
                 <outlet property="lblReached" destination="lfK-iG-7vX" id="xJW-NZ-tXh"/>
                 <outlet property="lblStatus" destination="5P6-oO-CJQ" id="dla-xq-qdc"/>

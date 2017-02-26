@@ -23,6 +23,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     var firstLaunch = true
     
     var projectToSegue : ProjectInfo? = nil
+    var projectIndexToSegue : Int = -1
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -105,6 +106,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         projectToSegue = projects[indexPath.row]
+        projectIndexToSegue = indexPath.row
         self.performSegue(withIdentifier: self.segueName, sender: self)
         return false
     }
@@ -233,6 +235,8 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
             firstLaunch = false
             clearList()
             loadAdditionalPage()
+        } else {
+            tableView.reloadData()
         }
     }
     
@@ -260,6 +264,8 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         let vc = segue.destination
         if let detailVc = vc as? ProjectDetailsViewController {
             detailVc.projectId = projectToSegue?.id ?? -1
+            detailVc.parentViewControllerProjects = projects
+            detailVc.parentViewControllerProjectId = projectIndexToSegue
         }
     }
 }

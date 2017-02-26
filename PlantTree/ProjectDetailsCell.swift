@@ -15,6 +15,13 @@ class ProjectDetailsCell: UITableViewCell {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblStatus: UILabel!
     @IBOutlet weak var lblReached: UILabel!
+    @IBOutlet weak var btnLike: UIButton!
+    
+    var likeAction : (()->())? = nil
+    
+    @IBAction func likeTouched(_ sender: Any) {
+        likeAction?()
+    }
     
     static func getCellHeight(cellWidth: CGFloat, text: String) -> CGFloat {
         let labelSideIndent : CGFloat = 8
@@ -51,6 +58,12 @@ class ProjectDetailsCell: UITableViewCell {
             slideshowSources.append(KingfisherSource(urlString: i)!)
         }
         slideshow.setImageInputs(slideshowSources)
+        
+        if pi.isLikedByMe == true {
+            btnLike.setImage(UIImage(named: "LikeActive"), for: .normal)
+        } else {
+            btnLike.setImage(UIImage(named: "LikeInactive"), for: .normal)
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

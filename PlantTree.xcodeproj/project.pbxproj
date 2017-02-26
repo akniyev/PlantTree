@@ -59,6 +59,7 @@
 		84DDFA801E546BCD0073DFFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DDFA7E1E546BCD0073DFFC /* LaunchScreen.storyboard */; };
 		84F58C4B1E62F6E10092EA82 /* PaymentHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F58C491E62F6E10092EA82 /* PaymentHistoryCell.swift */; };
 		84F58C4C1E62F6E10092EA82 /* PaymentHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F58C4A1E62F6E10092EA82 /* PaymentHistoryCell.xib */; };
+		84F58C4E1E6371CC0092EA82 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F58C4D1E6371CC0092EA82 /* NewsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +117,7 @@
 		84DDFA811E546BCD0073DFFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84F58C491E62F6E10092EA82 /* PaymentHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentHistoryCell.swift; sourceTree = "<group>"; };
 		84F58C4A1E62F6E10092EA82 /* PaymentHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentHistoryCell.xib; sourceTree = "<group>"; };
+		84F58C4D1E6371CC0092EA82 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTree.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree.release.xcconfig"; sourceTree = "<group>"; };
 		F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlantTree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -247,6 +249,7 @@
 				849759C71E5A57CA0065BDCB /* ProjectsTableViewController.swift */,
 				84AC71111E617B2D0023DDB7 /* ProjectListViewController.swift */,
 				84D496CC1E618ECD00AF0B67 /* ProjectDetailsViewController.swift */,
+				84F58C4D1E6371CC0092EA82 /* NewsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				84BF51211E5709E400B50ADB /* ChangePersonalDataViewController.swift in Sources */,
 				58603675DB7B89C392D9F207 /* Credentials.swift in Sources */,
 				84BF51231E57107900B50ADB /* ChangeEmailViewController.swift in Sources */,
+				84F58C4E1E6371CC0092EA82 /* NewsViewController.swift in Sources */,
 				84D496DB1E6237E200AF0B67 /* UIView.swift in Sources */,
 				5860321E46D4171318DC8DED /* ErrorType.swift in Sources */,
 				84BF512E1E571E0500B50ADB /* MyTabBarController.swift in Sources */,
