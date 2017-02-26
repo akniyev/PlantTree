@@ -21,6 +21,8 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     var tableView : UITableView = UITableView()
     var active = true
     var firstLaunch = true
+    
+    var projectToSegue : ProjectInfo? = nil
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -29,10 +31,18 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     @IBInspectable
     var projectListTypeCode : String = "active"
     
+    @IBInspectable
+    var segueName : String = ""
+    
     var projectListType : ProjectListType = .active
     
     func pullRefreshPage() {
         refreshPage()
+    }
+    
+    func refreshPage() {
+        clearList()
+        loadAdditionalPage()
     }
     
     func showReloadView() {
@@ -40,11 +50,6 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
             v.frame = self.view.bounds
             self.view.addSubview(v)
         }
-    }
-    
-    func refreshPage() {
-        clearList()
-        loadAdditionalPage()
     }
     
     func hideReloadView() {
@@ -99,7 +104,8 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        print(indexPath.row)
+        projectToSegue = projects[indexPath.row]
+        self.performSegue(withIdentifier: self.segueName, sender: self)
         return false
     }
 
@@ -248,5 +254,12 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(pullRefreshPage), for: .valueChanged)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination
+        if let detailVc = vc as? ProjectDetailsViewController {
+            detailVc.projectId = projectToSegue?.id ?? -1
+        }
     }
 }

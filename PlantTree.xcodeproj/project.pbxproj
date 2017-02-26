@@ -44,12 +44,21 @@
 		84BF51271E5713D900B50ADB /* PaymentHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF51261E5713D900B50ADB /* PaymentHistoryViewController.swift */; };
 		84BF512C1E571DC100B50ADB /* Db.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF512B1E571DC100B50ADB /* Db.swift */; };
 		84BF512E1E571E0500B50ADB /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF512D1E571E0500B50ADB /* MyTabBarController.swift */; };
+		84D496CD1E618ECD00AF0B67 /* ProjectDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D496CC1E618ECD00AF0B67 /* ProjectDetailsViewController.swift */; };
+		84D496D11E61A12000AF0B67 /* ProjectDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D496CF1E61A12000AF0B67 /* ProjectDetailsCell.swift */; };
+		84D496D21E61A12000AF0B67 /* ProjectDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D496D01E61A12000AF0B67 /* ProjectDetailsCell.xib */; };
+		84D496D41E61AD7300AF0B67 /* NewsPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D496D31E61AD7300AF0B67 /* NewsPiece.swift */; };
+		84D496D81E622D8F00AF0B67 /* ProjectNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D496D61E622D8F00AF0B67 /* ProjectNewsCell.swift */; };
+		84D496D91E622D8F00AF0B67 /* ProjectNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D496D71E622D8F00AF0B67 /* ProjectNewsCell.xib */; };
+		84D496DB1E6237E200AF0B67 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D496DA1E6237E200AF0B67 /* UIView.swift */; };
 		84DDFA731E546BCD0073DFFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA721E546BCD0073DFFC /* AppDelegate.swift */; };
 		84DDFA751E546BCD0073DFFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA741E546BCD0073DFFC /* ViewController.swift */; };
 		84DDFA781E546BCD0073DFFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DDFA761E546BCD0073DFFC /* Main.storyboard */; };
 		84DDFA7B1E546BCD0073DFFC /* PlantTree.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA791E546BCD0073DFFC /* PlantTree.xcdatamodeld */; };
 		84DDFA7D1E546BCD0073DFFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84DDFA7C1E546BCD0073DFFC /* Assets.xcassets */; };
 		84DDFA801E546BCD0073DFFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DDFA7E1E546BCD0073DFFC /* LaunchScreen.storyboard */; };
+		84F58C4B1E62F6E10092EA82 /* PaymentHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F58C491E62F6E10092EA82 /* PaymentHistoryCell.swift */; };
+		84F58C4C1E62F6E10092EA82 /* PaymentHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F58C4A1E62F6E10092EA82 /* PaymentHistoryCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +99,13 @@
 		84BF51261E5713D900B50ADB /* PaymentHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentHistoryViewController.swift; sourceTree = "<group>"; };
 		84BF512B1E571DC100B50ADB /* Db.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Db.swift; sourceTree = "<group>"; };
 		84BF512D1E571E0500B50ADB /* MyTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
+		84D496CC1E618ECD00AF0B67 /* ProjectDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDetailsViewController.swift; sourceTree = "<group>"; };
+		84D496CF1E61A12000AF0B67 /* ProjectDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDetailsCell.swift; sourceTree = "<group>"; };
+		84D496D01E61A12000AF0B67 /* ProjectDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectDetailsCell.xib; sourceTree = "<group>"; };
+		84D496D31E61AD7300AF0B67 /* NewsPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPiece.swift; sourceTree = "<group>"; };
+		84D496D61E622D8F00AF0B67 /* ProjectNewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectNewsCell.swift; sourceTree = "<group>"; };
+		84D496D71E622D8F00AF0B67 /* ProjectNewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectNewsCell.xib; sourceTree = "<group>"; };
+		84D496DA1E6237E200AF0B67 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		84DDFA6F1E546BCD0073DFFC /* PlantTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DDFA721E546BCD0073DFFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84DDFA741E546BCD0073DFFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +114,8 @@
 		84DDFA7C1E546BCD0073DFFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84DDFA7F1E546BCD0073DFFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84DDFA811E546BCD0073DFFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84F58C491E62F6E10092EA82 /* PaymentHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentHistoryCell.swift; sourceTree = "<group>"; };
+		84F58C4A1E62F6E10092EA82 /* PaymentHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentHistoryCell.xib; sourceTree = "<group>"; };
 		EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTree.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree.release.xcconfig"; sourceTree = "<group>"; };
 		F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlantTree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -154,6 +172,9 @@
 		849759C11E5A461E0065BDCB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				84F58C481E62F6C20092EA82 /* PaymentHistoryCell */,
+				84D496D51E622D7300AF0B67 /* ProjectNewsCell */,
+				84D496CE1E61A0F700AF0B67 /* ProjectDetailsCell */,
 				84AC71131E6181A80023DDB7 /* TableViewUnauthorized */,
 				84AC71081E61639A0023DDB7 /* TableViewReload */,
 				849759C61E5A4EC60065BDCB /* ProjectCell */,
@@ -212,6 +233,8 @@
 				586032694D2F3E51B731467D /* ProjectStatus.swift */,
 				58603409395A75D84F2DE371 /* ProjectListType.swift */,
 				58603D7525C0023FD803DF7F /* Int.swift */,
+				84D496D31E61AD7300AF0B67 /* NewsPiece.swift */,
+				84D496DA1E6237E200AF0B67 /* UIView.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -223,6 +246,7 @@
 				84BF512D1E571E0500B50ADB /* MyTabBarController.swift */,
 				849759C71E5A57CA0065BDCB /* ProjectsTableViewController.swift */,
 				84AC71111E617B2D0023DDB7 /* ProjectListViewController.swift */,
+				84D496CC1E618ECD00AF0B67 /* ProjectDetailsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -255,6 +279,24 @@
 				84BF511C1E5657A500B50ADB /* ForgotPasswordViewController.swift */,
 			);
 			name = NotSigned;
+			sourceTree = "<group>";
+		};
+		84D496CE1E61A0F700AF0B67 /* ProjectDetailsCell */ = {
+			isa = PBXGroup;
+			children = (
+				84D496CF1E61A12000AF0B67 /* ProjectDetailsCell.swift */,
+				84D496D01E61A12000AF0B67 /* ProjectDetailsCell.xib */,
+			);
+			name = ProjectDetailsCell;
+			sourceTree = "<group>";
+		};
+		84D496D51E622D7300AF0B67 /* ProjectNewsCell */ = {
+			isa = PBXGroup;
+			children = (
+				84D496D61E622D8F00AF0B67 /* ProjectNewsCell.swift */,
+				84D496D71E622D8F00AF0B67 /* ProjectNewsCell.xib */,
+			);
+			name = ProjectNewsCell;
 			sourceTree = "<group>";
 		};
 		84DDFA661E546BCC0073DFFC = {
@@ -292,6 +334,15 @@
 				84DDFA791E546BCD0073DFFC /* PlantTree.xcdatamodeld */,
 			);
 			path = PlantTree;
+			sourceTree = "<group>";
+		};
+		84F58C481E62F6C20092EA82 /* PaymentHistoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				84F58C491E62F6E10092EA82 /* PaymentHistoryCell.swift */,
+				84F58C4A1E62F6E10092EA82 /* PaymentHistoryCell.xib */,
+			);
+			name = PaymentHistoryCell;
 			sourceTree = "<group>";
 		};
 		90B15CB9257F614FA2407054 /* Pods */ = {
@@ -366,13 +417,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84D496D91E622D8F00AF0B67 /* ProjectNewsCell.xib in Resources */,
 				848F96E71E59C75300CC07CC /* UserInfoCell.xib in Resources */,
+				84F58C4C1E62F6E10092EA82 /* PaymentHistoryCell.xib in Resources */,
 				84DDFA801E546BCD0073DFFC /* LaunchScreen.storyboard in Resources */,
 				848F96EE1E59D82300CC07CC /* UserPhotoEditCell.xib in Resources */,
 				84AC710E1E61653C0023DDB7 /* ReloadView.xib in Resources */,
 				84DDFA7D1E546BCD0073DFFC /* Assets.xcassets in Resources */,
 				84DDFA781E546BCD0073DFFC /* Main.storyboard in Resources */,
 				849759C51E5A46440065BDCB /* ProjectCell.xib in Resources */,
+				84D496D21E61A12000AF0B67 /* ProjectDetailsCell.xib in Resources */,
 				84AC71171E6181EE0023DDB7 /* TableViewUnauthorized.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +490,7 @@
 				848F96ED1E59D82300CC07CC /* UserPhotoEditCell.swift in Sources */,
 				849759C81E5A57CA0065BDCB /* ProjectsTableViewController.swift in Sources */,
 				84DDFA751E546BCD0073DFFC /* ViewController.swift in Sources */,
+				84D496CD1E618ECD00AF0B67 /* ProjectDetailsViewController.swift in Sources */,
 				84DDFA731E546BCD0073DFFC /* AppDelegate.swift in Sources */,
 				84B3A7481E55D350000CA32E /* Server.swift in Sources */,
 				84BF51251E57137000B50ADB /* ChangePasswordViewController.swift in Sources */,
@@ -444,6 +499,7 @@
 				84BF51211E5709E400B50ADB /* ChangePersonalDataViewController.swift in Sources */,
 				58603675DB7B89C392D9F207 /* Credentials.swift in Sources */,
 				84BF51231E57107900B50ADB /* ChangeEmailViewController.swift in Sources */,
+				84D496DB1E6237E200AF0B67 /* UIView.swift in Sources */,
 				5860321E46D4171318DC8DED /* ErrorType.swift in Sources */,
 				84BF512E1E571E0500B50ADB /* MyTabBarController.swift in Sources */,
 				84B3A74E1E563F8F000CA32E /* RegistrationViewController.swift in Sources */,
@@ -459,11 +515,15 @@
 				849759C41E5A46440065BDCB /* ProjectCell.swift in Sources */,
 				84BF512C1E571DC100B50ADB /* Db.swift in Sources */,
 				84BF51271E5713D900B50ADB /* PaymentHistoryViewController.swift in Sources */,
+				84D496D81E622D8F00AF0B67 /* ProjectNewsCell.swift in Sources */,
+				84D496D11E61A12000AF0B67 /* ProjectDetailsCell.swift in Sources */,
 				848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */,
 				58603238B5DCC31835F33686 /* LoadingIndicatorView.swift in Sources */,
 				58603BAC16FB696E0F8962B4 /* ProjectInfo.swift in Sources */,
 				586032733EB1FDEFA0082231 /* ProjectStatus.swift in Sources */,
+				84F58C4B1E62F6E10092EA82 /* PaymentHistoryCell.swift in Sources */,
 				84AC71101E61654B0023DDB7 /* ReloadView.swift in Sources */,
+				84D496D41E61AD7300AF0B67 /* NewsPiece.swift in Sources */,
 				5860362AF819362FBB73FB2C /* ProjectListType.swift in Sources */,
 				58603A987F70AD3CB3D08BF7 /* Int.swift in Sources */,
 			);

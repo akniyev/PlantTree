@@ -15,6 +15,8 @@ target 'PlantTree' do
   pod 'ImageRow'
   pod 'GRDB.swift'
   pod 'UICircularProgressRing'
+  pod 'ImageSlideshow'
+  pod 'ImageSlideshow/Kingfisher'
 end
 
 post_install do |installer|

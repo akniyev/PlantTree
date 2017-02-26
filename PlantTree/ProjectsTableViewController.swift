@@ -18,6 +18,8 @@ class ProjectsTableViewController : UITableViewController {
     var signedOnLoading = true
     var reloadView : ReloadView? = nil
     
+    var projectToSegue : ProjectInfo? = nil
+    
     @IBInspectable
     var projectListTypeCode : String = "active"
     

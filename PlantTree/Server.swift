@@ -205,6 +205,62 @@ class Server {
             ERROR?(et, msg)
         })
     }
+    
+    static func GetProjectDetailInfo(projectId: Int, SUCCESS: ((ProjectInfo)->())?, ERROR: ((ErrorType, String) -> ())?) {
+        MakeRequestWithOptionalAuthorization(SUCCESS: { c in
+            let authorization = c == nil ? "GUEST" : "Bearer \(c!.access_token)"
+            provider.request(ApiTargets.getProjectDetailInfo(projectId: projectId, authorization: authorization), completion: { result in
+                switch result {
+                case let .success(moyaResponse):
+                    if moyaResponse.statusCode == 200 {
+                        let data = moyaResponse.data
+                        let json = JSON(data: data)
+                        if paramsInJson(json: json, params: ["id", "name", "description", "goal", "reached", "status", "isLikedByMe", "treePrice", "sponsorCount", "creationDate", "allImagesBig"]) {
+                            var p = ProjectInfo()
+                            let id = json["id"].intValue
+                            let name = json["name"].stringValue
+                            let description = json["description"].stringValue
+                            let goal = json["goal"].intValue
+                            let reached = json["reached"].intValue
+                            let status = ProjectStatus.fromString(s: json["status"].stringValue)
+                            let allImagesBig : [String] = (json["allImagesBig"].arrayObject as? [String]) ?? []
+                            let likeCount = json["likesCount"].intValue
+                            let isLikedByMe = json["isLikedByMe"].boolValue
+                            let treePrice = json["treePrice"].doubleValue
+                            let sponsorCount = json["sponsorsCount"].intValue
+                            p.id = id
+                            p.name = name
+                            p.description = description
+                            p.goal = goal
+                            p.reached = reached
+                            p.projectStatus = status
+                            p.allImages = allImagesBig
+                            p.likeCount = likeCount
+                            p.isLikedByMe = isLikedByMe
+                            p.treePrice = treePrice
+                            p.sponsorCount = sponsorCount
+                            SUCCESS?(p)
+                        } else {
+                            ERROR?(ErrorType.InvalidData, "Неправильный формат данных")
+                            return
+                        }
+                    } else {
+                        let data = moyaResponse.data
+                        let json = JSON(data: data)
+                        if json["error_title"].exists() && json["rus_description"].exists() {
+                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
+                        } else {
+                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
+                        }
+                    }
+                case .failure(_):
+                    ERROR?(ErrorType.NetworkError, "Не могу получить ответ от сервера")
+                }
+            })
+        }, ERROR: { et, msg in
+            // TODO: Show loading error and refresh button
+        })
+    }
 
     static func RenewAccessToken(SUCCESS: ((Credentials) -> ())?, ERROR: ((ErrorType, String) -> ())?) {
         //Nullable credentials

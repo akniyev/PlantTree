@@ -11,28 +11,24 @@ import RealmSwift
 import SwiftyJSON
 
 class ViewController: UIViewController {
+    @IBAction func btn(_ sender: Any) {
+//        let f = lbl.bounds
+//        let s = lbl.sizeThatFits(CGSize(width: 200, height: 100000))
+//        lbl.frame.size = CGSize(width: 200, height: s.height)
+//        print(s)
+//        lbl.frame.width = 200
+        lbl.sizeToFit()
+    }
+    @IBAction func btnCopy(_ sender: Any) {
+        lbl.text = text.text
+    }
+    @IBOutlet weak var text: UITextField!
+    @IBOutlet weak var lbl: UILabel!
     let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-//        var entities: Results<Entity> = {
-//            self.realm.objects(Entity)
-//        }()
-//        
-//        print(entities)
-//        
-//        try! realm.write {
-//            var e = Entity()
-//            e.name = "HJK"
-//            self.realm.add(e)
-//        }
-        var pd = PersonalData()
-        pd.firstname = "Ivan"
-        pd.secondname = "Ivanov"
-        pd.gender = Gender.Male
-        pd.birthdate = Date(timeIntervalSince1970: 0)
-        Server.RegisterWithEmail(email: "a@b.ru", password: "12345", personalData: pd, SUCCESS: nil, ERROR: nil)
+    
     }
 
     override func didReceiveMemoryWarning() {

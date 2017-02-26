@@ -15,13 +15,14 @@ enum ApiTargets {
     case getProjectList(type : ProjectListType, page: Int, pagesize: Int, authorization: String)
     case like(id: Int, a_token: String)
     case unlike(id: Int, a_token: String)
+    case getProjectDetailInfo(projectId: Int, authorization: String)
     case test
 }
 
 extension ApiTargets : TargetType {
     var baseURL: URL {
         switch self {
-        case .test, .getProjectList, .like, .unlike:
+        case .test, .getProjectList, .like, .unlike, .getProjectDetailInfo:
             return URL(string: "http://localhost:8080")!
         default:
             return URL(string: "https://demo7991390.mockable.io")!
@@ -38,7 +39,7 @@ extension ApiTargets : TargetType {
             return "api/account/get_info/"
         case .refreshAccessToken:
             return "api/account/token/"
-        case .getProjectList(let type, let page, let pagesize, let _):
+        case .getProjectList(let type, let page, let pagesize, _):
             switch type {
             case .active: return "api/projects/active/list/page/\(page)/pagesize/\(pagesize)/"
             case .favorites: return "api/projects/favorites/list/page/\(page)/pagesize/\(pagesize)/"
@@ -48,10 +49,10 @@ extension ApiTargets : TargetType {
             return "api/project/like/\(id)/"
         case .unlike(let id, _):
             return "api/project/unlike/\(id)/"
+        case .getProjectDetailInfo(let id, _):
+            return "api/project/details/\(id)/"
         case .test:
             return "/user/34"
-        default:
-            return ""
         }
     }
 
@@ -59,7 +60,7 @@ extension ApiTargets : TargetType {
         switch self {
         case .registerWithEmail, .getTokenWithEmail, .refreshAccessToken:
             return .post
-        case .getAccountInfo, .getProjectList:
+        case .getAccountInfo, .getProjectList, .getProjectDetailInfo:
             return .get
         case .like, .unlike:
             return .put
@@ -91,10 +92,12 @@ extension ApiTargets : TargetType {
             ]
         case .refreshAccessToken(let refresh_token):
             return ["refresh_token" : refresh_token]
-        case .getProjectList(let type, let page, let pagesize, let authorization):
+        case .getProjectList( _, _, _, let authorization):
             return ["Authorization" : authorization]
         case .like(_, let a_token), .unlike(_, let a_token):
             return ["Authorization" : "Bearer \(a_token)"]
+        case .getProjectDetailInfo(_, let authorization):
+            return ["Authorization" : authorization]
         default:
             return [:]
         }
@@ -104,7 +107,7 @@ extension ApiTargets : TargetType {
         switch self {
         case .registerWithEmail, .getTokenWithEmail, .refreshAccessToken, .like, .unlike:
             return JSONEncoding.default // Send parameters in URL
-        case .getAccountInfo, .getProjectList:
+        case .getAccountInfo, .getProjectList, .getProjectDetailInfo:
             return URLEncoding.default
         default:
             return URLEncoding.default // Send parameters as JSON in request body
@@ -113,7 +116,7 @@ extension ApiTargets : TargetType {
 
     var sampleData: Data {
         switch self {
-        case .registerWithEmail(let email, let password, let personalData):
+        case .registerWithEmail:
             return "".utf8Encoded
         case .getTokenWithEmail, .getAccountInfo, .refreshAccessToken, .getProjectList, .like, .unlike:
             return "".utf8Encoded
@@ -124,7 +127,7 @@ extension ApiTargets : TargetType {
 
     var task: Task {
         switch self {
-        case .registerWithEmail, .getTokenWithEmail, .getAccountInfo, .refreshAccessToken, .getProjectList, .like, .unlike:
+        case .registerWithEmail, .getTokenWithEmail, .getAccountInfo, .refreshAccessToken, .getProjectList, .like, .unlike, .getProjectDetailInfo:
             return .request
         default:
             return .request

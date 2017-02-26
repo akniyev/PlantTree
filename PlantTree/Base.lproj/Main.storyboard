@@ -20,13 +20,51 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3x-vL-uXg">
+                                <rect key="frame" x="36" y="28" width="200" height="204"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.91917968750000001" green="0.89018370776918954" blue="0.23512421310108547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3q-Ng-m0f">
+                                <rect key="frame" x="16" y="294" width="102" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Do it"/>
+                                <connections>
+                                    <action selector="btn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0GL-vz-cTU"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jWT-ku-QvG">
+                                <rect key="frame" x="16" y="363" width="329" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwJ-Dv-FXB">
+                                <rect key="frame" x="241" y="294" width="104" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="copy"/>
+                                <connections>
+                                    <action selector="btn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hfJ-3X-iX2"/>
+                                    <action selector="btnCopy:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WPQ-uW-DDP"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="frf-b6-BdI"/>
+                    <connections>
+                        <outlet property="lbl" destination="d3x-vL-uXg" id="bgF-DQ-8Fh"/>
+                        <outlet property="text" destination="jWT-ku-QvG" id="UVY-RW-oTA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-140" y="1024"/>
+            <point key="canvasLocation" x="-140" y="1023.2383808095952"/>
         </scene>
         <!--Payment History View Controller-->
         <scene sceneID="wfG-Oy-aS2">
@@ -39,12 +77,27 @@
                     <view key="view" contentMode="scaleToFill" id="6eP-Ti-xut">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wNG-Kr-mpp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="wNG-Kr-mpp" secondAttribute="bottom" id="BfF-IP-zvp"/>
+                            <constraint firstAttribute="trailing" secondItem="wNG-Kr-mpp" secondAttribute="trailing" id="XQ4-Lq-YMt"/>
+                            <constraint firstItem="wNG-Kr-mpp" firstAttribute="leading" secondItem="6eP-Ti-xut" secondAttribute="leading" id="bBo-qi-idB"/>
+                            <constraint firstItem="wNG-Kr-mpp" firstAttribute="top" secondItem="6eP-Ti-xut" secondAttribute="top" id="t9F-hW-5YN"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="wNG-Kr-mpp" id="eXU-n1-qAo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sma-zm-osw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1567" y="1887"/>
+            <point key="canvasLocation" x="1565.5999999999999" y="1886.8065967016494"/>
         </scene>
         <!--My Tab Bar Controller-->
         <scene sceneID="4Cr-or-E5u">
@@ -236,7 +289,11 @@
                     <navigationItem key="navigationItem" title="Активные проекты" id="YDh-pI-dhq"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="projectListTypeCode" value="active"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="segueName" value="activeDetails"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="ntD-0T-Lc2" kind="show" identifier="activeDetails" id="U2q-4s-c9f"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4VF-3x-gj2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -296,11 +353,62 @@
                     <navigationItem key="navigationItem" title="Избранные проекты" id="ifT-Py-X1n"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="projectListTypeCode" value="favorites"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="segueName" value="favoritesDetails"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="ntD-0T-Lc2" kind="show" identifier="favoritesDetails" id="N8M-CU-vJU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="haY-dT-Mc6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2230" y="-346"/>
+        </scene>
+        <!--Project Details View Controller-->
+        <scene sceneID="vLQ-zq-sd1">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="ntD-0T-Lc2" customClass="ProjectDetailsViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dEo-JR-Wkg"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mlm-2L-Zit"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YKr-LZ-B5u">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Oe-a1-3oc">
+                                <rect key="frame" x="0.0" y="618" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.69019607839999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="cYr-Ra-ZJz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Посадить деревья!">
+                                    <color key="titleColor" white="0.86285607990000002" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gAp-tM-db6">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="5Oe-a1-3oc" secondAttribute="bottom" constant="-1" id="8cr-QH-chO"/>
+                            <constraint firstItem="5Oe-a1-3oc" firstAttribute="leading" secondItem="YKr-LZ-B5u" secondAttribute="leading" id="UYK-O9-RiD"/>
+                            <constraint firstItem="gAp-tM-db6" firstAttribute="top" secondItem="dEo-JR-Wkg" secondAttribute="bottom" id="Xo2-2Y-Fbz"/>
+                            <constraint firstAttribute="trailing" secondItem="gAp-tM-db6" secondAttribute="trailing" id="aYO-ka-Wmn"/>
+                            <constraint firstItem="gAp-tM-db6" firstAttribute="leading" secondItem="YKr-LZ-B5u" secondAttribute="leading" id="e0M-8N-B3e"/>
+                            <constraint firstItem="5Oe-a1-3oc" firstAttribute="top" secondItem="gAp-tM-db6" secondAttribute="bottom" id="fV7-HO-UQE"/>
+                            <constraint firstAttribute="trailing" secondItem="5Oe-a1-3oc" secondAttribute="trailing" id="gvw-wu-weu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tvDetails" destination="gAp-tM-db6" id="6bm-xj-UOV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nh4-dR-B38" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3389.5999999999999" y="-347.67616191904051"/>
         </scene>
         <!--Завершенные-->
         <scene sceneID="b1c-lc-qmT">
@@ -318,11 +426,18 @@
                     <navigationItem key="navigationItem" title="Завершенные" id="eTi-pU-yuT"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="projectListTypeCode" value="completed"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="segueName" value="completedDetails"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="ntD-0T-Lc2" kind="show" identifier="completedDetails" id="sLv-KN-PXp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M0B-Dv-CpA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2230" y="318"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="sLv-KN-PXp"/>
+    </inferredMetricsTieBreakers>
 </document>

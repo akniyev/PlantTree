@@ -8,7 +8,7 @@ import UIKit
 class ProjectInfo {
     var id : Int = -1
     var name : String = ""
-    var description : String = ""
+    
     var goal : Int = 0
     var reached : Int = 0
     var projectStatus : ProjectStatus = .none
@@ -18,4 +18,9 @@ class ProjectInfo {
     var isLikedByMe : Bool? = nil
     var treePrice : Double = 0.0
     var sponsorCount : Int = 0
+    //Details
+    var news : [NewsPiece] = []
+    var description : String = ""
+    var allImages : [String] = []
+    
 }
