@@ -14,4 +14,10 @@ final class UserPhotoEditRow : Row<UserPhotoEditCell>, RowType {
         super.init(tag: tag)
         cellProvider = CellProvider<UserPhotoEditCell>(nibName: "UserPhotoEditCell")
     }
+    
+    func GetImage() -> UIImage? {
+        return (cell as? UserPhotoEditCell)?.imgPhoto.image
+    }
+    
+    var imageSelectAction : ((UserPhotoEditCell) -> ())?
 }

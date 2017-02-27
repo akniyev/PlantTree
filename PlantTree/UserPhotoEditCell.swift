@@ -15,7 +15,7 @@ class UserPhotoEditCell: Cell<String>, CellType {
     @IBOutlet weak var btnDeletePhoto: UIButton!
     
     @IBAction func loadPhotoAction(_ sender: Any) {
-        
+        (row as? UserPhotoEditRow)?.imageSelectAction?(self)
     }
     
     @IBAction func deletePhotoAction(_ sender: Any) {

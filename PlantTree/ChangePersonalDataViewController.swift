@@ -9,15 +9,19 @@
 import UIKit
 import Eureka
 
-class ChangePersonalDataViewController : FormViewController {
+class ChangePersonalDataViewController : FormViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     var pd : PersonalData? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         self.navigationItem.title = "Личные данные"
         self.form +++ Section() <<< UserPhotoEditRow() { row in
             row.tag = "photo"
             row.value = pd?.photoUrlSmall
+            row.imageSelectAction = { c in
+                self.showSourceSelector()
+            }
         } <<< TextRow() { row in
             row.tag = "firstname"
             row.placeholder = "Введите ваше имя"
@@ -52,6 +56,36 @@ class ChangePersonalDataViewController : FormViewController {
             row.title = "Сохранить"
             row.onCellSelection(self.personalDataSaveAction)
         }
+    }
+    
+    func showSourceSelector() {
+        let optionMenu = UIAlertController(title: nil, message: "Источник фотографии", preferredStyle: .actionSheet)
+        
+        let openPhotoGalleryAction = UIAlertAction(title: "Выбрать из галереи", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+                let imagePicker = UIImagePickerController()
+                
+                imagePicker.delegate = self
+                imagePicker.sourceType = .savedPhotosAlbum;
+                imagePicker.allowsEditing = false
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        })
+        let openCameraAction = UIAlertAction(title: "Снимок с камеры", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancelled")
+        })
+        optionMenu.addAction(openPhotoGalleryAction)
+        optionMenu.addAction(openCameraAction)
+        optionMenu.addAction(cancelAction)
+
+        self.present(optionMenu, animated: true, completion: nil)
     }
     
     func personalDataSaveAction(cell: ButtonCellOf<String>, row: ButtonRow) {
