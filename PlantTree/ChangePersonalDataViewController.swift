@@ -10,6 +10,19 @@ import UIKit
 import Eureka
 
 class ChangePersonalDataViewController : FormViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    var newImage : UIImage? = nil
+    var cellImageView : UIImageView? = nil
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = (info[UIImagePickerControllerOriginalImage] as? UIImage) {
+            if let iv = cellImageView {
+                iv.image = image
+            }
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    
     var pd : PersonalData? = nil
 
     override func viewDidLoad() {
@@ -20,6 +33,7 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
             row.tag = "photo"
             row.value = pd?.photoUrlSmall
             row.imageSelectAction = { c in
+                self.cellImageView = c.imgPhoto
                 self.showSourceSelector()
             }
         } <<< TextRow() { row in
@@ -75,14 +89,26 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
         })
         let openCameraAction = UIAlertAction(title: "Снимок с камеры", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                let imagePicker = UIImagePickerController()
+                
+                imagePicker.delegate = self
+                imagePicker.sourceType = .camera;
+                imagePicker.allowsEditing = false
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            }
         })
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
-        optionMenu.addAction(openPhotoGalleryAction)
-        optionMenu.addAction(openCameraAction)
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            optionMenu.addAction(openPhotoGalleryAction)
+        }
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            optionMenu.addAction(openCameraAction)
+        }
         optionMenu.addAction(cancelAction)
 
         self.present(optionMenu, animated: true, completion: nil)

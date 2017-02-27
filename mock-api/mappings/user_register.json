@@ -1,13 +1,13 @@
 {
   "request":
     {
-      	"urlPattern": "/api/account/change_personal_data/",
+      	"urlPattern": "/api/account/register/",
       	"method": "PUT"
     },
 
   "response":
     {
-      "status": 200,
+      "status": 201,
       "fixedDelayMilliseconds": 2000,
       "headers":
         {
