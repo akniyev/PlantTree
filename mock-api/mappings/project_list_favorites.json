@@ -1,0 +1,74 @@
+{
+  "request":
+    {
+      	"urlPattern": "/api/projects/favorites/list/page/[0-9]+/pagesize/[0-9]+/\\?Authorization=.+",
+      	"method": "GET"
+    },
+
+  "response":
+    {
+      "status": 200,
+      "fixedDelayMilliseconds": 2000,
+      "headers":
+        {
+          "Content-Type" : "application/json"
+        },
+      "jsonBody": [
+        {
+          "id": 1,
+          "name": "Посадка деревьев в парке им М. Горького в городском парке",
+          "description": "DESCRIPTION",
+          "goal": 160,
+          "reached": 80,
+          "status": "active",
+          "mainImageUrlSmall": "http://www.planwallpaper.com/static/images/hd_nature_wallpaper.jpg",
+          "likesCount": 12,
+          "isLikedByMe": true,
+          "treePrice": 1000,
+          "sponsorsCount" : "10"
+        },
+        {
+          "id": 2,
+          "name": "Название проекта2",
+          "description": "DESCRIPTION",
+          "goal": 160,
+          "reached": 80,
+          "status": "active",
+          "isActive": true,
+          "mainImageUrlSmall": "http://www.planwallpaper.com/static/images/hd_nature_wallpaper.jpg",
+          "likesCount": 12,
+          "isLikedByMe": true,
+          "treePrice": 1000,
+          "sponsorsCount" : "11"
+        },
+        {
+          "id": 3,
+          "name": "Название проекта3",
+          "description": "DESCRIPTION",
+          "goal": 160,
+          "reached": 80,
+          "status": "active",
+          "isActive": true,
+          "mainImageUrlSmall": "http://www.planwallpaper.com/static/images/hd_nature_wallpaper.jpg",
+          "likesCount": 12,
+          "isLikedByMe": true,
+          "treePrice": 1000,
+          "sponsorsCount" : "12"
+        },
+        {
+          "id": 4,
+          "name": "Название проекта4",
+          "description": "DESCRIPTION",
+          "goal": 160,
+          "reached": 80,
+          "status": "active",
+          "isActive": true,
+          "mainImageUrlSmall": "http://www.planwallpaper.com/static/images/hd_nature_wallpaper.jpg",
+          "likesCount": 12,
+          "isLikedByMe": true,
+          "treePrice": 1000,
+          "sponsorsCount" : "10"
+        }
+      ]
+    }
+}

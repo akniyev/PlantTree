@@ -1,0 +1,18 @@
+{
+  "request":
+    {
+      	"urlPattern": "/api/project/unlike/[0-9]+/",
+      	"method": "PUT"
+    },
+
+  "response":
+    {
+      "status": 200,
+      "fixedDelayMilliseconds": 2000,
+      "headers":
+        {
+          "Content-Type" : "application/json"
+        },
+      "jsonBody": ""
+    }
+}

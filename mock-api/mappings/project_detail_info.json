@@ -1,0 +1,77 @@
+{
+  "request":
+    {
+        "urlPattern": "/api/project/details/[0-9]+/\\?Authorization=.+",
+        "method": "GET"
+    },
+
+  "response":
+    {
+      "status": 200,
+      "fixedDelayMilliseconds": 2000,
+      "headers":
+        {
+          "Content-Type" : "application/json"
+        },
+      "jsonBody": {
+                    "id": 1,
+                    "name": "Название проекта",
+                    "description": "DESCRIPTION",
+                    "goal": 160,
+                    "reached": 80,
+                    "status": "active",
+                    "likesCount": 12,
+                    "isLikedByMe": true,
+                    "treePrice": 1000,
+                    "sponsorCount" : 12,
+                    "creationDate" : "12.12.2012",
+                    "reachDate" : "13.12.2012",
+                    "completionDate" : "14.12.2012",
+                    "allImagesBig" : [
+                      "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080",
+                      "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080",
+                      "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080",
+                      "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080",
+                      "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"
+                    ],
+                    "news" : [
+                      {
+                        "id" : 1,
+                        "url" : "https://ya.ru",
+                        "title" : "TEXT",
+                        "date" : "12.12.2018",
+                        "imageUrl" : "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"
+                      },
+                      {
+                        "id" : 2,
+                        "url" : "https://ya.ru",
+                        "title" : "TEXT",
+                        "date" : "12.12.2018",
+                        "imageUrl" : "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"
+                      },
+                      {
+                        "id" : 3,
+                        "url" : "https://ya.ru",
+                        "title" : "TEXT",
+                        "date" : "12.12.2018",
+                        "imageUrl" : "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"
+                      },
+                      {
+                        "id" : 4,
+                        "url" : "https://ya.ru",
+                        "title" : "TEXT",
+                        "date" : "12.12.2018",
+                        "imageUrl" : "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"
+                      },
+                      {
+                        "id" : 5,
+                        "url" : "https://ya.ru",
+                        "title" : "TEXT",
+                        "date" : "12.12.2018",
+                        "imageUrl" : "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"
+                      }
+                    ]
+                  }
+    }
+}
+

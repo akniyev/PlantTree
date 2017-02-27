@@ -1,0 +1,96 @@
+{
+  "request":
+    {
+      "urlPattern": "/user/[0-9]+",
+      "method": "GET"
+    },
+
+  "response":
+    {
+      "status": 200,
+      "headers":
+        {
+          "Content-Type" : "application/json"
+        },
+      "jsonBody": [
+        {
+          "id": 1,
+          "name": "Название проекта",
+          "description": "DESCRIPTION",
+          "goal": 160,
+          "reached": 80,
+          "status": "active",
+          "isActive": true,
+          "mainImageUrlSmall": "url",
+          "likesCount": 12,
+          "isLikedByMe": true,
+          "TreePrice": 1000
+        },
+        {
+          "id": 1,
+          "name": "Название проекта",
+          "description": "DESCRIPTION",
+          "goal": 160,
+          "reached": 80,
+          "status": "active",
+          "isActive": true,
+          "mainImageUrlSmall": "url",
+          "likesCount": 12,
+          "isLikedByMe": true,
+          "TreePrice": 1000
+        },
+        {
+          "id": 1,
+          "name": "Название проекта",
+          "description": "DESCRIPTION",
+          "goal": 160,
+          "reached": 80,
+          "status": "active",
+          "isActive": true,
+          "mainImageUrlSmall": "url",
+          "likesCount": 12,
+          "isLikedByMe": true,
+          "TreePrice": 1000
+        },
+        {
+          "id": 1,
+          "name": "Название проекта",
+          "description": "DESCRIPTION",
+          "goal": 160,
+          "reached": 80,
+          "status": "active",
+          "isActive": true,
+          "mainImageUrlSmall": "url",
+          "likesCount": 12,
+          "isLikedByMe": true,
+          "TreePrice": 1000
+        },
+        {
+          "id": 1,
+          "name": "Название проекта",
+          "description": "DESCRIPTION",
+          "goal": 160,
+          "reached": 80,
+          "status": "active",
+          "isActive": true,
+          "mainImageUrlSmall": "url",
+          "likesCount": 12,
+          "isLikedByMe": true,
+          "TreePrice": 1000
+        },
+        {
+          "id": 1,
+          "name": "Название проекта",
+          "description": "DESCRIPTION",
+          "goal": 160,
+          "reached": 80,
+          "status": "active",
+          "isActive": true,
+          "mainImageUrlSmall": "url",
+          "likesCount": 12,
+          "isLikedByMe": true,
+          "TreePrice": 1000
+        }
+      ]
+    }
+}

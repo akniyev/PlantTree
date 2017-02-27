@@ -1,0 +1,29 @@
+{
+  "request":
+    {
+        "urlPattern": "/api/account/operations/\\?Authorization=.+",
+        "method": "GET"
+    },
+
+  "response":
+    {
+      "status": 200,
+      "fixedDelayMilliseconds": 2000,
+      "headers":
+        {
+          "Content-Type" : "application/json"
+        },
+      "jsonBody": [
+        {
+          "id" : 1,
+          "projectTitle" : "Посадка деревьев",
+          "projectId" : 10,
+          "date" : "12.12.2009",
+          "donated" : 10000,
+          "treePlanted" : 20,
+          "cardLastDigits" : "1234"
+        }
+      ]
+    }
+}
+
