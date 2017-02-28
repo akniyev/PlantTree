@@ -16,6 +16,8 @@ class ProjectDetailsCell: UITableViewCell {
     @IBOutlet weak var lblStatus: UILabel!
     @IBOutlet weak var lblReached: UILabel!
     @IBOutlet weak var btnLike: UIButton!
+    @IBOutlet weak var lblSponsorsCount: UILabel!
+    @IBOutlet weak var lblLikeCount: UILabel!
     
     var likeAction : (()->())? = nil
     
@@ -64,6 +66,20 @@ class ProjectDetailsCell: UITableViewCell {
         } else {
             btnLike.setImage(UIImage(named: "LikeInactive"), for: .normal)
         }
+        
+        switch pi.projectStatus {
+        case .active:
+            lblStatus.text = "Статус: сбор денег"
+        case .collected:
+            lblStatus.text = "Статус: деньги собраны"
+        case .finished:
+            lblStatus.text = "Статус: завершен"
+        case .none:
+            lblStatus.text = ""
+        }
+        
+        lblLikeCount.text = pi.likeCount.withRussianCountWord(one: "лайк", tofour: "лайка", overfour: "лайков")
+        lblSponsorsCount.text = pi.likeCount.withRussianCountWord(one: "спонсор", tofour: "спонсора", overfour: "спонсоров")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
