@@ -417,7 +417,7 @@
         <!--Plant Tree View Controller-->
         <scene sceneID="Q0w-EK-3kG">
             <objects>
-                <viewController id="dBt-1k-yXV" customClass="PlantTreeViewController" sceneMemberID="viewController">
+                <viewController id="dBt-1k-yXV" customClass="PlantTreeViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gqk-gj-Dl5"/>
                         <viewControllerLayoutGuide type="bottom" id="K3v-UN-1Xx"/>

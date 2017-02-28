@@ -6,4 +6,17 @@
 //  Copyright © 2017 greenworld. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import Eureka
+
+class PlantTreeViewController : FormViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        form +++ Section() <<< UpDownRow() { row in
+            row.tag = "updown"
+        } +++ Section() <<< ButtonRow() { row in
+            row.title = "Посадить!"
+        }
+    }
+}
