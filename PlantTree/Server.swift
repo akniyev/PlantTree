@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import SwiftyJSON
+import Alamofire
 
 class Server {
     static let provider = MoyaProvider<ApiTargets>()
@@ -492,5 +493,41 @@ class Server {
             }
         }
         return true
+    }
+
+    static func changePersonalData(access_token: String, image: UIImage?, first_name: String, second_name: String, gender: Gender, birth_date: Date,
+                                   SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
+        Alamofire.upload(multipartFormData: { multipartData in
+            if let img = image {
+                multipartData.append(UIImageJPEGRepresentation(img, 0.9)!, withName: "userpic", mimeType: "image/jpeg")
+            }
+            multipartData.append(first_name.data(using: .utf8)!, withName: "first_name")
+            multipartData.append(second_name.data(using: .utf8)!, withName: "second_name")
+            multipartData.append(gender.toJsonCode().data(using: .utf8)!, withName: "gender")
+            multipartData.append(birth_date.toRussianFormat().data(using: .utf8)!, withName: "birthdate")
+        }, to: "\(ApiTargets.SERVER)/api/account/change_personal_data/", encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let d, _, _):
+                if d.response?.statusCode == 200 {
+                    SUCCESS?()
+                } else {
+                    ERROR?(ErrorType.)
+                }
+            case .failure(let error):
+                ERROR?(ErrorType.NetworkError, "Не удается получить ответ от сервера")
+            }
+        })
+    }
+
+    static func changePassword() {
+
+    }
+
+    static func changeEmail() {
+
+    }
+
+    static func confirmEmail() {
+
     }
 }

@@ -8,6 +8,8 @@ import Moya
 import SwiftyJSON
 
 enum ApiTargets {
+    static let SERVER : String = "http://localhost:8080"
+
     case registerWithEmail(email: String, password: String, personalData: PersonalData)
     case getTokenWithEmail(email: String, password: String)
     case getAccountInfo(access_token: String)
@@ -17,14 +19,18 @@ enum ApiTargets {
     case unlike(id: Int, a_token: String)
     case getProjectDetailInfo(projectId: Int, authorization: String)
     case getOperationHistory(access_token : String)
-    case test
+    case changeEmail(access_token: String, new_email: String)
+    case changePassword(access_token: String, old_password: String, new_password: String)
+    case changePersonalData(access_token: String, image: UIImage?, first_name: String, second_name: String, gender: Gender, birth_date: Date)
+    case confirm_email(access_token: String)
+    case reset_password(email: String)
 }
 
 extension ApiTargets : TargetType {
     var baseURL: URL {
         switch self {
-        case .test, .getProjectList, .like, .unlike, .getProjectDetailInfo, .getOperationHistory:
-            return URL(string: "http://localhost:8080")!
+        case .getProjectList, .like, .unlike, .getProjectDetailInfo, .getOperationHistory, .changePersonalData, .changePassword, .changeEmail, .confirm_email, .reset_password:
+            return URL(string: SERVER)!
         default:
             return URL(string: "https://demo7991390.mockable.io")!
         }
@@ -54,18 +60,26 @@ extension ApiTargets : TargetType {
             return "api/project/details/\(id)/"
         case .getOperationHistory:
             return "api/account/operations/"
-        case .test:
-            return "/user/34"
+        case .changeEmail:
+            return "api/account/email/change/"
+        case .changePassword:
+            return "api/account/password/change"
+        case .changePersonalData:
+            return "api/account/change_personal_data/"
+        case .confirm_email:
+            return "api/account/email/confirm/"
+        case .reset_password:
+            return "api/account/password/reset/"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .registerWithEmail, .getTokenWithEmail, .refreshAccessToken:
+        case .registerWithEmail, .getTokenWithEmail, .refreshAccessToken, .reset_password, .confirm_email, .changePersonalData:
             return .post
         case .getAccountInfo, .getProjectList, .getProjectDetailInfo, .getOperationHistory:
             return .get
-        case .like, .unlike:
+        case .like, .unlike, .changeEmail, .changePassword:
             return .put
         default:
             return .get
@@ -101,6 +115,16 @@ extension ApiTargets : TargetType {
             return ["Authorization" : "Bearer \(a_token)"]
         case .getProjectDetailInfo(_, let authorization):
             return ["Authorization" : authorization]
+        case .changeEmail(let access_token, _):
+            return ["Authorization" : "Bearer \(access_token)"]
+        case .changePassword(let access_token, _, _):
+            return ["Authorization" : "Bearer \(access_token)"]
+        case .changePersonalData(let access_token, _, _, _, _, _):
+            return ["Authorization" : "Bearer \(access_token)"]
+        case .confirm_email(let access_token):
+            return ["Authorization" : "Bearer \(access_token)"]
+        case .reset_password(let email):
+            return [:]
         default:
             return [:]
         }
@@ -108,7 +132,7 @@ extension ApiTargets : TargetType {
 
     var parameterEncoding: ParameterEncoding {
         switch self {
-        case .registerWithEmail, .getTokenWithEmail, .refreshAccessToken, .like, .unlike:
+        case .registerWithEmail, .getTokenWithEmail, .refreshAccessToken, .like, .unlike, .changeEmail, .changePassword, .changePersonalData, .confirm_email, .reset_password:
             return JSONEncoding.default // Send parameters in URL
         case .getAccountInfo, .getProjectList, .getProjectDetailInfo, .getOperationHistory:
             return URLEncoding.default
@@ -121,16 +145,28 @@ extension ApiTargets : TargetType {
         switch self {
         case .registerWithEmail:
             return "".utf8Encoded
-        case .getTokenWithEmail, .getAccountInfo, .refreshAccessToken, .getProjectList, .like, .unlike, .getOperationHistory:
+        case .getTokenWithEmail, .getAccountInfo, .refreshAccessToken, .getProjectList, .like, .unlike, .getOperationHistory, .changeEmail, .changePassword, .changePersonalData, .confirm_email, .reset_password:
             return "".utf8Encoded
-        default:
+
+        case .changeEmail(_, let new_email):
+            var json : JSON = ["new_email" : new_email]
+            return json.rawString.utf8Encoded
+        case .changePassword(_, let old_password, let new_password):
+            var json : JSON = ["old_password" : old_password, "new_password" : new_password]
+            return json.rawString.utf8Encoded
+        case .changePersonalData:
+            //TODO: make multipart form data
             return "".utf8Encoded
-        }
+        case .confirm_email:
+            return "".utf8Encoded
+        case .reset_password(let email):
+            var json : JSON = ["email" : email]
+            return json.rawString.utf8Encoded
     }
 
     var task: Task {
         switch self {
-        case .registerWithEmail, .getTokenWithEmail, .getAccountInfo, .refreshAccessToken, .getProjectList, .like, .unlike, .getProjectDetailInfo, .getOperationHistory:
+        case .registerWithEmail, .getTokenWithEmail, .getAccountInfo, .refreshAccessToken, .getProjectList, .like, .unlike, .getProjectDetailInfo, .getOperationHistory, .changeEmail, .changePassword, .changePersonalData, .confirm_email, .reset_password:
             return .request
         default:
             return .request
