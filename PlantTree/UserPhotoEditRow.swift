@@ -16,7 +16,11 @@ final class UserPhotoEditRow : Row<UserPhotoEditCell>, RowType {
     }
     
     func GetImage() -> UIImage? {
-        return (cell as? UserPhotoEditCell)?.imgPhoto.image
+        if (cell as? UserPhotoEditCell)?.noPhoto == true {
+            return nil
+        } else {
+            return (cell as? UserPhotoEditCell)?.imgPhoto.image
+        }
     }
     
     var imageSelectAction : ((UserPhotoEditCell) -> ())?

@@ -14,6 +14,8 @@ class UserPhotoEditCell: Cell<String>, CellType {
     @IBOutlet weak var btnLoadPhoto: UIButton!
     @IBOutlet weak var btnDeletePhoto: UIButton!
     
+    var noPhoto : Bool = true
+    
     @IBAction func loadPhotoAction(_ sender: Any) {
         (row as? UserPhotoEditRow)?.imageSelectAction?(self)
     }
@@ -54,9 +56,11 @@ class UserPhotoEditCell: Cell<String>, CellType {
         if row.value?.isEmpty ?? true {
             imgPhoto.image = UIImage(named: "NoImage")
             btnDeletePhoto.isEnabled = false
+            noPhoto = true
         } else {
             let url = URL(string: row.value!)
             imgPhoto.kf.setImage(with: url)
+            noPhoto = false
         }
     }
     

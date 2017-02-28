@@ -2,7 +2,7 @@
   "request":
     {
       	"urlPattern": "/api/account/change_personal_data/",
-      	"method": "PUT"
+      	"method": "POST"
     },
 
   "response":

@@ -12,11 +12,15 @@ import Eureka
 class ChangePersonalDataViewController : FormViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     var newImage : UIImage? = nil
     var cellImageView : UIImageView? = nil
+    var cell : UserPhotoEditCell? = nil
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = (info[UIImagePickerControllerOriginalImage] as? UIImage) {
             if let iv = cellImageView {
                 iv.image = image
+            }
+            if let c = self.cell {
+                c.noPhoto = false
             }
         }
         picker.dismiss(animated: true, completion: nil)
@@ -34,6 +38,7 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
             row.value = pd?.photoUrlSmall
             row.imageSelectAction = { c in
                 self.cellImageView = c.imgPhoto
+                self.cell = c
                 self.showSourceSelector()
             }
         } <<< TextRow() { row in
@@ -116,13 +121,36 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
     
     func personalDataSaveAction(cell: ButtonCellOf<String>, row: ButtonRow) {
         let errors = form.validate()
-        
+        var haveErrors = false
         for row in form.allRows {
             if !row.isValid {
                 row.baseCell.backgroundColor = UIColor(red: 1, green: 0.8, blue: 0.8, alpha: 1)
+                haveErrors = true
             } else {
                 row.baseCell.backgroundColor = UIColor.white
             }
+        }
+        if !haveErrors {
+            let vs = form.values()
+            let first_name = (vs["firstname"] as? String) ?? ""
+            let second_name = (vs["secondname"] as? String) ?? ""
+            let birthdate = (vs["birthdate"] as? Date) ?? Date()
+            let gender = Gender.fromRussianFormat(code: (vs["gender"] as? String) ?? "Не задан")
+            var image : UIImage? = nil
+            if let imgRow = (form.rowBy(tag: "photo") as? UserPhotoEditRow) {
+                image = imgRow.GetImage()
+            }
+            Server.changePersonalData(image: image, first_name: first_name, second_name: second_name, gender: gender, birth_date: birthdate, SUCCESS: {
+                self.dismiss(animated: true, completion: nil)
+            }, ERROR: { et, msg in
+                Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: msg, completion: nil)
+            })
+//            print(first_name)
+//            print(second_name)
+//            print(birthdate)
+//            print(gender)
+//            print(image)
+            
         }
     }
 }

@@ -30,7 +30,7 @@ extension ApiTargets : TargetType {
     var baseURL: URL {
         switch self {
         case .getProjectList, .like, .unlike, .getProjectDetailInfo, .getOperationHistory, .changePersonalData, .changePassword, .changeEmail, .confirm_email, .reset_password:
-            return URL(string: SERVER)!
+            return URL(string: ApiTargets.SERVER)!
         default:
             return URL(string: "https://demo7991390.mockable.io")!
         }
@@ -145,15 +145,17 @@ extension ApiTargets : TargetType {
         switch self {
         case .registerWithEmail:
             return "".utf8Encoded
-        case .getTokenWithEmail, .getAccountInfo, .refreshAccessToken, .getProjectList, .like, .unlike, .getOperationHistory, .changeEmail, .changePassword, .changePersonalData, .confirm_email, .reset_password:
+        case .getTokenWithEmail, .getAccountInfo, .refreshAccessToken, .getProjectList, .like, .unlike, .getOperationHistory:
             return "".utf8Encoded
 
         case .changeEmail(_, let new_email):
             var json : JSON = ["new_email" : new_email]
-            return json.rawString.utf8Encoded
+            let jsonString : String = json.rawString() ?? ""
+            return jsonString.utf8Encoded
         case .changePassword(_, let old_password, let new_password):
-            var json : JSON = ["old_password" : old_password, "new_password" : new_password]
-            return json.rawString.utf8Encoded
+            let json : JSON = ["old_password" : old_password, "new_password" : new_password]
+            let jsonString : String = json.rawString() ?? ""
+            return jsonString.utf8Encoded
         case .changePersonalData:
             //TODO: make multipart form data
             return "".utf8Encoded
@@ -161,7 +163,11 @@ extension ApiTargets : TargetType {
             return "".utf8Encoded
         case .reset_password(let email):
             var json : JSON = ["email" : email]
-            return json.rawString.utf8Encoded
+            let jsonString : String = json.rawString() ?? ""
+            return jsonString.utf8Encoded
+        default:
+            return "".utf8Encoded
+        }
     }
 
     var task: Task {

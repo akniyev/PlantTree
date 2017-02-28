@@ -14,19 +14,6 @@ import Alamofire
 class Server {
     static let provider = MoyaProvider<ApiTargets>()
 
-    static func test() {
-        provider.request(.test, completion: { result in
-            switch result {
-            case let .success(moyaResponse):
-                let data = moyaResponse.data
-                let json = JSON(data: data)
-                print(json)
-            case .failure(_): break
-            }
-
-        })
-    }
-    
     static func RegisterWithEmail(
             email: String,
             password: String,
@@ -495,27 +482,62 @@ class Server {
         return true
     }
 
-    static func changePersonalData(access_token: String, image: UIImage?, first_name: String, second_name: String, gender: Gender, birth_date: Date,
+    static func changePersonalData(image: UIImage?, first_name: String, second_name: String, gender: Gender, birth_date: Date,
                                    SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
-        Alamofire.upload(multipartFormData: { multipartData in
-            if let img = image {
-                multipartData.append(UIImageJPEGRepresentation(img, 0.9)!, withName: "userpic", mimeType: "image/jpeg")
-            }
-            multipartData.append(first_name.data(using: .utf8)!, withName: "first_name")
-            multipartData.append(second_name.data(using: .utf8)!, withName: "second_name")
-            multipartData.append(gender.toJsonCode().data(using: .utf8)!, withName: "gender")
-            multipartData.append(birth_date.toRussianFormat().data(using: .utf8)!, withName: "birthdate")
-        }, to: "\(ApiTargets.SERVER)/api/account/change_personal_data/", encodingCompletion: { encodingResult in
-            switch encodingResult {
-            case .success(let d, _, _):
-                if d.response?.statusCode == 200 {
-                    SUCCESS?()
-                } else {
-                    ERROR?(ErrorType.)
+        MakeAuthorizedRequest(SUCCESS: { c in
+//            Alamofire.upload(multipartFormData: { multipartData in
+//                if let img = image {
+//                    multipartData.append(UIImageJPEGRepresentation(img, 0.9)!, withName: "userpic", mimeType: "image/jpeg")
+//                }
+//                multipartData.append(first_name.data(using: .utf8)!, withName: "first_name")
+//                multipartData.append(second_name.data(using: .utf8)!, withName: "second_name")
+//                multipartData.append(gender.toJsonCode().data(using: .utf8)!, withName: "gender")
+//                multipartData.append(birth_date.toRussianFormat().data(using: .utf8)!, withName: "birthdate")
+//            }, usingThreshold: 1, to: "\(ApiTargets.SERVER)/api/account/change_personal_data/", method: .post, headers: [
+//                "Authorization" : "Bearer \(c.access_token)"
+//                ], encodingCompletion: { encodingResult in
+//                    switch encodingResult {
+//                    case .success(let d, _, _):
+//                        if d.response?.statusCode == 200 {
+//                            SUCCESS?()
+//                        } else {
+//                            ERROR?(ErrorType.InvalidData, "Некорректный ответ от сервера")
+//                        }
+//                    case .failure(let error):
+//                        ERROR?(ErrorType.NetworkError, "Не удается получить ответ от сервера")
+//                    }
+//            })
+            
+            let headers: HTTPHeaders = [ "Authorization": "Bearer \(c.access_token)" ]
+            let urlRequest = try! URLRequest(url: "\(ApiTargets.SERVER)/api/account/change_personal_data/", method: .post, headers: headers)
+            
+            
+            
+            Alamofire.upload(multipartFormData: { multipartData in
+                if let img = image {
+                    multipartData.append(UIImageJPEGRepresentation(img, 0.9)!, withName: "userpic", mimeType: "image/jpeg")
                 }
-            case .failure(let error):
-                ERROR?(ErrorType.NetworkError, "Не удается получить ответ от сервера")
-            }
+                multipartData.append(first_name.data(using: .utf8)!, withName: "first_name")
+                multipartData.append(second_name.data(using: .utf8)!, withName: "second_name")
+                multipartData.append(gender.toJsonCode().data(using: .utf8)!, withName: "gender")
+                multipartData.append(birth_date.toRussianFormat().data(using: .utf8)!, withName: "birthdate")
+            }, with: urlRequest, encodingCompletion: { encodingResult in
+                switch encodingResult {
+                    //TODO: Manage to work with multipart data with our mock and real servers!!!
+                case .success(let d, _, _):
+                    if d.response?.statusCode == 200 {
+                        SUCCESS?()
+                    } else {
+                        ERROR?(ErrorType.InvalidData, "Некорректный ответ от сервера")
+                    }
+                case .failure(let _):
+                    ERROR?(ErrorType.NetworkError, "Не удается получить ответ от сервера")
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться для выполнения данного запроса!")
         })
     }
 
