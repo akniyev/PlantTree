@@ -77,6 +77,7 @@ class SettingsViewController : FormViewController {
         }
         let settingsSection04 = Section("Вы не подтвердили свой email") <<< ButtonRow() { row in
             row.title = "Подтвердить email"
+            row.onCellSelection(self.confirmEmailAction)
         }
         settingsSection04.tag = "confirmEmail"
         let settingsSection05 = Section() <<< ButtonRow() { row in
@@ -270,7 +271,11 @@ class SettingsViewController : FormViewController {
     }
 
     func confirmEmailAction(cell: ButtonCellOf<String>, row: ButtonRow) {
-
+        Server.confirmEmail(SUCCESS: {
+            Alerts.ShowErrorAlertWithOK(sender: self, title: "Отправлено", message: "Ссылка для подтверждения почты отправлена вам на почту.", completion: nil)
+        }, ERROR: { et, msg in
+            Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: msg, completion: nil)
+        })
     }
 
     func signOutAction(cell: ButtonCellOf<String>, row: ButtonRow) {

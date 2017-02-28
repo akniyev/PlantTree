@@ -485,33 +485,10 @@ class Server {
     static func changePersonalData(image: UIImage?, first_name: String, second_name: String, gender: Gender, birth_date: Date,
                                    SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
         MakeAuthorizedRequest(SUCCESS: { c in
-//            Alamofire.upload(multipartFormData: { multipartData in
-//                if let img = image {
-//                    multipartData.append(UIImageJPEGRepresentation(img, 0.9)!, withName: "userpic", mimeType: "image/jpeg")
-//                }
-//                multipartData.append(first_name.data(using: .utf8)!, withName: "first_name")
-//                multipartData.append(second_name.data(using: .utf8)!, withName: "second_name")
-//                multipartData.append(gender.toJsonCode().data(using: .utf8)!, withName: "gender")
-//                multipartData.append(birth_date.toRussianFormat().data(using: .utf8)!, withName: "birthdate")
-//            }, usingThreshold: 1, to: "\(ApiTargets.SERVER)/api/account/change_personal_data/", method: .post, headers: [
-//                "Authorization" : "Bearer \(c.access_token)"
-//                ], encodingCompletion: { encodingResult in
-//                    switch encodingResult {
-//                    case .success(let d, _, _):
-//                        if d.response?.statusCode == 200 {
-//                            SUCCESS?()
-//                        } else {
-//                            ERROR?(ErrorType.InvalidData, "Некорректный ответ от сервера")
-//                        }
-//                    case .failure(let error):
-//                        ERROR?(ErrorType.NetworkError, "Не удается получить ответ от сервера")
-//                    }
-//            })
-            
             let headers: HTTPHeaders = [ "Authorization": "Bearer \(c.access_token)" ]
             let urlRequest = try! URLRequest(url: "\(ApiTargets.SERVER)/api/account/change_personal_data/", method: .post, headers: headers)
             
-            
+            print(urlRequest)
             
             Alamofire.upload(multipartFormData: { multipartData in
                 if let img = image {
@@ -530,7 +507,7 @@ class Server {
                     } else {
                         ERROR?(ErrorType.InvalidData, "Некорректный ответ от сервера")
                     }
-                case .failure(let _):
+                case .failure:
                     ERROR?(ErrorType.NetworkError, "Не удается получить ответ от сервера")
                 }
             })
@@ -541,15 +518,84 @@ class Server {
         })
     }
 
-    static func changePassword() {
-
+    static func changePassword(newPassword: String, oldPassword: String, SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
+        MakeAuthorizedRequest(SUCCESS: { c in
+            provider.request(.changePassword(access_token: c.access_token, old_password: oldPassword, new_password: newPassword), completion: { result in
+                switch result {
+                case let .success(moyaResponse):
+                    if moyaResponse.statusCode == 200 {
+                        SUCCESS?()
+                    } else {
+                        let data = moyaResponse.data
+                        let json = JSON(data: data)
+                        if json["error_title"].exists() && json["rus_description"].exists() {
+                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
+                        } else {
+                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
+                        }
+                    }
+                case .failure(_):
+                    ERROR?(ErrorType.NetworkError, "Не получен ответ от сервера!")
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться для выполнения данного запроса!")
+        })
     }
 
-    static func changeEmail() {
-
+    static func changeEmail(newEmail: String, SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
+        MakeAuthorizedRequest(SUCCESS: { c in
+            provider.request(.changeEmail(access_token: c.access_token, new_email: newEmail), completion: { result in
+                switch result {
+                case let .success(moyaResponse):
+                    if moyaResponse.statusCode == 200 {
+                        SUCCESS?()
+                    } else {
+                        let data = moyaResponse.data
+                        let json = JSON(data: data)
+                        if json["error_title"].exists() && json["rus_description"].exists() {
+                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
+                        } else {
+                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
+                        }
+                    }
+                case .failure(_):
+                    ERROR?(ErrorType.NetworkError, "Не получен ответ от сервера!")
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться для выполнения данного запроса!")
+        })
     }
 
-    static func confirmEmail() {
-
+    static func confirmEmail(SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
+        MakeAuthorizedRequest(SUCCESS: { c in
+            provider.request(.confirm_email(access_token: c.access_token), completion: { result in
+                switch result {
+                case let .success(moyaResponse):
+                    if moyaResponse.statusCode == 200 {
+                        SUCCESS?()
+                    } else {
+                        let data = moyaResponse.data
+                        let json = JSON(data: data)
+                        if json["error_title"].exists() && json["rus_description"].exists() {
+                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
+                        } else {
+                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
+                        }
+                    }
+                case .failure(_):
+                    ERROR?(ErrorType.NetworkError, "Не получен ответ от сервера!")
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться для выполнения данного запроса!")
+        })
     }
 }

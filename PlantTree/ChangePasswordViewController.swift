@@ -21,6 +21,7 @@ class ChangePasswordViewController : FormViewController {
                 row.add(rule: RuleMinLength(minLength: 6))
                 row.add(rule: RuleRequired())
             }
+            +++ Section()
             <<< PasswordRow() { row in
                 row.tag = "password1"
                 row.placeholder = "Введите новый пароль"
@@ -42,14 +43,27 @@ class ChangePasswordViewController : FormViewController {
     }
     
     func changePasswordAction(cell: ButtonCellOf<String>, row: ButtonRow) {
-        let errors = form.validate()
-        
+        let _ = form.validate()
+        var haveErrors = false
         for row in form.allRows {
             if !row.isValid {
                 row.baseCell.backgroundColor = UIColor(red: 1, green: 0.8, blue: 0.8, alpha: 1)
+                haveErrors = true
             } else {
                 row.baseCell.backgroundColor = UIColor.white
             }
+        }
+        
+        if !haveErrors {
+            let vs = form.values()
+            let old_password = (vs["password_old"] as? String) ?? ""
+            let new_password = (vs["password1"] as? String) ?? ""
+            
+            Server.changePassword(newPassword: new_password, oldPassword: old_password, SUCCESS: {
+                self.navigationController?.popViewController(animated: true)
+            }, ERROR: { et, msg in
+                Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: msg, completion: nil)
+            })
         }
     }
 

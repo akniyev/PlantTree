@@ -63,7 +63,7 @@ extension ApiTargets : TargetType {
         case .changeEmail:
             return "api/account/email/change/"
         case .changePassword:
-            return "api/account/password/change"
+            return "api/account/password/change/"
         case .changePersonalData:
             return "api/account/change_personal_data/"
         case .confirm_email:

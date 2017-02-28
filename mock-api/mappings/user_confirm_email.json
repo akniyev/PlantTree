@@ -1,8 +1,8 @@
 {
   "request":
     {
-      	"urlPattern": "/api/project/unlike/[0-9]+/",
-      	"method": "PUT"
+      	"urlPattern": "/api/account/email/confirm/",
+      	"method": "POST"
     },
 
   "response":

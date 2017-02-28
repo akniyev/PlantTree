@@ -35,14 +35,26 @@ class ChangeEmailViewController : FormViewController {
     }
     
     func changeEmailAction(cell: ButtonCellOf<String>, row: ButtonRow) {
-        let errors = form.validate()
-        
+        let _ = form.validate()
+        var haveErrors = false
         for row in form.allRows {
             if !row.isValid {
                 row.baseCell.backgroundColor = UIColor(red: 1, green: 0.8, blue: 0.8, alpha: 1)
+                haveErrors = true
             } else {
                 row.baseCell.backgroundColor = UIColor.white
             }
+        }
+        
+        if !haveErrors {
+            let vs = form.values()
+            let email = (vs["email1"] as? String) ?? ""
+            
+            Server.changeEmail(newEmail: email, SUCCESS: {
+                self.navigationController?.popViewController(animated: true)
+            }, ERROR: { et, msg in
+                Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: msg, completion: nil)
+            })
         }
     }
 }
