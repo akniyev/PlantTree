@@ -13,10 +13,11 @@ import Kingfisher
 class ProjectCell: UITableViewCell {
     @IBOutlet weak var imgPicture: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var pbRemaining: UICircularProgressRingView!
     @IBOutlet weak var lblLikeCount: UILabel!
     @IBOutlet weak var btnLike: UIButton!
     @IBOutlet weak var lblSponsorCount: UILabel!
+    @IBOutlet weak var lblCount: UILabel!
+    @IBOutlet weak var lblStatus: UILabel!
 
 
     var p : ProjectInfo? = nil
@@ -50,8 +51,8 @@ class ProjectCell: UITableViewCell {
         if let p = self.p {
             btnLike.isEnabled = true
             lblTitle.text = p.name
-            pbRemaining.value = CGFloat(p.reached)
-            pbRemaining.maxValue = CGFloat(p.goal)
+            lblCount.text = p.projectStatus == ProjectStatus.active ? "\(p.reached)/\(p.goal)" : "\(p.reached)"
+            lblStatus.text = p.projectStatus == ProjectStatus.finished ? "посажено" : "собрано"
             lblLikeCount.text = "\(p.likeCount)"
             if p.isLikedByMe == true {
                 btnLike.setImage(UIImage(named: "LikeActive"), for: .normal)

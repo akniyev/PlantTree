@@ -151,7 +151,7 @@ class Server {
                                         let description = j["description"].stringValue
                                         let goal = j["goal"].intValue
                                         let reached = j["reached"].intValue
-                                        let status = ProjectStatus.fromString(s: json["status"].stringValue)
+                                        let status = ProjectStatus.fromString(s: j["status"].stringValue)
                                         let mainImageUrlSmall = j["mainImageUrlSmall"].stringValue
                                         let likeCount = j["likesCount"].intValue
                                         let isLikedByMe = j["isLikedByMe"].boolValue
