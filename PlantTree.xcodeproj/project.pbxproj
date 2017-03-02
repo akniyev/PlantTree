@@ -31,6 +31,7 @@
 		849DEFD41E65B5A100A82EA9 /* UpDownCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEFD21E65B5A100A82EA9 /* UpDownCellTableViewCell.swift */; };
 		849DEFD51E65B5A100A82EA9 /* UpDownCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849DEFD31E65B5A100A82EA9 /* UpDownCellTableViewCell.xib */; };
 		849DEFD71E65B90700A82EA9 /* UpDownRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEFD61E65B90700A82EA9 /* UpDownRow.swift */; };
+		849DEFDA1E67F77700A82EA9 /* BigButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEFD91E67F77700A82EA9 /* BigButtonContentView.swift */; };
 		84AC710E1E61653C0023DDB7 /* ReloadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AC710D1E61653C0023DDB7 /* ReloadView.xib */; };
 		84AC71101E61654B0023DDB7 /* ReloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC710F1E61654B0023DDB7 /* ReloadView.swift */; };
 		84AC71121E617B2D0023DDB7 /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC71111E617B2D0023DDB7 /* ProjectListViewController.swift */; };
@@ -92,6 +93,7 @@
 		849DEFD21E65B5A100A82EA9 /* UpDownCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpDownCellTableViewCell.swift; sourceTree = "<group>"; };
 		849DEFD31E65B5A100A82EA9 /* UpDownCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpDownCellTableViewCell.xib; sourceTree = "<group>"; };
 		849DEFD61E65B90700A82EA9 /* UpDownRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpDownRow.swift; sourceTree = "<group>"; };
+		849DEFD91E67F77700A82EA9 /* BigButtonContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigButtonContentView.swift; sourceTree = "<group>"; };
 		84AC710D1E61653C0023DDB7 /* ReloadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReloadView.xib; sourceTree = "<group>"; };
 		84AC710F1E61654B0023DDB7 /* ReloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadView.swift; sourceTree = "<group>"; };
 		84AC71111E617B2D0023DDB7 /* ProjectListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,14 @@
 			name = UpDownRow;
 			sourceTree = "<group>";
 		};
+		849DEFD81E67F71800A82EA9 /* ESTabBar Contens Views */ = {
+			isa = PBXGroup;
+			children = (
+				849DEFD91E67F77700A82EA9 /* BigButtonContentView.swift */,
+			);
+			name = "ESTabBar Contens Views";
+			sourceTree = "<group>";
+		};
 		84AC71081E61639A0023DDB7 /* TableViewReload */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +256,7 @@
 		84B3A7491E55D874000CA32E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				849DEFD81E67F71800A82EA9 /* ESTabBar Contens Views */,
 				58603135716173F73461979F /* ErrorType.swift */,
 				586030BA04E460DBB4F34CBC /* PersonalData.swift */,
 				5860375EB16C4E315B72FDF4 /* Gender.swift */,
@@ -550,6 +561,7 @@
 				84D496D11E61A12000AF0B67 /* ProjectDetailsCell.swift in Sources */,
 				848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */,
 				58603238B5DCC31835F33686 /* LoadingIndicatorView.swift in Sources */,
+				849DEFDA1E67F77700A82EA9 /* BigButtonContentView.swift in Sources */,
 				849DEFD41E65B5A100A82EA9 /* UpDownCellTableViewCell.swift in Sources */,
 				58603BAC16FB696E0F8962B4 /* ProjectInfo.swift in Sources */,
 				586032733EB1FDEFA0082231 /* ProjectStatus.swift in Sources */,

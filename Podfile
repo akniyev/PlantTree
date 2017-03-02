@@ -14,9 +14,9 @@ target 'PlantTree' do
   pod 'Alamofire'
   pod 'ImageRow'
   pod 'GRDB.swift'
-  pod 'UICircularProgressRing'
   pod 'ImageSlideshow'
   pod 'ImageSlideshow/Kingfisher'
+  pod 'ESTabBarController-swift'
 end
 
 post_install do |installer|
