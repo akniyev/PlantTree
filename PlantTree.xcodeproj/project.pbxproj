@@ -28,6 +28,7 @@
 		849759C41E5A46440065BDCB /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849759C21E5A46440065BDCB /* ProjectCell.swift */; };
 		849759C51E5A46440065BDCB /* ProjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849759C31E5A46440065BDCB /* ProjectCell.xib */; };
 		849759C81E5A57CA0065BDCB /* ProjectsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849759C71E5A57CA0065BDCB /* ProjectsTableViewController.swift */; };
+		8497B3E31E680CA100AD79A2 /* OrdinalButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497B3E21E680CA100AD79A2 /* OrdinalButtonContentView.swift */; };
 		849DEFD41E65B5A100A82EA9 /* UpDownCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEFD21E65B5A100A82EA9 /* UpDownCellTableViewCell.swift */; };
 		849DEFD51E65B5A100A82EA9 /* UpDownCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849DEFD31E65B5A100A82EA9 /* UpDownCellTableViewCell.xib */; };
 		849DEFD71E65B90700A82EA9 /* UpDownRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DEFD61E65B90700A82EA9 /* UpDownRow.swift */; };
@@ -90,6 +91,7 @@
 		849759C21E5A46440065BDCB /* ProjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		849759C31E5A46440065BDCB /* ProjectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectCell.xib; sourceTree = "<group>"; };
 		849759C71E5A57CA0065BDCB /* ProjectsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTableViewController.swift; sourceTree = "<group>"; };
+		8497B3E21E680CA100AD79A2 /* OrdinalButtonContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdinalButtonContentView.swift; sourceTree = "<group>"; };
 		849DEFD21E65B5A100A82EA9 /* UpDownCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpDownCellTableViewCell.swift; sourceTree = "<group>"; };
 		849DEFD31E65B5A100A82EA9 /* UpDownCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpDownCellTableViewCell.xib; sourceTree = "<group>"; };
 		849DEFD61E65B90700A82EA9 /* UpDownRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpDownRow.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				849DEFD91E67F77700A82EA9 /* BigButtonContentView.swift */,
+				8497B3E21E680CA100AD79A2 /* OrdinalButtonContentView.swift */,
 			);
 			name = "ESTabBar Contens Views";
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				848F96E91E59CA9300CC07CC /* UserInfoRow.swift in Sources */,
 				848F96ED1E59D82300CC07CC /* UserPhotoEditCell.swift in Sources */,
 				849759C81E5A57CA0065BDCB /* ProjectsTableViewController.swift in Sources */,
+				8497B3E31E680CA100AD79A2 /* OrdinalButtonContentView.swift in Sources */,
 				84DDFA751E546BCD0073DFFC /* ViewController.swift in Sources */,
 				84D496CD1E618ECD00AF0B67 /* ProjectDetailsViewController.swift in Sources */,
 				849DEFD71E65B90700A82EA9 /* UpDownRow.swift in Sources */,

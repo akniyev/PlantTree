@@ -13,11 +13,16 @@ class BigButtonContentView : ESTabBarItemMoreContentView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.imageView.backgroundColor = UIColor.init(red: 23/255.0, green: 149/255.0, blue: 158/255.0, alpha: 1.0)
+        self.renderingMode = .alwaysOriginal
+        
+        self.imageView.backgroundColor = UIColor.init(red: 87/255.0, green: 188/255.0, blue: 125/255.0, alpha: 1.0)
         self.imageView.layer.borderWidth = 3.0
-        self.imageView.layer.borderColor = UIColor.init(white: 235 / 255.0, alpha: 1.0).cgColor
+        self.imageView.layer.borderColor = UIColor.init(white: 255 / 255.0, alpha: 1.0).cgColor
         self.imageView.layer.cornerRadius = 35
-        self.insets = UIEdgeInsetsMake(-32, 0, 0, 0)
+        self.insets = UIEdgeInsetsMake(-15, 0, 0, 0)
+        
+        self.imageView.contentMode = .scaleAspectFit
+        
         let transform = CGAffineTransform.identity
         self.imageView.transform = transform
         self.superview?.bringSubview(toFront: self)
