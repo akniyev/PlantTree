@@ -16,8 +16,8 @@ class BigButtonContentView : ESTabBarItemMoreContentView {
         self.renderingMode = .alwaysOriginal
         
         self.imageView.backgroundColor = UIColor.init(red: 87/255.0, green: 188/255.0, blue: 125/255.0, alpha: 1.0)
-        self.imageView.layer.borderWidth = 3.0
-        self.imageView.layer.borderColor = UIColor.init(white: 255 / 255.0, alpha: 1.0).cgColor
+        self.imageView.layer.borderWidth = 0.5
+        self.imageView.layer.borderColor = UIColor.lightGray.cgColor
         self.imageView.layer.cornerRadius = 35
         self.insets = UIEdgeInsetsMake(-15, 0, 0, 0)
         
@@ -43,6 +43,14 @@ class BigButtonContentView : ESTabBarItemMoreContentView {
         let p = CGPoint.init(x: point.x - imageView.frame.origin.x, y: point.y - imageView.frame.origin.y)
         return sqrt(pow(imageView.bounds.size.width / 2.0 - p.x, 2) + pow(imageView.bounds.size.height / 2.0 - p.y, 2)) < imageView.bounds.size.width / 2.0
     }
+    
+//    override func draw(_ rect: CGRect) {
+//        super.draw(rect)
+//        
+//        let path = UIBezierPath(arcCenter: self.center, radius: self.frame.width / 2, startAngle: 0, endAngle: 90, clockwise: true)
+//        UIColor.green.setStroke()
+//        path.stroke()
+//    }
     
 //    public override func selectAnimation(animated: Bool, completion: (() -> ())?) {
 //        let view = UIView.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize(width: 2.0, height: 2.0)))
