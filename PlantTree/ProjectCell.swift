@@ -51,6 +51,17 @@ class ProjectCell: UITableViewCell {
             btnLike.isEnabled = true
             lblTitle.text = p.name
             lblCount.text = p.projectStatus == ProjectStatus.active ? "\(p.reached)/\(p.goal)" : "\(p.reached)"
+            if p.projectStatus == .active {
+                lblCount.textColor = UIColor.darkText
+                lblStatus.textColor = UIColor.darkText
+            } else if p.projectStatus == .collected {
+                lblCount.textColor = UIColor.orange
+                lblStatus.textColor = UIColor.orange
+            } else {
+                lblCount.textColor = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 125.0/255.0, alpha: 1.0)
+                lblStatus.textColor = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 125.0/255.0, alpha: 1.0)
+            }
+            print(p.projectStatus)
             lblStatus.text = p.projectStatus == ProjectStatus.finished ? "посажено" : "собрано"
             lblLikeCount.text = "\(p.likeCount)"
             if p.isLikedByMe == true {

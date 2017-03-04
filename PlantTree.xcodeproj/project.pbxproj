@@ -67,6 +67,8 @@
 		84F58C4E1E6371CC0092EA82 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F58C4D1E6371CC0092EA82 /* NewsViewController.swift */; };
 		84F58C501E6378890092EA82 /* OperationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F58C4F1E6378890092EA82 /* OperationInfo.swift */; };
 		84F58C521E63827F0092EA82 /* PlantTreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F58C511E63827F0092EA82 /* PlantTreeViewController.swift */; };
+		84F58C561E6AB7B60092EA82 /* NewsBandSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F58C541E6AB7B60092EA82 /* NewsBandSeparatorCell.swift */; };
+		84F58C571E6AB7B60092EA82 /* NewsBandSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F58C551E6AB7B60092EA82 /* NewsBandSeparatorCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +134,8 @@
 		84F58C4D1E6371CC0092EA82 /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		84F58C4F1E6378890092EA82 /* OperationInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationInfo.swift; sourceTree = "<group>"; };
 		84F58C511E63827F0092EA82 /* PlantTreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlantTreeViewController.swift; sourceTree = "<group>"; };
+		84F58C541E6AB7B60092EA82 /* NewsBandSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsBandSeparatorCell.swift; sourceTree = "<group>"; };
+		84F58C551E6AB7B60092EA82 /* NewsBandSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsBandSeparatorCell.xib; sourceTree = "<group>"; };
 		EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTree.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree.release.xcconfig"; sourceTree = "<group>"; };
 		F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlantTree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -189,6 +193,7 @@
 		849759C11E5A461E0065BDCB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				84F58C531E6AB78B0092EA82 /* NewsBandSeparatorCell */,
 				84F58C481E62F6C20092EA82 /* PaymentHistoryCell */,
 				84D496D51E622D7300AF0B67 /* ProjectNewsCell */,
 				84D496CE1E61A0F700AF0B67 /* ProjectDetailsCell */,
@@ -385,6 +390,15 @@
 			name = PaymentHistoryCell;
 			sourceTree = "<group>";
 		};
+		84F58C531E6AB78B0092EA82 /* NewsBandSeparatorCell */ = {
+			isa = PBXGroup;
+			children = (
+				84F58C541E6AB7B60092EA82 /* NewsBandSeparatorCell.swift */,
+				84F58C551E6AB7B60092EA82 /* NewsBandSeparatorCell.xib */,
+			);
+			name = NewsBandSeparatorCell;
+			sourceTree = "<group>";
+		};
 		90B15CB9257F614FA2407054 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,6 +479,7 @@
 				84AC710E1E61653C0023DDB7 /* ReloadView.xib in Resources */,
 				84DDFA7D1E546BCD0073DFFC /* Assets.xcassets in Resources */,
 				84DDFA781E546BCD0073DFFC /* Main.storyboard in Resources */,
+				84F58C571E6AB7B60092EA82 /* NewsBandSeparatorCell.xib in Resources */,
 				849DEFD51E65B5A100A82EA9 /* UpDownCellTableViewCell.xib in Resources */,
 				849759C51E5A46440065BDCB /* ProjectCell.xib in Resources */,
 				84D496D21E61A12000AF0B67 /* ProjectDetailsCell.xib in Resources */,
@@ -536,6 +551,7 @@
 				849DEFD71E65B90700A82EA9 /* UpDownRow.swift in Sources */,
 				84DDFA731E546BCD0073DFFC /* AppDelegate.swift in Sources */,
 				84B3A7481E55D350000CA32E /* Server.swift in Sources */,
+				84F58C561E6AB7B60092EA82 /* NewsBandSeparatorCell.swift in Sources */,
 				84BF51251E57137000B50ADB /* ChangePasswordViewController.swift in Sources */,
 				84DDFA7B1E546BCD0073DFFC /* PlantTree.xcdatamodeld in Sources */,
 				84AC71121E617B2D0023DDB7 /* ProjectListViewController.swift in Sources */,

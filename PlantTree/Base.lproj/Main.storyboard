@@ -74,7 +74,7 @@
                         <viewControllerLayoutGuide type="top" id="Nr2-hv-jkG"/>
                         <viewControllerLayoutGuide type="bottom" id="fh2-05-fnq"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="6eP-Ti-xut">
+                    <view key="view" contentMode="scaleToFill" id="6eP-Ti-xut">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -193,7 +193,7 @@
                         <viewControllerLayoutGuide type="top" id="rBN-ao-nfo"/>
                         <viewControllerLayoutGuide type="bottom" id="Q6g-Xd-4DN"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="dxL-ES-p6r">
+                    <view key="view" contentMode="scaleToFill" id="dxL-ES-p6r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -211,7 +211,7 @@
                         <viewControllerLayoutGuide type="top" id="0AS-Um-BpI"/>
                         <viewControllerLayoutGuide type="bottom" id="EJb-5w-lHl"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="KNA-kZ-9VT">
+                    <view key="view" contentMode="scaleToFill" id="KNA-kZ-9VT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -229,7 +229,7 @@
                         <viewControllerLayoutGuide type="top" id="qkr-Oy-6Ox"/>
                         <viewControllerLayoutGuide type="bottom" id="8GX-FU-Rsh"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="BBv-7c-B7N">
+                    <view key="view" contentMode="scaleToFill" id="BBv-7c-B7N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -247,7 +247,7 @@
                         <viewControllerLayoutGuide type="top" id="Jd1-gn-vnQ"/>
                         <viewControllerLayoutGuide type="bottom" id="16d-xU-ALV"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="4tk-VB-dg2">
+                    <view key="view" contentMode="scaleToFill" id="4tk-VB-dg2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -265,7 +265,7 @@
                         <viewControllerLayoutGuide type="top" id="29Y-7l-Pdy"/>
                         <viewControllerLayoutGuide type="bottom" id="Ue4-Ym-z5a"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="6Sb-cz-G1O">
+                    <view key="view" contentMode="scaleToFill" id="6Sb-cz-G1O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -396,9 +396,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Oe-a1-3oc">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Oe-a1-3oc">
                                 <rect key="frame" x="0.0" y="569" width="375" height="50"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.69019607839999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.3411764705882353" green="0.73725490196078436" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="cYr-Ra-ZJz"/>
                                 </constraints>
@@ -417,16 +417,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="gAp-tM-db6" secondAttribute="bottom" constant="49" id="84G-Ot-QhF"/>
                             <constraint firstAttribute="bottom" secondItem="5Oe-a1-3oc" secondAttribute="bottom" constant="-1" id="8cr-QH-chO"/>
                             <constraint firstItem="5Oe-a1-3oc" firstAttribute="leading" secondItem="YKr-LZ-B5u" secondAttribute="leading" id="UYK-O9-RiD"/>
                             <constraint firstItem="gAp-tM-db6" firstAttribute="top" secondItem="dEo-JR-Wkg" secondAttribute="bottom" id="Xo2-2Y-Fbz"/>
                             <constraint firstAttribute="trailing" secondItem="gAp-tM-db6" secondAttribute="trailing" id="aYO-ka-Wmn"/>
                             <constraint firstItem="gAp-tM-db6" firstAttribute="leading" secondItem="YKr-LZ-B5u" secondAttribute="leading" id="e0M-8N-B3e"/>
-                            <constraint firstItem="5Oe-a1-3oc" firstAttribute="top" secondItem="gAp-tM-db6" secondAttribute="bottom" id="fV7-HO-UQE"/>
                             <constraint firstAttribute="trailing" secondItem="5Oe-a1-3oc" secondAttribute="trailing" id="gvw-wu-weu"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomTableViewConstraint" destination="84G-Ot-QhF" id="pn7-QV-o3H"/>
+                        <outlet property="btnPlantTree" destination="5Oe-a1-3oc" id="sng-jZ-1fB"/>
                         <outlet property="tvDetails" destination="gAp-tM-db6" id="6bm-xj-UOV"/>
                         <segue destination="Ueu-VK-tHH" kind="show" identifier="showNews" id="6Ds-74-9dn"/>
                     </connections>

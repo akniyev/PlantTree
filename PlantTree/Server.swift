@@ -143,8 +143,8 @@ class Server {
                                 let data = moyaResponse.data
                                 let json = JSON(data: data)
                                 var projects : [ProjectInfo] = []
-                                for (i, j) in json {
-                                    var p : ProjectInfo = ProjectInfo()
+                                for (_, j) in json {
+                                    let p : ProjectInfo = ProjectInfo()
                                     if (paramsInJson(json: j, params: ["id", "name", "description", "goal", "reached", "status", "mainImageUrlSmall", "likesCount", "isLikedByMe", "treePrice", "sponsorsCount"])) {
                                         let id = j["id"].intValue
                                         let name = j["name"].stringValue

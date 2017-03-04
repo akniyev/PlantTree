@@ -36,11 +36,11 @@ class ProjectNewsCell: UITableViewCell {
     
     static func getCellHeight(cellWidth: CGFloat, title: String) -> CGFloat {
         let l = UILabel()
-        l.font = UIFont(name: "System", size: 17.0)
+        l.font = UIFont(name: "Helvetica Neue", size: 17.0)
         l.numberOfLines = 0
         l.text = title
         let s = l.sizeThatFits(CGSize(width: cellWidth - 2 * 8, height: 1000000))
-        return cellWidth * CGFloat(9.0 / 20.0) + 8.0 + s.height + 3.0 + 21.0 + 2.0
+        return cellWidth * CGFloat(9.0 / 20.0) + 8.0 + s.height + 3.0 + 21.0 + 8.0 + 2.0
     }
     
 }

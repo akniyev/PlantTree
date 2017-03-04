@@ -15,9 +15,9 @@ enum ProjectStatus {
         switch s.lowercased() {
         case "active":
             return .active
-        case "collected":
+        case "reached":
             return .collected
-        case "finished":
+        case "completed":
             return .finished
         default:
             return .none

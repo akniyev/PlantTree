@@ -18,6 +18,7 @@ class ProjectDetailsCell: UITableViewCell {
     @IBOutlet weak var btnLike: UIButton!
     @IBOutlet weak var lblSponsorsCount: UILabel!
     @IBOutlet weak var lblLikeCount: UILabel!
+    @IBOutlet weak var lblCollected: UILabel!
     
     var likeAction : (()->())? = nil
     
@@ -28,11 +29,12 @@ class ProjectDetailsCell: UITableViewCell {
     static func getCellHeight(cellWidth: CGFloat, text: String) -> CGFloat {
         let labelSideIndent : CGFloat = 8
         let l = UILabel()
-        l.font = UIFont(name: "System", size: 15.0)
+        l.font = UIFont(name: "Helvetica Neue", size: 15.0)
         l.numberOfLines = 0
         l.text = text
-        let s = l.sizeThatFits(CGSize(width: cellWidth - 2 * labelSideIndent, height: 1000000))
-        return cellWidth * CGFloat(3.0 / 4.0) + 88.0 + s.height + 8.0 + 2.0
+        let boundSize = CGSize(width: cellWidth - 2 * labelSideIndent, height: 1000000)
+        let s = l.sizeThatFits(boundSize)
+        return cellWidth * CGFloat(3.0 / 4.0) + 86.0 + s.height + 8.0 + 2.0
     }
 
 
@@ -52,6 +54,7 @@ class ProjectDetailsCell: UITableViewCell {
     }
     
     func setProjectInfo(pi: ProjectInfo) {
+//        lblDescription.backgroundColor = UIColor.lightGray
         lblDescription.text = pi.description
         lblTitle.text = pi.name
         lblReached.text = "\(pi.reached)/\(pi.goal)"
@@ -70,10 +73,19 @@ class ProjectDetailsCell: UITableViewCell {
         switch pi.projectStatus {
         case .active:
             lblStatus.text = "Статус: сбор денег"
+            lblStatus.textColor = UIColor.darkText
+            lblReached.textColor = UIColor.darkText
+            lblCollected.textColor = UIColor.darkText
         case .collected:
             lblStatus.text = "Статус: деньги собраны"
+            lblStatus.textColor = UIColor.orange
+            lblReached.textColor = UIColor.orange
+            lblCollected.textColor = UIColor.orange
         case .finished:
             lblStatus.text = "Статус: завершен"
+            lblStatus.textColor = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 125.0/255.0, alpha: 1.0)
+            lblReached.textColor = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 125.0/255.0, alpha: 1.0)
+            lblCollected.textColor = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 125.0/255.0, alpha: 1.0)
         case .none:
             lblStatus.text = ""
         }
