@@ -69,6 +69,7 @@
 		84F58C521E63827F0092EA82 /* PlantTreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F58C511E63827F0092EA82 /* PlantTreeViewController.swift */; };
 		84F58C561E6AB7B60092EA82 /* NewsBandSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F58C541E6AB7B60092EA82 /* NewsBandSeparatorCell.swift */; };
 		84F58C571E6AB7B60092EA82 /* NewsBandSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F58C551E6AB7B60092EA82 /* NewsBandSeparatorCell.xib */; };
+		84F58C591E6AD68F0092EA82 /* PlantTreeViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F58C581E6AD68F0092EA82 /* PlantTreeViewController2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +137,7 @@
 		84F58C511E63827F0092EA82 /* PlantTreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlantTreeViewController.swift; sourceTree = "<group>"; };
 		84F58C541E6AB7B60092EA82 /* NewsBandSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsBandSeparatorCell.swift; sourceTree = "<group>"; };
 		84F58C551E6AB7B60092EA82 /* NewsBandSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsBandSeparatorCell.xib; sourceTree = "<group>"; };
+		84F58C581E6AD68F0092EA82 /* PlantTreeViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlantTreeViewController2.swift; sourceTree = "<group>"; };
 		EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTree.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree.release.xcconfig"; sourceTree = "<group>"; };
 		F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlantTree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -292,6 +294,7 @@
 				84D496CC1E618ECD00AF0B67 /* ProjectDetailsViewController.swift */,
 				84F58C4D1E6371CC0092EA82 /* NewsViewController.swift */,
 				84F58C511E63827F0092EA82 /* PlantTreeViewController.swift */,
+				84F58C581E6AD68F0092EA82 /* PlantTreeViewController2.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				84BF511D1E5657A500B50ADB /* ForgotPasswordViewController.swift in Sources */,
 				84BF511B1E56508400B50ADB /* Alerts.swift in Sources */,
 				849759C01E59DC950065BDCB /* UserPhotoEditRow.swift in Sources */,
+				84F58C591E6AD68F0092EA82 /* PlantTreeViewController2.swift in Sources */,
 				5860351528CE5E42FF05A832 /* Gender.swift in Sources */,
 				84AC71151E6181BD0023DDB7 /* TableViewUnauthorized.swift in Sources */,
 				5860310FAC58B23CBBD0FC0A /* ApiTargets.swift in Sources */,

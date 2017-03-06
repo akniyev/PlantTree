@@ -175,7 +175,7 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        let newsId = indexPath.row - 1
+        let newsId = indexPath.row - 2
         if newsId > -1 {
             self.newsIdForSegue = newsId
             self.performSegue(withIdentifier: "showNews", sender: self)
@@ -189,6 +189,8 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
             if let p = project {
                 vc.url = p.news[newsIdForSegue].url
             }
+        } else if let vc = (segue.destination as? PlantTreeViewController2) {
+            vc.project = project
         }
     }
 }
