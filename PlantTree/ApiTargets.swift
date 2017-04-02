@@ -8,7 +8,7 @@ import Moya
 import SwiftyJSON
 
 enum ApiTargets {
-    static let SERVER : String = "http://localhost:8080"
+    static let SERVER : String = "http://rasuldev-001-site28.btempurl.com/swagger"
 
     case registerWithEmail(email: String, password: String, personalData: PersonalData)
     case getTokenWithEmail(email: String, password: String)
@@ -28,14 +28,9 @@ enum ApiTargets {
 
 extension ApiTargets : TargetType {
     var baseURL: URL {
-        switch self {
-        case .getProjectList, .like, .unlike, .getProjectDetailInfo, .getOperationHistory, .changePersonalData, .changePassword, .changeEmail, .confirm_email, .reset_password:
-            return URL(string: ApiTargets.SERVER)!
-        default:
-            return URL(string: "https://demo7991390.mockable.io")!
-        }
+        return URL(string: ApiTargets.SERVER)!
     }
-
+    
     var path: String {
         switch self {
         case .registerWithEmail:
