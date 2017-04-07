@@ -8,7 +8,7 @@ import Moya
 import SwiftyJSON
 
 enum ApiTargets {
-    static let SERVER : String = "http://rasuldev-001-site28.btempurl.com/swagger"
+    static let SERVER : String = "http://rasuldev-001-site28.btempurl.com"
 
     case registerWithEmail(email: String, password: String, personalData: PersonalData)
     case getTokenWithEmail(email: String, password: String)
@@ -43,16 +43,16 @@ extension ApiTargets : TargetType {
             return "api/account/token/"
         case .getProjectList(let type, let page, let pagesize, _):
             switch type {
-            case .active: return "api/projects/active/list/page/\(page)/pagesize/\(pagesize)/"
-            case .favorites: return "api/projects/favorites/list/page/\(page)/pagesize/\(pagesize)/"
-            case .completed: return "api/projects/completed/list/page/\(page)/pagesize/\(pagesize)/"
+            case .active: return "api/projects/status/active/page/\(page)/pagesize/\(pagesize)"
+            case .favorites: return "api/projects/user/page/\(page)/pagesize/\(pagesize)"
+            case .completed: return "api/projects/status/finished/page/\(page)/pagesize/\(pagesize)"
             }
         case .like(let id, _):
             return "api/project/like/\(id)/"
         case .unlike(let id, _):
             return "api/project/unlike/\(id)/"
         case .getProjectDetailInfo(let id, _):
-            return "api/project/details/\(id)/"
+            return "api/projects/\(id)"
         case .getOperationHistory:
             return "api/account/operations/"
         case .changeEmail:

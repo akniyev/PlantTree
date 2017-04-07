@@ -131,8 +131,14 @@ class Server {
             SUCCESS?(nil)
         })
     }
-
     static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
+        ProjectsAPI.apiProjectsGet(status: "reached", page: Int32(1), pagesize: Int32(6), completion: { projects, error in
+            print(projects)
+        })
+        
+    }
+    
+    static func GetProjectList_old(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
         MakeRequestWithOptionalAuthorization(SUCCESS: { c in
             let authorization = c == nil ? "GUEST" : "Bearer \(c!.access_token)"
             provider.request(.getProjectList(type: type, page: page, pagesize: pagesize, authorization: authorization),
@@ -145,7 +151,7 @@ class Server {
                                 var projects : [ProjectInfo] = []
                                 for (_, j) in json {
                                     let p : ProjectInfo = ProjectInfo()
-                                    if (paramsInJson(json: j, params: ["id", "name", "description", "goal", "reached", "status", "mainImageUrlSmall", "likesCount", "isLikedByMe", "treePrice", "sponsorsCount"])) {
+                                    if (paramsInJson(json: j, params: ["id", "name", "description", "goal", "reached", "status", "mainImageUrlSmall", "likesCount", "isLiked", "treePrice", "donatorsCount"])) {
                                         let id = j["id"].intValue
                                         let name = j["name"].stringValue
                                         let description = j["description"].stringValue
@@ -154,9 +160,9 @@ class Server {
                                         let status = ProjectStatus.fromString(s: j["status"].stringValue)
                                         let mainImageUrlSmall = j["mainImageUrlSmall"].stringValue
                                         let likeCount = j["likesCount"].intValue
-                                        let isLikedByMe = j["isLikedByMe"].boolValue
+                                        let isLikedByMe = j["isLiked"].boolValue
                                         let treePrice = j["treePrice"].doubleValue
-                                        let sponsorCount = j["sponsorsCount"].intValue
+                                        let sponsorCount = j["donatorsCount"].intValue
                                         p.id = id
                                         p.name = name
                                         p.description = description
@@ -203,7 +209,7 @@ class Server {
                     if moyaResponse.statusCode == 200 {
                         let data = moyaResponse.data
                         let json = JSON(data: data)
-                        if paramsInJson(json: json, params: ["id", "name", "description", "goal", "reached", "status", "isLikedByMe", "treePrice", "sponsorCount", "creationDate", "allImagesBig"]) {
+                        if paramsInJson(json: json, params: ["id", "name", "description", "goal", "reached", "status", "isLikedByMe", "treePrice", "donatorsCount", "creationDate", "otherImagesUrl", "mainImageUrl"]) {
                             let p = ProjectInfo()
                             let id = json["id"].intValue
                             let name = json["name"].stringValue
@@ -211,11 +217,15 @@ class Server {
                             let goal = json["goal"].intValue
                             let reached = json["reached"].intValue
                             let status = ProjectStatus.fromString(s: json["status"].stringValue)
-                            let allImagesBig : [String] = (json["allImagesBig"].arrayObject as? [String]) ?? []
+                            let mainImageBig : String = json["mainImageUrl"].stringValue 
+                            var images: [String] = [mainImageBig]
+                            images.append(contentsOf: (json["otherImagesUrl"].arrayObject as? [String]) ?? [])
+                            let allImagesBig : [String] = images //[mainImageBig] //(contentsOf: (json["otherImagesUrl"].arrayObject as? [String]) ?? [])
+                            
                             let likeCount = json["likesCount"].intValue
                             let isLikedByMe = json["isLikedByMe"].boolValue
                             let treePrice = json["treePrice"].doubleValue
-                            let sponsorCount = json["sponsorsCount"].intValue
+                            let sponsorCount = json["donatorsCount"].intValue
                             let news = json["news"]
                             p.id = id
                             p.name = name
