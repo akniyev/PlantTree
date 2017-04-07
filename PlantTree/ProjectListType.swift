@@ -18,4 +18,12 @@ enum ProjectListType {
         default: return .active
         }
     }
+    
+    func toCode() -> String {
+        switch self {
+        case .active: return "active"
+        case .completed: return "completed"
+        case .favorites: return "favorites"
+        }
+    }
 }

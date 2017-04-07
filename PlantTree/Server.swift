@@ -131,10 +131,28 @@ class Server {
             SUCCESS?(nil)
         })
     }
-    static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
-        ProjectsAPI.apiProjectsGet(status: "reached", page: Int32(1), pagesize: Int32(6), completion: { projects, error in
-            print(projects)
+    
+    static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([Project])->())?, ERROR: ((ErrorType, String)->())?) {
+        
+        MakeAuthorizedRequest(SUCCESS: { c in
+            
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            switch type {
+            case .active, .completed:
+                ProjectsAPI.apiProjectsGet(status: type.toCode(), page: Int32(page), pagesize: Int32(pagesize), completion: { projects, error in
+                    if let prs = projects {
+                        SUCCESS?(prs)
+                    } else {
+                        ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
+                    }
+                })
+            case .favorites:
+                ERROR?(ErrorType.Unauthorized, "Пользователь должен быть зарегистрирован")
+            }
         })
+        
         
     }
     
