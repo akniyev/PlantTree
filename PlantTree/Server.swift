@@ -132,7 +132,7 @@ class Server {
         })
     }
     
-    static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([Project])->())?, ERROR: ((ErrorType, String)->())?) {
+    static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
         
         MakeAuthorizedRequest(SUCCESS: { c in
             
@@ -143,7 +143,7 @@ class Server {
             case .active, .completed:
                 ProjectsAPI.apiProjectsGet(status: type.toCode(), page: Int32(page), pagesize: Int32(pagesize), completion: { projects, error in
                     if let prs = projects {
-                        SUCCESS?(prs)
+                        SUCCESS?(prs.map {$0.toProjectInfo()})
                     } else {
                         ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
                     }

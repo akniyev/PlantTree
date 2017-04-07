@@ -153,19 +153,19 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         
         currentlyLoading = true
         let pageToLoadNumber = loadedPagesCount + 1
-        Server.GetProjectList(type: projectListType, page: pageToLoadNumber, pagesize: pageSize, SUCCESS: { ps in
-            if ps.count > self.pageSize { return }
-            self.projects.append(contentsOf: ps)
-            self.loadedPagesCount = pageToLoadNumber
-            self.endReached = ps.count < self.pageSize
-            self.currentlyLoading = false
-            self.tableView.reloadData()
-            self.tableView.refreshControl?.endRefreshing()
+        Server.GetProjectList(type: projectListType, page: pageToLoadNumber, pagesize: pageSize, SUCCESS: { [weak self] ps in
+            if ps.count > (self?.pageSize ?? 0)! { return }
+            self?.projects.append(contentsOf: ps)
+            self?.loadedPagesCount = pageToLoadNumber
+            self?.endReached = ps.count < self?.pageSize ?? 0
+            self?.currentlyLoading = false
+            self?.tableView.reloadData()
+            self?.tableView.refreshControl?.endRefreshing()
             LoadingIndicatorView.hide()
-        }, ERROR: { et, msg in
-            self.currentlyLoading = false
-            self.tableView.refreshControl?.endRefreshing()
-            self.showReloadView()
+        }, ERROR: { [weak self] et, msg in
+            self?.currentlyLoading = false
+            self?.tableView.refreshControl?.endRefreshing()
+            self?.showReloadView()
             LoadingIndicatorView.hide()
         })
     }

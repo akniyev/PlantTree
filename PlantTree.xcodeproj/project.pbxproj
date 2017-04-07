@@ -32,6 +32,7 @@
 		847FCADD1E96CA5500BF6698 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAD01E96CA5500BF6698 /* RegisterModel.swift */; };
 		847FCADE1E96CA5500BF6698 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAD11E96CA5500BF6698 /* UserInfoModel.swift */; };
 		847FCADF1E96CA5500BF6698 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAD21E96CA5500BF6698 /* Models.swift */; };
+		847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAE11E977D3500BF6698 /* Project_ext.swift */; };
 		848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F96E41E59C75300CC07CC /* UserInfoCell.swift */; };
 		848F96E71E59C75300CC07CC /* UserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848F96E51E59C75300CC07CC /* UserInfoCell.xib */; };
 		848F96E91E59CA9300CC07CC /* UserInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F96E81E59CA9300CC07CC /* UserInfoRow.swift */; };
@@ -111,6 +112,7 @@
 		847FCAD01E96CA5500BF6698 /* RegisterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
 		847FCAD11E96CA5500BF6698 /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		847FCAD21E96CA5500BF6698 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		847FCAE11E977D3500BF6698 /* Project_ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project_ext.swift; sourceTree = "<group>"; };
 		848F96E41E59C75300CC07CC /* UserInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
 		848F96E51E59C75300CC07CC /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
 		848F96E81E59CA9300CC07CC /* UserInfoRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoRow.swift; sourceTree = "<group>"; };
@@ -222,6 +224,14 @@
 				847FCAD11E96CA5500BF6698 /* UserInfoModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		847FCAE01E977D2000BF6698 /* SwaggersExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				847FCAE11E977D3500BF6698 /* Project_ext.swift */,
+			);
+			name = SwaggersExtensions;
 			sourceTree = "<group>";
 		};
 		848F96E21E59C72A00CC07CC /* EurekaRows */ = {
@@ -430,6 +440,7 @@
 		84DDFA711E546BCD0073DFFC /* PlantTree */ = {
 			isa = PBXGroup;
 			children = (
+				847FCAE01E977D2000BF6698 /* SwaggersExtensions */,
 				847FCAC31E96CA5500BF6698 /* Swaggers */,
 				849759C11E5A461E0065BDCB /* Views */,
 				848F96E21E59C72A00CC07CC /* EurekaRows */,
@@ -634,6 +645,7 @@
 				84F58C501E6378890092EA82 /* OperationInfo.swift in Sources */,
 				5860321E46D4171318DC8DED /* ErrorType.swift in Sources */,
 				84BF512E1E571E0500B50ADB /* MyTabBarController.swift in Sources */,
+				847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */,
 				84B3A74E1E563F8F000CA32E /* RegistrationViewController.swift in Sources */,
 				58603FB0E67EDEC6EF6CB540 /* PersonalData.swift in Sources */,
 				847FCAD31E96CA5500BF6698 /* AlamofireImplementations.swift in Sources */,
