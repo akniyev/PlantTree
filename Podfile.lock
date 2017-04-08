@@ -1,28 +1,28 @@
 PODS:
-  - Alamofire (4.3.0)
-  - ESTabBarController-swift (2.2)
+  - Alamofire (4.4.0)
+  - ESTabBarController-swift (2.3)
   - Eureka (2.0.1)
-  - GRDB.swift (0.101.1)
+  - GRDB.swift (0.105.0)
   - ImageRow (1.0.0):
     - Eureka (~> 2.0.0-beta.1)
-  - ImageSlideshow (1.1.0):
-    - ImageSlideshow/Core (= 1.1.0)
-  - ImageSlideshow/Core (1.1.0)
-  - ImageSlideshow/Kingfisher (1.1.0):
+  - ImageSlideshow (1.2.0):
+    - ImageSlideshow/Core (= 1.2.0)
+  - ImageSlideshow/Core (1.2.0)
+  - ImageSlideshow/Kingfisher (1.2.0):
     - ImageSlideshow/Core
     - Kingfisher (~> 3.0)
-  - Kingfisher (3.5.0)
-  - Moya (8.0.2):
-    - Moya/Core (= 8.0.2)
-  - Moya/Core (8.0.2):
+  - Kingfisher (3.6.1)
+  - Moya (8.0.3):
+    - Moya/Core (= 8.0.3)
+  - Moya/Core (8.0.3):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
-  - Realm (2.4.3):
-    - Realm/Headers (= 2.4.3)
-  - Realm/Headers (2.4.3)
-  - RealmSwift (2.4.3):
-    - Realm (= 2.4.3)
-  - Result (3.1.0)
+  - Realm (2.5.1):
+    - Realm/Headers (= 2.5.1)
+  - Realm/Headers (2.5.1)
+  - RealmSwift (2.5.1):
+    - Realm (= 2.5.1)
+  - Result (3.2.1)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -39,17 +39,17 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
-  ESTabBarController-swift: c9abf50cbde98ad10732867ec9fbb5169661d844
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  ESTabBarController-swift: 23011ffbee6cd66a37309f00c7c21c9dd63c17de
   Eureka: ae837bb1dfae0c07bc1bda7aeef87876eeb537c2
-  GRDB.swift: bfa07c313355fe41424f03be0297953a4556e6ea
+  GRDB.swift: a21d29acf4b3bde1aaabcaf76dc0a4b64cc96a12
   ImageRow: 1e37db26f61a0c4ad3bc9a3a803c32d968782857
-  ImageSlideshow: 99addbef1b718272598a07036270e819d03abc17
-  Kingfisher: 7c62087039d93d26c54c8dd9b0b588d2ce55cef6
-  Moya: 47f61da5b634aa71f676431b64ee0f81e976296d
-  Realm: e08d60b0048ccccd3949c8c28a92c4db5712d7e9
-  RealmSwift: 30d49739ccb3385d201242736ca4dda56aec9dfc
-  Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
+  ImageSlideshow: c1395dcf33f7dba407fd21df0e8c315e8941e209
+  Kingfisher: 2f31cb75f3e98d3d4c406cbdcd9b263e956cfa67
+  Moya: d3721622e3cc0cc2f038d69a258686f0b66e7252
+  Realm: 32f86104d37c8521f864d4274050b38ba6190733
+  RealmSwift: f719e7511c902b8908593e8f143f59e47931bdb6
+  Result: 2453a22e5c5b11c0c3a478736e82cd02f763b781
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
 PODFILE CHECKSUM: 367024799fc60ed32500020d1842b01c0fb48282

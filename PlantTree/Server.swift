@@ -15,6 +15,24 @@ class Server {
     static let provider = MoyaProvider<ApiTargets>()
 
     static func RegisterWithEmail(
+        email: String,
+        password: String,
+        SUCCESS: (() -> ())?,
+        ERROR: ((ErrorType, String)->())?) {
+        
+        let rm = RegisterModel()
+        rm.email = email
+        rm.password = password
+        AccountAPI.apiAccountRegisterPost(registerInfo: rm, completion: { err in
+            if let error = err {
+                ERROR?(ErrorType.Unknown, error.localizedDescription)
+            } else {
+                SUCCESS?()
+            }
+        })
+    }
+    
+    static func RegisterWithEmail_old(
             email: String,
             password: String,
             personalData: PersonalData,

@@ -14,27 +14,27 @@ class RegistrationViewController : FormViewController {
         super.viewDidLoad()
         self.navigationItem.title = "Регистрация"
         self.form
-            +++ Section("Данные для регистрации")
-            <<< TextRow() { row in
-                row.tag = "firstname"
-                row.placeholder = "Введите ваше имя"
-                row.add(rule: RuleRequired())
-            }
-            <<< TextRow() { row in
-                row.tag = "secondname"
-                row.placeholder = "Введите вашу фамилию"
-                row.add(rule: RuleRequired())
-            }
-            <<< SegmentedRow<String>("gender") { row in
-                row.title = "Ваш пол:"
-                row.options = ["Мужской", "Женский"]
-                row.add(rule: RuleRequired())
-            }
-            <<< DateRow() { row in
-                row.title = "Дата рождения"
-                row.tag = "birthdate"
-                row.add(rule: RuleRequired())
-            }
+//            +++ Section("Данные для регистрации")
+//            <<< TextRow() { row in
+//                row.tag = "firstname"
+//                row.placeholder = "Введите ваше имя"
+//                row.add(rule: RuleRequired())
+//            }
+//            <<< TextRow() { row in
+//                row.tag = "secondname"
+//                row.placeholder = "Введите вашу фамилию"
+//                row.add(rule: RuleRequired())
+//            }
+//            <<< SegmentedRow<String>("gender") { row in
+//                row.title = "Ваш пол:"
+//                row.options = ["Мужской", "Женский"]
+//                row.add(rule: RuleRequired())
+//            }
+//            <<< DateRow() { row in
+//                row.title = "Дата рождения"
+//                row.tag = "birthdate"
+//                row.add(rule: RuleRequired())
+//            }
             +++ Section("Введите адрес почты")
             <<< EmailRow() { row in
                 row.tag = "email1"
@@ -87,18 +87,20 @@ class RegistrationViewController : FormViewController {
             let values = form.values()
             let email = values["email1"]  as! String
             let password = values["password1"]  as! String
-            let firstname = values["firstname"]  as! String
-            let secondname = values["secondname"]  as! String
-            let gender = (values["gender"]  as! String == "Мужской") ? Gender.Male : Gender.Female
-            let birthdate = values["birthdate"] as! Date
-            var pd = PersonalData()
-            pd.firstname = firstname
-            pd.secondname = secondname
-            pd.gender = gender
-            pd.birthdate = birthdate
+//            let firstname = values["firstname"]  as! String
+//            let secondname = values["secondname"]  as! String
+//            let gender = (values["gender"]  as! String == "Мужской") ? Gender.Male : Gender.Female
+//            let birthdate = values["birthdate"] as! Date
+//            var pd = PersonalData()
+//            pd.firstname = firstname
+//            pd.secondname = secondname
+//            pd.gender = gender
+//            pd.birthdate = birthdate
             
-            Server.RegisterWithEmail(email: email, password: password, personalData: pd,
+            LoadingIndicatorView.show("Регистрация...")
+            Server.RegisterWithEmail(email: email, password: password, //personalData: pd,
                                      SUCCESS: {
+                                        LoadingIndicatorView.hide()
                                         Alerts.ShowAlert(sender: self, title: "Готово!", message: "Для завершения регистрации проверьте почту, мы выслали вам письмо со ссылкой для подтверждения вашего адреса", preferredStyle: .alert, actions: [UIAlertAction.init(title: "OK", style: .default, handler:
                                             { alert in
                                                 self.navigationController?.popViewController(animated: true)
@@ -106,6 +108,7 @@ class RegistrationViewController : FormViewController {
                                             )], completion: nil)
                                         },
                                      ERROR: { et, msg in
+                                        LoadingIndicatorView.hide()
                                         Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка регистрации", message: msg, completion: nil)
                                         })
         }
