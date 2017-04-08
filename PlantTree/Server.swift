@@ -12,28 +12,76 @@ import SwiftyJSON
 import Alamofire
 
 class Server {
-    static let provider = MoyaProvider<ApiTargets>()
+    static let provider = MoyaProvider<ApiTargets>(endpointClosure: { (target: ApiTargets) -> Endpoint<ApiTargets> in
+        let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
+        switch target {
+        case .getTokenWithEmail:
+            return defaultEndpoint.adding(newHTTPHeaderFields: ["Content-Type": "application/x-www-form-urlencoded"])
+        default:
+            return defaultEndpoint
+        }
+    })
 
-    // TODO: Make better error handling and error message display
-    static func RegisterWithEmail(
+    static func SignInWithEmail(
         email: String,
         password: String,
-        SUCCESS: (() -> ())?,
+        SUCCESS: ((Credentials) -> ())?,
         ERROR: ((ErrorType, String)->())?) {
         
-        let rm = RegisterModel()
-        rm.email = email
-        rm.password = password
-        AccountAPI.apiAccountRegisterPost(registerInfo: rm, completion: { err in
-            if let error = err {
-                ERROR?(ErrorType.Unknown, error.localizedDescription)
-            } else {
-                SUCCESS?()
+        let parameters : Parameters = [
+            "username" : email,
+            "grant_type" : "password",
+            "scope" : "openid offline_access",
+            "password" : password
+        ]
+        let headers : HTTPHeaders = [
+            "Content-Type" : "application/x-www-form-urlencoded"
+        ]
+        let data = Alamofire.request(
+            "http://rasuldev-001-site28.btempurl.com/api/connect/token",
+            method: .post,
+            parameters: parameters,
+            encoding: URLEncoding.default,
+            headers: headers).validate(statusCode: 200..<201)
+        data.responseJSON(completionHandler: {
+            response in
+            
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                if json["access_token"].exists() && json["refresh_token"].exists() {
+                    let access_token = json["access_token"].stringValue
+                    let refresh_token = json["refresh_token"].stringValue
+                    let expire_in = json["expire_in"].intValue
+                    
+                    let c = Credentials()
+                    c.access_token = access_token
+                    c.refresh_token = refresh_token
+                    c.accessTokenExpireTime = Double(expire_in)
+                    c.access_token_created = Date()
+                    c.refresh_token_created = Date()
+                    c.email = email
+                    c.loginType = LoginType.Email
+                    
+                    if Db.writeCredentials(c: c) {
+                        SUCCESS?(c)
+                    } else {
+                        ERROR?(ErrorType.DatabaseError, "Ошибка записи в базу данных")
+                    }
+                } else {
+                    ERROR?(ErrorType.InvalidData, "Получены неверные данные!")
+                }
+            case .failure(_):
+                if response.response?.statusCode == 400 {
+                    ERROR?(ErrorType.InvalidCredentials, "Проверьте правильность ввода данных!")
+                } else {
+                    ERROR?(ErrorType.NetworkError, "Сервер недоступен!")
+                }
             }
         })
     }
-
-    static func SignInWithEmail(
+    
+    static func SignInWithEmail_old(
             email: String,
             password: String,
             SUCCESS: ((Credentials) -> ())?,
@@ -124,51 +172,6 @@ class Server {
         })
     }
     
-    // TODO: Make authorized request for favorites (user projects)
-    static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
-        
-        MakeAuthorizedRequest(SUCCESS: { c in
-            ProjectsAPI.apiProjectsGet(status: type.toCode(), page: Int32(page), pagesize: Int32(pagesize), completion: { projects, error in
-                if let prs = projects {
-                    SUCCESS?(prs.map {$0.toProjectInfo()})
-                } else {
-                    ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
-                }
-            })
-        }, ERROR: { et, msg in
-            ERROR?(et, msg)
-        }, UNAUTHORIZED: {
-            switch type {
-            case .active, .completed:
-                ProjectsAPI.apiProjectsGet(status: type.toCode(), page: Int32(page), pagesize: Int32(pagesize), completion: { projects, error in
-                    if let prs = projects {
-                        SUCCESS?(prs.map {$0.toProjectInfo()})
-                    } else {
-                        print(error?.localizedDescription)
-                        ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
-                    }
-                })
-            case .favorites:
-                ERROR?(ErrorType.Unauthorized, "Пользователь должен быть зарегистрирован")
-            }
-        })
-    }
-    
-
-    static func GetProjectDetailInfo(projectId: Int, SUCCESS: ((ProjectInfo)->())?, ERROR: ((ErrorType, String) -> ())?) {
-        MakeRequestWithOptionalAuthorization(SUCCESS: { c in
-            ProjectsAPI.apiProjectsByIdGet(id: Int32(projectId), completion: { p, e in
-                if let error = e {
-                    ERROR?(ErrorType.Unknown, error.localizedDescription)
-                } else {
-                    SUCCESS?(p!.toProjectInfo())
-                }
-            })
-        }, ERROR: { et, msg in
-            ERROR?(et, msg)
-        })
-    }
-    
     static func GetOperationHistory(SUCCESS: (([OperationInfo]) -> ())?, ERROR: ((ErrorType, String) -> ())?) {
         MakeAuthorizedRequest(SUCCESS: { c in
             provider.request(ApiTargets.getOperationHistory(access_token: c.access_token),
@@ -228,50 +231,59 @@ class Server {
             return
         }
         let c = cq!
-
-        provider.request(.refreshAccessToken(refresh_token: c.refresh_token), completion: { result in
-            switch result {
-            case let .success(moyaResponse):
-                if moyaResponse.statusCode == 200 {
-                    let data = moyaResponse.data
-                    let json = JSON(data: data)
-                    print(json)
-                    if paramsInJson(json: json, params: ["access_token", "refresh_token", "expire_in"]) {
-                        let access_token = json["access_token"].stringValue
-                        let refresh_token = json["refresh_token"].stringValue
-                        let expire_in = json["expire_in"].intValue
-
-                        let c = Db.readCredentials() ?? Credentials()
-                        c.access_token = access_token
-                        c.refresh_token = refresh_token
-                        c.accessTokenExpireTime = Double(expire_in)
-                        c.access_token_created = Date()
-                        c.refresh_token_created = Date()
-
-                        if Db.writeCredentials(c: c) {
-                            SUCCESS?(Credentials())
-                        } else {
-                            ERROR?(ErrorType.DatabaseError, "Ошибка записи в базу данных")
-                        }
+        
+        let parameters : Parameters = [
+            "refresh_token" : c.refresh_token,
+            "scope" : "openid offline_access",
+            "grant_type" : "refresh_token"
+        ]
+        let headers : HTTPHeaders = [
+            "Content-Type" : "application/x-www-form-urlencoded"
+        ]
+        //print(c.refresh_token)
+        let data = Alamofire.request(
+            "http://rasuldev-001-site28.btempurl.com/api/connect/token",
+            method: .post,
+            parameters: parameters,
+            encoding: URLEncoding.default,
+            headers: headers)//.validate(statusCode: 200..<201)
+        data.responseJSON(completionHandler: {
+            response in
+            
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                if json["access_token"].exists() && json["refresh_token"].exists() {
+                    let access_token = json["access_token"].stringValue
+                    let refresh_token = json["refresh_token"].stringValue
+                    let expire_in = json["expire_in"].intValue
+                    
+                    let c = Db.readCredentials() ?? Credentials()
+                    c.access_token = access_token
+                    c.refresh_token = refresh_token
+                    c.accessTokenExpireTime = Double(expire_in)
+                    c.access_token_created = Date()
+                    c.refresh_token_created = Date()
+                    
+                    if Db.writeCredentials(c: c) {
+                        SUCCESS?(Credentials())
                     } else {
-                        ERROR?(ErrorType.InvalidData, "Неправильный ответ от сервера")
+                        ERROR?(ErrorType.DatabaseError, "Ошибка записи в базу данных")
                     }
                 } else {
-                    let data = moyaResponse.data
-                    let json = JSON(data: data)
-                    if json["error_title"].exists() && json["rus_description"].exists() {
-                        ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
-                    } else {
-                        ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
-                    }
+                    ERROR?(ErrorType.InvalidData, "Получены неверные данные!")
                 }
             case .failure(_):
-                ERROR?(ErrorType.NetworkError, "Не могу получить ответ от сервера")
+                if response.response?.statusCode == 400 {
+                    ERROR?(ErrorType.InvalidCredentials, "Проверьте правильность ввода данных!")
+                } else {
+                    ERROR?(ErrorType.NetworkError, "Сервер недоступен!")
+                }
             }
         })
     }
 
-    static func GetAccountInfo(SUCCESS: ((PersonalData) -> ())?, ERROR: ((ErrorType, String) -> ())?) {
+    static func GetAccountInfo_old(SUCCESS: ((PersonalData) -> ())?, ERROR: ((ErrorType, String) -> ())?) {
         MakeAuthorizedRequest(SUCCESS: { c in
             provider.request(.getAccountInfo(access_token: c.access_token), completion: { result in
                 switch result {
@@ -333,50 +345,26 @@ class Server {
         })
     }
 
-    static func SignOut() {
-        Db.writeCredentials(c: nil)
-    }
-
-    static func Like(projectId: Int, SUCCESS: (()->())?, ERROR: (()->())?) {
+    static func GetAccountInfo(SUCCESS: ((PersonalData) -> ())?, ERROR: ((ErrorType, String) -> ())?) {
         MakeAuthorizedRequest(SUCCESS: { cred in
-            provider.request(.like(id: projectId, a_token: cred.access_token), completion: { result in
-                switch result {
-                case let .success(moyaResponse):
-                    if moyaResponse.statusCode == 200 {
-                        SUCCESS?()
-                    } else {
-                        ERROR?()
-                    }
-                case .failure(_):
-                    ERROR?()
+            let rb = AccountAPI.apiAccountInfoGetWithRequestBuilder()
+            rb.addHeader(name: "Authorization", value: "Bearer \(cred.access_token)")
+            rb.execute({ r, e in
+                if let userInfo = r?.body {
+                    SUCCESS?(userInfo.toPersonalData())
+                } else {
+                    ERROR?(ErrorType.InvalidData, "Некорректный ответ сервера!")
                 }
             })
         }, ERROR: { et, msg in
-            ERROR?()
+            ERROR?(et, msg)
         }, UNAUTHORIZED: {
-            ERROR?()
+            ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться!")
         })
     }
     
-    static func Unlike(projectId: Int, SUCCESS: (()->())?, ERROR: (()->())?) {
-        MakeAuthorizedRequest(SUCCESS: { cred in
-            provider.request(.unlike(id: projectId, a_token: cred.access_token), completion: { result in
-                switch result {
-                case let .success(moyaResponse):
-                    if moyaResponse.statusCode == 200 {
-                        SUCCESS?()
-                    } else {
-                        ERROR?()
-                    }
-                case .failure(_):
-                    ERROR?()
-                }
-            })
-        }, ERROR: { et, msg in
-            ERROR?()
-        }, UNAUTHORIZED: {
-            ERROR?()
-        })
+    static func SignOut() {
+        Db.writeCredentials(c: nil)
     }
 
     static func paramsInJson(json: JSON, params: [String]) -> Bool {
@@ -479,6 +467,24 @@ class Server {
     }
 
     static func confirmEmail(SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
+        MakeAuthorizedRequest(SUCCESS: { cred in
+            let rb = AccountAPI.apiAccountConfirmPostWithRequestBuilder()
+            rb.addHeader(name: "Authorization", value: "Bearer \(cred.access_token)")
+            rb.execute{ response, error in
+                if error == nil {
+                    SUCCESS?()
+                } else {
+                    ERROR?(ErrorType.Unknown, error?.localizedDescription ?? "")
+                }
+            }
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            ERROR?(ErrorType.Unauthorized,  "Необходимо авторизоваться для выполнения данного запроса!")
+        })
+    }
+    
+    static func confirmEmail_old(SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
         MakeAuthorizedRequest(SUCCESS: { c in
             provider.request(.confirm_email(access_token: c.access_token), completion: { result in
                 switch result {
@@ -502,6 +508,151 @@ class Server {
             ERROR?(et, msg)
         }, UNAUTHORIZED: {
             ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться для выполнения данного запроса!")
+        })
+    }
+    
+    //Swagger
+    
+    static func Like(projectId: Int, SUCCESS: (()->())?, ERROR: (()->())?) {
+        print("projectId: \(projectId)")
+        MakeAuthorizedRequest(SUCCESS: { cred in
+            let rb = ProjectsAPI.apiProjectsByIdLikePutWithRequestBuilder(id: Int32(projectId))
+            rb.addHeader(name: "Authorization", value: "Bearer \(cred.access_token)")
+            rb.execute({ r, e in
+                if e == nil {
+                    SUCCESS?()
+                } else {
+                    ERROR?()
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?()
+        }, UNAUTHORIZED: {
+            ERROR?()
+        })
+    }
+    
+    static func Unlike(projectId: Int, SUCCESS: (()->())?, ERROR: (()->())?) {
+        print("projectId: \(projectId)")
+        MakeAuthorizedRequest(SUCCESS: { cred in
+            let rb = ProjectsAPI.apiProjectsByIdDislikePutWithRequestBuilder(id: Int32(projectId))
+            rb.addHeader(name: "Authorization", value: "Bearer \(cred.access_token)")
+            rb.execute({ r, e in
+                if e == nil {
+                    SUCCESS?()
+                } else {
+                    ERROR?()
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?()
+        }, UNAUTHORIZED: {
+            ERROR?()
+        })
+    }
+
+    
+    static func SignInWithEmail_new(
+        email: String,
+        password: String,
+        SUCCESS: ((Credentials) -> ())?,
+        ERROR: ((ErrorType, String)->())?){
+        ConnectAPI.apiConnectTokenPost(username: email, password: password, grantType: "password", scope: "openid offline_access", completion: { at, e in
+            print(at?.accessToken ?? "")
+            print(at?.refreshToken ?? "")
+            print(e?.localizedDescription ?? "")
+        })
+    }
+    
+    // TODO: Make better error handling and error message display
+    static func RegisterWithEmail(
+        email: String,
+        password: String,
+        SUCCESS: (() -> ())?,
+        ERROR: ((ErrorType, String)->())?) {
+        
+        let rm = RegisterModel()
+        rm.email = email
+        rm.password = password
+        AccountAPI.apiAccountRegisterPost(registerInfo: rm, completion: { err in
+            if let error = err {
+                ERROR?(ErrorType.Unknown, error.localizedDescription)
+            } else {
+                SUCCESS?()
+            }
+        })
+    }
+    
+    // TODO: Make authorized request for favorites (user projects)
+    static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
+        
+        MakeAuthorizedRequest(SUCCESS: { c in
+            if type != .favorites {
+                let rb = ProjectsAPI.apiProjectsGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize))
+                rb.addHeader(name: "Authorization", value: "Bearer \(c.access_token)")
+                rb.execute({ projects, error in
+                    if let prs = projects?.body {
+                        SUCCESS?(prs.map {$0.toProjectInfo()})
+                    } else {
+                        ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
+                    }
+                })
+            } else {
+                let rb = ProjectsAPI.apiProjectsUserGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize))
+                rb.addHeader(name: "Authorization", value: "Bearer \(c.access_token)")
+                rb.execute({ projects, error in
+                    if let prs = projects?.body {
+                        SUCCESS?(prs.map {$0.toProjectInfo()})
+                    } else {
+                        print(error?.localizedDescription ?? "")
+                        ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
+                    }
+                })
+            }
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            switch type {
+            case .active, .completed:
+                ProjectsAPI.apiProjectsGet(status: type.toCode(), page: Int32(page), pagesize: Int32(pagesize), completion: { projects, error in
+                    if let prs = projects {
+                        SUCCESS?(prs.map {$0.toProjectInfo()})
+                    } else {
+                        print(error?.localizedDescription)
+                        ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
+                    }
+                })
+            case .favorites:
+                ERROR?(ErrorType.Unauthorized, "Пользователь должен быть зарегистрирован")
+            }
+        })
+    }
+    
+    static func GetProjectDetailInfo(projectId: Int, SUCCESS: ((ProjectInfo)->())?, ERROR: ((ErrorType, String) -> ())?) {
+        MakeRequestWithOptionalAuthorization(SUCCESS: { c in
+            let rb = ProjectsAPI.apiProjectsByIdGetWithRequestBuilder(id: Int32(projectId))
+            if let cred = c {
+                rb.addHeader(name: "Authorization", value: "Bearer \(cred.access_token)")
+            }
+            rb.execute({ r, e in
+                if let error = e {
+                    ERROR?(ErrorType.Unknown, error.localizedDescription)
+                } else {
+                    SUCCESS?(r?.body?.toProjectInfo() ?? ProjectInfo())
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        })
+    }
+    
+    static func ResetPassword(email: String, ERROR: (() -> ())?, SUCCESS: (() -> ())?) {
+        AccountAPI.apiAccountForgotByEmailPost(email: email, completion: { error in
+            if error == nil {
+                SUCCESS?()
+            } else {
+                ERROR?()
+            }
         })
     }
 }

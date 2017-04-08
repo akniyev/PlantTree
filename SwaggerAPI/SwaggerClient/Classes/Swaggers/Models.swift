@@ -165,6 +165,25 @@ class Decoders {
         }
 
 
+        // Decoder for [AuthToken]
+        Decoders.addDecoder(clazz: [AuthToken].self) { (source: AnyObject) -> [AuthToken] in
+            return Decoders.decode(clazz: [AuthToken].self, source: source)
+        }
+        // Decoder for AuthToken
+        Decoders.addDecoder(clazz: AuthToken.self) { (source: AnyObject) -> AuthToken in
+            let sourceDictionary = source as! [AnyHashable: Any]
+
+            let instance = AuthToken()
+            instance.scope = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["scope"] as AnyObject?)
+            instance.tokenType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["token_type"] as AnyObject?)
+            instance.accessToken = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["access_token"] as AnyObject?)
+            instance.expiresIn = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["expires_in"] as AnyObject?)
+            instance.refreshToken = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["refresh_token"] as AnyObject?)
+            instance.idToken = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id_token"] as AnyObject?)
+            return instance
+        }
+
+
         // Decoder for [Project]
         Decoders.addDecoder(clazz: [Project].self) { (source: AnyObject) -> [Project] in
             return Decoders.decode(clazz: [Project].self, source: source)
@@ -215,6 +234,27 @@ class Decoders {
         }
 
 
+        // Decoder for [UserInfo]
+        Decoders.addDecoder(clazz: [UserInfo].self) { (source: AnyObject) -> [UserInfo] in
+            return Decoders.decode(clazz: [UserInfo].self, source: source)
+        }
+        // Decoder for UserInfo
+        Decoders.addDecoder(clazz: UserInfo.self) { (source: AnyObject) -> UserInfo in
+            let sourceDictionary = source as! [AnyHashable: Any]
+
+            let instance = UserInfo()
+            instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
+            instance.lastName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["lastName"] as AnyObject?)
+            instance.gender = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["gender"] as AnyObject?)
+            instance.birthday = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["birthday"] as AnyObject?)
+            instance.email = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["email"] as AnyObject?)
+            instance.isEmailConfirmed = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["isEmailConfirmed"] as AnyObject?)
+            instance.donated = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["donated"] as AnyObject?)
+            instance.donatedProjectsCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["donatedProjectsCount"] as AnyObject?)
+            return instance
+        }
+
+
         // Decoder for [UserInfoModel]
         Decoders.addDecoder(clazz: [UserInfoModel].self) { (source: AnyObject) -> [UserInfoModel] in
             return Decoders.decode(clazz: [UserInfoModel].self, source: source)
@@ -225,10 +265,8 @@ class Decoders {
 
             let instance = UserInfoModel()
             instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
-            if let gender = sourceDictionary["gender"] as? Int32 { 
-                instance.gender = UserInfoModel.Gender(rawValue: (gender))
-            }
-            
+            instance.lastName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["lastName"] as AnyObject?)
+            instance.gender = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["gender"] as AnyObject?)
             instance.birthday = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["birthday"] as AnyObject?)
             return instance
         }

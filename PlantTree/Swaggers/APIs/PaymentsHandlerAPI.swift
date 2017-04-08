@@ -11,13 +11,22 @@ import Alamofire
 
 open class PaymentsHandlerAPI: APIBase {
     /**
+     * enum for parameter currency
+     */
+    public enum Currency_apiPaymentsHandlerWebmoneyPost: String { 
+        case euro = "Euro"
+        case dollar = "Dollar"
+        case ruble = "Ruble"
+    }
+
+    /**
 
      - parameter transactionId: (query)  (optional)
      - parameter amount: (query)  (optional)
      - parameter currency: (query)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiPaymentsHandlerWebmoneyPost(transactionId: Int32? = nil, amount: Double? = nil, currency: Int32? = nil, completion: @escaping ((_ error: Error?) -> Void)) {
+    open class func apiPaymentsHandlerWebmoneyPost(transactionId: Int32? = nil, amount: Double? = nil, currency: Currency_apiPaymentsHandlerWebmoneyPost? = nil, completion: @escaping ((_ error: Error?) -> Void)) {
         apiPaymentsHandlerWebmoneyPostWithRequestBuilder(transactionId: transactionId, amount: amount, currency: currency).execute { (response, error) -> Void in
             completion(error);
         }
@@ -33,7 +42,7 @@ open class PaymentsHandlerAPI: APIBase {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func apiPaymentsHandlerWebmoneyPostWithRequestBuilder(transactionId: Int32? = nil, amount: Double? = nil, currency: Int32? = nil) -> RequestBuilder<Void> {
+    open class func apiPaymentsHandlerWebmoneyPostWithRequestBuilder(transactionId: Int32? = nil, amount: Double? = nil, currency: Currency_apiPaymentsHandlerWebmoneyPost? = nil) -> RequestBuilder<Void> {
         let path = "/api/PaymentsHandler/webmoney"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -42,7 +51,7 @@ open class PaymentsHandlerAPI: APIBase {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
             "transactionId": transactionId?.encodeToJSON(), 
             "amount": amount, 
-            "currency": currency?.encodeToJSON()
+            "currency": currency?.rawValue
         ])
         
 

@@ -42,7 +42,18 @@ class ForgotPasswordViewController : FormViewController {
             Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: "Введен некорректный адрес почты!", completion: nil)
         } else {
             let email = form.values()["email"] as! String
-            print(email)
+            LoadingIndicatorView.show("Соединение с сервером...")
+            Server.ResetPassword(email: email, ERROR: {
+                LoadingIndicatorView.hide()
+                Alerts.ShowAlert(sender: self, title: "Готово!", message: "Проверьте почту, мы выслали вам письмо со ссылкой для сброса пароля", preferredStyle: .alert, actions: [UIAlertAction.init(title: "OK", style: .default, handler:
+                    { alert in
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    )], completion: nil)
+            }, SUCCESS: {
+                LoadingIndicatorView.hide()
+                Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: "Произошла ошибка при попытке сбросить пароль", completion: nil)
+            })
         }
     }
 }

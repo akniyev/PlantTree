@@ -76,19 +76,29 @@ open class AccountAPI: APIBase {
 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiAccountInfoGet(completion: @escaping ((_ error: Error?) -> Void)) {
+    open class func apiAccountInfoGet(completion: @escaping ((_ data: UserInfo?,_ error: Error?) -> Void)) {
         apiAccountInfoGetWithRequestBuilder().execute { (response, error) -> Void in
-            completion(error);
+            completion(response?.body, error);
         }
     }
 
 
     /**
      - GET /api/account/info
+     - examples: [{contentType=application/json, example={
+  "birthday" : "aeiou",
+  "donated" : 1.3579000000000001069366817318950779736042022705078125,
+  "lastName" : "aeiou",
+  "gender" : "aeiou",
+  "name" : "aeiou",
+  "donatedProjectsCount" : 123,
+  "email" : "aeiou",
+  "isEmailConfirmed" : true
+}}]
 
-     - returns: RequestBuilder<Void> 
+     - returns: RequestBuilder<UserInfo> 
      */
-    open class func apiAccountInfoGetWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func apiAccountInfoGetWithRequestBuilder() -> RequestBuilder<UserInfo> {
         let path = "/api/account/info"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -96,13 +106,14 @@ open class AccountAPI: APIBase {
         let url = NSURLComponents(string: URLString)
 
 
-        let requestBuilder: RequestBuilder<Void>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<UserInfo>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
     /**
-
+     DateTime format - \"dd.MM.yyyy\"
+     
      - parameter info: (body)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -114,6 +125,7 @@ open class AccountAPI: APIBase {
 
 
     /**
+     DateTime format - \"dd.MM.yyyy\"
      - PUT /api/account/info
      
      - parameter info: (body)  (optional)

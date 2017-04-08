@@ -38,10 +38,10 @@ class SettingsViewController : FormViewController {
             row.title = "Войти"
             row.onCellSelection(self.signInAction)
         }
-        let loginSection02 = Section() <<< ButtonRow() { row in
-            row.title = "Войти через Facebook"
-            row.onCellSelection(self.facebookSignInAction)
-        }
+//        let loginSection02 = Section() <<< ButtonRow() { row in
+//            row.title = "Войти через Facebook"
+//            row.onCellSelection(self.facebookSignInAction)
+//        }
         let loginSection03 = Section() <<< ButtonRow() { row in
             row.title = "Регистрация"
             row.onCellSelection(self.registrationAction)
@@ -49,8 +49,12 @@ class SettingsViewController : FormViewController {
             row.title = "Забыли пароль?"
             row.onCellSelection(self.forgotPasswordAction)
         }
-        loginSections = [loginSection01, loginSection02, loginSection03]
-        self.form +++ loginSection01 +++ loginSection02 +++ loginSection03
+        loginSections = [loginSection01,
+                         //loginSection02,
+                         loginSection03]
+        self.form +++ loginSection01
+            //+++ loginSection02
+            +++ loginSection03
 
         let settingsSection01 = Section("Персональные данные") <<< UserInfoRow() { row in
             row.tag = "userInfo"

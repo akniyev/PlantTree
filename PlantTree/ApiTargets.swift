@@ -8,7 +8,7 @@ import Moya
 import SwiftyJSON
 
 enum ApiTargets {
-    static let SERVER : String = "http://rasuldev-001-site28.btempurl.com"
+    static let SERVER : String = "http://rasuldev-001-site28.btempurl.com/"
 
     case registerWithEmail(email: String, password: String, personalData: PersonalData)
     case getTokenWithEmail(email: String, password: String)

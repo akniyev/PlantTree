@@ -9,12 +9,9 @@ import Foundation
 
 
 open class UserInfoModel: JSONEncodable {
-    public enum Gender: Int32 { 
-        case number0 = 0
-        case number1 = 1
-    }
     public var name: String?
-    public var gender: Gender?
+    public var lastName: String?
+    public var gender: String?
     public var birthday: String?
 
     public init() {}
@@ -23,7 +20,8 @@ open class UserInfoModel: JSONEncodable {
     open func encodeToJSON() -> Any {
         var nillableDictionary = [String:Any?]()
         nillableDictionary["name"] = self.name
-        nillableDictionary["gender"] = self.gender?.rawValue
+        nillableDictionary["lastName"] = self.lastName
+        nillableDictionary["gender"] = self.gender
         nillableDictionary["birthday"] = self.birthday
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
