@@ -17,6 +17,7 @@ target 'PlantTree' do
   pod 'ImageSlideshow'
   pod 'ImageSlideshow/Kingfisher'
   pod 'ESTabBarController-swift'
+  # pod 'SwaggerClient', :path => 'SwaggerAPI/'
 end
 
 post_install do |installer|

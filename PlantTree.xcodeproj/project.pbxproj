@@ -19,19 +19,6 @@
 		58603A987F70AD3CB3D08BF7 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603D7525C0023FD803DF7F /* Int.swift */; };
 		58603BAC16FB696E0F8962B4 /* ProjectInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586036CA3D3F69AC7DC0D73C /* ProjectInfo.swift */; };
 		58603FB0E67EDEC6EF6CB540 /* PersonalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586030BA04E460DBB4F34CBC /* PersonalData.swift */; };
-		847FCAD31E96CA5500BF6698 /* AlamofireImplementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAC41E96CA5500BF6698 /* AlamofireImplementations.swift */; };
-		847FCAD41E96CA5500BF6698 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAC51E96CA5500BF6698 /* APIHelper.swift */; };
-		847FCAD51E96CA5500BF6698 /* AccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAC71E96CA5500BF6698 /* AccountAPI.swift */; };
-		847FCAD61E96CA5500BF6698 /* PaymentsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAC81E96CA5500BF6698 /* PaymentsAPI.swift */; };
-		847FCAD71E96CA5500BF6698 /* PaymentsHandlerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAC91E96CA5500BF6698 /* PaymentsHandlerAPI.swift */; };
-		847FCAD81E96CA5500BF6698 /* ProjectsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCACA1E96CA5500BF6698 /* ProjectsAPI.swift */; };
-		847FCAD91E96CA5500BF6698 /* APIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCACB1E96CA5500BF6698 /* APIs.swift */; };
-		847FCADA1E96CA5500BF6698 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCACC1E96CA5500BF6698 /* Extensions.swift */; };
-		847FCADB1E96CA5500BF6698 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCACE1E96CA5500BF6698 /* ApiError.swift */; };
-		847FCADC1E96CA5500BF6698 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCACF1E96CA5500BF6698 /* Project.swift */; };
-		847FCADD1E96CA5500BF6698 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAD01E96CA5500BF6698 /* RegisterModel.swift */; };
-		847FCADE1E96CA5500BF6698 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAD11E96CA5500BF6698 /* UserInfoModel.swift */; };
-		847FCADF1E96CA5500BF6698 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAD21E96CA5500BF6698 /* Models.swift */; };
 		847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAE11E977D3500BF6698 /* Project_ext.swift */; };
 		848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F96E41E59C75300CC07CC /* UserInfoCell.swift */; };
 		848F96E71E59C75300CC07CC /* UserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848F96E51E59C75300CC07CC /* UserInfoCell.xib */; };
@@ -70,6 +57,19 @@
 		84D496D81E622D8F00AF0B67 /* ProjectNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D496D61E622D8F00AF0B67 /* ProjectNewsCell.swift */; };
 		84D496D91E622D8F00AF0B67 /* ProjectNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D496D71E622D8F00AF0B67 /* ProjectNewsCell.xib */; };
 		84D496DB1E6237E200AF0B67 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D496DA1E6237E200AF0B67 /* UIView.swift */; };
+		84D6B5DB1E9950C4002F38F8 /* AlamofireImplementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5CC1E9950C4002F38F8 /* AlamofireImplementations.swift */; };
+		84D6B5DC1E9950C4002F38F8 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5CD1E9950C4002F38F8 /* APIHelper.swift */; };
+		84D6B5DD1E9950C4002F38F8 /* AccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5CF1E9950C4002F38F8 /* AccountAPI.swift */; };
+		84D6B5DE1E9950C4002F38F8 /* PaymentsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5D01E9950C4002F38F8 /* PaymentsAPI.swift */; };
+		84D6B5DF1E9950C4002F38F8 /* PaymentsHandlerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5D11E9950C4002F38F8 /* PaymentsHandlerAPI.swift */; };
+		84D6B5E01E9950C4002F38F8 /* ProjectsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5D21E9950C4002F38F8 /* ProjectsAPI.swift */; };
+		84D6B5E11E9950C4002F38F8 /* APIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5D31E9950C4002F38F8 /* APIs.swift */; };
+		84D6B5E21E9950C4002F38F8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5D41E9950C4002F38F8 /* Extensions.swift */; };
+		84D6B5E31E9950C4002F38F8 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5D61E9950C4002F38F8 /* ApiError.swift */; };
+		84D6B5E41E9950C4002F38F8 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5D71E9950C4002F38F8 /* Project.swift */; };
+		84D6B5E51E9950C4002F38F8 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5D81E9950C4002F38F8 /* RegisterModel.swift */; };
+		84D6B5E61E9950C4002F38F8 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5D91E9950C4002F38F8 /* UserInfoModel.swift */; };
+		84D6B5E71E9950C4002F38F8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B5DA1E9950C4002F38F8 /* Models.swift */; };
 		84DDFA731E546BCD0073DFFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA721E546BCD0073DFFC /* AppDelegate.swift */; };
 		84DDFA751E546BCD0073DFFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA741E546BCD0073DFFC /* ViewController.swift */; };
 		84DDFA781E546BCD0073DFFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DDFA761E546BCD0073DFFC /* Main.storyboard */; };
@@ -99,19 +99,6 @@
 		5860375EB16C4E315B72FDF4 /* Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		58603BE30150ED19634B35F9 /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		58603D7525C0023FD803DF7F /* Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
-		847FCAC41E96CA5500BF6698 /* AlamofireImplementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImplementations.swift; sourceTree = "<group>"; };
-		847FCAC51E96CA5500BF6698 /* APIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
-		847FCAC71E96CA5500BF6698 /* AccountAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountAPI.swift; sourceTree = "<group>"; };
-		847FCAC81E96CA5500BF6698 /* PaymentsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsAPI.swift; sourceTree = "<group>"; };
-		847FCAC91E96CA5500BF6698 /* PaymentsHandlerAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsHandlerAPI.swift; sourceTree = "<group>"; };
-		847FCACA1E96CA5500BF6698 /* ProjectsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsAPI.swift; sourceTree = "<group>"; };
-		847FCACB1E96CA5500BF6698 /* APIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
-		847FCACC1E96CA5500BF6698 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		847FCACE1E96CA5500BF6698 /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
-		847FCACF1E96CA5500BF6698 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		847FCAD01E96CA5500BF6698 /* RegisterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
-		847FCAD11E96CA5500BF6698 /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
-		847FCAD21E96CA5500BF6698 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		847FCAE11E977D3500BF6698 /* Project_ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project_ext.swift; sourceTree = "<group>"; };
 		848F96E41E59C75300CC07CC /* UserInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
 		848F96E51E59C75300CC07CC /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
@@ -150,6 +137,19 @@
 		84D496D61E622D8F00AF0B67 /* ProjectNewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectNewsCell.swift; sourceTree = "<group>"; };
 		84D496D71E622D8F00AF0B67 /* ProjectNewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectNewsCell.xib; sourceTree = "<group>"; };
 		84D496DA1E6237E200AF0B67 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		84D6B5CC1E9950C4002F38F8 /* AlamofireImplementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImplementations.swift; sourceTree = "<group>"; };
+		84D6B5CD1E9950C4002F38F8 /* APIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
+		84D6B5CF1E9950C4002F38F8 /* AccountAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountAPI.swift; sourceTree = "<group>"; };
+		84D6B5D01E9950C4002F38F8 /* PaymentsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsAPI.swift; sourceTree = "<group>"; };
+		84D6B5D11E9950C4002F38F8 /* PaymentsHandlerAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsHandlerAPI.swift; sourceTree = "<group>"; };
+		84D6B5D21E9950C4002F38F8 /* ProjectsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsAPI.swift; sourceTree = "<group>"; };
+		84D6B5D31E9950C4002F38F8 /* APIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
+		84D6B5D41E9950C4002F38F8 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		84D6B5D61E9950C4002F38F8 /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		84D6B5D71E9950C4002F38F8 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		84D6B5D81E9950C4002F38F8 /* RegisterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
+		84D6B5D91E9950C4002F38F8 /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		84D6B5DA1E9950C4002F38F8 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		84DDFA6F1E546BCD0073DFFC /* PlantTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DDFA721E546BCD0073DFFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84DDFA741E546BCD0073DFFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -188,42 +188,6 @@
 				F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		847FCAC31E96CA5500BF6698 /* Swaggers */ = {
-			isa = PBXGroup;
-			children = (
-				847FCACD1E96CA5500BF6698 /* Models */,
-				847FCAC61E96CA5500BF6698 /* APIs */,
-				847FCAC41E96CA5500BF6698 /* AlamofireImplementations.swift */,
-				847FCAC51E96CA5500BF6698 /* APIHelper.swift */,
-				847FCACB1E96CA5500BF6698 /* APIs.swift */,
-				847FCACC1E96CA5500BF6698 /* Extensions.swift */,
-				847FCAD21E96CA5500BF6698 /* Models.swift */,
-			);
-			path = Swaggers;
-			sourceTree = "<group>";
-		};
-		847FCAC61E96CA5500BF6698 /* APIs */ = {
-			isa = PBXGroup;
-			children = (
-				847FCAC71E96CA5500BF6698 /* AccountAPI.swift */,
-				847FCAC81E96CA5500BF6698 /* PaymentsAPI.swift */,
-				847FCAC91E96CA5500BF6698 /* PaymentsHandlerAPI.swift */,
-				847FCACA1E96CA5500BF6698 /* ProjectsAPI.swift */,
-			);
-			path = APIs;
-			sourceTree = "<group>";
-		};
-		847FCACD1E96CA5500BF6698 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				847FCACE1E96CA5500BF6698 /* ApiError.swift */,
-				847FCACF1E96CA5500BF6698 /* Project.swift */,
-				847FCAD01E96CA5500BF6698 /* RegisterModel.swift */,
-				847FCAD11E96CA5500BF6698 /* UserInfoModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		847FCAE01E977D2000BF6698 /* SwaggersExtensions */ = {
@@ -419,6 +383,42 @@
 			name = ProjectNewsCell;
 			sourceTree = "<group>";
 		};
+		84D6B5CB1E9950C4002F38F8 /* Swaggers */ = {
+			isa = PBXGroup;
+			children = (
+				84D6B5CC1E9950C4002F38F8 /* AlamofireImplementations.swift */,
+				84D6B5CD1E9950C4002F38F8 /* APIHelper.swift */,
+				84D6B5CE1E9950C4002F38F8 /* APIs */,
+				84D6B5D31E9950C4002F38F8 /* APIs.swift */,
+				84D6B5D41E9950C4002F38F8 /* Extensions.swift */,
+				84D6B5D51E9950C4002F38F8 /* Models */,
+				84D6B5DA1E9950C4002F38F8 /* Models.swift */,
+			);
+			path = Swaggers;
+			sourceTree = "<group>";
+		};
+		84D6B5CE1E9950C4002F38F8 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				84D6B5CF1E9950C4002F38F8 /* AccountAPI.swift */,
+				84D6B5D01E9950C4002F38F8 /* PaymentsAPI.swift */,
+				84D6B5D11E9950C4002F38F8 /* PaymentsHandlerAPI.swift */,
+				84D6B5D21E9950C4002F38F8 /* ProjectsAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		84D6B5D51E9950C4002F38F8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84D6B5D61E9950C4002F38F8 /* ApiError.swift */,
+				84D6B5D71E9950C4002F38F8 /* Project.swift */,
+				84D6B5D81E9950C4002F38F8 /* RegisterModel.swift */,
+				84D6B5D91E9950C4002F38F8 /* UserInfoModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		84DDFA661E546BCC0073DFFC = {
 			isa = PBXGroup;
 			children = (
@@ -440,8 +440,8 @@
 		84DDFA711E546BCD0073DFFC /* PlantTree */ = {
 			isa = PBXGroup;
 			children = (
+				84D6B5CB1E9950C4002F38F8 /* Swaggers */,
 				847FCAE01E977D2000BF6698 /* SwaggersExtensions */,
-				847FCAC31E96CA5500BF6698 /* Swaggers */,
 				849759C11E5A461E0065BDCB /* Views */,
 				848F96E21E59C72A00CC07CC /* EurekaRows */,
 				84B3A74A1E563054000CA32E /* ViewControllers */,
@@ -621,16 +621,19 @@
 			files = (
 				848F96E91E59CA9300CC07CC /* UserInfoRow.swift in Sources */,
 				848F96ED1E59D82300CC07CC /* UserPhotoEditCell.swift in Sources */,
+				84D6B5E31E9950C4002F38F8 /* ApiError.swift in Sources */,
 				849759C81E5A57CA0065BDCB /* ProjectsTableViewController.swift in Sources */,
-				847FCAD81E96CA5500BF6698 /* ProjectsAPI.swift in Sources */,
 				8497B3E31E680CA100AD79A2 /* OrdinalButtonContentView.swift in Sources */,
+				84D6B5DF1E9950C4002F38F8 /* PaymentsHandlerAPI.swift in Sources */,
+				84D6B5E71E9950C4002F38F8 /* Models.swift in Sources */,
 				84DDFA751E546BCD0073DFFC /* ViewController.swift in Sources */,
+				84D6B5E51E9950C4002F38F8 /* RegisterModel.swift in Sources */,
 				84D496CD1E618ECD00AF0B67 /* ProjectDetailsViewController.swift in Sources */,
-				847FCADA1E96CA5500BF6698 /* Extensions.swift in Sources */,
-				847FCAD71E96CA5500BF6698 /* PaymentsHandlerAPI.swift in Sources */,
+				84D6B5E21E9950C4002F38F8 /* Extensions.swift in Sources */,
 				849DEFD71E65B90700A82EA9 /* UpDownRow.swift in Sources */,
 				84DDFA731E546BCD0073DFFC /* AppDelegate.swift in Sources */,
 				84B3A7481E55D350000CA32E /* Server.swift in Sources */,
+				84D6B5DD1E9950C4002F38F8 /* AccountAPI.swift in Sources */,
 				84F58C561E6AB7B60092EA82 /* NewsBandSeparatorCell.swift in Sources */,
 				84BF51251E57137000B50ADB /* ChangePasswordViewController.swift in Sources */,
 				84DDFA7B1E546BCD0073DFFC /* PlantTree.xcdatamodeld in Sources */,
@@ -639,47 +642,44 @@
 				84F58C521E63827F0092EA82 /* PlantTreeViewController.swift in Sources */,
 				58603675DB7B89C392D9F207 /* Credentials.swift in Sources */,
 				84BF51231E57107900B50ADB /* ChangeEmailViewController.swift in Sources */,
-				847FCADC1E96CA5500BF6698 /* Project.swift in Sources */,
 				84F58C4E1E6371CC0092EA82 /* NewsViewController.swift in Sources */,
 				84D496DB1E6237E200AF0B67 /* UIView.swift in Sources */,
+				84D6B5E41E9950C4002F38F8 /* Project.swift in Sources */,
 				84F58C501E6378890092EA82 /* OperationInfo.swift in Sources */,
 				5860321E46D4171318DC8DED /* ErrorType.swift in Sources */,
 				84BF512E1E571E0500B50ADB /* MyTabBarController.swift in Sources */,
+				84D6B5E01E9950C4002F38F8 /* ProjectsAPI.swift in Sources */,
+				84D6B5DE1E9950C4002F38F8 /* PaymentsAPI.swift in Sources */,
 				847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */,
 				84B3A74E1E563F8F000CA32E /* RegistrationViewController.swift in Sources */,
 				58603FB0E67EDEC6EF6CB540 /* PersonalData.swift in Sources */,
-				847FCAD31E96CA5500BF6698 /* AlamofireImplementations.swift in Sources */,
 				84BF511F1E56E3A000B50ADB /* SettingsViewController.swift in Sources */,
-				847FCADE1E96CA5500BF6698 /* UserInfoModel.swift in Sources */,
 				84BF511D1E5657A500B50ADB /* ForgotPasswordViewController.swift in Sources */,
 				84BF511B1E56508400B50ADB /* Alerts.swift in Sources */,
 				849759C01E59DC950065BDCB /* UserPhotoEditRow.swift in Sources */,
 				84F58C591E6AD68F0092EA82 /* PlantTreeViewController2.swift in Sources */,
-				847FCAD51E96CA5500BF6698 /* AccountAPI.swift in Sources */,
 				5860351528CE5E42FF05A832 /* Gender.swift in Sources */,
-				847FCAD61E96CA5500BF6698 /* PaymentsAPI.swift in Sources */,
 				84AC71151E6181BD0023DDB7 /* TableViewUnauthorized.swift in Sources */,
 				5860310FAC58B23CBBD0FC0A /* ApiTargets.swift in Sources */,
 				586038664639E0FC529136A4 /* Date.swift in Sources */,
 				849759C41E5A46440065BDCB /* ProjectCell.swift in Sources */,
 				84BF512C1E571DC100B50ADB /* Db.swift in Sources */,
+				84D6B5DC1E9950C4002F38F8 /* APIHelper.swift in Sources */,
 				84BF51271E5713D900B50ADB /* PaymentHistoryViewController.swift in Sources */,
 				84D496D81E622D8F00AF0B67 /* ProjectNewsCell.swift in Sources */,
+				84D6B5E11E9950C4002F38F8 /* APIs.swift in Sources */,
 				84D496D11E61A12000AF0B67 /* ProjectDetailsCell.swift in Sources */,
 				848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */,
-				847FCADB1E96CA5500BF6698 /* ApiError.swift in Sources */,
 				58603238B5DCC31835F33686 /* LoadingIndicatorView.swift in Sources */,
 				849DEFDA1E67F77700A82EA9 /* BigButtonContentView.swift in Sources */,
-				847FCAD41E96CA5500BF6698 /* APIHelper.swift in Sources */,
+				84D6B5E61E9950C4002F38F8 /* UserInfoModel.swift in Sources */,
 				849DEFD41E65B5A100A82EA9 /* UpDownCellTableViewCell.swift in Sources */,
 				58603BAC16FB696E0F8962B4 /* ProjectInfo.swift in Sources */,
 				586032733EB1FDEFA0082231 /* ProjectStatus.swift in Sources */,
-				847FCAD91E96CA5500BF6698 /* APIs.swift in Sources */,
-				847FCADF1E96CA5500BF6698 /* Models.swift in Sources */,
 				84F58C4B1E62F6E10092EA82 /* PaymentHistoryCell.swift in Sources */,
 				84AC71101E61654B0023DDB7 /* ReloadView.swift in Sources */,
-				847FCADD1E96CA5500BF6698 /* RegisterModel.swift in Sources */,
 				84D496D41E61AD7300AF0B67 /* NewsPiece.swift in Sources */,
+				84D6B5DB1E9950C4002F38F8 /* AlamofireImplementations.swift in Sources */,
 				5860362AF819362FBB73FB2C /* ProjectListType.swift in Sources */,
 				58603A987F70AD3CB3D08BF7 /* Int.swift in Sources */,
 			);

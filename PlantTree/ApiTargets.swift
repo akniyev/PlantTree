@@ -36,7 +36,7 @@ extension ApiTargets : TargetType {
         case .registerWithEmail:
             return "/api/account/register/"
         case .getTokenWithEmail:
-            return "api/account/signin/"
+            return "api/connect/token"
         case .getAccountInfo:
             return "api/account/get_info/"
         case .refreshAccessToken:
@@ -94,9 +94,10 @@ extension ApiTargets : TargetType {
             ]
         case .getTokenWithEmail(let email, let password):
             return [
-                "login_type" : "email",
                 "email" : email,
-                "password" : password
+                "password" : password,
+                "grant_type" : "password",
+                "scope" : "openid offline_access"
             ]
         case .getAccountInfo(let access_token), .getOperationHistory(let access_token):
             return [
@@ -127,9 +128,9 @@ extension ApiTargets : TargetType {
 
     var parameterEncoding: ParameterEncoding {
         switch self {
-        case .registerWithEmail, .getTokenWithEmail, .refreshAccessToken, .like, .unlike, .changeEmail, .changePassword, .changePersonalData, .confirm_email, .reset_password:
+        case .registerWithEmail, .refreshAccessToken, .like, .unlike, .changeEmail, .changePassword, .changePersonalData, .confirm_email, .reset_password:
             return JSONEncoding.default // Send parameters in URL
-        case .getAccountInfo, .getProjectList, .getProjectDetailInfo, .getOperationHistory:
+        case .getAccountInfo, .getProjectList, .getProjectDetailInfo, .getOperationHistory, .getTokenWithEmail:
             return URLEncoding.default
         default:
             return URLEncoding.default // Send parameters as JSON in request body

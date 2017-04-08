@@ -19,6 +19,8 @@ enum ProjectStatus {
             return .collected
         case "completed":
             return .finished
+        case "finished":
+            return .finished
         default:
             return .none
         }

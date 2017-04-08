@@ -60,7 +60,10 @@ class ProjectDetailsCell: UITableViewCell {
         lblReached.text = "\(pi.reached)/\(pi.goal)"
         var slideshowSources : [KingfisherSource] = []
         for i in pi.allImages {
-            slideshowSources.append(KingfisherSource(urlString: i)!)
+            let kfs = KingfisherSource(urlString: i)
+            if let kingfisherSource = kfs {
+                slideshowSources.append(kingfisherSource)
+            }
         }
         slideshow.setImageInputs(slideshowSources)
         

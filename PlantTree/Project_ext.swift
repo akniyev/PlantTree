@@ -25,7 +25,10 @@ extension Project {
         pi.sponsorCount = Int(p.donatorsCount ?? 0)
         pi.news = []
         pi.description = p.description ?? ""
-        var allImages : [String] = [pi.mainImageUrlBig]
+        var allImages : [String] = []
+        if p.mainImageUrl != nil {
+            allImages.append(p.mainImageUrl!)
+        }
         allImages.append(contentsOf: p.otherImagesUrl ?? [])
         pi.allImages = allImages
         return pi

@@ -14,6 +14,7 @@ import Alamofire
 class Server {
     static let provider = MoyaProvider<ApiTargets>()
 
+    // TODO: Make better error handling and error message display
     static func RegisterWithEmail(
         email: String,
         password: String,
@@ -30,33 +31,6 @@ class Server {
                 SUCCESS?()
             }
         })
-    }
-    
-    static func RegisterWithEmail_old(
-            email: String,
-            password: String,
-            personalData: PersonalData,
-            SUCCESS: (() -> ())?,
-            ERROR: ((ErrorType, String)->())?) {
-
-        provider.request(.registerWithEmail(email: email, password: password, personalData: personalData)) { result in
-            switch result {
-            case let .success(moyaResponse):
-                if moyaResponse.statusCode == 201 {
-                    SUCCESS?()
-                } else {
-                    let data = moyaResponse.data
-                    let json = JSON(data: data)
-                    if json["error_title"].exists() && json["rus_description"].exists() {
-                        ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
-                    } else {
-                        ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
-                    }
-                }
-            case .failure(_):
-                ERROR?(ErrorType.NetworkError, "Не могу получить ответ от сервера")
-            }
-        }
     }
 
     static func SignInWithEmail(
@@ -150,6 +124,7 @@ class Server {
         })
     }
     
+    // TODO: Make authorized request for favorites (user projects)
     static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
         
         MakeAuthorizedRequest(SUCCESS: { c in
@@ -169,6 +144,7 @@ class Server {
                     if let prs = projects {
                         SUCCESS?(prs.map {$0.toProjectInfo()})
                     } else {
+                        print(error?.localizedDescription)
                         ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
                     }
                 })
@@ -178,72 +154,14 @@ class Server {
         })
     }
     
+
     static func GetProjectDetailInfo(projectId: Int, SUCCESS: ((ProjectInfo)->())?, ERROR: ((ErrorType, String) -> ())?) {
         MakeRequestWithOptionalAuthorization(SUCCESS: { c in
-            let authorization = c == nil ? "GUEST" : "Bearer \(c!.access_token)"
-            provider.request(ApiTargets.getProjectDetailInfo(projectId: projectId, authorization: authorization), completion: { result in
-                switch result {
-                case let .success(moyaResponse):
-                    if moyaResponse.statusCode == 200 {
-                        let data = moyaResponse.data
-                        let json = JSON(data: data)
-                        if paramsInJson(json: json, params: ["id", "name", "description", "goal", "reached", "status", "isLikedByMe", "treePrice", "donatorsCount", "creationDate", "otherImagesUrl", "mainImageUrl"]) {
-                            let p = ProjectInfo()
-                            let id = json["id"].intValue
-                            let name = json["name"].stringValue
-                            let description = json["description"].stringValue
-                            let goal = json["goal"].intValue
-                            let reached = json["reached"].intValue
-                            let status = ProjectStatus.fromString(s: json["status"].stringValue)
-                            let mainImageBig : String = json["mainImageUrl"].stringValue 
-                            var images: [String] = [mainImageBig]
-                            images.append(contentsOf: (json["otherImagesUrl"].arrayObject as? [String]) ?? [])
-                            let allImagesBig : [String] = images //[mainImageBig] //(contentsOf: (json["otherImagesUrl"].arrayObject as? [String]) ?? [])
-                            
-                            let likeCount = json["likesCount"].intValue
-                            let isLikedByMe = json["isLikedByMe"].boolValue
-                            let treePrice = json["treePrice"].doubleValue
-                            let sponsorCount = json["donatorsCount"].intValue
-                            let news = json["news"]
-                            p.id = id
-                            p.name = name
-                            p.description = description
-                            p.goal = goal
-                            p.reached = reached
-                            p.projectStatus = status
-                            p.allImages = allImagesBig
-                            p.likeCount = likeCount
-                            p.isLikedByMe = isLikedByMe
-                            p.treePrice = treePrice
-                            p.sponsorCount = sponsorCount
-                            p.news = []
-                            for (_, newsJson) in news {
-                                if paramsInJson(json: newsJson, params: ["id", "url", "title", "date", "imageUrl"]) {
-                                    let np = NewsPiece()
-                                    np.id = newsJson["id"].intValue
-                                    np.title = newsJson["title"].stringValue
-                                    np.date = Date.fromRussianFormat(s: newsJson["date"].stringValue)
-                                    np.imageUrl = newsJson["imageUrl"].stringValue
-                                    np.url = newsJson["url"].stringValue
-                                    p.news.append(np)
-                                }
-                            }
-                            SUCCESS?(p)
-                        } else {
-                            ERROR?(ErrorType.InvalidData, "Неправильный формат данных")
-                            return
-                        }
-                    } else {
-                        let data = moyaResponse.data
-                        let json = JSON(data: data)
-                        if json["error_title"].exists() && json["rus_description"].exists() {
-                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
-                        } else {
-                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
-                        }
-                    }
-                case .failure(_):
-                    ERROR?(ErrorType.NetworkError, "Не могу получить ответ от сервера")
+            ProjectsAPI.apiProjectsByIdGet(id: Int32(projectId), completion: { p, e in
+                if let error = e {
+                    ERROR?(ErrorType.Unknown, error.localizedDescription)
+                } else {
+                    SUCCESS?(p!.toProjectInfo())
                 }
             })
         }, ERROR: { et, msg in
