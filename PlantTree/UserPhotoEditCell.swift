@@ -21,8 +21,8 @@ class UserPhotoEditCell: Cell<String>, CellType {
     }
     
     @IBAction func deletePhotoAction(_ sender: Any) {
-        row.value = nil
-        update()
+        (row as? UserPhotoEditRow)?.imageDeleteAction?(self)
+        //update()
     }
 
     required init(style: UITableViewCellStyle, reuseIdentifier: String?) {

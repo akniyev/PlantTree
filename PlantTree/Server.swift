@@ -277,7 +277,47 @@ class Server {
         })
     }
 
+    // Manual
+    static func UploadUserpic(image: UIImage?, SUCCESS: (() -> ())?, ERROR: ((ErrorType, String) -> ())?) {
+        MakeAuthorizedRequest(SUCCESS: { cred in
+            if let img = image {
+                let URL = try! URLRequest(url: "http://rasuldev-001-site28.btempurl.com/api/account/photo", method: .post,
+                                          headers: ["Authorization": "Bearer \(cred.access_token)"])
+                
+                Alamofire.upload(multipartFormData: { (multipartFormData) in
+                    
+                    multipartFormData.append(UIImageJPEGRepresentation(img, 0.8)!, withName: "photo", fileName: "photo.jpg", mimeType: "image/jpeg")
+                }, with: URL, encodingCompletion: { (result) in
+                    
+                    switch result {
+                    case .success(let upload, _, _):
+                        upload.responseString(completionHandler: { dataResponse in
+                            if dataResponse.response?.statusCode == 200 {
+                                SUCCESS?()
+                            } else {
+                                ERROR?(ErrorType.ServerError, "Не удается загрузить изображение!")
+                            }
+                        })
+                        
+                    case .failure(let encodingError):
+                        ERROR?(ErrorType.Unknown, "Не удается закодировать изображение!")
+                    }
+                    
+                })
+            } else {
+                ERROR?(ErrorType.InvalidData, "Неверный формат данных")
+            }
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            ERROR?(ErrorType.Unauthorized, "Необходима авторизация для загрузки изображения!")
+        })
+    }
     
+    // Manual
+    static func DeleteUserpic(SUCCESS: (() -> ())?, ERROR: ((ErrorType, String) -> ())?) {
+        SUCCESS?()
+    }
     
     //Swagger
     static func changePersonalData(image: UIImage?, first_name: String, second_name: String, gender: Gender, birth_date: Date,
