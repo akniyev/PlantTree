@@ -72,10 +72,12 @@ class SettingsViewController : FormViewController {
         let settingsSection03 = Section() <<< LabelRow() { row in
             row.tag = "settings_email"
             row.title = "Email: -"
-        } <<< ButtonRow() { row in
-            row.title = "Изменить email"
-            row.onCellSelection(self.changeEmailAction)
-        } <<< ButtonRow() { row in
+        }
+//            <<< ButtonRow() { row in
+//            row.title = "Изменить email"
+//            row.onCellSelection(self.changeEmailAction)
+//        }
+        <<< ButtonRow() { row in
             row.title = "Сменить пароль"
             row.onCellSelection(self.changePasswordAction)
         }
@@ -266,9 +268,9 @@ class SettingsViewController : FormViewController {
         self.performSegue(withIdentifier: "openOperationHistory", sender: self)
     }
 
-    func changeEmailAction(cell: ButtonCellOf<String>, row: ButtonRow) {
-        self.performSegue(withIdentifier: "openChangeEmail", sender: self)
-    }
+//    func changeEmailAction(cell: ButtonCellOf<String>, row: ButtonRow) {
+//        self.performSegue(withIdentifier: "openChangeEmail", sender: self)
+//    }
 
     func changePasswordAction(cell: ButtonCellOf<String>, row: ButtonRow) {
         self.performSegue(withIdentifier: "openChangePassword", sender: self)
