@@ -412,98 +412,29 @@ class Server {
         })
     }
 
-    static func changePassword(newPassword: String, oldPassword: String, SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
-        MakeAuthorizedRequest(SUCCESS: { c in
-            provider.request(.changePassword(access_token: c.access_token, old_password: oldPassword, new_password: newPassword), completion: { result in
-                switch result {
-                case let .success(moyaResponse):
-                    if moyaResponse.statusCode == 200 {
-                        SUCCESS?()
-                    } else {
-                        let data = moyaResponse.data
-                        let json = JSON(data: data)
-                        if json["error_title"].exists() && json["rus_description"].exists() {
-                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
-                        } else {
-                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
-                        }
-                    }
-                case .failure(_):
-                    ERROR?(ErrorType.NetworkError, "Не получен ответ от сервера!")
-                }
-            })
-        }, ERROR: { et, msg in
-            ERROR?(et, msg)
-        }, UNAUTHORIZED: {
-            ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться для выполнения данного запроса!")
-        })
-    }
+    
 
     static func changeEmail(newEmail: String, SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
         MakeAuthorizedRequest(SUCCESS: { c in
-            provider.request(.changeEmail(access_token: c.access_token, new_email: newEmail), completion: { result in
-                switch result {
-                case let .success(moyaResponse):
-                    if moyaResponse.statusCode == 200 {
-                        SUCCESS?()
-                    } else {
-                        let data = moyaResponse.data
-                        let json = JSON(data: data)
-                        if json["error_title"].exists() && json["rus_description"].exists() {
-                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
-                        } else {
-                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
-                        }
-                    }
-                case .failure(_):
-                    ERROR?(ErrorType.NetworkError, "Не получен ответ от сервера!")
-                }
-            })
-        }, ERROR: { et, msg in
-            ERROR?(et, msg)
-        }, UNAUTHORIZED: {
-            ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться для выполнения данного запроса!")
-        })
-    }
-
-    static func confirmEmail(SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
-        MakeAuthorizedRequest(SUCCESS: { cred in
-            let rb = AccountAPI.apiAccountConfirmPostWithRequestBuilder()
-            rb.addHeader(name: "Authorization", value: "Bearer \(cred.access_token)")
-            rb.execute{ response, error in
-                if error == nil {
-                    SUCCESS?()
-                } else {
-                    ERROR?(ErrorType.Unknown, error?.localizedDescription ?? "")
-                }
-            }
-        }, ERROR: { et, msg in
-            ERROR?(et, msg)
-        }, UNAUTHORIZED: {
-            ERROR?(ErrorType.Unauthorized,  "Необходимо авторизоваться для выполнения данного запроса!")
-        })
-    }
-    
-    static func confirmEmail_old(SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
-        MakeAuthorizedRequest(SUCCESS: { c in
-            provider.request(.confirm_email(access_token: c.access_token), completion: { result in
-                switch result {
-                case let .success(moyaResponse):
-                    if moyaResponse.statusCode == 200 {
-                        SUCCESS?()
-                    } else {
-                        let data = moyaResponse.data
-                        let json = JSON(data: data)
-                        if json["error_title"].exists() && json["rus_description"].exists() {
-                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
-                        } else {
-                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
-                        }
-                    }
-                case .failure(_):
-                    ERROR?(ErrorType.NetworkError, "Не получен ответ от сервера!")
-                }
-            })
+            
+//            provider.request(.changeEmail(access_token: c.access_token, new_email: newEmail), completion: { result in
+//                switch result {
+//                case let .success(moyaResponse):
+//                    if moyaResponse.statusCode == 200 {
+//                        SUCCESS?()
+//                    } else {
+//                        let data = moyaResponse.data
+//                        let json = JSON(data: data)
+//                        if json["error_title"].exists() && json["rus_description"].exists() {
+//                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
+//                        } else {
+//                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
+//                        }
+//                    }
+//                case .failure(_):
+//                    ERROR?(ErrorType.NetworkError, "Не получен ответ от сервера!")
+//                }
+//            })
         }, ERROR: { et, msg in
             ERROR?(et, msg)
         }, UNAUTHORIZED: {
@@ -551,6 +482,41 @@ class Server {
         })
     }
 
+    static func confirmEmail(SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
+        MakeAuthorizedRequest(SUCCESS: { cred in
+            let rb = AccountAPI.apiAccountConfirmPostWithRequestBuilder()
+            rb.addHeader(name: "Authorization", value: "Bearer \(cred.access_token)")
+            rb.execute{ response, error in
+                if error == nil {
+                    SUCCESS?()
+                } else {
+                    ERROR?(ErrorType.Unknown, error?.localizedDescription ?? "")
+                }
+            }
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            ERROR?(ErrorType.Unauthorized,  "Необходимо авторизоваться для выполнения данного запроса!")
+        })
+    }
+    
+    static func changePassword(newPassword: String, oldPassword: String, SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
+        MakeAuthorizedRequest(SUCCESS: { c in
+            let rb = AccountAPI.apiAccountPasswordByCurrentByNewpassPutWithRequestBuilder(current: oldPassword, newpass: newPassword)
+            rb.addHeader(name: "Authorization", value: "Bearer \(c.access_token)")
+            rb.execute({ response, error in
+                if error == nil {
+                    SUCCESS?()
+                } else {
+                    ERROR?(ErrorType.Unknown, error?.localizedDescription ?? "")
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться для выполнения данного запроса!")
+        })
+    }
     
     static func SignInWithEmail_new(
         email: String,
