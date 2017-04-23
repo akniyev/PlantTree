@@ -23,7 +23,7 @@ class Server {
     })
 
     // Manual
-    static func SignInWithEmail(
+    static func SignInWithEmail_old(
         email: String,
         password: String,
         SUCCESS: ((Credentials) -> ())?,
@@ -323,13 +323,12 @@ class Server {
     static func changePersonalData(image: UIImage?, first_name: String, second_name: String, gender: Gender, birth_date: Date,
                                    SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
         MakeAuthorizedRequest(SUCCESS: { cred in
-            let userInfo = UserInfoModel()
+            let userInfo = UserInfo()
             userInfo.birthday = birth_date.toRussianFormat()
             userInfo.name = first_name
             userInfo.lastName = second_name
             userInfo.gender = gender.toJsonCode()
-            let rb = AccountAPI.apiAccountInfoPutWithRequestBuilder(info: userInfo)
-            rb.addHeader(name: "Authorization", value: "Bearer \(cred.access_token)")
+            let rb = AccountAPI.apiAccountInfoPutWithRequestBuilder(info: userInfo, authorization: "Authorization Bearer \(cred.access_token)")
             rb.execute({ response, error in
                 if error == nil {
                     SUCCESS?()
@@ -436,16 +435,28 @@ class Server {
         })
     }
     
-    static func SignInWithEmail_new(
+    static func SignInWithEmail(
         email: String,
         password: String,
         SUCCESS: ((Credentials) -> ())?,
         ERROR: ((ErrorType, String)->())?){
-        ConnectAPI.apiConnectTokenPost(username: email, password: password, grantType: "password", scope: "openid offline_access", completion: { at, e in
-            print(at?.accessToken ?? "")
-            print(at?.refreshToken ?? "")
-            print(e?.localizedDescription ?? "")
-        })
+
+        let rb = ConnectAPI.apiConnectTokenPostWithRequestBuilder(
+                username: email,
+                password: password,
+                grantType: "password",
+                scope: "openid offline_access")
+        rb.execute { at, e in
+            print(e)
+            print(at.body?.accessToken)
+            print(at.body?.refreshToken)
+        }
+
+//        ConnectAPI.apiConnectTokenPost(username: email, password: password, grantType: "password", scope: "openid offline_access", completion: { at, e in
+//            print(at?.accessToken ?? "")
+//            print(at?.refreshToken ?? "")
+//            print(e?.localizedDescription ?? "")
+//        })
     }
     
     // TODO: Make better error handling and error message display
@@ -469,11 +480,10 @@ class Server {
     
     // TODO: Make authorized request for favorites (user projects)
     static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
-        
+        Server.SignOut()
         MakeAuthorizedRequest(SUCCESS: { c in
             if type != .favorites {
-                let rb = ProjectsAPI.apiProjectsGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize))
-                rb.addHeader(name: "Authorization", value: "Bearer \(c.access_token)")
+                let rb = ProjectsAPI.apiProjectsUserGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize), authorization: "Authorization Bearer \(c.access_token)")
                 rb.execute({ projects, error in
                     if let prs = projects?.body {
                         SUCCESS?(prs.map {$0.toProjectInfo()})
@@ -482,8 +492,7 @@ class Server {
                     }
                 })
             } else {
-                let rb = ProjectsAPI.apiProjectsUserGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize))
-                rb.addHeader(name: "Authorization", value: "Bearer \(c.access_token)")
+                let rb = ProjectsAPI.apiProjectsUserGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize), authorization: "Authorization Bearer \(c.access_token)")
                 rb.execute({ projects, error in
                     if let prs = projects?.body {
                         SUCCESS?(prs.map {$0.toProjectInfo()})
@@ -498,11 +507,15 @@ class Server {
         }, UNAUTHORIZED: {
             switch type {
             case .active, .completed:
+                let rb = ProjectsAPI.apiProjectsGetWithRequestBuilder(status: type.toCode(), page: Int32(page), pagesize: Int32(pagesize), authorization: "")
+                rb.execute({ projects, error in
+                    print(projects)
+                })
                 ProjectsAPI.apiProjectsGet(status: type.toCode(), page: Int32(page), pagesize: Int32(pagesize), completion: { projects, error in
                     if let prs = projects {
                         SUCCESS?(prs.map {$0.toProjectInfo()})
                     } else {
-                        print(error?.localizedDescription)
+                        print(error?.localizedDescription ?? "")
                         ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
                     }
                 })
@@ -530,12 +543,12 @@ class Server {
         })
     }
     
-    static func ResetPassword(email: String, ERROR: (() -> ())?, SUCCESS: (() -> ())?) {
+    static func ResetPassword(email: String, ERROR: ((ErrorType, String) -> ())?, SUCCESS: (() -> ())?) {
         AccountAPI.apiAccountForgotByEmailPost(email: email, completion: { error in
             if error == nil {
                 SUCCESS?()
             } else {
-                ERROR?()
+                ERROR?(ErrorType.Conflict, error?.localizedDescription ?? "Произошла ошибка при обработке вашего зарпоса")
             }
         })
     }

@@ -184,6 +184,52 @@ class Decoders {
         }
 
 
+        // Decoder for [DetailedUserInfo]
+        Decoders.addDecoder(clazz: [DetailedUserInfo].self) { (source: AnyObject) -> [DetailedUserInfo] in
+            return Decoders.decode(clazz: [DetailedUserInfo].self, source: source)
+        }
+        // Decoder for DetailedUserInfo
+        Decoders.addDecoder(clazz: DetailedUserInfo.self) { (source: AnyObject) -> DetailedUserInfo in
+            let sourceDictionary = source as! [AnyHashable: Any]
+
+            let instance = DetailedUserInfo()
+            instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
+            instance.lastName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["lastName"] as AnyObject?)
+            instance.gender = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["gender"] as AnyObject?)
+            instance.birthday = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["birthday"] as AnyObject?)
+            instance.email = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["email"] as AnyObject?)
+            instance.isEmailConfirmed = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["isEmailConfirmed"] as AnyObject?)
+            instance.donated = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["donated"] as AnyObject?)
+            instance.donatedProjectsCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["donatedProjectsCount"] as AnyObject?)
+            instance.transactions = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["transactions"] as AnyObject?)
+            instance.photoUrlSmall = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["photoUrlSmall"] as AnyObject?)
+            instance.photoUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["photoUrl"] as AnyObject?)
+            return instance
+        }
+
+
+        // Decoder for [News]
+        Decoders.addDecoder(clazz: [News].self) { (source: AnyObject) -> [News] in
+            return Decoders.decode(clazz: [News].self, source: source)
+        }
+        // Decoder for News
+        Decoders.addDecoder(clazz: News.self) { (source: AnyObject) -> News in
+            let sourceDictionary = source as! [AnyHashable: Any]
+
+            let instance = News()
+            instance.id = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["id"] as AnyObject?)
+            instance.title = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["title"] as AnyObject?)
+            instance.text = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["text"] as AnyObject?)
+            instance.shortText = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["shortText"] as AnyObject?)
+            instance.photoId = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["photoId"] as AnyObject?)
+            instance.photoUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["photoUrl"] as AnyObject?)
+            instance.photoUrlSmall = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["photoUrlSmall"] as AnyObject?)
+            instance.date = Decoders.decodeOptional(clazz: Date.self, source: sourceDictionary["date"] as AnyObject?)
+            instance.projectId = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["projectId"] as AnyObject?)
+            return instance
+        }
+
+
         // Decoder for [Project]
         Decoders.addDecoder(clazz: [Project].self) { (source: AnyObject) -> [Project] in
             return Decoders.decode(clazz: [Project].self, source: source)
@@ -234,6 +280,32 @@ class Decoders {
         }
 
 
+        // Decoder for [Transaction]
+        Decoders.addDecoder(clazz: [Transaction].self) { (source: AnyObject) -> [Transaction] in
+            return Decoders.decode(clazz: [Transaction].self, source: source)
+        }
+        // Decoder for Transaction
+        Decoders.addDecoder(clazz: Transaction.self) { (source: AnyObject) -> Transaction in
+            let sourceDictionary = source as! [AnyHashable: Any]
+
+            let instance = Transaction()
+            instance.id = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["id"] as AnyObject?)
+            instance.userId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userId"] as AnyObject?)
+            instance.projectId = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["projectId"] as AnyObject?)
+            instance.amount = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["amount"] as AnyObject?)
+            instance.treeCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["treeCount"] as AnyObject?)
+            if let currency = sourceDictionary["currency"] as? String { 
+                instance.currency = Transaction.Currency(rawValue: (currency))
+            }
+            
+            instance.creationDate = Decoders.decodeOptional(clazz: Date.self, source: sourceDictionary["creationDate"] as AnyObject?)
+            instance.finishedDate = Decoders.decodeOptional(clazz: Date.self, source: sourceDictionary["finishedDate"] as AnyObject?)
+            instance.status = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"] as AnyObject?)
+            instance.paymentMethod = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["paymentMethod"] as AnyObject?)
+            return instance
+        }
+
+
         // Decoder for [UserInfo]
         Decoders.addDecoder(clazz: [UserInfo].self) { (source: AnyObject) -> [UserInfo] in
             return Decoders.decode(clazz: [UserInfo].self, source: source)
@@ -243,27 +315,6 @@ class Decoders {
             let sourceDictionary = source as! [AnyHashable: Any]
 
             let instance = UserInfo()
-            instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
-            instance.lastName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["lastName"] as AnyObject?)
-            instance.gender = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["gender"] as AnyObject?)
-            instance.birthday = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["birthday"] as AnyObject?)
-            instance.email = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["email"] as AnyObject?)
-            instance.isEmailConfirmed = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["isEmailConfirmed"] as AnyObject?)
-            instance.donated = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["donated"] as AnyObject?)
-            instance.donatedProjectsCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["donatedProjectsCount"] as AnyObject?)
-            return instance
-        }
-
-
-        // Decoder for [UserInfoModel]
-        Decoders.addDecoder(clazz: [UserInfoModel].self) { (source: AnyObject) -> [UserInfoModel] in
-            return Decoders.decode(clazz: [UserInfoModel].self, source: source)
-        }
-        // Decoder for UserInfoModel
-        Decoders.addDecoder(clazz: UserInfoModel.self) { (source: AnyObject) -> UserInfoModel in
-            let sourceDictionary = source as! [AnyHashable: Any]
-
-            let instance = UserInfoModel()
             instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"] as AnyObject?)
             instance.lastName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["lastName"] as AnyObject?)
             instance.gender = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["gender"] as AnyObject?)

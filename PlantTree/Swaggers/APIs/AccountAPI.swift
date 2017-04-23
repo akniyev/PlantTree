@@ -12,10 +12,11 @@ import Alamofire
 open class AccountAPI: APIBase {
     /**
 
+     - parameter authorization: (header) Authorization header parameter (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiAccountConfirmPost(completion: @escaping ((_ error: Error?) -> Void)) {
-        apiAccountConfirmPostWithRequestBuilder().execute { (response, error) -> Void in
+    open class func apiAccountConfirmPost(authorization: String? = nil, completion: @escaping ((_ error: Error?) -> Void)) {
+        apiAccountConfirmPostWithRequestBuilder(authorization: authorization).execute { (response, error) -> Void in
             completion(error);
         }
     }
@@ -23,20 +24,26 @@ open class AccountAPI: APIBase {
 
     /**
      - POST /api/account/confirm
+     
+     - parameter authorization: (header) Authorization header parameter (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    open class func apiAccountConfirmPostWithRequestBuilder() -> RequestBuilder<Void> {
+    open class func apiAccountConfirmPostWithRequestBuilder(authorization: String? = nil) -> RequestBuilder<Void> {
         let path = "/api/account/confirm"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
 
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<Void>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
     /**
@@ -74,10 +81,11 @@ open class AccountAPI: APIBase {
 
     /**
 
+     - parameter authorization: (header) Authorization header parameter (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiAccountInfoGet(completion: @escaping ((_ data: UserInfo?,_ error: Error?) -> Void)) {
-        apiAccountInfoGetWithRequestBuilder().execute { (response, error) -> Void in
+    open class func apiAccountInfoGet(authorization: String? = nil, completion: @escaping ((_ data: DetailedUserInfo?,_ error: Error?) -> Void)) {
+        apiAccountInfoGetWithRequestBuilder(authorization: authorization).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
@@ -89,36 +97,57 @@ open class AccountAPI: APIBase {
   "birthday" : "aeiou",
   "donated" : 1.3579000000000001069366817318950779736042022705078125,
   "lastName" : "aeiou",
+  "photoUrl" : "aeiou",
   "gender" : "aeiou",
   "name" : "aeiou",
   "donatedProjectsCount" : 123,
+  "transactions" : [ {
+    "amount" : 1.3579000000000001069366817318950779736042022705078125,
+    "paymentMethod" : "aeiou",
+    "treeCount" : 123,
+    "currency" : "aeiou",
+    "id" : 123,
+    "creationDate" : "2000-01-23T04:56:07.000+00:00",
+    "userId" : "aeiou",
+    "projectId" : 123,
+    "finishedDate" : "2000-01-23T04:56:07.000+00:00",
+    "status" : "aeiou"
+  } ],
   "email" : "aeiou",
-  "isEmailConfirmed" : true
+  "isEmailConfirmed" : true,
+  "photoUrlSmall" : "aeiou"
 }}]
+     
+     - parameter authorization: (header) Authorization header parameter (optional)
 
-     - returns: RequestBuilder<UserInfo> 
+     - returns: RequestBuilder<DetailedUserInfo> 
      */
-    open class func apiAccountInfoGetWithRequestBuilder() -> RequestBuilder<UserInfo> {
+    open class func apiAccountInfoGetWithRequestBuilder(authorization: String? = nil) -> RequestBuilder<DetailedUserInfo> {
         let path = "/api/account/info"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
 
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
-        let requestBuilder: RequestBuilder<UserInfo>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<DetailedUserInfo>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
     /**
      DateTime format - \"dd.MM.yyyy\"
      
      - parameter info: (body)  (optional)
+     - parameter authorization: (header) Authorization header parameter (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiAccountInfoPut(info: UserInfoModel? = nil, completion: @escaping ((_ error: Error?) -> Void)) {
-        apiAccountInfoPutWithRequestBuilder(info: info).execute { (response, error) -> Void in
+    open class func apiAccountInfoPut(info: UserInfo? = nil, authorization: String? = nil, completion: @escaping ((_ error: Error?) -> Void)) {
+        apiAccountInfoPutWithRequestBuilder(info: info, authorization: authorization).execute { (response, error) -> Void in
             completion(error);
         }
     }
@@ -129,20 +158,25 @@ open class AccountAPI: APIBase {
      - PUT /api/account/info
      
      - parameter info: (body)  (optional)
+     - parameter authorization: (header) Authorization header parameter (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    open class func apiAccountInfoPutWithRequestBuilder(info: UserInfoModel? = nil) -> RequestBuilder<Void> {
+    open class func apiAccountInfoPutWithRequestBuilder(info: UserInfo? = nil, authorization: String? = nil) -> RequestBuilder<Void> {
         let path = "/api/account/info"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters = info?.encodeToJSON() as? [String:AnyObject]
 
         let url = NSURLComponents(string: URLString)
 
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<Void>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, headers: headerParameters)
     }
 
     /**
@@ -150,10 +184,11 @@ open class AccountAPI: APIBase {
      
      - parameter current: (path)  
      - parameter newpass: (path)  
+     - parameter authorization: (header) Authorization header parameter (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiAccountPasswordByCurrentByNewpassPut(current: String, newpass: String, completion: @escaping ((_ error: Error?) -> Void)) {
-        apiAccountPasswordByCurrentByNewpassPutWithRequestBuilder(current: current, newpass: newpass).execute { (response, error) -> Void in
+    open class func apiAccountPasswordByCurrentByNewpassPut(current: String, newpass: String, authorization: String? = nil, completion: @escaping ((_ error: Error?) -> Void)) {
+        apiAccountPasswordByCurrentByNewpassPutWithRequestBuilder(current: current, newpass: newpass, authorization: authorization).execute { (response, error) -> Void in
             completion(error);
         }
     }
@@ -165,10 +200,11 @@ open class AccountAPI: APIBase {
      
      - parameter current: (path)  
      - parameter newpass: (path)  
+     - parameter authorization: (header) Authorization header parameter (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    open class func apiAccountPasswordByCurrentByNewpassPutWithRequestBuilder(current: String, newpass: String) -> RequestBuilder<Void> {
+    open class func apiAccountPasswordByCurrentByNewpassPutWithRequestBuilder(current: String, newpass: String, authorization: String? = nil) -> RequestBuilder<Void> {
         var path = "/api/account/password/{current}/{newpass}"
         path = path.replacingOccurrences(of: "{current}", with: "\(current)", options: .literal, range: nil)
         path = path.replacingOccurrences(of: "{newpass}", with: "\(newpass)", options: .literal, range: nil)
@@ -177,10 +213,95 @@ open class AccountAPI: APIBase {
 
         let url = NSURLComponents(string: URLString)
 
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<Void>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
+     Deletes current user photo
+     
+     - parameter authorization: (header) Authorization header parameter (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func apiAccountPhotoDelete(authorization: String? = nil, completion: @escaping ((_ error: Error?) -> Void)) {
+        apiAccountPhotoDeleteWithRequestBuilder(authorization: authorization).execute { (response, error) -> Void in
+            completion(error);
+        }
+    }
+
+
+    /**
+     Deletes current user photo
+     - DELETE /api/account/photo
+     
+     - parameter authorization: (header) Authorization header parameter (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    open class func apiAccountPhotoDeleteWithRequestBuilder(authorization: String? = nil) -> RequestBuilder<Void> {
+        let path = "/api/account/photo"
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+
+        let url = NSURLComponents(string: URLString)
+
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Void>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
+    }
+
+    /**
+
+     - parameter photo: (form) Upload File 
+     - parameter authorization: (header) Authorization header parameter (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func apiAccountPhotoPost(photo: URL, authorization: String? = nil, completion: @escaping ((_ error: Error?) -> Void)) {
+        apiAccountPhotoPostWithRequestBuilder(photo: photo, authorization: authorization).execute { (response, error) -> Void in
+            completion(error);
+        }
+    }
+
+
+    /**
+     - POST /api/account/photo
+     
+     - parameter photo: (form) Upload File 
+     - parameter authorization: (header) Authorization header parameter (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    open class func apiAccountPhotoPostWithRequestBuilder(photo: URL, authorization: String? = nil) -> RequestBuilder<Void> {
+        let path = "/api/account/photo"
+        let URLString = SwaggerClientAPI.basePath + path
+        let formParams: [String:Any?] = [
+            "photo": photo
+        ]
+
+        let nonNullParameters = APIHelper.rejectNil(formParams)
+        let parameters = APIHelper.convertBoolToString(nonNullParameters)
+
+        let url = NSURLComponents(string: URLString)
+
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<Void>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
     /**

@@ -13,10 +13,11 @@ open class ProjectsAPI: APIBase {
     /**
 
      - parameter id: (path)  
+     - parameter authorization: (header) Authorization header parameter (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiProjectsByIdDislikePut(id: Int32, completion: @escaping ((_ error: Error?) -> Void)) {
-        apiProjectsByIdDislikePutWithRequestBuilder(id: id).execute { (response, error) -> Void in
+    open class func apiProjectsByIdDislikePut(id: Int32, authorization: String? = nil, completion: @escaping ((_ error: Error?) -> Void)) {
+        apiProjectsByIdDislikePutWithRequestBuilder(id: id, authorization: authorization).execute { (response, error) -> Void in
             completion(error);
         }
     }
@@ -26,10 +27,11 @@ open class ProjectsAPI: APIBase {
      - PUT /api/projects/{id}/dislike
      
      - parameter id: (path)  
+     - parameter authorization: (header) Authorization header parameter (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    open class func apiProjectsByIdDislikePutWithRequestBuilder(id: Int32) -> RequestBuilder<Void> {
+    open class func apiProjectsByIdDislikePutWithRequestBuilder(id: Int32, authorization: String? = nil) -> RequestBuilder<Void> {
         var path = "/api/projects/{id}/dislike"
         path = path.replacingOccurrences(of: "{id}", with: "\(id)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
@@ -37,19 +39,24 @@ open class ProjectsAPI: APIBase {
 
         let url = NSURLComponents(string: URLString)
 
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<Void>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
     /**
 
      - parameter id: (path)  
+     - parameter authorization: (header) Authorization header parameter (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiProjectsByIdGet(id: Int32, completion: @escaping ((_ data: Project?,_ error: Error?) -> Void)) {
-        apiProjectsByIdGetWithRequestBuilder(id: id).execute { (response, error) -> Void in
+    open class func apiProjectsByIdGet(id: Int32, authorization: String? = nil, completion: @escaping ((_ data: Project?,_ error: Error?) -> Void)) {
+        apiProjectsByIdGetWithRequestBuilder(id: id, authorization: authorization).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
@@ -83,10 +90,11 @@ open class ProjectsAPI: APIBase {
 }}]
      
      - parameter id: (path)  
+     - parameter authorization: (header) Authorization header parameter (optional)
 
      - returns: RequestBuilder<Project> 
      */
-    open class func apiProjectsByIdGetWithRequestBuilder(id: Int32) -> RequestBuilder<Project> {
+    open class func apiProjectsByIdGetWithRequestBuilder(id: Int32, authorization: String? = nil) -> RequestBuilder<Project> {
         var path = "/api/projects/{id}"
         path = path.replacingOccurrences(of: "{id}", with: "\(id)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
@@ -94,19 +102,24 @@ open class ProjectsAPI: APIBase {
 
         let url = NSURLComponents(string: URLString)
 
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<Project>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
     /**
 
      - parameter id: (path)  
+     - parameter authorization: (header) Authorization header parameter (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiProjectsByIdLikePut(id: Int32, completion: @escaping ((_ error: Error?) -> Void)) {
-        apiProjectsByIdLikePutWithRequestBuilder(id: id).execute { (response, error) -> Void in
+    open class func apiProjectsByIdLikePut(id: Int32, authorization: String? = nil, completion: @escaping ((_ error: Error?) -> Void)) {
+        apiProjectsByIdLikePutWithRequestBuilder(id: id, authorization: authorization).execute { (response, error) -> Void in
             completion(error);
         }
     }
@@ -116,10 +129,11 @@ open class ProjectsAPI: APIBase {
      - PUT /api/projects/{id}/like
      
      - parameter id: (path)  
+     - parameter authorization: (header) Authorization header parameter (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    open class func apiProjectsByIdLikePutWithRequestBuilder(id: Int32) -> RequestBuilder<Void> {
+    open class func apiProjectsByIdLikePutWithRequestBuilder(id: Int32, authorization: String? = nil) -> RequestBuilder<Void> {
         var path = "/api/projects/{id}/like"
         path = path.replacingOccurrences(of: "{id}", with: "\(id)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
@@ -127,10 +141,14 @@ open class ProjectsAPI: APIBase {
 
         let url = NSURLComponents(string: URLString)
 
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<Void>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
     /**
@@ -139,10 +157,11 @@ open class ProjectsAPI: APIBase {
      - parameter status: (query)  (optional)
      - parameter page: (query)  (optional)
      - parameter pagesize: (query)  (optional)
+     - parameter authorization: (header) Authorization header parameter (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiProjectsGet(status: String? = nil, page: Int32? = nil, pagesize: Int32? = nil, completion: @escaping ((_ data: [Project]?,_ error: Error?) -> Void)) {
-        apiProjectsGetWithRequestBuilder(status: status, page: page, pagesize: pagesize).execute { (response, error) -> Void in
+    open class func apiProjectsGet(status: String? = nil, page: Int32? = nil, pagesize: Int32? = nil, authorization: String? = nil, completion: @escaping ((_ data: [Project]?,_ error: Error?) -> Void)) {
+        apiProjectsGetWithRequestBuilder(status: status, page: page, pagesize: pagesize, authorization: authorization).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
@@ -179,10 +198,11 @@ open class ProjectsAPI: APIBase {
      - parameter status: (query)  (optional)
      - parameter page: (query)  (optional)
      - parameter pagesize: (query)  (optional)
+     - parameter authorization: (header) Authorization header parameter (optional)
 
      - returns: RequestBuilder<[Project]> 
      */
-    open class func apiProjectsGetWithRequestBuilder(status: String? = nil, page: Int32? = nil, pagesize: Int32? = nil) -> RequestBuilder<[Project]> {
+    open class func apiProjectsGetWithRequestBuilder(status: String? = nil, page: Int32? = nil, pagesize: Int32? = nil, authorization: String? = nil) -> RequestBuilder<[Project]> {
         let path = "/api/projects"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -194,219 +214,25 @@ open class ProjectsAPI: APIBase {
             "pagesize": pagesize?.encodeToJSON()
         ])
         
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<[Project]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-     
-     
-     - parameter status: (path)  
-     - parameter page: (query)  (optional)
-     - parameter pagesize: (query)  (optional)
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func apiProjectsStatusByStatusGet(status: String, page: Int32? = nil, pagesize: Int32? = nil, completion: @escaping ((_ data: [Project]?,_ error: Error?) -> Void)) {
-        apiProjectsStatusByStatusGetWithRequestBuilder(status: status, page: page, pagesize: pagesize).execute { (response, error) -> Void in
-            completion(response?.body, error);
-        }
-    }
-
-
-    /**
-     
-     - GET /api/projects/status/{status}
-     - examples: [{contentType=application/json, example=[ {
-  "goal" : 123,
-  "imageId" : 123,
-  "mainImageUrlSmall" : "aeiou",
-  "isLiked" : true,
-  "description" : "aeiou",
-  "shortDescription" : "aeiou",
-  "creationDate" : "2000-01-23T04:56:07.000+00:00",
-  "otherImagesUrl" : [ "aeiou" ],
-  "otherImagesUrlSmall" : [ "aeiou" ],
-  "donatorsCount" : 123,
-  "likesCount" : 123,
-  "deleted" : true,
-  "currencyName" : "aeiou",
-  "reachedDate" : "2000-01-23T04:56:07.000+00:00",
-  "reached" : 123,
-  "name" : "aeiou",
-  "treePrice" : 1.3579000000000001069366817318950779736042022705078125,
-  "id" : 123,
-  "tag" : "aeiou",
-  "mainImageUrl" : "aeiou",
-  "finishedDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "aeiou"
-} ]}]
-     
-     - parameter status: (path)  
-     - parameter page: (query)  (optional)
-     - parameter pagesize: (query)  (optional)
-
-     - returns: RequestBuilder<[Project]> 
-     */
-    open class func apiProjectsStatusByStatusGetWithRequestBuilder(status: String, page: Int32? = nil, pagesize: Int32? = nil) -> RequestBuilder<[Project]> {
-        var path = "/api/projects/status/{status}"
-        path = path.replacingOccurrences(of: "{status}", with: "\(status)", options: .literal, range: nil)
-        let URLString = SwaggerClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-
-        let url = NSURLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
-            "page": page?.encodeToJSON(), 
-            "pagesize": pagesize?.encodeToJSON()
-        ])
-        
-
-        let requestBuilder: RequestBuilder<[Project]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-     
-     
-     - parameter status: (path)  
-     - parameter page: (path)  
-     - parameter pagesize: (query)  (optional)
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func apiProjectsStatusByStatusPageByPageGet(status: String, page: Int32, pagesize: Int32? = nil, completion: @escaping ((_ data: [Project]?,_ error: Error?) -> Void)) {
-        apiProjectsStatusByStatusPageByPageGetWithRequestBuilder(status: status, page: page, pagesize: pagesize).execute { (response, error) -> Void in
-            completion(response?.body, error);
-        }
-    }
-
-
-    /**
-     
-     - GET /api/projects/status/{status}/page/{page}
-     - examples: [{contentType=application/json, example=[ {
-  "goal" : 123,
-  "imageId" : 123,
-  "mainImageUrlSmall" : "aeiou",
-  "isLiked" : true,
-  "description" : "aeiou",
-  "shortDescription" : "aeiou",
-  "creationDate" : "2000-01-23T04:56:07.000+00:00",
-  "otherImagesUrl" : [ "aeiou" ],
-  "otherImagesUrlSmall" : [ "aeiou" ],
-  "donatorsCount" : 123,
-  "likesCount" : 123,
-  "deleted" : true,
-  "currencyName" : "aeiou",
-  "reachedDate" : "2000-01-23T04:56:07.000+00:00",
-  "reached" : 123,
-  "name" : "aeiou",
-  "treePrice" : 1.3579000000000001069366817318950779736042022705078125,
-  "id" : 123,
-  "tag" : "aeiou",
-  "mainImageUrl" : "aeiou",
-  "finishedDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "aeiou"
-} ]}]
-     
-     - parameter status: (path)  
-     - parameter page: (path)  
-     - parameter pagesize: (query)  (optional)
-
-     - returns: RequestBuilder<[Project]> 
-     */
-    open class func apiProjectsStatusByStatusPageByPageGetWithRequestBuilder(status: String, page: Int32, pagesize: Int32? = nil) -> RequestBuilder<[Project]> {
-        var path = "/api/projects/status/{status}/page/{page}"
-        path = path.replacingOccurrences(of: "{status}", with: "\(status)", options: .literal, range: nil)
-        path = path.replacingOccurrences(of: "{page}", with: "\(page)", options: .literal, range: nil)
-        let URLString = SwaggerClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-
-        let url = NSURLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
-            "pagesize": pagesize?.encodeToJSON()
-        ])
-        
-
-        let requestBuilder: RequestBuilder<[Project]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-     
-     
-     - parameter status: (path)  
-     - parameter page: (path)  
-     - parameter pagesize: (path)  
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func apiProjectsStatusByStatusPageByPagePagesizeByPagesizeGet(status: String, page: Int32, pagesize: Int32, completion: @escaping ((_ data: [Project]?,_ error: Error?) -> Void)) {
-        apiProjectsStatusByStatusPageByPagePagesizeByPagesizeGetWithRequestBuilder(status: status, page: page, pagesize: pagesize).execute { (response, error) -> Void in
-            completion(response?.body, error);
-        }
-    }
-
-
-    /**
-     
-     - GET /api/projects/status/{status}/page/{page}/pagesize/{pagesize}
-     - examples: [{contentType=application/json, example=[ {
-  "goal" : 123,
-  "imageId" : 123,
-  "mainImageUrlSmall" : "aeiou",
-  "isLiked" : true,
-  "description" : "aeiou",
-  "shortDescription" : "aeiou",
-  "creationDate" : "2000-01-23T04:56:07.000+00:00",
-  "otherImagesUrl" : [ "aeiou" ],
-  "otherImagesUrlSmall" : [ "aeiou" ],
-  "donatorsCount" : 123,
-  "likesCount" : 123,
-  "deleted" : true,
-  "currencyName" : "aeiou",
-  "reachedDate" : "2000-01-23T04:56:07.000+00:00",
-  "reached" : 123,
-  "name" : "aeiou",
-  "treePrice" : 1.3579000000000001069366817318950779736042022705078125,
-  "id" : 123,
-  "tag" : "aeiou",
-  "mainImageUrl" : "aeiou",
-  "finishedDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "aeiou"
-} ]}]
-     
-     - parameter status: (path)  
-     - parameter page: (path)  
-     - parameter pagesize: (path)  
-
-     - returns: RequestBuilder<[Project]> 
-     */
-    open class func apiProjectsStatusByStatusPageByPagePagesizeByPagesizeGetWithRequestBuilder(status: String, page: Int32, pagesize: Int32) -> RequestBuilder<[Project]> {
-        var path = "/api/projects/status/{status}/page/{page}/pagesize/{pagesize}"
-        path = path.replacingOccurrences(of: "{status}", with: "\(status)", options: .literal, range: nil)
-        path = path.replacingOccurrences(of: "{page}", with: "\(page)", options: .literal, range: nil)
-        path = path.replacingOccurrences(of: "{pagesize}", with: "\(pagesize)", options: .literal, range: nil)
-        let URLString = SwaggerClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-
-        let url = NSURLComponents(string: URLString)
-
-
-        let requestBuilder: RequestBuilder<[Project]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
     /**
 
      - parameter page: (query)  (optional)
      - parameter pagesize: (query)  (optional)
+     - parameter authorization: (header) Authorization header parameter (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func apiProjectsUserGet(page: Int32? = nil, pagesize: Int32? = nil, completion: @escaping ((_ data: [Project]?,_ error: Error?) -> Void)) {
-        apiProjectsUserGetWithRequestBuilder(page: page, pagesize: pagesize).execute { (response, error) -> Void in
+    open class func apiProjectsUserGet(page: Int32? = nil, pagesize: Int32? = nil, authorization: String? = nil, completion: @escaping ((_ data: [Project]?,_ error: Error?) -> Void)) {
+        apiProjectsUserGetWithRequestBuilder(page: page, pagesize: pagesize, authorization: authorization).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
@@ -441,10 +267,11 @@ open class ProjectsAPI: APIBase {
      
      - parameter page: (query)  (optional)
      - parameter pagesize: (query)  (optional)
+     - parameter authorization: (header) Authorization header parameter (optional)
 
      - returns: RequestBuilder<[Project]> 
      */
-    open class func apiProjectsUserGetWithRequestBuilder(page: Int32? = nil, pagesize: Int32? = nil) -> RequestBuilder<[Project]> {
+    open class func apiProjectsUserGetWithRequestBuilder(page: Int32? = nil, pagesize: Int32? = nil, authorization: String? = nil) -> RequestBuilder<[Project]> {
         let path = "/api/projects/user"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -455,132 +282,14 @@ open class ProjectsAPI: APIBase {
             "pagesize": pagesize?.encodeToJSON()
         ])
         
+        let nillableHeaders: [String: Any?] = [
+            "Authorization": authorization
+        ]
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<[Project]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-
-     - parameter page: (path)  
-     - parameter pagesize: (query)  (optional)
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func apiProjectsUserPageByPageGet(page: Int32, pagesize: Int32? = nil, completion: @escaping ((_ data: [Project]?,_ error: Error?) -> Void)) {
-        apiProjectsUserPageByPageGetWithRequestBuilder(page: page, pagesize: pagesize).execute { (response, error) -> Void in
-            completion(response?.body, error);
-        }
-    }
-
-
-    /**
-     - GET /api/projects/user/page/{page}
-     - examples: [{contentType=application/json, example=[ {
-  "goal" : 123,
-  "imageId" : 123,
-  "mainImageUrlSmall" : "aeiou",
-  "isLiked" : true,
-  "description" : "aeiou",
-  "shortDescription" : "aeiou",
-  "creationDate" : "2000-01-23T04:56:07.000+00:00",
-  "otherImagesUrl" : [ "aeiou" ],
-  "otherImagesUrlSmall" : [ "aeiou" ],
-  "donatorsCount" : 123,
-  "likesCount" : 123,
-  "deleted" : true,
-  "currencyName" : "aeiou",
-  "reachedDate" : "2000-01-23T04:56:07.000+00:00",
-  "reached" : 123,
-  "name" : "aeiou",
-  "treePrice" : 1.3579000000000001069366817318950779736042022705078125,
-  "id" : 123,
-  "tag" : "aeiou",
-  "mainImageUrl" : "aeiou",
-  "finishedDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "aeiou"
-} ]}]
-     
-     - parameter page: (path)  
-     - parameter pagesize: (query)  (optional)
-
-     - returns: RequestBuilder<[Project]> 
-     */
-    open class func apiProjectsUserPageByPageGetWithRequestBuilder(page: Int32, pagesize: Int32? = nil) -> RequestBuilder<[Project]> {
-        var path = "/api/projects/user/page/{page}"
-        path = path.replacingOccurrences(of: "{page}", with: "\(page)", options: .literal, range: nil)
-        let URLString = SwaggerClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-
-        let url = NSURLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
-            "pagesize": pagesize?.encodeToJSON()
-        ])
-        
-
-        let requestBuilder: RequestBuilder<[Project]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-
-     - parameter page: (path)  
-     - parameter pagesize: (path)  
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func apiProjectsUserPageByPagePagesizeByPagesizeGet(page: Int32, pagesize: Int32, completion: @escaping ((_ data: [Project]?,_ error: Error?) -> Void)) {
-        apiProjectsUserPageByPagePagesizeByPagesizeGetWithRequestBuilder(page: page, pagesize: pagesize).execute { (response, error) -> Void in
-            completion(response?.body, error);
-        }
-    }
-
-
-    /**
-     - GET /api/projects/user/page/{page}/pagesize/{pagesize}
-     - examples: [{contentType=application/json, example=[ {
-  "goal" : 123,
-  "imageId" : 123,
-  "mainImageUrlSmall" : "aeiou",
-  "isLiked" : true,
-  "description" : "aeiou",
-  "shortDescription" : "aeiou",
-  "creationDate" : "2000-01-23T04:56:07.000+00:00",
-  "otherImagesUrl" : [ "aeiou" ],
-  "otherImagesUrlSmall" : [ "aeiou" ],
-  "donatorsCount" : 123,
-  "likesCount" : 123,
-  "deleted" : true,
-  "currencyName" : "aeiou",
-  "reachedDate" : "2000-01-23T04:56:07.000+00:00",
-  "reached" : 123,
-  "name" : "aeiou",
-  "treePrice" : 1.3579000000000001069366817318950779736042022705078125,
-  "id" : 123,
-  "tag" : "aeiou",
-  "mainImageUrl" : "aeiou",
-  "finishedDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "aeiou"
-} ]}]
-     
-     - parameter page: (path)  
-     - parameter pagesize: (path)  
-
-     - returns: RequestBuilder<[Project]> 
-     */
-    open class func apiProjectsUserPageByPagePagesizeByPagesizeGetWithRequestBuilder(page: Int32, pagesize: Int32) -> RequestBuilder<[Project]> {
-        var path = "/api/projects/user/page/{page}/pagesize/{pagesize}"
-        path = path.replacingOccurrences(of: "{page}", with: "\(page)", options: .literal, range: nil)
-        path = path.replacingOccurrences(of: "{pagesize}", with: "\(pagesize)", options: .literal, range: nil)
-        let URLString = SwaggerClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-
-        let url = NSURLComponents(string: URLString)
-
-
-        let requestBuilder: RequestBuilder<[Project]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false, headers: headerParameters)
     }
 
 }

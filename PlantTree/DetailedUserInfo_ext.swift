@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension UserInfo {
+extension DetailedUserInfo {
     func toPersonalData() -> PersonalData {
         let pd = PersonalData()
         let ui = self
