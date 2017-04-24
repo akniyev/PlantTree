@@ -23,7 +23,7 @@ class ProjectNewsCell: UITableViewCell {
     func setNewsInfo(np : NewsPiece) {
         lblTitle.text = np.title
         lblDate.text = "Дата публикации: \(np.date?.toRussianFormat() ?? "")"
-        let url = URL(string: np.imageUrl)
+        let url = URL(string: np.imageUrlSmall)
         img.kf.setImage(with: url)
         self.newsPiece = np
     }

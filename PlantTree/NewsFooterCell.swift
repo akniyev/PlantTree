@@ -20,5 +20,8 @@ class NewsFooterCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
+    func setCellData(np: NewsPiece) {
+
+    }
 }

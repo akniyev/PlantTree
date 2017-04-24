@@ -41,8 +41,6 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
         refreshPage()        
     }
     
-    
-    
     func showReloadView() {
         if let v = getReloadView() {
             v.frame = self.view.bounds
@@ -191,7 +189,7 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = (segue.destination as? NewsViewController) {
             if let p = project {
-                vc.url = p.news[newsIdForSegue].url
+                vc.newsId = p.news[newsIdForSegue].id
             }
         } else if let vc = (segue.destination as? PlantTreeViewController2) {
             vc.project = project

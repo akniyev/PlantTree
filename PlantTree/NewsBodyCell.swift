@@ -9,6 +9,7 @@
 import UIKit
 
 class NewsBodyCell: UITableViewCell {
+    @IBOutlet weak var lbl_Text: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,4 +22,14 @@ class NewsBodyCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    static func getCellHeight(cellWidth: CGFloat, text: String) -> CGFloat {
+        let labelSideIndent : CGFloat = 5
+        let l = UILabel()
+        l.font = UIFont(name: "Helvetica Neue", size: 21.0)
+        l.numberOfLines = 0
+        l.text = text
+        let boundSize = CGSize(width: cellWidth - 2 * labelSideIndent, height: 1000000)
+        let s = l.sizeThatFits(boundSize)
+        return s.height + 2.0
+    }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class NewsHeaderCell: UITableViewCell {
     @IBOutlet weak var img_Photo: UIImageView!
@@ -22,6 +23,15 @@ class NewsHeaderCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
+    func setCellInfo(np: NewsPiece) {
+        lbl_Title.text = np.title
+        if !np.imageUrl.isEmpty {
+            let url = URL(string: np.imageUrl)
+            img_Photo.kf.indicatorType = .activity
+            img_Photo.kf.setImage(with: url)
+        }
+    }
     
     static func getCellHeight(cellWidth: CGFloat, text: String) -> CGFloat {
         let labelSideIndent : CGFloat = 5
@@ -31,7 +41,7 @@ class NewsHeaderCell: UITableViewCell {
         l.text = text
         let boundSize = CGSize(width: cellWidth - 2 * labelSideIndent, height: 1000000)
         let s = l.sizeThatFits(boundSize)
-        return cellWidth * CGFloat(3.0 / 4.0) + 86.0 + s.height + 8.0 + 2.0
+        return cellWidth * CGFloat(3.0 / 4.0) + s.height + 2.0 + 100
     }
     
 }

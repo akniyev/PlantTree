@@ -20,12 +20,12 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfo-GN-HNU">
-                        <rect key="frame" x="5" y="236.5" width="305" height="67"/>
+                        <rect key="frame" x="5" y="236.5" width="305" height="67.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xS5-4w-s8h">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xS5-4w-s8h">
                         <rect key="frame" x="0.0" y="0.0" width="315" height="236.5"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="xS5-4w-s8h" secondAttribute="height" multiplier="4:3" id="GqR-I7-MLH"/>
@@ -33,13 +33,13 @@
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="lfo-GN-HNU" firstAttribute="top" secondItem="xS5-4w-s8h" secondAttribute="bottom" id="92s-nv-gqI"/>
                     <constraint firstAttribute="trailing" secondItem="xS5-4w-s8h" secondAttribute="trailing" id="DX2-xp-S1p"/>
                     <constraint firstItem="xS5-4w-s8h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Ia7-K4-uuq"/>
                     <constraint firstAttribute="bottom" secondItem="lfo-GN-HNU" secondAttribute="bottom" id="JAE-Ko-AT2"/>
                     <constraint firstAttribute="trailing" secondItem="lfo-GN-HNU" secondAttribute="trailing" constant="5" id="JI4-hp-CAq"/>
                     <constraint firstItem="xS5-4w-s8h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ymu-Nu-kQG"/>
                     <constraint firstItem="lfo-GN-HNU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="uV5-zp-6Ch"/>
-                    <constraint firstItem="lfo-GN-HNU" firstAttribute="top" secondItem="xS5-4w-s8h" secondAttribute="bottom" id="xqu-RC-mti"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

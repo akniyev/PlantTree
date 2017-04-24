@@ -557,17 +557,17 @@ class Server {
                             if let error = e {
                                 projectInfo.news = []
                             } else if let news = r?.body {
-                                var newsInfo: [NewsPiece] = []
-                                for n in news {
-                                    var np = NewsPiece()
-                                    np.id = Int(n.id ?? -1)
-                                    np.title = n.title ?? ""
-                                    np.imageUrl = n.photoUrlSmall ?? ""
-                                    np.date = n.date
-                                    np.text = n.text ?? ""
-                                    np.description = n.shortText ?? ""
-                                    newsInfo.append(np)
-                                }
+                                var newsInfo: [NewsPiece] = news.map {$0.toNewsPiece()}
+//                                for n in news {
+//                                    var np = NewsPiece()
+//                                    np.id = Int(n.id ?? -1)
+//                                    np.title = n.title ?? ""
+//                                    np.imageUrlSmall = n.photoUrlSmall ?? ""
+//                                    np.date = n.date
+//                                    np.text = n.text ?? ""
+//                                    np.description = n.shortText ?? ""
+//                                    newsInfo.append(np)
+//                                }
                                 projectInfo.news = newsInfo
                             }
                             SUCCESS?(projectInfo)
@@ -591,5 +591,16 @@ class Server {
                 ERROR?(ErrorType.Conflict, error?.localizedDescription ?? "Произошла ошибка при обработке вашего зарпоса")
             }
         })
+    }
+
+    static func GetNewsInfo(newsId: Int, SUCCESS: ((NewsPiece) -> ())?, ERROR: (() -> ())?) {
+        let rb = NewsAPI.apiNewsByIdGetWithRequestBuilder(id: Int32(newsId))
+        rb.execute { response in
+            if let news = response.0?.body {
+                SUCCESS?(news.toNewsPiece())
+            } else {
+                ERROR?()
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ class NewsPiece {
     var id = -1
     var title = ""
     var description = ""
+    var imageUrlSmall = ""
     var imageUrl = ""
     var text = ""
     var date : Date? = nil

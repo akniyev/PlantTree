@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="OTS-k7-NpZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="OTS-k7-NpZ">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -652,26 +652,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mRT-dC-AXz">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wbt-oF-0yR">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mRT-dC-AXz" firstAttribute="top" secondItem="dHo-nO-vYA" secondAttribute="top" id="7OB-4Y-Uy9"/>
-                            <constraint firstAttribute="trailing" secondItem="mRT-dC-AXz" secondAttribute="trailing" id="A6N-dT-bsF"/>
-                            <constraint firstAttribute="bottom" secondItem="mRT-dC-AXz" secondAttribute="bottom" id="QxZ-KZ-BiU"/>
-                            <constraint firstItem="mRT-dC-AXz" firstAttribute="leading" secondItem="dHo-nO-vYA" secondAttribute="leading" id="ZNF-fI-70X"/>
+                            <constraint firstItem="Wbt-oF-0yR" firstAttribute="top" secondItem="dHo-nO-vYA" secondAttribute="top" id="1Ia-cJ-482"/>
+                            <constraint firstAttribute="trailing" secondItem="Wbt-oF-0yR" secondAttribute="trailing" id="MOb-6m-FXp"/>
+                            <constraint firstItem="o8m-6P-rMI" firstAttribute="top" secondItem="Wbt-oF-0yR" secondAttribute="bottom" id="d5k-qy-XsF"/>
+                            <constraint firstItem="Wbt-oF-0yR" firstAttribute="leading" secondItem="dHo-nO-vYA" secondAttribute="leading" id="qJX-Dy-hgd"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="webView" destination="mRT-dC-AXz" id="RwV-cq-IbJ"/>
+                        <outlet property="tv_NewsDetails" destination="Wbt-oF-0yR" id="fSI-Kf-irP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eS0-JG-Ofq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5280.8000000000002" y="-348.57571214392806"/>
+            <point key="canvasLocation" x="5583.75" y="-169.01408450704224"/>
         </scene>
         <!--Завершенные-->
         <scene sceneID="b1c-lc-qmT">
