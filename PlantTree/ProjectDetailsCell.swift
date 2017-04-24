@@ -54,7 +54,6 @@ class ProjectDetailsCell: UITableViewCell {
     }
     
     func setProjectInfo(pi: ProjectInfo) {
-//        lblDescription.backgroundColor = UIColor.lightGray
         lblDescription.text = pi.description
         lblTitle.text = pi.name
         lblReached.text = "\(pi.reached)/\(pi.goal)"

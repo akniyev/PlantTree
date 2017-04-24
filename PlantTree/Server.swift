@@ -447,9 +447,28 @@ class Server {
                 grantType: "password",
                 scope: "openid offline_access")
         rb.execute { at, e in
-            print(e)
-            print(at.body?.accessToken)
-            print(at.body?.refreshToken)
+            if let error = e {
+                ERROR?(ErrorType.ServerError, error.localizedDescription)
+            } else if let access_token = at?.body?.accessToken,
+                      let refresh_token = at?.body?.refreshToken,
+                      let expire_in = Int(at?.body?.expiresIn ?? "") {
+                let c = Credentials()
+                c.access_token = access_token
+                c.refresh_token = refresh_token
+                c.accessTokenExpireTime = Double(expire_in)
+                c.access_token_created = Date()
+                c.refresh_token_created = Date()
+                c.email = email
+                c.loginType = LoginType.Email
+
+                if Db.writeCredentials(c: c) {
+                    SUCCESS?(c)
+                } else {
+                    ERROR?(ErrorType.DatabaseError, "Ошибка записи в базу данных")
+                }
+            } else {
+                ERROR?(ErrorType.Unknown, "Неизвестная ошибка!")
+            }
         }
 
 //        ConnectAPI.apiConnectTokenPost(username: email, password: password, grantType: "password", scope: "openid offline_access", completion: { at, e in
@@ -497,7 +516,6 @@ class Server {
                     if let prs = projects?.body {
                         SUCCESS?(prs.map {$0.toProjectInfo()})
                     } else {
-                        print(error?.localizedDescription ?? "")
                         ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
                     }
                 })
@@ -508,17 +526,13 @@ class Server {
             switch type {
             case .active, .completed:
                 let rb = ProjectsAPI.apiProjectsGetWithRequestBuilder(status: type.toCode(), page: Int32(page), pagesize: Int32(pagesize), authorization: "")
-                rb.execute({ projects, error in
-                    print(projects)
-                })
-                ProjectsAPI.apiProjectsGet(status: type.toCode(), page: Int32(page), pagesize: Int32(pagesize), completion: { projects, error in
-                    if let prs = projects {
-                        SUCCESS?(prs.map {$0.toProjectInfo()})
+                rb.execute { projects, error in
+                    if let prs = projects?.body {
+                        SUCCESS?( prs.map { $0.toProjectInfo() })
                     } else {
-                        print(error?.localizedDescription ?? "")
                         ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
                     }
-                })
+                }
             case .favorites:
                 ERROR?(ErrorType.Unauthorized, "Пользователь должен быть зарегистрирован")
             }
@@ -535,7 +549,29 @@ class Server {
                 if let error = e {
                     ERROR?(ErrorType.Unknown, error.localizedDescription)
                 } else {
-                    SUCCESS?(r?.body?.toProjectInfo() ?? ProjectInfo())
+                    if let project = r.body {
+                        let projectInfo = project.toProjectInfo()
+                        // TODO: make pagination for project news
+                        let rb = NewsAPI.apiNewsProjectByProjectIdGetWithRequestBuilder(projectId: project.id)
+                        rb.execute { r, e in
+                            if let error = e {
+                                projectInfo.news = []
+                            } else if let news = r.body {
+                                var newsInfo: [NewsPiece] = []
+                                for n in news {
+                                    var np = NewsPiece()
+                                    np.id = Int(n.id)
+                                    np.date = n.date
+                                    np.description = n.shortText ?? ""
+                                }
+                                let newsInfo = news.map { NewsPiece() }
+                            }
+                        }
+                        Server.GetNewsForProject()
+                    } else {
+                        ERROR?(ErrorType.ServerError, "Получены некорректные данные!")
+                    }
+                    //SUCCESS?(r?.body?.toProjectInfo() ?? ProjectInfo())
                 }
             })
         }, ERROR: { et, msg in

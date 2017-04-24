@@ -17,8 +17,9 @@ extension Project {
         pi.goal = Int(p.goal ?? 0)
         pi.reached = Int(p.reached ?? 0)
         pi.projectStatus = ProjectStatus.fromString(s: p.status ?? "")
-        pi.mainImageUrlSmall = p.mainImageUrlSmall ?? ""
-        pi.mainImageUrlBig = p.mainImageUrl ?? ""
+        // TODO: remove this http prefixes and make server to send it
+        pi.mainImageUrlSmall = "http://" + (p.mainImageUrlSmall ?? "")
+        pi.mainImageUrlBig = "http://" + (p.mainImageUrl ?? "")
         pi.likeCount = Int(p.likesCount ?? 0)
         pi.isLikedByMe = p.isLiked ?? false
         pi.treePrice = p.treePrice ?? 0.0
@@ -27,7 +28,7 @@ extension Project {
         pi.description = p.description ?? ""
         var allImages : [String] = []
         if p.mainImageUrl != nil {
-            allImages.append(p.mainImageUrl!)
+            allImages.append("http://" + p.mainImageUrl!)
         }
         allImages.append(contentsOf: p.otherImagesUrl ?? [])
         pi.allImages = allImages
