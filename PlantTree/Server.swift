@@ -549,7 +549,7 @@ class Server {
                 if let error = e {
                     ERROR?(ErrorType.Unknown, error.localizedDescription)
                 } else {
-                    if let project = r.body {
+                    if let project = r?.body {
                         let projectInfo = project.toProjectInfo()
                         // TODO: make pagination for project news
                         let rb = NewsAPI.apiNewsProjectByProjectIdGetWithRequestBuilder(projectId: project.id)
@@ -567,7 +567,7 @@ class Server {
                                 let newsInfo = news.map { NewsPiece() }
                             }
                         }
-                        Server.GetNewsForProject()
+                        //Server.GetNewsForProject()
                     } else {
                         ERROR?(ErrorType.ServerError, "Получены некорректные данные!")
                     }
