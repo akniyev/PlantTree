@@ -97,7 +97,11 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let p = project {
-            return 2 + p.news.count
+            if p.news.count > 0 {
+                return 2 + p.news.count
+            } else {
+                return 1
+            }
         } else {
             return 0
         }

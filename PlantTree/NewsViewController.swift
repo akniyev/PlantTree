@@ -12,12 +12,14 @@ class NewsViewController : UIViewController {
     @IBOutlet weak var webView: UIWebView!
     
     var url : String = ""
+    var news : NewsPiece? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Новость"
-        if !url.isEmpty {
-            webView.loadRequest(URLRequest(url: URL(string: url)!))
+
+        if let np = news {
+
         }
     }
 }

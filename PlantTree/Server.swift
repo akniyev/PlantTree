@@ -552,22 +552,26 @@ class Server {
                     if let project = r?.body {
                         let projectInfo = project.toProjectInfo()
                         // TODO: make pagination for project news
-                        let rb = NewsAPI.apiNewsProjectByProjectIdGetWithRequestBuilder(projectId: project.id)
+                        let rb = NewsAPI.apiNewsProjectByProjectIdGetWithRequestBuilder(projectId: project.id ?? -1)
                         rb.execute { r, e in
                             if let error = e {
                                 projectInfo.news = []
-                            } else if let news = r.body {
+                            } else if let news = r?.body {
                                 var newsInfo: [NewsPiece] = []
                                 for n in news {
                                     var np = NewsPiece()
-                                    np.id = Int(n.id)
+                                    np.id = Int(n.id ?? -1)
+                                    np.title = n.title ?? ""
+                                    np.imageUrl = n.photoUrlSmall ?? ""
                                     np.date = n.date
+                                    np.text = n.text ?? ""
                                     np.description = n.shortText ?? ""
+                                    newsInfo.append(np)
                                 }
-                                let newsInfo = news.map { NewsPiece() }
+                                projectInfo.news = newsInfo
                             }
+                            SUCCESS?(projectInfo)
                         }
-                        //Server.GetNewsForProject()
                     } else {
                         ERROR?(ErrorType.ServerError, "Получены некорректные данные!")
                     }
