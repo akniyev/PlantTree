@@ -40,19 +40,19 @@ class ProjectDetailsCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didOpenFullImage))
         slideshow.addGestureRecognizer(gestureRecognizer)
-        
+
         slideshow.contentScaleMode = .scaleAspectFill
     }
-    
+
     func didOpenFullImage() {
         if let pvc = self.parentViewController {
             slideshow.presentFullScreenController(from: pvc)
         }
     }
-    
+
     func setProjectInfo(pi: ProjectInfo) {
         lblDescription.text = pi.description
         lblTitle.text = pi.name
@@ -65,13 +65,13 @@ class ProjectDetailsCell: UITableViewCell {
             }
         }
         slideshow.setImageInputs(slideshowSources)
-        
+
         if pi.isLikedByMe == true {
             btnLike.setImage(UIImage(named: "LikeActive"), for: .normal)
         } else {
             btnLike.setImage(UIImage(named: "LikeInactive"), for: .normal)
         }
-        
+
         switch pi.projectStatus {
         case .active:
             lblStatus.text = "Статус: сбор денег"
@@ -91,9 +91,13 @@ class ProjectDetailsCell: UITableViewCell {
         case .none:
             lblStatus.text = ""
         }
-        
-        lblLikeCount.text = pi.likeCount.withRussianCountWord(one: "лайк", tofour: "лайка", overfour: "лайков")
+
+        setLikeCountLabel(count: pi.likeCount)
         lblSponsorsCount.text = pi.likeCount.withRussianCountWord(one: "спонсор", tofour: "спонсора", overfour: "спонсоров")
+    }
+
+    func setLikeCountLabel(count: Int) {
+        lblLikeCount.text = count.withRussianCountWord(one: "лайк", tofour: "лайка", overfour: "лайков")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

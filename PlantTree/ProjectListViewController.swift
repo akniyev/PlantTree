@@ -195,8 +195,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
             Alerts.ShowErrorAlertWithOK(sender: self, title: "Авторизация", message: "Необходимо авторизоваться для выполнения данного действия", completion: nil)
         }
     }
-    
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var opCell = tableView.dequeueReusableCell(withIdentifier: "ProjectListCell", for: indexPath) as? ProjectCell
         if opCell == nil {
@@ -247,6 +246,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         self.tableView.dataSource = self
         self.tableView.frame = self.view.bounds
         self.view.addSubview(self.tableView)
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.tabBarController?.tabBar.frame.height ?? 0, right: 0)
         
         if !projectListTypeCode.isEmpty {
             projectListType = ProjectListType.fromCode(code: projectListTypeCode)

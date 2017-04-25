@@ -362,12 +362,9 @@ class Server {
     }
     
     static func Like(projectId: Int, SUCCESS: (()->())?, ERROR: (()->())?) {
-        print("projectId: \(projectId)")
         MakeAuthorizedRequest(SUCCESS: { cred in
-            let rb = ProjectsAPI.apiProjectsByIdLikePutWithRequestBuilder(id: Int32(projectId))
-            rb.addHeader(name: "Authorization", value: "Bearer \(cred.access_token)")
-            rb.execute({ r, e in
-                if e == nil {
+            ProjectsAPI.apiProjectsByIdLikePut(id: Int32(projectId), authorization: "Bearer \(cred.access_token)", completion: { error in
+                if error == nil {
                     SUCCESS?()
                 } else {
                     ERROR?()
@@ -381,15 +378,13 @@ class Server {
     }
     
     static func Unlike(projectId: Int, SUCCESS: (()->())?, ERROR: (()->())?) {
-        print("projectId: \(projectId)")
         MakeAuthorizedRequest(SUCCESS: { cred in
-            let rb = ProjectsAPI.apiProjectsByIdDislikePutWithRequestBuilder(id: Int32(projectId))
-            rb.addHeader(name: "Authorization", value: "Bearer \(cred.access_token)")
-            rb.execute({ r, e in
-                if e == nil {
+            ProjectsAPI.apiProjectsByIdDislikePut(id: Int32(projectId), authorization: "Bearer \(cred.access_token)", completion: { error in
+                if error == nil {
                     SUCCESS?()
                 } else {
                     ERROR?()
+                    print(error!.localizedDescription)
                 }
             })
         }, ERROR: { et, msg in
@@ -494,16 +489,17 @@ class Server {
     // TODO: Make authorized request for favorites (user projects)
     static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
         MakeAuthorizedRequest(SUCCESS: { c in
-            if type != .favorites {
-                let rb = ProjectsAPI.apiProjectsUserGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize), authorization: "Bearer \(c.access_token)")
-                rb.execute({ projects, error in
+            switch type {
+            case .active, .completed:
+                let rb = ProjectsAPI.apiProjectsGetWithRequestBuilder(status: type.toCode(), page: Int32(page), pagesize: Int32(pagesize), authorization: "Bearer \(c.access_token)")
+                rb.execute { projects, error in
                     if let prs = projects?.body {
-                        SUCCESS?(prs.map {$0.toProjectInfo()})
+                        SUCCESS?( prs.map { $0.toProjectInfo() })
                     } else {
                         ERROR?(ErrorType.ServerError, error?.localizedDescription ?? "")
                     }
-                })
-            } else {
+                }
+            case .favorites:
                 let rb = ProjectsAPI.apiProjectsUserGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize), authorization: "Bearer \(c.access_token)")
                 rb.execute({ projects, error in
                     if let prs = projects?.body {

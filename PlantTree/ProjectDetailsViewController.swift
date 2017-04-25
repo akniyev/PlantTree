@@ -122,19 +122,25 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
                     cell.btnLike.isEnabled = false
                     if l {
                         Server.Unlike(projectId: p.id, SUCCESS: {
+                            self.project?.likeCount -= 1
                             self.parentViewControllerProjects[self.parentViewControllerProjectId].isLikedByMe = false
+                            self.parentViewControllerProjects[self.parentViewControllerProjectId].likeCount = self.project?.likeCount ?? 0
                             self.project?.isLikedByMe = false
                             cell.btnLike.setImage(UIImage(named: "LikeInactive"), for: .normal)
                             cell.btnLike.isEnabled = true
+                            cell.setLikeCountLabel(count: self.project?.likeCount ?? 0)
                         }, ERROR: {
                             cell.btnLike.isEnabled = true
                         })
                     } else {
                         Server.Like(projectId: p.id, SUCCESS: {
+                            self.project?.likeCount += 1
+                            self.parentViewControllerProjects[self.parentViewControllerProjectId].likeCount = self.project?.likeCount ?? 0
                             self.parentViewControllerProjects[self.parentViewControllerProjectId].isLikedByMe = true
                             self.project?.isLikedByMe = true
                             cell.btnLike.setImage(UIImage(named: "LikeActive"), for: .normal)
                             cell.btnLike.isEnabled = true
+                            cell.setLikeCountLabel(count: self.project?.likeCount ?? 0)
                         }, ERROR: {
                             cell.btnLike.isEnabled = true
                         })
