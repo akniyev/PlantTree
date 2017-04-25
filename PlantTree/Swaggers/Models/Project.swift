@@ -9,6 +9,17 @@ import Foundation
 
 
 open class Project: JSONEncodable {
+    public enum Status: String { 
+        case active = "active"
+        case reached = "reached"
+        case finished = "finished"
+        case completed = "completed"
+    }
+    public enum Currency: String { 
+        case euro = "euro"
+        case dollar = "dollar"
+        case ruble = "ruble"
+    }
     public var id: Int32?
     public var name: String?
     public var tag: String?
@@ -17,18 +28,18 @@ open class Project: JSONEncodable {
     public var goal: Int32?
     public var reached: Int32?
     public var treePrice: Double?
+    public var status: Status?
     public var creationDate: Date?
     public var reachedDate: Date?
     public var finishedDate: Date?
+    public var currency: Currency?
     public var deleted: Bool?
     public var imageId: Int32?
     public var mainImageUrl: String?
     public var mainImageUrlSmall: String?
     public var otherImagesUrl: [String]?
     public var otherImagesUrlSmall: [String]?
-    public var currencyName: String?
     public var likesCount: Int32?
-    public var status: String?
     /** For authorized requests show whether this project was liked by current user */
     public var isLiked: Bool?
     public var donatorsCount: Int32?
@@ -46,18 +57,18 @@ open class Project: JSONEncodable {
         nillableDictionary["goal"] = self.goal?.encodeToJSON()
         nillableDictionary["reached"] = self.reached?.encodeToJSON()
         nillableDictionary["treePrice"] = self.treePrice
+        nillableDictionary["status"] = self.status?.rawValue
         nillableDictionary["creationDate"] = self.creationDate?.encodeToJSON()
         nillableDictionary["reachedDate"] = self.reachedDate?.encodeToJSON()
         nillableDictionary["finishedDate"] = self.finishedDate?.encodeToJSON()
+        nillableDictionary["currency"] = self.currency?.rawValue
         nillableDictionary["deleted"] = self.deleted
         nillableDictionary["imageId"] = self.imageId?.encodeToJSON()
         nillableDictionary["mainImageUrl"] = self.mainImageUrl
         nillableDictionary["mainImageUrlSmall"] = self.mainImageUrlSmall
         nillableDictionary["otherImagesUrl"] = self.otherImagesUrl?.encodeToJSON()
         nillableDictionary["otherImagesUrlSmall"] = self.otherImagesUrlSmall?.encodeToJSON()
-        nillableDictionary["currencyName"] = self.currencyName
         nillableDictionary["likesCount"] = self.likesCount?.encodeToJSON()
-        nillableDictionary["status"] = self.status
         nillableDictionary["isLiked"] = self.isLiked
         nillableDictionary["donatorsCount"] = self.donatorsCount?.encodeToJSON()
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]

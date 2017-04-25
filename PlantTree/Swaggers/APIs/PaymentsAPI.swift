@@ -14,9 +14,9 @@ open class PaymentsAPI: APIBase {
      * enum for parameter currency
      */
     public enum Currency_apiPaymentsWebmoneyPost: String { 
-        case euro = "Euro"
-        case dollar = "Dollar"
-        case ruble = "Ruble"
+        case euro = "euro"
+        case dollar = "dollar"
+        case ruble = "ruble"
     }
 
     /**

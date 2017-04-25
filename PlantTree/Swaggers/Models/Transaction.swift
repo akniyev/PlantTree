@@ -11,9 +11,14 @@ import Foundation
 /** When created Transaction has a Pending state.   While it has Pending state it is considered as opened (waiting state).   Transaction can be closed with setting to Success or Failed state. */
 open class Transaction: JSONEncodable {
     public enum Currency: String { 
-        case euro = "Euro"
-        case dollar = "Dollar"
-        case ruble = "Ruble"
+        case euro = "euro"
+        case dollar = "dollar"
+        case ruble = "ruble"
+    }
+    public enum Status: String { 
+        case success = "success"
+        case pending = "pending"
+        case fail = "fail"
     }
     public var id: Int32?
     public var userId: String?
@@ -23,7 +28,7 @@ open class Transaction: JSONEncodable {
     public var currency: Currency?
     public var creationDate: Date?
     public var finishedDate: Date?
-    public var status: String?
+    public var status: Status?
     public var paymentMethod: String?
 
     public init() {}
@@ -39,7 +44,7 @@ open class Transaction: JSONEncodable {
         nillableDictionary["currency"] = self.currency?.rawValue
         nillableDictionary["creationDate"] = self.creationDate?.encodeToJSON()
         nillableDictionary["finishedDate"] = self.finishedDate?.encodeToJSON()
-        nillableDictionary["status"] = self.status
+        nillableDictionary["status"] = self.status?.rawValue
         nillableDictionary["paymentMethod"] = self.paymentMethod
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary

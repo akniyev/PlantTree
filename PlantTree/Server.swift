@@ -328,7 +328,7 @@ class Server {
             userInfo.name = first_name
             userInfo.lastName = second_name
             userInfo.gender = gender.toJsonCode()
-            let rb = AccountAPI.apiAccountInfoPutWithRequestBuilder(info: userInfo, authorization: "Authorization Bearer \(cred.access_token)")
+            let rb = AccountAPI.apiAccountInfoPutWithRequestBuilder(info: userInfo, authorization: "Bearer \(cred.access_token)")
             rb.execute({ response, error in
                 if error == nil {
                     SUCCESS?()
@@ -451,7 +451,7 @@ class Server {
                 ERROR?(ErrorType.ServerError, error.localizedDescription)
             } else if let access_token = at?.body?.accessToken,
                       let refresh_token = at?.body?.refreshToken,
-                      let expire_in = Int(at?.body?.expiresIn ?? "") {
+                      let expire_in = at?.body?.expiresIn {
                 let c = Credentials()
                 c.access_token = access_token
                 c.refresh_token = refresh_token
@@ -470,12 +470,6 @@ class Server {
                 ERROR?(ErrorType.Unknown, "Неизвестная ошибка!")
             }
         }
-
-//        ConnectAPI.apiConnectTokenPost(username: email, password: password, grantType: "password", scope: "openid offline_access", completion: { at, e in
-//            print(at?.accessToken ?? "")
-//            print(at?.refreshToken ?? "")
-//            print(e?.localizedDescription ?? "")
-//        })
     }
     
     // TODO: Make better error handling and error message display
@@ -499,10 +493,9 @@ class Server {
     
     // TODO: Make authorized request for favorites (user projects)
     static func GetProjectList(type : ProjectListType, page: Int, pagesize: Int, SUCCESS: (([ProjectInfo])->())?, ERROR: ((ErrorType, String)->())?) {
-        Server.SignOut()
         MakeAuthorizedRequest(SUCCESS: { c in
             if type != .favorites {
-                let rb = ProjectsAPI.apiProjectsUserGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize), authorization: "Authorization Bearer \(c.access_token)")
+                let rb = ProjectsAPI.apiProjectsUserGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize), authorization: "Bearer \(c.access_token)")
                 rb.execute({ projects, error in
                     if let prs = projects?.body {
                         SUCCESS?(prs.map {$0.toProjectInfo()})
@@ -511,7 +504,7 @@ class Server {
                     }
                 })
             } else {
-                let rb = ProjectsAPI.apiProjectsUserGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize), authorization: "Authorization Bearer \(c.access_token)")
+                let rb = ProjectsAPI.apiProjectsUserGetWithRequestBuilder(page: Int32(page), pagesize: Int32(pagesize), authorization: "Bearer \(c.access_token)")
                 rb.execute({ projects, error in
                     if let prs = projects?.body {
                         SUCCESS?(prs.map {$0.toProjectInfo()})
@@ -558,16 +551,6 @@ class Server {
                                 projectInfo.news = []
                             } else if let news = r?.body {
                                 var newsInfo: [NewsPiece] = news.map {$0.toNewsPiece()}
-//                                for n in news {
-//                                    var np = NewsPiece()
-//                                    np.id = Int(n.id ?? -1)
-//                                    np.title = n.title ?? ""
-//                                    np.imageUrlSmall = n.photoUrlSmall ?? ""
-//                                    np.date = n.date
-//                                    np.text = n.text ?? ""
-//                                    np.description = n.shortText ?? ""
-//                                    newsInfo.append(np)
-//                                }
                                 projectInfo.news = newsInfo
                             }
                             SUCCESS?(projectInfo)
@@ -575,7 +558,6 @@ class Server {
                     } else {
                         ERROR?(ErrorType.ServerError, "Получены некорректные данные!")
                     }
-                    //SUCCESS?(r?.body?.toProjectInfo() ?? ProjectInfo())
                 }
             })
         }, ERROR: { et, msg in

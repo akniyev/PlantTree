@@ -11,6 +11,7 @@ extension News {
         let np = NewsPiece()
 
         np.id = Int(n.id ?? -1)
+        np.title = n.title ?? ""
         np.date = n.date
         np.description = n.shortText ?? ""
         np.text = n.text ?? ""

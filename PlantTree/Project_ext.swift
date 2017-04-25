@@ -16,11 +16,11 @@ extension Project {
         pi.name = p.name ?? ""
         pi.goal = Int(p.goal ?? 0)
         pi.reached = Int(p.reached ?? 0)
-        pi.projectStatus = ProjectStatus.fromString(s: p.status ?? "")
+        pi.projectStatus = ProjectStatus.fromString(s: p.status?.rawValue ?? "")
         pi.mainImageUrlSmall = (p.mainImageUrlSmall ?? "")
         pi.mainImageUrlBig = (p.mainImageUrl ?? "")
         pi.likeCount = Int(p.likesCount ?? 0)
-        pi.isLikedByMe = p.isLiked ?? false
+        pi.isLikedByMe = p.isLiked
         pi.treePrice = p.treePrice ?? 0.0
         pi.sponsorCount = Int(p.donatorsCount ?? 0)
         pi.news = []

@@ -77,16 +77,16 @@ open class ProjectsAPI: APIBase {
   "donatorsCount" : 123,
   "likesCount" : 123,
   "deleted" : true,
-  "currencyName" : "aeiou",
   "reachedDate" : "2000-01-23T04:56:07.000+00:00",
   "reached" : 123,
   "name" : "aeiou",
   "treePrice" : 1.3579000000000001069366817318950779736042022705078125,
+  "currency" : "aeiou",
   "id" : 123,
   "tag" : "aeiou",
   "mainImageUrl" : "aeiou",
-  "finishedDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "aeiou"
+  "status" : "aeiou",
+  "finishedDate" : "2000-01-23T04:56:07.000+00:00"
 }}]
      
      - parameter id: (path)  
@@ -183,16 +183,16 @@ open class ProjectsAPI: APIBase {
   "donatorsCount" : 123,
   "likesCount" : 123,
   "deleted" : true,
-  "currencyName" : "aeiou",
   "reachedDate" : "2000-01-23T04:56:07.000+00:00",
   "reached" : 123,
   "name" : "aeiou",
   "treePrice" : 1.3579000000000001069366817318950779736042022705078125,
+  "currency" : "aeiou",
   "id" : 123,
   "tag" : "aeiou",
   "mainImageUrl" : "aeiou",
-  "finishedDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "aeiou"
+  "status" : "aeiou",
+  "finishedDate" : "2000-01-23T04:56:07.000+00:00"
 } ]}]
      
      - parameter status: (query)  (optional)
@@ -253,16 +253,16 @@ open class ProjectsAPI: APIBase {
   "donatorsCount" : 123,
   "likesCount" : 123,
   "deleted" : true,
-  "currencyName" : "aeiou",
   "reachedDate" : "2000-01-23T04:56:07.000+00:00",
   "reached" : 123,
   "name" : "aeiou",
   "treePrice" : 1.3579000000000001069366817318950779736042022705078125,
+  "currency" : "aeiou",
   "id" : 123,
   "tag" : "aeiou",
   "mainImageUrl" : "aeiou",
-  "finishedDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "aeiou"
+  "status" : "aeiou",
+  "finishedDate" : "2000-01-23T04:56:07.000+00:00"
 } ]}]
      
      - parameter page: (query)  (optional)

@@ -41,7 +41,7 @@ class NewsHeaderCell: UITableViewCell {
         l.text = text
         let boundSize = CGSize(width: cellWidth - 2 * labelSideIndent, height: 1000000)
         let s = l.sizeThatFits(boundSize)
-        return cellWidth * CGFloat(3.0 / 4.0) + s.height + 2.0 + 100
+        return cellWidth * CGFloat(3.0 / 4.0) + s.height + 15.0
     }
     
 }

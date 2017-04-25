@@ -62,7 +62,8 @@ class NewsViewController : UIViewController, UITableViewDataSource, UITableViewD
         self.tv_NewsDetails.register(UINib(nibName: "NewsHeaderCell", bundle: nil), forCellReuseIdentifier: "NewsHeaderCell")
         self.tv_NewsDetails.register(UINib(nibName: "NewsBodyCell", bundle: nil), forCellReuseIdentifier: "NewsBodyCell")
         self.tv_NewsDetails.register(UINib(nibName: "NewsFooterCell", bundle: nil), forCellReuseIdentifier: "NewsFooterCell")
-
+        self.tv_NewsDetails.separatorStyle = .none
+        self.tv_NewsDetails.allowsSelection = false
         self.tv_NewsDetails.dataSource = self
         self.tv_NewsDetails.delegate = self
 
@@ -95,6 +96,9 @@ class NewsViewController : UIViewController, UITableViewDataSource, UITableViewD
                 opCell = NewsBodyCell()
             }
             let cell = opCell!
+            if let np = self.newsPiece {
+                cell.setCellInfo(np: np)
+            }
             return cell
         } else {
             var opCell = tableView.dequeueReusableCell(withIdentifier: "NewsFooterCell", for: indexPath) as? NewsFooterCell
@@ -102,6 +106,9 @@ class NewsViewController : UIViewController, UITableViewDataSource, UITableViewD
                 opCell = NewsFooterCell()
             }
             let cell = opCell!
+            if let np = self.newsPiece {
+                cell.setCellInfo(np: np)
+            }
             return cell
         }
     }

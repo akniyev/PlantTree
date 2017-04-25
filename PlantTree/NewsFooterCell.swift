@@ -9,6 +9,7 @@
 import UIKit
 
 class NewsFooterCell: UITableViewCell {
+    @IBOutlet weak var lbl_Date: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,7 +22,7 @@ class NewsFooterCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setCellData(np: NewsPiece) {
-
+    func setCellInfo(np: NewsPiece) {
+        self.lbl_Date.text = np.date?.toRussianFormat() ?? ""
     }
 }

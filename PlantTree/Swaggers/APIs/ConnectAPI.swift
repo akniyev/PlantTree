@@ -33,7 +33,7 @@ open class ConnectAPI: APIBase {
   "scope" : "aeiou",
   "id_token" : "aeiou",
   "token_type" : "aeiou",
-  "expires_in" : "aeiou"
+  "expires_in" : 123
 }}]
      
      - parameter username: (form)  (optional)

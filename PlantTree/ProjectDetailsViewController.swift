@@ -118,7 +118,7 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
             
             cell.likeAction = {
                 let p = self.project!
-                if let l = p.isLikedByMe {
+                if Db.isAuthorized(), let l = p.isLikedByMe {
                     cell.btnLike.isEnabled = false
                     if l {
                         Server.Unlike(projectId: p.id, SUCCESS: {

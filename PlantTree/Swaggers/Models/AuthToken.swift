@@ -12,7 +12,7 @@ open class AuthToken: JSONEncodable {
     public var scope: String?
     public var tokenType: String?
     public var accessToken: String?
-    public var expiresIn: String?
+    public var expiresIn: Int32?
     public var refreshToken: String?
     public var idToken: String?
 
@@ -24,7 +24,7 @@ open class AuthToken: JSONEncodable {
         nillableDictionary["scope"] = self.scope
         nillableDictionary["token_type"] = self.tokenType
         nillableDictionary["access_token"] = self.accessToken
-        nillableDictionary["expires_in"] = self.expiresIn
+        nillableDictionary["expires_in"] = self.expiresIn?.encodeToJSON()
         nillableDictionary["refresh_token"] = self.refreshToken
         nillableDictionary["id_token"] = self.idToken
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]

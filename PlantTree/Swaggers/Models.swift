@@ -177,7 +177,7 @@ class Decoders {
             instance.scope = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["scope"] as AnyObject?)
             instance.tokenType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["token_type"] as AnyObject?)
             instance.accessToken = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["access_token"] as AnyObject?)
-            instance.expiresIn = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["expires_in"] as AnyObject?)
+            instance.expiresIn = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["expires_in"] as AnyObject?)
             instance.refreshToken = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["refresh_token"] as AnyObject?)
             instance.idToken = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id_token"] as AnyObject?)
             return instance
@@ -247,18 +247,24 @@ class Decoders {
             instance.goal = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["goal"] as AnyObject?)
             instance.reached = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["reached"] as AnyObject?)
             instance.treePrice = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["treePrice"] as AnyObject?)
+            if let status = sourceDictionary["status"] as? String { 
+                instance.status = Project.Status(rawValue: (status))
+            }
+            
             instance.creationDate = Decoders.decodeOptional(clazz: Date.self, source: sourceDictionary["creationDate"] as AnyObject?)
             instance.reachedDate = Decoders.decodeOptional(clazz: Date.self, source: sourceDictionary["reachedDate"] as AnyObject?)
             instance.finishedDate = Decoders.decodeOptional(clazz: Date.self, source: sourceDictionary["finishedDate"] as AnyObject?)
+            if let currency = sourceDictionary["currency"] as? String { 
+                instance.currency = Project.Currency(rawValue: (currency))
+            }
+            
             instance.deleted = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["deleted"] as AnyObject?)
             instance.imageId = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["imageId"] as AnyObject?)
             instance.mainImageUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["mainImageUrl"] as AnyObject?)
             instance.mainImageUrlSmall = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["mainImageUrlSmall"] as AnyObject?)
             instance.otherImagesUrl = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["otherImagesUrl"] as AnyObject?)
             instance.otherImagesUrlSmall = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["otherImagesUrlSmall"] as AnyObject?)
-            instance.currencyName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["currencyName"] as AnyObject?)
             instance.likesCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["likesCount"] as AnyObject?)
-            instance.status = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"] as AnyObject?)
             instance.isLiked = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["isLiked"] as AnyObject?)
             instance.donatorsCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["donatorsCount"] as AnyObject?)
             return instance
@@ -300,7 +306,10 @@ class Decoders {
             
             instance.creationDate = Decoders.decodeOptional(clazz: Date.self, source: sourceDictionary["creationDate"] as AnyObject?)
             instance.finishedDate = Decoders.decodeOptional(clazz: Date.self, source: sourceDictionary["finishedDate"] as AnyObject?)
-            instance.status = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"] as AnyObject?)
+            if let status = sourceDictionary["status"] as? String { 
+                instance.status = Transaction.Status(rawValue: (status))
+            }
+            
             instance.paymentMethod = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["paymentMethod"] as AnyObject?)
             return instance
         }
