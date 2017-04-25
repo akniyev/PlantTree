@@ -74,6 +74,7 @@ class ProjectCell: UITableViewCell {
     }
 
     func LoadPhoto() {
+        imgPicture.image = nil
         if let p = self.p {
             if !p.mainImageUrlSmall.isEmpty {
                 let url = URL(string: p.mainImageUrlSmall)

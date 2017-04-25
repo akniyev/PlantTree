@@ -54,12 +54,15 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
                 self?.cell?.update()
             }
             row.imageDeleteAction = { c in
+                LoadingIndicatorView.show("Удаление изображения...")
                 Server.DeleteUserpic(SUCCESS: {
                     c.imgPhoto.image = nil
                     c.noPhoto = true
+                    c.row.value = nil
                     c.update()
+                    LoadingIndicatorView.hide()
                 }, ERROR: { [weak self] et, msg in
-                    
+                    LoadingIndicatorView.hide()
                 })
             }
         } <<< TextRow() { row in

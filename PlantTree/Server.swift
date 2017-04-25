@@ -190,6 +190,7 @@ class Server {
     
     static func GetOperationHistory(SUCCESS: (([OperationInfo]) -> ())?, ERROR: ((ErrorType, String) -> ())?) {
         MakeAuthorizedRequest(SUCCESS: { c in
+            
 //            provider.request(ApiTargets.getOperationHistory(access_token: c.access_token),
 //                             completion: { result in
 //                                switch result {
@@ -276,33 +277,24 @@ class Server {
             ERROR?(ErrorType.Unauthorized, "Необходимо авторизоваться для выполнения данного запроса!")
         })
     }
-
-    // Manual
+    
+    //Swagger
     static func UploadUserpic(image: UIImage?, SUCCESS: (() -> ())?, ERROR: ((ErrorType, String) -> ())?) {
         MakeAuthorizedRequest(SUCCESS: { cred in
             if let img = image {
-                let URL = try! URLRequest(url: "http://rasuldev-001-site28.btempurl.com/api/account/photo", method: .post,
-                                          headers: ["Authorization": "Bearer \(cred.access_token)"])
-                
-                Alamofire.upload(multipartFormData: { (multipartFormData) in
-                    
-                    multipartFormData.append(UIImageJPEGRepresentation(img, 0.8)!, withName: "photo", fileName: "photo.jpg", mimeType: "image/jpeg")
-                }, with: URL, encodingCompletion: { (result) in
-                    
-                    switch result {
-                    case .success(let upload, _, _):
-                        upload.responseString(completionHandler: { dataResponse in
-                            if dataResponse.response?.statusCode == 200 {
-                                SUCCESS?()
-                            } else {
-                                ERROR?(ErrorType.ServerError, "Не удается загрузить изображение!")
-                            }
-                        })
-                        
-                    case .failure(let encodingError):
-                        ERROR?(ErrorType.Unknown, "Не удается закодировать изображение!")
+                let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
+                let filepath = "\(paths[0])/my_temp_image.png"
+
+                try! UIImagePNGRepresentation(img)?.write(to: URL(fileURLWithPath: filepath))
+                AccountAPI.apiAccountPhotoPost(photo: URL(fileURLWithPath: filepath), authorization: "Bearer \(cred.access_token)", completion: { error in
+                    if error == nil {
+                        SUCCESS?()
+                    } else {
+                        print(error?.localizedDescription)
+                        ERROR?(ErrorType.Unknown, "Не удаётся загрузить изображение!")
                     }
-                    
+                    let fileManager = FileManager.default
+                    try? fileManager.removeItem(atPath: filepath)
                 })
             } else {
                 ERROR?(ErrorType.InvalidData, "Неверный формат данных")
@@ -313,13 +305,23 @@ class Server {
             ERROR?(ErrorType.Unauthorized, "Необходима авторизация для загрузки изображения!")
         })
     }
-    
-    // Manual
+
     static func DeleteUserpic(SUCCESS: (() -> ())?, ERROR: ((ErrorType, String) -> ())?) {
-        SUCCESS?()
+        MakeAuthorizedRequest(SUCCESS: { cred in
+            AccountAPI.apiAccountPhotoDelete(authorization: "Bearer \(cred.access_token)", completion: { error in
+                if error == nil {
+                    SUCCESS?()
+                } else {
+                    ERROR?(ErrorType.Unknown, "При удалении фотографии произошла ошибка!")
+                }
+            })
+        }, ERROR: { et, msg in
+            ERROR?(et, msg)
+        }, UNAUTHORIZED: {
+            ERROR?(ErrorType.Unauthorized, "Необходима авторизация для загрузки изображения!")
+        })
     }
-    
-    //Swagger
+
     static func changePersonalData(image: UIImage?, first_name: String, second_name: String, gender: Gender, birth_date: Date,
                                    SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
         MakeAuthorizedRequest(SUCCESS: { cred in
