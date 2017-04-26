@@ -27,7 +27,7 @@ class MyTabBarController : ESTabBarController {
             let v4 = viewControllers[3]
             let v5 = viewControllers[4]
             
-            v1.tabBarItem = ESTabBarItem(OrdinalButtonContentView(), title: "Инфо", image: UIImage(named: "tabbar-info-nonactive"), selectedImage: UIImage(named: "tabbar-info-active"), tag: 1)
+            v1.tabBarItem = ESTabBarItem(SmallTabBarContentView(), title: "Инфо", image: UIImage(named: "tabbar-info-nonactive"), selectedImage: UIImage(named: "tabbar-info-active"), tag: 1)
             v2.tabBarItem = ESTabBarItem(OrdinalButtonContentView(), title: "Избранное", image: UIImage(named: "tabbar-favorites-nonactive"), selectedImage: UIImage(named: "tabbar-favorites-active"), tag: 2)
             v3.tabBarItem = ESTabBarItem(BigButtonContentView(), title: "", image: UIImage(named: "tabbar-plant-tree-nonactive"), selectedImage: UIImage(named: "tabbar-plant-tree-active"), tag: 3)
             v4.tabBarItem = ESTabBarItem(OrdinalButtonContentView(), title: "Завершенные", image: UIImage(named: "tabbar-planted-nonactive"), selectedImage: UIImage(named: "tabbar-planted-active"), tag: 4)

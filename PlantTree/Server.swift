@@ -190,7 +190,7 @@ class Server {
     
     static func GetOperationHistory(SUCCESS: (([OperationInfo]) -> ())?, ERROR: ((ErrorType, String) -> ())?) {
         MakeAuthorizedRequest(SUCCESS: { c in
-            
+
 //            provider.request(ApiTargets.getOperationHistory(access_token: c.access_token),
 //                             completion: { result in
 //                                switch result {
