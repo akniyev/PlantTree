@@ -6,7 +6,7 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "tabbar-favorites-active@2x.png",
+      "filename" : "info_inactive.png",
       "scale" : "2x"
     },
     {
@@ -17,8 +17,5 @@
   "info" : {
     "version" : 1,
     "author" : "xcode"
-  },
-  "properties" : {
-    "template-rendering-intent" : "original"
   }
 }

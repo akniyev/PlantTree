@@ -23,6 +23,7 @@
 		5860351528CE5E42FF05A832 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5860375EB16C4E315B72FDF4 /* Gender.swift */; };
 		5860362AF819362FBB73FB2C /* ProjectListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603409395A75D84F2DE371 /* ProjectListType.swift */; };
 		58603675DB7B89C392D9F207 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603BE30150ED19634B35F9 /* Credentials.swift */; };
+		5860381AC7C95E6FE26E042C /* DesignerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603245BBB6F5B3A1635858 /* DesignerColors.swift */; };
 		586038664639E0FC529136A4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586032E557DCBB5F1A09BFBF /* Date.swift */; };
 		58603920EC618B4660EAD957 /* PaymentHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603A0FE91E8E4A9FDAEE5E /* PaymentHistoryCell.swift */; };
 		5860394204723E6F4A511EEB /* PaymentHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 586037E2E6AFD4692E8BDD0C /* PaymentHistoryCell.xib */; };
@@ -109,6 +110,7 @@
 		58603135716173F73461979F /* ErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
 		5860316D1585B87B4DD25E07 /* APIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
 		5860323304F9254D47903FBC /* ProjectDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDetailsCell.swift; sourceTree = "<group>"; };
+		58603245BBB6F5B3A1635858 /* DesignerColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignerColors.swift; sourceTree = "<group>"; };
 		586032494AAFE2087C386379 /* ProjectNewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectNewsCell.swift; sourceTree = "<group>"; };
 		586032694D2F3E51B731467D /* ProjectStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectStatus.swift; sourceTree = "<group>"; };
 		58603293B3AE2E9CC6F5CD1D /* APIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 				84D496D31E61AD7300AF0B67 /* NewsPiece.swift */,
 				84D496DA1E6237E200AF0B67 /* UIView.swift */,
 				84F58C4F1E6378890092EA82 /* OperationInfo.swift */,
+				58603245BBB6F5B3A1635858 /* DesignerColors.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				586034B1632839001E36A330 /* APIHelper.swift in Sources */,
 				58603BAC583535E575002685 /* Models.swift in Sources */,
 				586034FD900A39ABB47843BC /* SmallTabBarContentView.swift in Sources */,
+				5860381AC7C95E6FE26E042C /* DesignerColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
