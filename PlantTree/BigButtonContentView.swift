@@ -15,11 +15,11 @@ class BigButtonContentView : ESTabBarItemMoreContentView {
         
         self.renderingMode = .alwaysOriginal
         
-        self.imageView.backgroundColor = UIColor.init(red: 87/255.0, green: 188/255.0, blue: 125/255.0, alpha: 1.0)
-        self.imageView.layer.borderWidth = 0.5
-        self.imageView.layer.borderColor = UIColor.lightGray.cgColor
-        self.imageView.layer.cornerRadius = 35
-        self.insets = UIEdgeInsetsMake(-15, 0, 0, 0)
+        //self.imageView.backgroundColor = UIColor.init(red: 87/255.0, green: 188/255.0, blue: 125/255.0, alpha: 1.0)
+        //self.imageView.layer.borderWidth = 0.5
+        //self.imageView.layer.borderColor = UIColor.lightGray.cgColor
+        //self.imageView.layer.cornerRadius = 35
+        //self.insets = UIEdgeInsetsMake(-0, -0, -0, -0)
         
         self.imageView.contentMode = .scaleAspectFit
         
@@ -43,7 +43,18 @@ class BigButtonContentView : ESTabBarItemMoreContentView {
         let p = CGPoint.init(x: point.x - imageView.frame.origin.x, y: point.y - imageView.frame.origin.y)
         return sqrt(pow(imageView.bounds.size.width / 2.0 - p.x, 2) + pow(imageView.bounds.size.height / 2.0 - p.y, 2)) < imageView.bounds.size.width / 2.0
     }
-    
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let offset: CGFloat = 15
+        let s = CGSize(width: 80, height: 80)
+        let c = self.center
+        let f = CGRect(x: c.x - s.width / 2, y: c.y - s.height / 2 - offset, width: s.width, height: s.height)
+        self.imageView.frame = f
+        //self.imageView.backgroundColor = UIColor.red
+    }
+
+
 //    override func draw(_ rect: CGRect) {
 //        super.draw(rect)
 //        

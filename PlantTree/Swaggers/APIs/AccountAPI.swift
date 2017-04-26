@@ -101,18 +101,6 @@ open class AccountAPI: APIBase {
   "gender" : "aeiou",
   "name" : "aeiou",
   "donatedProjectsCount" : 123,
-  "transactions" : [ {
-    "amount" : 1.3579000000000001069366817318950779736042022705078125,
-    "paymentMethod" : "aeiou",
-    "treeCount" : 123,
-    "currency" : "aeiou",
-    "id" : 123,
-    "creationDate" : "2000-01-23T04:56:07.000+00:00",
-    "userId" : "aeiou",
-    "projectId" : 123,
-    "finishedDate" : "2000-01-23T04:56:07.000+00:00",
-    "status" : "aeiou"
-  } ],
   "email" : "aeiou",
   "isEmailConfirmed" : true,
   "photoUrlSmall" : "aeiou"

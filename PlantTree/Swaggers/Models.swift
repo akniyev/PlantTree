@@ -201,7 +201,6 @@ class Decoders {
             instance.isEmailConfirmed = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["isEmailConfirmed"] as AnyObject?)
             instance.donated = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["donated"] as AnyObject?)
             instance.donatedProjectsCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["donatedProjectsCount"] as AnyObject?)
-            instance.transactions = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["transactions"] as AnyObject?)
             instance.photoUrlSmall = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["photoUrlSmall"] as AnyObject?)
             instance.photoUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["photoUrl"] as AnyObject?)
             return instance

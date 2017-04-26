@@ -188,49 +188,16 @@ class Server {
         })
     }
     
-    static func GetOperationHistory(SUCCESS: (([OperationInfo]) -> ())?, ERROR: ((ErrorType, String) -> ())?) {
+    static func GetOperationHistory(page: Int, pagesize: Int, SUCCESS: (([OperationInfo]) -> ())?, ERROR: ((ErrorType, String) -> ())?) {
         MakeAuthorizedRequest(SUCCESS: { c in
-
-//            provider.request(ApiTargets.getOperationHistory(access_token: c.access_token),
-//                             completion: { result in
-//                                switch result {
-//                                case let .success(moyaResponse):
-//                                    if moyaResponse.statusCode == 200 {
-//                                        let data = moyaResponse.data
-//                                        let json = JSON(data: data)
-//                                        var operations : [OperationInfo] = []
-//                                        for (_, j) in json {
-//                                            let o : OperationInfo = OperationInfo()
-//                                            if (paramsInJson(json: j, params: ["id", "projectTitle", "projectId", "date", "donated", "treePlanted", "cardLastDigits"])) {
-//                                                
-//                                                o.id = j["id"].intValue
-//                                                o.projectTitle = j["projectTitle"].stringValue
-//                                                o.projectId = j["projectId"].intValue
-//                                                o.date = Date.fromRussianFormat(s: j["date"].stringValue)!
-//                                                o.donated = j["donated"].doubleValue
-//                                                o.treePlanted = j["treePlanted"].intValue
-//                                                o.cardLastDigits = j["cardLastDigits"].stringValue
-//                                                
-//                                                operations.append(o)
-//                                            } else {
-//                                                ERROR?(ErrorType.InvalidData, "Неправильный формат данных")
-//                                                return
-//                                            }
-//                                        }
-//                                        SUCCESS?(operations)
-//                                    } else {
-//                                        let data = moyaResponse.data
-//                                        let json = JSON(data: data)
-//                                        if json["error_title"].exists() && json["rus_description"].exists() {
-//                                            ERROR?(ErrorType.ServerError, json["rus_description"].stringValue)
-//                                        } else {
-//                                            ERROR?(ErrorType.ServerError, "Неизвестная ошибка сервера")
-//                                        }
-//                                    }
-//                                case .failure(_):
-//                                    ERROR?(ErrorType.NetworkError, "Не могу получить ответ от сервера")
-//                                }
-//            })
+            TransactionsAPI.apiTransactionsGet(page: Int32(page), pagesize: Int32(pagesize), authorization: "Bearer \(c.access_token)", completion: { ts, e in
+                if let transactions = ts {
+                    SUCCESS?(transactions.map({ $0.toOperationInfo() }))
+                } else {
+                    ERROR?(ErrorType.Unknown, "Не удаётся получить список операций!");
+                    print(e?.localizedDescription)
+                }
+            })
         }, ERROR: { et, msg in
             ERROR?(et, msg)
         }, UNAUTHORIZED: {
@@ -543,16 +510,15 @@ class Server {
                     if let project = r?.body {
                         let projectInfo = project.toProjectInfo()
                         // TODO: make pagination for project news
-                        let rb = NewsAPI.apiNewsProjectByProjectIdGetWithRequestBuilder(projectId: project.id ?? -1)
-                        rb.execute { r, e in
+                        let rb = NewsAPI.apiNewsGet(projectId: project.id ?? -1, page: 1, pagesize: 10000, completion: { news_, error in
                             if let error = e {
                                 projectInfo.news = []
-                            } else if let news = r?.body {
+                            } else if let news = news_ {
                                 var newsInfo: [NewsPiece] = news.map {$0.toNewsPiece()}
                                 projectInfo.news = newsInfo
                             }
                             SUCCESS?(projectInfo)
-                        }
+                        })
                     } else {
                         ERROR?(ErrorType.ServerError, "Получены некорректные данные!")
                     }

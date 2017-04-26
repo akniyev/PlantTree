@@ -53,7 +53,8 @@ class PaymentHistoryViewController : UIViewController, UITableViewDelegate, UITa
     func refreshPage() {
         hideReloadView()
         LoadingIndicatorView.show(self.view, loadingText: "Загрузка...")
-        Server.GetOperationHistory(SUCCESS: { operations in
+        //TODO: add pagination
+        Server.GetOperationHistory(page: 1, pagesize: 10000, SUCCESS: { operations in
             self.operations = operations
             self.tableView.reloadData()
             LoadingIndicatorView.hide()

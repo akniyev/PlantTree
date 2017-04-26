@@ -17,7 +17,6 @@ open class DetailedUserInfo: JSONEncodable {
     public var isEmailConfirmed: Bool?
     public var donated: Double?
     public var donatedProjectsCount: Int32?
-    public var transactions: [Transaction]?
     public var photoUrlSmall: String?
     public var photoUrl: String?
 
@@ -34,7 +33,6 @@ open class DetailedUserInfo: JSONEncodable {
         nillableDictionary["isEmailConfirmed"] = self.isEmailConfirmed
         nillableDictionary["donated"] = self.donated
         nillableDictionary["donatedProjectsCount"] = self.donatedProjectsCount?.encodeToJSON()
-        nillableDictionary["transactions"] = self.transactions?.encodeToJSON()
         nillableDictionary["photoUrlSmall"] = self.photoUrlSmall
         nillableDictionary["photoUrl"] = self.photoUrl
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
