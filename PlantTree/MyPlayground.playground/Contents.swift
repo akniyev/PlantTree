@@ -3,73 +3,58 @@
 import UIKit
 import PlaygroundSupport
 
-class LoginTextField : UITextField {
-    //Initializers
-    private let iconView = UIImageView()
-    private let iconBox = UIView()
-    private let lineLayer = CALayer()
-    private let lineWidth : CGFloat = 2
+
+class LoginButton : UIButton {
+    let borderLayer = CALayer()
     
+    let green_color = UIColor(red: 87/255, green: 188/255, blue: 126/255, alpha: 1)
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setupUi()
+        self.initUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.setupUi()
+        self.initUI()
     }
     
-    func setupUi() {
-        //self.backgroundColor = UIColor.white
-        self.iconBox.backgroundColor = UIColor.red
-        self.iconView.backgroundColor = UIColor.blue
-        
-        self.iconBox.frame = CGRect(x: 0, y: 0, width: 45, height: 30)
-        self.iconBox.addSubview(self.iconView)
-        self.iconView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-
-        self.leftView = self.iconBox
-        self.leftViewMode = .always
-        
-        self.layer.addSublayer(self.lineLayer)
-        
-        self.textColor = UIColor.white
-        
-        self.drawBottomLine()
+    func initUI() {
+        self.setTitleColor(self.green_color, for: .normal)
+        self.layer.addSublayer(self.borderLayer)
+        self.backgroundColor = .clear
     }
-    
-    // Helper functions
-    
-    private func drawBottomLine() {
-        self.lineLayer.frame = CGRect(x: 0, y: self.frame.size.height - self.lineWidth, width: self.frame.size.width, height: self.lineWidth)
-        self.lineLayer.backgroundColor = UIColor.white.cgColor
-    }
-    
-    // Overrides
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.drawBottomLine()
+        self.borderLayer.frame = self.bounds
+        self.borderLayer.cornerRadius = self.frame.height / 2
+        self.borderLayer.borderColor = self.green_color.cgColor
+        self.borderLayer.borderWidth = 3
+    }
+}
+
+class FacebookButton : UIButton {
+    let green_color = UIColor(red: 87/255, green: 188/255, blue: 126/255, alpha: 1)
+    let facebook_blue = UIColor(red: 59/255, green: 89/255, blue: 152/255, alpha: 1)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.initUI()
     }
     
-    // Interface
-    
-    func setImage(img: UIImage?) {
-        self.iconView.image = img
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.initUI()
     }
     
-    func setPlaceholderText(text: String) {
-        let font = UIFont(name: "Helvetica", size: 18)!
-        let fontColor = UIColor(red: 188/255, green: 189/255, blue: 191/255, alpha: 1.0)
-        let attributedPlaceholderText =
-            NSMutableAttributedString(
-                string: text,
-                attributes: [
-                    NSFontAttributeName: font,
-                    NSForegroundColorAttributeName: fontColor]
-                )
-        self.attributedPlaceholder = attributedPlaceholderText
+    func initUI() {
+        self.setTitleColor(UIColor.white, for: .normal)
+        self.backgroundColor = self.facebook_blue
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.cornerRadius = self.bounds.height / 2
     }
 }
 
@@ -77,12 +62,13 @@ func createView() -> UIView {
     let view = UIView(frame: UIScreen.main.bounds)
     view.backgroundColor = UIColor(red: 50 / 255, green: 55 / 255, blue: 80 / 255, alpha: 1)
     
-    let tf = LoginTextField(frame: CGRect(x: 10, y: 10, width: 250, height: 50))
-    tf.setPlaceholderText(text: "Введите ваш email")
+    let lb = LoginButton(frame: CGRect(x: 10, y: 10, width: 250, height: 50))
+    let fb = FacebookButton(frame: CGRect(x: 10, y: 100, width: 250, height: 50))
     
-    view.addSubview(tf)
-    
-    tf.frame = CGRect(x: 10, y: 10, width: 500, height: 40)
+    view.addSubview(lb)
+    view.addSubview(fb)
+    lb.setTitle("Войти в аккаунт", for: .normal)
+    fb.setTitle("Войти через Facebook", for: .normal)
     
     return view
 }

@@ -2,16 +2,29 @@
 //  LoginViewController.swift
 //  PlantTree
 //
-//  Created by Admin on 16/02/2017.
+//  Created by Admin on 27/04/2017.
 //  Copyright © 2017 greenworld. All rights reserved.
 //
 
 import UIKit
-import Eureka
 
-class LoginViewController : FormViewController {
+class LoginViewController : UIViewController {
+    @IBOutlet weak var tf_Login: LoginTextField!
+    @IBOutlet weak var tf_Password: LoginTextField!
+    @IBOutlet weak var btn_Register: UIButton!
+    @IBOutlet weak var btn_ForgotPassword: UIButton!
+    @IBOutlet weak var btn_Login: LoginButton!
+    @IBOutlet weak var btn_FacebookLogin: FacebookButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.navigationController?.isNavigationBarHidden = true
+        self.navigationItem.title = "Аккаунт"
         
+        tf_Login.setImage(img: UIImage(named: "login_screen_mail"))
+        tf_Password.setImage(img: UIImage(named: "login_screen_lock"))
+        
+        tf_Login.setPlaceholderText(text: "Введите ваш email")
+        tf_Password.setPlaceholderText(text: "Введите ваш пароль")
     }
 }

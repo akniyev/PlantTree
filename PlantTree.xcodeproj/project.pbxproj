@@ -53,6 +53,10 @@
 		58603FA78CD5B5C0AA91BDC4 /* ProjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 586030E9CCA4506F4312C81D /* ProjectCell.xib */; };
 		58603FB0E67EDEC6EF6CB540 /* PersonalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586030BA04E460DBB4F34CBC /* PersonalData.swift */; };
 		58603FE064F7C6E39F930625 /* News_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603E8696DD2B16E56ED696 /* News_ext.swift */; };
+		843FE0C01EB26EA9007ACFE5 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0BF1EB26EA9007ACFE5 /* LoginTextField.swift */; };
+		843FE0C21EB26F67007ACFE5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C11EB26F67007ACFE5 /* LoginViewController.swift */; };
+		843FE0C41EB27C1F007ACFE5 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C31EB27C1F007ACFE5 /* LoginButton.swift */; };
+		843FE0C61EB27C54007ACFE5 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */; };
 		847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAE11E977D3500BF6698 /* Project_ext.swift */; };
 		848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F96E41E59C75300CC07CC /* UserInfoCell.swift */; };
 		848F96E71E59C75300CC07CC /* UserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848F96E51E59C75300CC07CC /* UserInfoCell.xib */; };
@@ -152,6 +156,10 @@
 		58603ED254B5E297138618B7 /* NewsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsAPI.swift; sourceTree = "<group>"; };
 		58603F5F40C9432D58F3814F /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		843FE0BD1EB217CF007ACFE5 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		843FE0BF1EB26EA9007ACFE5 /* LoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
+		843FE0C11EB26F67007ACFE5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		843FE0C31EB27C1F007ACFE5 /* LoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		847FCAE11E977D3500BF6698 /* Project_ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project_ext.swift; sourceTree = "<group>"; };
 		848F96E41E59C75300CC07CC /* UserInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
 		848F96E51E59C75300CC07CC /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
@@ -481,6 +489,9 @@
 				84D496DA1E6237E200AF0B67 /* UIView.swift */,
 				84F58C4F1E6378890092EA82 /* OperationInfo.swift */,
 				58603245BBB6F5B3A1635858 /* DesignerColors.swift */,
+				843FE0BF1EB26EA9007ACFE5 /* LoginTextField.swift */,
+				843FE0C31EB27C1F007ACFE5 /* LoginButton.swift */,
+				843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -496,6 +507,7 @@
 				84F58C4D1E6371CC0092EA82 /* NewsViewController.swift */,
 				84F58C511E63827F0092EA82 /* PlantTreeViewController.swift */,
 				84F58C581E6AD68F0092EA82 /* PlantTreeViewController2.swift */,
+				843FE0C11EB26F67007ACFE5 /* LoginViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -727,6 +739,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				848F96E91E59CA9300CC07CC /* UserInfoRow.swift in Sources */,
+				843FE0C41EB27C1F007ACFE5 /* LoginButton.swift in Sources */,
 				848F96ED1E59D82300CC07CC /* UserPhotoEditCell.swift in Sources */,
 				849759C81E5A57CA0065BDCB /* ProjectsTableViewController.swift in Sources */,
 				8497B3E31E680CA100AD79A2 /* OrdinalButtonContentView.swift in Sources */,
@@ -750,10 +763,12 @@
 				84BF512E1E571E0500B50ADB /* MyTabBarController.swift in Sources */,
 				847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */,
 				84B3A74E1E563F8F000CA32E /* RegistrationViewController.swift in Sources */,
+				843FE0C61EB27C54007ACFE5 /* FacebookButton.swift in Sources */,
 				84D6B62F1E998D60002F38F8 /* DetailedUserInfo_ext.swift in Sources */,
 				58603FB0E67EDEC6EF6CB540 /* PersonalData.swift in Sources */,
 				84BF511F1E56E3A000B50ADB /* SettingsViewController.swift in Sources */,
 				84BF511D1E5657A500B50ADB /* ForgotPasswordViewController.swift in Sources */,
+				843FE0C21EB26F67007ACFE5 /* LoginViewController.swift in Sources */,
 				84CCD9811EAE137D00A774CE /* NewsBodyCell.swift in Sources */,
 				84BF511B1E56508400B50ADB /* Alerts.swift in Sources */,
 				84CCD9851EAE139100A774CE /* NewsFooterCell.swift in Sources */,
@@ -781,6 +796,7 @@
 				58603920EC618B4660EAD957 /* PaymentHistoryCell.swift in Sources */,
 				5860346D34210FA8A50E5A66 /* ProjectNewsCell.swift in Sources */,
 				58603FE064F7C6E39F930625 /* News_ext.swift in Sources */,
+				843FE0C01EB26EA9007ACFE5 /* LoginTextField.swift in Sources */,
 				586034FD900A39ABB47843BC /* SmallTabBarContentView.swift in Sources */,
 				5860381AC7C95E6FE26E042C /* DesignerColors.swift in Sources */,
 				586038E82DCB19DE4075635A /* PayAPI.swift in Sources */,
