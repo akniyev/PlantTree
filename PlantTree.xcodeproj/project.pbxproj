@@ -151,6 +151,7 @@
 		58603ECF8D9AA3F60A2C8BFD /* ProjectNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectNewsCell.xib; sourceTree = "<group>"; };
 		58603ED254B5E297138618B7 /* NewsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsAPI.swift; sourceTree = "<group>"; };
 		58603F5F40C9432D58F3814F /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		843FE0BD1EB217CF007ACFE5 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		847FCAE11E977D3500BF6698 /* Project_ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project_ext.swift; sourceTree = "<group>"; };
 		848F96E41E59C75300CC07CC /* UserInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
 		848F96E51E59C75300CC07CC /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
@@ -574,6 +575,7 @@
 				84DDFA811E546BCD0073DFFC /* Info.plist */,
 				84DDFA791E546BCD0073DFFC /* PlantTree.xcdatamodeld */,
 				586033ED83054CAB0F7DEE28 /* Swaggers */,
+				843FE0BD1EB217CF007ACFE5 /* MyPlayground.playground */,
 			);
 			path = PlantTree;
 			sourceTree = "<group>";
