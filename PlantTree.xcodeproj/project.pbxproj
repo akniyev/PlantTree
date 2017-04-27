@@ -57,6 +57,7 @@
 		843FE0C21EB26F67007ACFE5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C11EB26F67007ACFE5 /* LoginViewController.swift */; };
 		843FE0C41EB27C1F007ACFE5 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C31EB27C1F007ACFE5 /* LoginButton.swift */; };
 		843FE0C61EB27C54007ACFE5 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */; };
+		843FE0C81EB28407007ACFE5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C71EB28407007ACFE5 /* ProfileViewController.swift */; };
 		847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAE11E977D3500BF6698 /* Project_ext.swift */; };
 		848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F96E41E59C75300CC07CC /* UserInfoCell.swift */; };
 		848F96E71E59C75300CC07CC /* UserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848F96E51E59C75300CC07CC /* UserInfoCell.xib */; };
@@ -160,6 +161,7 @@
 		843FE0C11EB26F67007ACFE5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		843FE0C31EB27C1F007ACFE5 /* LoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
+		843FE0C71EB28407007ACFE5 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		847FCAE11E977D3500BF6698 /* Project_ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project_ext.swift; sourceTree = "<group>"; };
 		848F96E41E59C75300CC07CC /* UserInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
 		848F96E51E59C75300CC07CC /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 				84F58C511E63827F0092EA82 /* PlantTreeViewController.swift */,
 				84F58C581E6AD68F0092EA82 /* PlantTreeViewController2.swift */,
 				843FE0C11EB26F67007ACFE5 /* LoginViewController.swift */,
+				843FE0C71EB28407007ACFE5 /* ProfileViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -782,6 +785,7 @@
 				84BF51271E5713D900B50ADB /* PaymentHistoryViewController.swift in Sources */,
 				848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */,
 				58603238B5DCC31835F33686 /* LoadingIndicatorView.swift in Sources */,
+				843FE0C81EB28407007ACFE5 /* ProfileViewController.swift in Sources */,
 				849DEFDA1E67F77700A82EA9 /* BigButtonContentView.swift in Sources */,
 				849DEFD41E65B5A100A82EA9 /* UpDownCellTableViewCell.swift in Sources */,
 				58603BAC16FB696E0F8962B4 /* ProjectInfo.swift in Sources */,
