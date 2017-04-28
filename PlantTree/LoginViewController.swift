@@ -26,5 +26,7 @@ class LoginViewController : UIViewController {
         
         tf_Login.setPlaceholderText(text: "Введите ваш email")
         tf_Password.setPlaceholderText(text: "Введите ваш пароль")
+        
+        self.view.frame.origin = CGPoint(x: 0, y: 500)
     }
 }
