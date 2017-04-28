@@ -13,7 +13,7 @@ class LoginViewController : UIViewController {
     @IBOutlet weak var tf_Password: LoginTextField!
     @IBOutlet weak var btn_Register: UIButton!
     @IBOutlet weak var btn_ForgotPassword: UIButton!
-    @IBOutlet weak var btn_Login: LoginButton!
+    @IBOutlet weak var btn_Login: RoundBorderButton!
     @IBOutlet weak var btn_FacebookLogin: FacebookButton!
     
     override func viewDidLoad() {

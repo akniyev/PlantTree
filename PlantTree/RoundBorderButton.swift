@@ -8,10 +8,12 @@
 
 import UIKit
 
-class LoginButton : UIButton {
+class RoundBorderButton : UIButton {
     let borderLayer = CALayer()
     
-    let green_color = DesignerColors.green
+    var borderColor = DesignerColors.green
+    var borderWidth: CGFloat = 3
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.initUI()
@@ -23,7 +25,7 @@ class LoginButton : UIButton {
     }
     
     func initUI() {
-        self.setTitleColor(self.green_color, for: .normal)
+        self.setTitleColor(self.borderColor, for: .normal)
         self.layer.addSublayer(self.borderLayer)
         self.backgroundColor = .clear
     }
@@ -32,7 +34,7 @@ class LoginButton : UIButton {
         super.layoutSubviews()
         self.borderLayer.frame = self.bounds
         self.borderLayer.cornerRadius = self.frame.height / 2
-        self.borderLayer.borderColor = self.green_color.cgColor
-        self.borderLayer.borderWidth = 3
+        self.borderLayer.borderColor = self.borderColor.cgColor
+        self.borderLayer.borderWidth = self.borderWidth
     }
 }

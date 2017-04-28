@@ -55,9 +55,10 @@
 		58603FE064F7C6E39F930625 /* News_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603E8696DD2B16E56ED696 /* News_ext.swift */; };
 		843FE0C01EB26EA9007ACFE5 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0BF1EB26EA9007ACFE5 /* LoginTextField.swift */; };
 		843FE0C21EB26F67007ACFE5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C11EB26F67007ACFE5 /* LoginViewController.swift */; };
-		843FE0C41EB27C1F007ACFE5 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C31EB27C1F007ACFE5 /* LoginButton.swift */; };
+		843FE0C41EB27C1F007ACFE5 /* RoundBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C31EB27C1F007ACFE5 /* RoundBorderButton.swift */; };
 		843FE0C61EB27C54007ACFE5 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */; };
 		843FE0C81EB28407007ACFE5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C71EB28407007ACFE5 /* ProfileViewController.swift */; };
+		843FE0CA1EB3D95E007ACFE5 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C91EB3D95E007ACFE5 /* RoundImageView.swift */; };
 		847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAE11E977D3500BF6698 /* Project_ext.swift */; };
 		848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F96E41E59C75300CC07CC /* UserInfoCell.swift */; };
 		848F96E71E59C75300CC07CC /* UserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848F96E51E59C75300CC07CC /* UserInfoCell.xib */; };
@@ -159,9 +160,10 @@
 		843FE0BD1EB217CF007ACFE5 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		843FE0BF1EB26EA9007ACFE5 /* LoginTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		843FE0C11EB26F67007ACFE5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		843FE0C31EB27C1F007ACFE5 /* LoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		843FE0C31EB27C1F007ACFE5 /* RoundBorderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundBorderButton.swift; sourceTree = "<group>"; };
 		843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		843FE0C71EB28407007ACFE5 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		843FE0C91EB3D95E007ACFE5 /* RoundImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		847FCAE11E977D3500BF6698 /* Project_ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project_ext.swift; sourceTree = "<group>"; };
 		848F96E41E59C75300CC07CC /* UserInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
 		848F96E51E59C75300CC07CC /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
@@ -420,6 +422,10 @@
 				84AC71131E6181A80023DDB7 /* TableViewUnauthorized */,
 				84AC71081E61639A0023DDB7 /* TableViewReload */,
 				58603388F7A6535B9FE7E124 /* Cells */,
+				843FE0C31EB27C1F007ACFE5 /* RoundBorderButton.swift */,
+				843FE0C91EB3D95E007ACFE5 /* RoundImageView.swift */,
+				843FE0BF1EB26EA9007ACFE5 /* LoginTextField.swift */,
+				843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -491,9 +497,6 @@
 				84D496DA1E6237E200AF0B67 /* UIView.swift */,
 				84F58C4F1E6378890092EA82 /* OperationInfo.swift */,
 				58603245BBB6F5B3A1635858 /* DesignerColors.swift */,
-				843FE0BF1EB26EA9007ACFE5 /* LoginTextField.swift */,
-				843FE0C31EB27C1F007ACFE5 /* LoginButton.swift */,
-				843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -742,7 +745,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				848F96E91E59CA9300CC07CC /* UserInfoRow.swift in Sources */,
-				843FE0C41EB27C1F007ACFE5 /* LoginButton.swift in Sources */,
+				843FE0C41EB27C1F007ACFE5 /* RoundBorderButton.swift in Sources */,
 				848F96ED1E59D82300CC07CC /* UserPhotoEditCell.swift in Sources */,
 				849759C81E5A57CA0065BDCB /* ProjectsTableViewController.swift in Sources */,
 				8497B3E31E680CA100AD79A2 /* OrdinalButtonContentView.swift in Sources */,
@@ -794,6 +797,7 @@
 				84D496D41E61AD7300AF0B67 /* NewsPiece.swift in Sources */,
 				5860362AF819362FBB73FB2C /* ProjectListType.swift in Sources */,
 				58603A987F70AD3CB3D08BF7 /* Int.swift in Sources */,
+				843FE0CA1EB3D95E007ACFE5 /* RoundImageView.swift in Sources */,
 				58603AC6856FF5A342469512 /* ProjectCell.swift in Sources */,
 				586031A91434045C034ABABC /* NewsBandSeparatorCell.swift in Sources */,
 				586032471BB1A211330BC18E /* ProjectDetailsCell.swift in Sources */,
