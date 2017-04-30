@@ -64,14 +64,16 @@ class RoundBorderButton : UIButton {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        print("BEGIN")
-        let backgroundAnimation = CABasicAnimation(keyPath: "backgroundColor")
-        backgroundAnimation.isRemovedOnCompletion = false
-        backgroundAnimation.fillMode = kCAFillModeForwards
-        backgroundAnimation.fromValue = self.fillColor.cgColor
-        backgroundAnimation.toValue = self.fillColorPressed.cgColor
-        backgroundAnimation.duration = 0.1
-        backgroundAnimation.repeatCount = 1
+        if self.filled {
+            let backgroundAnimation = CABasicAnimation(keyPath: "backgroundColor")
+            backgroundAnimation.isRemovedOnCompletion = false
+            backgroundAnimation.fillMode = kCAFillModeForwards
+            backgroundAnimation.fromValue = self.fillColor.cgColor
+            backgroundAnimation.toValue = self.fillColorPressed.cgColor
+            backgroundAnimation.duration = 0.1
+            backgroundAnimation.repeatCount = 1
+            self.borderLayer.add(backgroundAnimation, forKey: "backgroundColor")
+        }
         
         let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
         borderColorAnimation.isRemovedOnCompletion = false
@@ -80,20 +82,21 @@ class RoundBorderButton : UIButton {
         borderColorAnimation.toValue = self.borderColorPressed.cgColor
         borderColorAnimation.repeatCount = 1
         borderColorAnimation.duration = 0.1
-        self.borderLayer.add(backgroundAnimation, forKey: "backgroundColor")
         self.borderLayer.add(borderColorAnimation, forKey: "borderColor")
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        print("END")
-        let backgroundAnimation = CABasicAnimation(keyPath: "backgroundColor")
-        backgroundAnimation.isRemovedOnCompletion = false
-        backgroundAnimation.fillMode = kCAFillModeForwards
-        backgroundAnimation.fromValue = self.fillColorPressed.cgColor
-        backgroundAnimation.toValue = self.fillColor.cgColor
-        backgroundAnimation.duration = 0.1
-        backgroundAnimation.repeatCount = 1
+        if self.filled {
+            let backgroundAnimation = CABasicAnimation(keyPath: "backgroundColor")
+            backgroundAnimation.isRemovedOnCompletion = false
+            backgroundAnimation.fillMode = kCAFillModeForwards
+            backgroundAnimation.fromValue = self.fillColorPressed.cgColor
+            backgroundAnimation.toValue = self.fillColor.cgColor
+            backgroundAnimation.duration = 0.1
+            backgroundAnimation.repeatCount = 1
+            self.borderLayer.add(backgroundAnimation, forKey: "backgroundColor")
+        }
         
         let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
         borderColorAnimation.isRemovedOnCompletion = false
@@ -102,7 +105,6 @@ class RoundBorderButton : UIButton {
         borderColorAnimation.toValue = self.borderColor.cgColor
         borderColorAnimation.repeatCount = 1
         borderColorAnimation.duration = 0.1
-        self.borderLayer.add(backgroundAnimation, forKey: "backgroundColor")
         self.borderLayer.add(borderColorAnimation, forKey: "borderColor")
     }
 }

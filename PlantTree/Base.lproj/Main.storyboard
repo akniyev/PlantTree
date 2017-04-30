@@ -255,135 +255,202 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_screen_background" translatesAutoresizingMaskIntoConstraints="NO" id="FoO-gK-oRn">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="879"/>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jxo-do-aYm">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yz1-1s-ibi" userLabel="Control container view">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaL-mE-qct" customClass="RoundBorderButton" customModule="PlantTree" customModuleProvider="target">
-                                        <rect key="frame" x="60" y="357" width="254" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Войти в аккаунт">
-                                            <color key="titleColor" red="0.3411764706" green="0.73725490199999999" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.33725490196078434" green="0.73725490199999999" blue="0.49411764705882355" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="3"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="filled" value="NO"/>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorPressed">
-                                                <color key="value" red="0.33725490200000002" green="0.73725490199999999" blue="0.4941176471" alpha="0.5" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="fillColorPressed">
-                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xux-sl-OmA" customClass="RoundBorderButton" customModule="PlantTree" customModuleProvider="target">
-                                        <rect key="frame" x="65" y="436" width="254" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Войти через Facebook">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
-                                                <color key="value" red="0.23137254901960785" green="0.34901960784313724" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="filled" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorPressed">
-                                                <color key="value" red="0.19687444220342987" green="0.29226807104074209" blue="0.44864355087280272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="fillColorPressed">
-                                                <color key="value" red="0.1968744422" green="0.29226807100000002" blue="0.44864355090000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите вашу почту" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B2i-g3-orQ" customClass="LoginTextField" customModule="PlantTree" customModuleProvider="target">
-                                        <rect key="frame" x="65" y="240" width="244" height="45"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="login_screen_lock"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите ваш пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-uY-B78" customClass="LoginTextField" customModule="PlantTree" customModuleProvider="target">
-                                        <rect key="frame" x="65" y="171" width="244" height="45"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="login_screen_mail"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Войдите в ваш аккаунт, чтобы использовать все возможности приложения" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdz-O0-w1E">
-                                        <rect key="frame" x="24" y="22" width="327" height="75"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Нет аккаунта?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfg-gG-LNp">
-                                        <rect key="frame" x="44" y="117" width="114" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="0.60000002379999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKf-va-oJA">
-                                        <rect key="frame" x="173" y="113" width="159" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Зарегистрируйтесь!">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V9k-oY-Xem">
-                                        <rect key="frame" x="65" y="304" width="244" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Забыли пароль?">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gih-ee-1v0">
+                                        <rect key="frame" x="38" y="0.0" width="300" height="554"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Войдите в ваш аккаунт, чтобы использовать все возможности приложения." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iu6-3J-zIT">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="111"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uKC-QP-v0b">
+                                                <rect key="frame" x="0.0" y="111" width="300" height="31"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="EfX-a0-VjH">
+                                                <rect key="frame" x="0.0" y="142" width="300" height="27"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="m5k-iO-nV4">
+                                                        <rect key="frame" x="26.5" y="0.0" width="247" height="27"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет аккаунта?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbf-Ba-g8k">
+                                                                <rect key="frame" x="0.0" y="0.0" width="90" height="27"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEh-CM-ghN">
+                                                                <rect key="frame" x="100" y="0.0" width="147" height="27"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                                <state key="normal" title="Зарегистрируйтесь!">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="touch_RegisterButton:" destination="4Qm-Nl-79J" eventType="touchUpInside" id="f6x-EP-SEx"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKI-Nz-nSP">
+                                                <rect key="frame" x="0.0" y="169" width="300" height="34"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите ваш email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pyy-zQ-XaH" customClass="LoginTextField" customModule="PlantTree" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="203" width="300" height="37"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="login_screen_lock"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VyS-d5-UNt">
+                                                <rect key="frame" x="0.0" y="240" width="300" height="17"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите ваш пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mIn-Hq-h99" customClass="LoginTextField" customModule="PlantTree" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="257" width="300" height="38"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="iconName" value="login_screen_mail"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHN-lU-r0f">
+                                                <rect key="frame" x="0.0" y="295" width="300" height="10.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hoz-so-ylC">
+                                                <rect key="frame" x="0.0" y="305.5" width="300" height="27.5"/>
+                                                <state key="normal" title="Забыли пароль?">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="touch_ForgotPassword:" destination="4Qm-Nl-79J" eventType="touchUpInside" id="7uO-xc-Qby"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U4b-IX-UIL">
+                                                <rect key="frame" x="0.0" y="333" width="300" height="28"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QtD-Ft-deq" customClass="RoundBorderButton" customModule="PlantTree" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="361" width="300" height="44.5"/>
+                                                <state key="normal" title="Войти в аккаунт">
+                                                    <color key="titleColor" red="0.33725490200000002" green="0.73725490199999999" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.33725490200000002" green="0.73725490199999999" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColorPressed">
+                                                        <color key="value" red="0.33725490200000002" green="0.73725490199999999" blue="0.4941176471" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="filled" value="NO"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="touch_Enter:" destination="4Qm-Nl-79J" eventType="touchUpInside" id="hZL-uF-5hA"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ahe-04-Eb0">
+                                                <rect key="frame" x="0.0" y="405.5" width="300" height="16.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SqK-1X-CG0" customClass="RoundBorderButton" customModule="PlantTree" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="422" width="300" height="44.5"/>
+                                                <state key="normal" title="Войти через Facebook">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="filled" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
+                                                        <color key="value" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="fillColorPressed">
+                                                        <color key="value" red="0.1968744422" green="0.29226807100000002" blue="0.44864355090000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="touch_Facebook:" destination="4Qm-Nl-79J" eventType="touchUpInside" id="btp-ui-Q8j"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ZJ-Kn-Pk3">
+                                                <rect key="frame" x="0.0" y="466.5" width="300" height="87.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                            </scrollView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="EfX-a0-VjH" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.05" id="29Y-I1-YlT"/>
+                                    <constraint firstItem="U4b-IX-UIL" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.05" id="2TN-uj-WiV"/>
+                                    <constraint firstItem="SqK-1X-CG0" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.08" id="CYq-Wo-Dbz"/>
+                                    <constraint firstItem="Gih-ee-1v0" firstAttribute="width" secondItem="Yz1-1s-ibi" secondAttribute="width" multiplier="0.8" id="JaI-jd-Alb"/>
+                                    <constraint firstItem="VyS-d5-UNt" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.03" id="TeK-af-7tG"/>
+                                    <constraint firstItem="Gih-ee-1v0" firstAttribute="top" secondItem="Yz1-1s-ibi" secondAttribute="top" id="Z75-NY-QGz"/>
+                                    <constraint firstItem="Pyy-zQ-XaH" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.068" id="f5E-la-hcb"/>
+                                    <constraint firstItem="fHN-lU-r0f" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.02" id="hdE-lj-AbQ"/>
+                                    <constraint firstItem="iu6-3J-zIT" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.2" id="i9M-vK-yPq"/>
+                                    <constraint firstItem="QtD-Ft-deq" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.08" id="iBj-8w-JVx"/>
+                                    <constraint firstItem="Hoz-so-ylC" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.05" id="k8H-g7-Y1a"/>
+                                    <constraint firstItem="eKI-Nz-nSP" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.06" id="m4Q-oK-dHt"/>
+                                    <constraint firstAttribute="bottom" secondItem="Gih-ee-1v0" secondAttribute="bottom" id="mTd-L3-Wzi"/>
+                                    <constraint firstItem="Gih-ee-1v0" firstAttribute="centerX" secondItem="Yz1-1s-ibi" secondAttribute="centerX" id="nFm-ar-sx4"/>
+                                    <constraint firstItem="ahe-04-Eb0" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.03" id="uwv-L0-VbQ"/>
+                                    <constraint firstItem="mIn-Hq-h99" firstAttribute="height" secondItem="Yz1-1s-ibi" secondAttribute="height" multiplier="0.068" id="zns-r1-Iop"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="FoO-gK-oRn" firstAttribute="leading" secondItem="dXi-wG-San" secondAttribute="leading" id="AH5-LL-YMT"/>
-                            <constraint firstItem="jxo-do-aYm" firstAttribute="leading" secondItem="dXi-wG-San" secondAttribute="leading" id="GFw-QO-YWx"/>
-                            <constraint firstItem="FoO-gK-oRn" firstAttribute="top" secondItem="qGX-7T-8ZV" secondAttribute="bottom" id="aUa-xN-6Px"/>
-                            <constraint firstAttribute="trailing" secondItem="jxo-do-aYm" secondAttribute="trailing" id="dsn-LY-nHy"/>
-                            <constraint firstItem="Cay-n2-Yb6" firstAttribute="top" secondItem="jxo-do-aYm" secondAttribute="bottom" id="i41-fc-ccL"/>
-                            <constraint firstAttribute="trailing" secondItem="FoO-gK-oRn" secondAttribute="trailing" id="iwm-qo-hOU"/>
-                            <constraint firstItem="jxo-do-aYm" firstAttribute="top" secondItem="qGX-7T-8ZV" secondAttribute="bottom" id="nWZ-8G-Cyv"/>
-                            <constraint firstItem="Cay-n2-Yb6" firstAttribute="top" secondItem="FoO-gK-oRn" secondAttribute="bottom" id="xc5-e6-d1L"/>
+                            <constraint firstItem="Yz1-1s-ibi" firstAttribute="leading" secondItem="dXi-wG-San" secondAttribute="leading" id="2ew-Ha-jK7"/>
+                            <constraint firstItem="Yz1-1s-ibi" firstAttribute="height" secondItem="dXi-wG-San" secondAttribute="height" constant="-64" id="9c9-Lz-cTl"/>
+                            <constraint firstItem="Yz1-1s-ibi" firstAttribute="top" secondItem="qGX-7T-8ZV" secondAttribute="bottom" id="RQ3-1p-Rca"/>
+                            <constraint firstItem="Yz1-1s-ibi" firstAttribute="width" secondItem="dXi-wG-San" secondAttribute="width" id="bTf-aB-Uba"/>
+                            <constraint firstItem="uKC-QP-v0b" firstAttribute="height" secondItem="dXi-wG-San" secondAttribute="height" multiplier="0.05" id="eu3-3i-kmT"/>
+                            <constraint firstItem="FoO-gK-oRn" firstAttribute="top" secondItem="dXi-wG-San" secondAttribute="top" id="rit-un-RVj"/>
+                            <constraint firstItem="FoO-gK-oRn" firstAttribute="leading" secondItem="dXi-wG-San" secondAttribute="leading" id="rzb-w5-4kW"/>
+                            <constraint firstAttribute="trailing" secondItem="FoO-gK-oRn" secondAttribute="trailing" id="wmY-Vc-giM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ccd-e7-TQ7"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="btn_Enter" destination="QtD-Ft-deq" id="MNe-pK-5Ew"/>
+                        <outlet property="btn_Facebook" destination="SqK-1X-CG0" id="qjr-Jk-Enz"/>
+                        <outlet property="btn_ForgotPassword" destination="Hoz-so-ylC" id="SAI-oR-vUU"/>
+                        <outlet property="btn_Register" destination="AEh-CM-ghN" id="QHO-is-JW9"/>
+                        <outlet property="c_ContainerTopConstraint" destination="RQ3-1p-Rca" id="3Ux-Hy-oo3"/>
+                        <outlet property="tf_Email" destination="Pyy-zQ-XaH" id="4od-86-UmO"/>
+                        <outlet property="tf_Password" destination="mIn-Hq-h99" id="o2W-Py-pUC"/>
+                        <outlet property="v_Container" destination="Yz1-1s-ibi" id="UjK-d8-zp3"/>
                         <segue destination="beB-Ti-cA4" kind="show" identifier="LOGIN" id="P88-c3-TRK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ng-3T-Buv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2229.5999999999999" y="2628.9355322338834"/>
+            <point key="canvasLocation" x="2126.25" y="2639.7887323943664"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="n2M-ek-Yfs">
@@ -472,12 +539,12 @@
                                         <state key="normal" title="Выслать email для подтверждения"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="28e-un-LUy" customClass="RoundBorderButton" customModule="PlantTree" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="93.5" width="303" height="58"/>
+                                        <rect key="frame" x="0.0" y="93.5" width="303" height="57.5"/>
                                         <color key="backgroundColor" red="0.63921568627450975" green="0.75387967687074831" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Просмотреть историю операций"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLR-VN-ZTQ" customClass="RoundBorderButton" customModule="PlantTree" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="161.5" width="303" height="57.5"/>
+                                        <rect key="frame" x="0.0" y="161" width="303" height="58"/>
                                         <color key="backgroundColor" red="0.63921568627450975" green="0.75387967687074831" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Выйти из аккаунта"/>
                                     </button>

@@ -15,6 +15,7 @@
 		5860321E46D4171318DC8DED /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603135716173F73461979F /* ErrorType.swift */; };
 		58603238B5DCC31835F33686 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586034FC67D299DB4F3E17F9 /* LoadingIndicatorView.swift */; };
 		586032471BB1A211330BC18E /* ProjectDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5860323304F9254D47903FBC /* ProjectDetailsCell.swift */; };
+		5860324F7805120FD45E9B14 /* ReloadableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603B2DE796D0CFDEC3B538 /* ReloadableViewController.swift */; };
 		58603250816B5F84C6CDF728 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586031A4D8A3D57193F0F656 /* Models.swift */; };
 		586032733EB1FDEFA0082231 /* ProjectStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586032694D2F3E51B731467D /* ProjectStatus.swift */; };
 		586033A6360B1AECC77BA29F /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586032A3DA79C615F61D6D76 /* RegisterModel.swift */; };
@@ -149,6 +150,7 @@
 		58603A0FE91E8E4A9FDAEE5E /* PaymentHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentHistoryCell.swift; sourceTree = "<group>"; };
 		58603A72150D0ACBD578E7F6 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		58603B2C7A4F72CC9C07C58F /* Transaction_ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction_ext.swift; sourceTree = "<group>"; };
+		58603B2DE796D0CFDEC3B538 /* ReloadableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadableViewController.swift; sourceTree = "<group>"; };
 		58603BAFF2ED3C34B39E502F /* AccountAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountAPI.swift; sourceTree = "<group>"; };
 		58603BE30150ED19634B35F9 /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		58603C368F7D4AF2E5D4474E /* AlamofireImplementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImplementations.swift; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 				84F58C581E6AD68F0092EA82 /* PlantTreeViewController2.swift */,
 				843FE0C11EB26F67007ACFE5 /* LoginViewController.swift */,
 				843FE0C71EB28407007ACFE5 /* ProfileViewController.swift */,
+				58603B2DE796D0CFDEC3B538 /* ReloadableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -826,6 +829,7 @@
 				586038C55916C2DEA8F84787 /* Extensions.swift in Sources */,
 				586038BA08C7CF758483B00C /* AlamofireImplementations.swift in Sources */,
 				586035FE5542C8A1788BB366 /* Transaction_ext.swift in Sources */,
+				5860324F7805120FD45E9B14 /* ReloadableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
