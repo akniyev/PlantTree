@@ -8,12 +8,46 @@
 
 import UIKit
 
+@IBDesignable
 class LoginTextField : UITextField {
     //Initializers
     private let iconView = UIImageView()
     private let iconBox = UIView()
     private let lineLayer = CALayer()
+    
+    @IBInspectable
     private let lineWidth : CGFloat = 2
+    
+    private var _iconName = ""
+    
+    @IBInspectable
+    var iconName: String {
+        get {
+            return self._iconName
+        }
+        set {
+            self._iconName = newValue
+            iconView.image = UIImage(named: self._iconName)
+        }
+    }
+    
+    override var placeholder: String? {
+        get {
+            return super.attributedPlaceholder?.string
+        }
+        set {
+            let font = UIFont(name: "Helvetica", size: 18)!
+            let fontColor = DesignerColors.text_light_gray
+            let attributedPlaceholderText =
+                NSMutableAttributedString(
+                    string: newValue ?? "",
+                    attributes: [
+                        NSFontAttributeName: font,
+                        NSForegroundColorAttributeName: fontColor]
+            )
+            self.attributedPlaceholder = attributedPlaceholderText
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,10 +60,6 @@ class LoginTextField : UITextField {
     }
     
     func setupUi() {
-        //self.backgroundColor = UIColor.white
-        //self.iconBox.backgroundColor = UIColor.red
-        //self.iconView.backgroundColor = UIColor.blue
-        
         self.iconBox.frame = CGRect(x: 0, y: 0, width: 45, height: 30)
         self.iconBox.addSubview(self.iconView)
         self.iconView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
@@ -37,12 +67,14 @@ class LoginTextField : UITextField {
         self.leftView = self.iconBox
         self.leftViewMode = .always
         
+        
         self.layer.addSublayer(self.lineLayer)
         self.backgroundColor = .clear
         
         self.textColor = UIColor.white
         
         self.drawBottomLine()
+        self.placeholder = super.placeholder
     }
     
     // Helper functions
@@ -66,15 +98,6 @@ class LoginTextField : UITextField {
     }
     
     func setPlaceholderText(text: String) {
-        let font = UIFont(name: "Helvetica", size: 18)!
-        let fontColor = DesignerColors.text_light_gray
-        let attributedPlaceholderText =
-            NSMutableAttributedString(
-                string: text,
-                attributes: [
-                    NSFontAttributeName: font,
-                    NSForegroundColorAttributeName: fontColor]
-        )
-        self.attributedPlaceholder = attributedPlaceholderText
+        
     }
 }
