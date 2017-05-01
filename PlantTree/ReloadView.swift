@@ -9,12 +9,23 @@
 import UIKit
 
 class ReloadView : UIView {
+    @IBOutlet weak var lbl_Text: UILabel!
     var reloadAction : (() -> ())?
-    @IBOutlet weak var reloadButton: UIButton!
-    @IBAction func reloadTouched(_ sender: Any) {
-        reloadAction?()
-    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.initGestureRecognizer()
+    }
+    
+    func initGestureRecognizer() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.tapped))
+
+        self.addGestureRecognizer(tap)
+    }
+    
+    func tapped() {
+        reloadAction?()
     }
 }

@@ -17,7 +17,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     var currentlyLoading = false
     var signedOnLoading = true
     var reloadView : ReloadView? = nil
-    var unauthorizedView : TableViewUnauthorized? = nil
+    var unauthorizedView : ReloadView? = nil
     var tableView : UITableView = UITableView()
     var active = true
     var firstLaunch = true
@@ -84,11 +84,12 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func getUnauthorizedView() -> TableViewUnauthorized? {
-        if let unauthorizedView = Bundle.main.loadNibNamed("TableViewUnauthorized", owner: self, options: nil)?.first as? TableViewUnauthorized {
+    func getUnauthorizedView() -> ReloadView? {
+        if let unauthorizedView = Bundle.main.loadNibNamed("ReloadView", owner: self, options: nil)?.first as? ReloadView {
             self.unauthorizedView = unauthorizedView
-            self.unauthorizedView?.authorizeAction = {
-                self.tabBarController?.selectedIndex = 3
+            self.unauthorizedView?.lbl_Text.text = "Необходимо авторизоваться для доступа к данному разделу! Нажмите сюда для авторизации."
+            self.unauthorizedView?.reloadAction = { [weak self] in
+                self?.tabBarController?.selectedIndex = 4
             }
         } else {
             self.unauthorizedView = nil

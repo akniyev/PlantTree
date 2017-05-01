@@ -36,8 +36,7 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
             })
         }
     }
-    
-    
+
     var pd : PersonalData? = nil
 
     override func viewDidLoad() {
@@ -96,9 +95,17 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
             row.value = pd?.birthdate ?? nil
         }
         +++ Section() <<< ButtonRow() { row in
+            row.title = "Сменить пароль"
+            row.onCellSelection(self.changePasswordAction)
+        }
+        +++ Section() <<< ButtonRow() { row in
             row.title = "Сохранить"
             row.onCellSelection(self.personalDataSaveAction)
         }
+    }
+    
+    func changePasswordAction(cell: ButtonCellOf<String>, row: ButtonRow) {
+        self.performSegue(withIdentifier: "CHANGE_PASSWORD", sender: self)
     }
     
     func showSourceSelector() {
@@ -154,6 +161,7 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
                 row.baseCell.backgroundColor = UIColor.white
             }
         }
+
         if !haveErrors {
             let vs = form.values()
             let first_name = (vs["firstname"] as? String) ?? ""

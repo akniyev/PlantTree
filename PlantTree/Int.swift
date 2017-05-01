@@ -19,6 +19,20 @@ extension Int {
             return "\(self) \(overfour)"
         }
     }
+
+    func getRussianCountWord(one: String, tofour: String, overfour: String) -> String {
+        let lastDigit = abs(self) % 10
+        let n = abs(self) % 100
+        if n >= 11 && n <= 19 {
+            return overfour
+        } else if lastDigit ==  1 {
+            return one
+        } else if (lastDigit <= 4 && lastDigit != 0) {
+            return tofour
+        } else {
+            return overfour
+        }
+    }
     
     func toShortenString() -> String {
         let n = abs(self)

@@ -25,7 +25,7 @@ class ReloadableViewController : UIViewController {
         }
     }
 
-    func reloadCompleted() {
+    func reloadAction() {
 
     }
 
@@ -33,7 +33,7 @@ class ReloadableViewController : UIViewController {
         if let reloadView = Bundle.main.loadNibNamed("ReloadView", owner: self, options: nil)?.first as? ReloadView {
             self.reloadView = reloadView
             self.reloadView?.reloadAction = {
-                self.reloadCompleted()
+                self.reloadAction()
             }
         } else {
             self.reloadView = nil
