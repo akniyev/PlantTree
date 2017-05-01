@@ -98,7 +98,7 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
     }
 
     public func textFieldDidEndEditing(_ textField: UITextField) {
-
+        textField.layoutIfNeeded()
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {

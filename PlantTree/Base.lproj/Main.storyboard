@@ -77,12 +77,12 @@
                         <viewControllerLayoutGuide type="top" id="Nr2-hv-jkG"/>
                         <viewControllerLayoutGuide type="bottom" id="fh2-05-fnq"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="6eP-Ti-xut">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="6eP-Ti-xut">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wNG-Kr-mpp">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -100,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sma-zm-osw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="2226"/>
+            <point key="canvasLocation" x="5238" y="1432"/>
         </scene>
         <!--My Tab Bar Controller-->
         <scene sceneID="4Cr-or-E5u">
@@ -161,33 +161,6 @@
             </objects>
             <point key="canvasLocation" x="1273" y="1023"/>
         </scene>
-        <!--Settings View Controller-->
-        <scene sceneID="TyZ-NB-hvW">
-            <objects>
-                <viewController id="YCd-SO-VyK" customClass="SettingsViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="30X-91-aIW"/>
-                        <viewControllerLayoutGuide type="bottom" id="FYb-iL-t5P"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="03U-hP-phB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Kta-hR-XZq"/>
-                    <connections>
-                        <segue destination="sq5-5G-6NS" kind="show" identifier="openRegistration" id="dL7-eZ-M8z"/>
-                        <segue destination="Trh-PC-nQq" kind="show" identifier="openForgotPassword" id="mee-Km-7OC"/>
-                        <segue destination="7DO-Gj-NmK" kind="show" identifier="openPersonalData" id="9eP-sB-LyW"/>
-                        <segue destination="EZ7-n1-qft" kind="show" identifier="openOperationHistory" id="MKI-B6-iX1"/>
-                        <segue destination="G9Q-KM-wbQ" kind="show" identifier="openChangePassword" id="jeu-Ns-Ohw"/>
-                        <segue destination="PyL-E2-Ygh" kind="show" identifier="openChangeEmail" id="MJJ-Pf-ZFZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="F79-N6-cA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2175" y="1023"/>
-        </scene>
         <!--Registration View Controller-->
         <scene sceneID="Dzm-wP-j4g">
             <objects>
@@ -196,15 +169,15 @@
                         <viewControllerLayoutGuide type="top" id="rBN-ao-nfo"/>
                         <viewControllerLayoutGuide type="bottom" id="Q6g-Xd-4DN"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="dxL-ES-p6r">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="dxL-ES-p6r">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HnC-08-cYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4406" y="318"/>
+            <point key="canvasLocation" x="3680" y="2261"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="aG6-iS-xYr">
@@ -214,15 +187,15 @@
                         <viewControllerLayoutGuide type="top" id="0AS-Um-BpI"/>
                         <viewControllerLayoutGuide type="bottom" id="EJb-5w-lHl"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="KNA-kZ-9VT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="KNA-kZ-9VT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6O6-6d-lkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4406" y="1022"/>
+            <point key="canvasLocation" x="2913" y="2261"/>
         </scene>
         <!--Change Password View Controller-->
         <scene sceneID="0Cb-rR-P5C">
@@ -240,7 +213,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sgg-CH-GVx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2521" y="1887"/>
+            <point key="canvasLocation" x="6533" y="3185"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="B3p-F9-OKX">
@@ -293,6 +266,7 @@
                                                                 </state>
                                                                 <connections>
                                                                     <action selector="touch_RegisterButton:" destination="4Qm-Nl-79J" eventType="touchUpInside" id="f6x-EP-SEx"/>
+                                                                    <segue destination="sq5-5G-6NS" kind="show" id="SdE-eq-bfJ"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -306,7 +280,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите ваш email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pyy-zQ-XaH" customClass="LoginTextField" customModule="PlantTree" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="227.33333333333331" width="331" height="41.666666666666686"/>
                                                 <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
@@ -322,7 +296,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите ваш пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mIn-Hq-h99" customClass="LoginTextField" customModule="PlantTree" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="288.66666666666669" width="331" height="42.666666666666629"/>
                                                 <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
@@ -342,6 +316,7 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="touch_ForgotPassword:" destination="4Qm-Nl-79J" eventType="touchUpInside" id="7uO-xc-Qby"/>
+                                                    <segue destination="Trh-PC-nQq" kind="show" id="LNK-Ov-46O"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U4b-IX-UIL">
@@ -453,7 +428,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ng-3T-Buv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2126.25" y="2639.7887323943664"/>
+            <point key="canvasLocation" x="3423" y="1432"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="n2M-ek-Yfs">
@@ -606,6 +581,7 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="tap_OperationHistory:" destination="beB-Ti-cA4" eventType="touchUpInside" id="Azd-46-de1"/>
+                                                    <segue destination="EZ7-n1-qft" kind="show" id="yYe-2h-RWJ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QkB-EL-xxg" customClass="RoundBorderButton" customModule="PlantTree" customModuleProvider="target">
@@ -676,7 +652,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0fl-kF-jNx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3108" y="2628.9355322338834"/>
+            <point key="canvasLocation" x="4404" y="1420"/>
         </scene>
         <!--Change Email View Controller-->
         <scene sceneID="YnS-dB-CI9">
@@ -694,7 +670,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xqV-yb-NeJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3345" y="1887"/>
+            <point key="canvasLocation" x="7358" y="3185"/>
         </scene>
         <!--Change Personal Data View Controller-->
         <scene sceneID="epb-Jd-Ued">
@@ -712,7 +688,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Bq-RG-rMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4217" y="1887"/>
+            <point key="canvasLocation" x="8229" y="3185"/>
         </scene>
         <!--Активные-->
         <scene sceneID="3O3-rh-BD0">
