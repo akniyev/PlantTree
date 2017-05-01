@@ -35,11 +35,18 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
         print(email)
         print(password)
         if checkInput() {
-            Server.SignInWithEmail(email: email, password: password, SUCCESS: {
-                self.performSegue(withIdentifier: "LOGIN", sender: self)
-            }, ERROR: {
-                Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: "Не удаётся войти в аккаунт.", completion: nil)
+            LoadingIndicatorView.show()
+            Server.SignInWithEmail(email: email, password: password, SUCCESS: { [weak self] cred in
+                self?.performSegue(withIdentifier: "LOGIN", sender: self)
+                LoadingIndicatorView.hide()
+            }, ERROR: { [weak self] et, msg in
+                if let s = self {
+                    Alerts.ShowErrorAlertWithOK(sender: s, title: "Ошибка", message: "Проверьте правильность введеных реквизитов, а также подключение к сети.", completion: nil)
+                }
+                LoadingIndicatorView.hide()
             })
+        } else {
+            Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: "Введены некорректные email/пароль", completion: nil)
         }
     }
     @IBAction func touch_Facebook(_ sender: Any) {
@@ -56,6 +63,7 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.navigationItem.title = "Аккаунт"
         tf_Email.delegate = self
         tf_Password.delegate = self
@@ -68,6 +76,10 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
                 action: #selector(self.dismissKeyboard))
 
         self.v_Container.addGestureRecognizer(tap)
+
+        if Db.isAuthorized() {
+            self.performSegue(withIdentifier: "LOGIN_WITHOUT_ANIMATION", sender: self)
+        }
     }
 
     func keyboardShown(notification: NSNotification) {

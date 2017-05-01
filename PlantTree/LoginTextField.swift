@@ -16,7 +16,7 @@ class LoginTextField : UITextField {
     private let lineLayer = CALayer()
     
     @IBInspectable
-    private let lineWidth : CGFloat = 2
+    private var lineWidth : CGFloat = 2
     
     private var _iconName = ""
     
