@@ -41,7 +41,7 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        self.tableView?.backgroundColor = UIColor(red: 230/255, green: 237/255, blue: 244/255, alpha: 1.0)
         self.navigationItem.title = "Личные данные"
         self.form +++ Section() <<< UserPhotoEditRow() { row in
             row.tag = "photo"
@@ -52,27 +52,36 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
                 self?.showSourceSelector()
                 self?.cell?.update()
             }
-            row.imageDeleteAction = { c in
-                LoadingIndicatorView.show("Удаление изображения...")
-                Server.DeleteUserpic(SUCCESS: {
-                    c.imgPhoto.image = nil
-                    c.noPhoto = true
-                    c.row.value = nil
-                    c.update()
-                    LoadingIndicatorView.hide()
-                }, ERROR: { [weak self] et, msg in
-                    LoadingIndicatorView.hide()
-                })
+            row.imageDeleteAction = { [weak self] c in
+                Alerts.ShowAlert(sender: self!, title: "Удаление фотографии", message: "Вы действительно хотите удалить данную фотографию?", preferredStyle: .alert,
+                        actions: [
+                            UIAlertAction(title: "Да", style: .default, handler: { action in
+                                LoadingIndicatorView.show("Удаление изображения...")
+                                Server.DeleteUserpic(SUCCESS: {
+                                    c.imgPhoto.image = nil
+                                    c.noPhoto = true
+                                    c.row.value = nil
+                                    c.update()
+                                    LoadingIndicatorView.hide()
+                                }, ERROR: { [weak self] et, msg in
+                                    LoadingIndicatorView.hide()
+                                })
+                            }),
+                            UIAlertAction(title: "Нет", style: .default)
+                        ],
+                        completion: nil)
             }
-        } <<< TextRow() { row in
+            } +++ Section("Личные данные") <<< TextRow() { row in
             row.tag = "firstname"
             row.placeholder = "Введите ваше имя"
+            row.title = "Имя:"
             //row.add(rule: RuleRequired())
             row.value = pd?.firstname ?? ""
 
         } <<< TextRow() { row in
             row.tag = "secondname"
             row.placeholder = "Введите вашу фамилию"
+            row.title = "Фамилия:"
             //row.add(rule: RuleRequired())
             row.value = pd?.secondname ?? ""
         } <<< SegmentedRow<String>("gender") { row in

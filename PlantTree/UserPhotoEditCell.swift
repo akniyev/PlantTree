@@ -44,7 +44,7 @@ class UserPhotoEditCell: Cell<String>, CellType {
         imgPhoto.clipsToBounds = true
         
         // specify the desired height for our cell
-        height = { return 100 }
+        height = { return 200 }
         
         // set a light background color for our cell
         backgroundColor = UIColor(red:0.984, green:0.988, blue:0.976, alpha:1.00)

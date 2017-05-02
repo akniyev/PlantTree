@@ -1,65 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="103" id="KGk-i7-Jjw" customClass="UserPhotoEditCell" customModule="PlantTree" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="237" id="KGk-i7-Jjw" customClass="UserPhotoEditCell" customModule="PlantTree" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="453" height="234"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                <rect key="frame" x="0.0" y="0.0" width="453" height="234"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoImage" translatesAutoresizingMaskIntoConstraints="NO" id="7rc-dP-sSc">
-                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="99.5"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xnG-QY-tRy">
+                        <rect key="frame" x="0.0" y="10" width="453" height="213.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UCa-9G-9ON">
+                                <rect key="frame" x="0.0" y="0.0" width="453" height="172"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="270" verticalHuggingPriority="272" image="NoImage" translatesAutoresizingMaskIntoConstraints="NO" id="7rc-dP-sSc" customClass="RoundImageView" customModule="PlantTree" customModuleProvider="target">
+                                        <rect key="frame" x="141" y="0.0" width="172" height="172"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="7rc-dP-sSc" secondAttribute="height" multiplier="1:1" id="7PM-gr-SAI"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="7rc-dP-sSc" firstAttribute="top" secondItem="UCa-9G-9ON" secondAttribute="top" id="2xI-zC-dfK"/>
+                                    <constraint firstItem="7rc-dP-sSc" firstAttribute="centerX" secondItem="UCa-9G-9ON" secondAttribute="centerX" id="U13-da-akj"/>
+                                    <constraint firstAttribute="bottom" secondItem="7rc-dP-sSc" secondAttribute="bottom" id="w23-z9-EzW"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="CGS-8g-yfk">
+                                <rect key="frame" x="0.0" y="182" width="453" height="31.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="260" verticalHuggingPriority="260" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CR3-lr-ws3">
+                                        <rect key="frame" x="0.0" y="0.0" width="226.5" height="31.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Загрузить">
+                                            <color key="titleColor" red="0.3411764706" green="0.73725490199999999" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loadPhotoAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1Pe-q6-llf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="260" verticalHuggingPriority="260" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xz8-MA-mye">
+                                        <rect key="frame" x="226.5" y="0.0" width="226.5" height="31.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Удалить">
+                                            <color key="titleColor" red="0.84652343750000003" green="0.070455355410000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deletePhotoAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Yl0-ge-VBw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="7rc-dP-sSc" secondAttribute="height" multiplier="1:1" id="jpP-1y-5Cv"/>
+                            <constraint firstItem="CGS-8g-yfk" firstAttribute="height" secondItem="xnG-QY-tRy" secondAttribute="height" multiplier="0.15" id="fML-CV-Ha1"/>
                         </constraints>
-                    </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CR3-lr-ws3">
-                        <rect key="frame" x="107.5" y="8" width="204.5" height="36"/>
-                        <color key="backgroundColor" red="0.82193835578581986" green="0.88311258911767287" blue="0.90763180272108845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <state key="normal" title="Загрузить">
-                            <color key="titleColor" red="0.1009247449" green="0.1009247449" blue="0.1009247449" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <connections>
-                            <action selector="loadPhotoAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1Pe-q6-llf"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xz8-MA-mye">
-                        <rect key="frame" x="107.5" y="56.5" width="204.5" height="35"/>
-                        <color key="backgroundColor" red="0.89077167589999995" green="0.57260117003256139" blue="0.56035389784174894" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <state key="normal" title="Удалить">
-                            <color key="titleColor" red="0.10092474489795919" green="0.10092474489795919" blue="0.10092474489795919" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <connections>
-                            <action selector="deletePhotoAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Yl0-ge-VBw"/>
-                        </connections>
-                    </button>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="7rc-dP-sSc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1D2-Ms-yah"/>
-                    <constraint firstItem="CR3-lr-ws3" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="4Xw-zX-E8G"/>
-                    <constraint firstItem="xz8-MA-mye" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.35" id="728-yd-dYv"/>
-                    <constraint firstItem="xz8-MA-mye" firstAttribute="leading" secondItem="7rc-dP-sSc" secondAttribute="trailing" constant="8" id="DTt-mF-2cq"/>
-                    <constraint firstItem="xz8-MA-mye" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="NoQ-Kb-D4V"/>
-                    <constraint firstAttribute="bottom" secondItem="7rc-dP-sSc" secondAttribute="bottom" id="g4k-iT-drC"/>
-                    <constraint firstItem="CR3-lr-ws3" firstAttribute="leading" secondItem="7rc-dP-sSc" secondAttribute="trailing" constant="8" id="iTO-bp-xIg"/>
-                    <constraint firstItem="7rc-dP-sSc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jv5-d8-Pc1"/>
-                    <constraint firstItem="CR3-lr-ws3" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.35" constant="1" id="kIm-5c-1Il"/>
-                    <constraint firstItem="xz8-MA-mye" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="sZA-Ec-xvG"/>
-                    <constraint firstItem="CR3-lr-ws3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="tcm-M3-6Yj"/>
+                    <constraint firstAttribute="trailing" secondItem="xnG-QY-tRy" secondAttribute="trailing" id="Kkm-aM-VlC"/>
+                    <constraint firstAttribute="bottom" secondItem="xnG-QY-tRy" secondAttribute="bottom" constant="10" id="c3A-ML-Dhm"/>
+                    <constraint firstItem="xnG-QY-tRy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="hdc-er-VI0"/>
+                    <constraint firstItem="xnG-QY-tRy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="j9m-Um-HaY"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -67,7 +83,7 @@
                 <outlet property="btnLoadPhoto" destination="CR3-lr-ws3" id="OKx-Hh-6EO"/>
                 <outlet property="imgPhoto" destination="7rc-dP-sSc" id="NtP-Fy-PHI"/>
             </connections>
-            <point key="canvasLocation" x="34" y="107.5"/>
+            <point key="canvasLocation" x="100.5" y="28"/>
         </tableViewCell>
     </objects>
     <resources>
