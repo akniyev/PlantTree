@@ -30,6 +30,7 @@
 		586039F1DD6547E792258A96 /* ProjectDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58603A02B331A0721F88C2AC /* ProjectDetailsCell.xib */; };
 		58603A987F70AD3CB3D08BF7 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603D7525C0023FD803DF7F /* Int.swift */; };
 		58603AC6856FF5A342469512 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603448D119E425497068A2 /* ProjectCell.swift */; };
+		58603AE0BA4215DEF176692B /* RoundLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586036D2193476C1D6159D2D /* RoundLabel.swift */; };
 		58603BAC16FB696E0F8962B4 /* ProjectInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586036CA3D3F69AC7DC0D73C /* ProjectInfo.swift */; };
 		58603FA78CD5B5C0AA91BDC4 /* ProjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 586030E9CCA4506F4312C81D /* ProjectCell.xib */; };
 		58603FB0E67EDEC6EF6CB540 /* PersonalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586030BA04E460DBB4F34CBC /* PersonalData.swift */; };
@@ -133,6 +134,7 @@
 		586034B4A177670AB7265F88 /* ApiTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiTargets.swift; sourceTree = "<group>"; };
 		586034FC67D299DB4F3E17F9 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
 		586036CA3D3F69AC7DC0D73C /* ProjectInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectInfo.swift; sourceTree = "<group>"; };
+		586036D2193476C1D6159D2D /* RoundLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundLabel.swift; sourceTree = "<group>"; };
 		5860375EB16C4E315B72FDF4 /* Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		586037E2E6AFD4692E8BDD0C /* PaymentHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentHistoryCell.xib; sourceTree = "<group>"; };
 		586037F2B77AD544086BC345 /* NewsBandSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsBandSeparatorCell.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				843FE0C91EB3D95E007ACFE5 /* RoundImageView.swift */,
 				843FE0BF1EB26EA9007ACFE5 /* LoginTextField.swift */,
 				843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */,
+				586036D2193476C1D6159D2D /* RoundLabel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -874,6 +877,7 @@
 				84A4E7CF1EBA0A290068CA9D /* Models.swift in Sources */,
 				586035FE5542C8A1788BB366 /* Transaction_ext.swift in Sources */,
 				5860324F7805120FD45E9B14 /* ReloadableViewController.swift in Sources */,
+				58603AE0BA4215DEF176692B /* RoundLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

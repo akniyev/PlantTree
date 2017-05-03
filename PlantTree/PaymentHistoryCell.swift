@@ -14,18 +14,21 @@ class PaymentHistoryCell: UITableViewCell {
     @IBOutlet weak var lblTreeCount: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
 
-    let backgroundLayer : CAShapeLayer = CAShapeLayer()
+//    let backgroundLayer : CAShapeLayer = CAShapeLayer()
     
     var operation : OperationInfo? = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.lbl_LeftBadge.layer.mask = self.backgroundLayer
+//        self.lbl_LeftBadge.layer.mask = self.backgroundLayer
         // Initialization code
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.contentView.layoutSubviews()
+//        let path = UIBezierPath(ovalIn: self.lbl_LeftBadge.bounds)
+//        self.backgroundLayer.path = path.cgPath
     }
 
 
@@ -50,13 +53,10 @@ class PaymentHistoryCell: UITableViewCell {
         lblTitle.text = operation.projectTitle
         lblDonated.text = "\(Int(operation.donated))р."
         lblTreeCount.text = "\(operation.treePlanted.withRussianCountWord(one: "дерево", tofour: "дерева", overfour: "деревьев"))"
-        lbl_LeftBadge.text = "\(Int(operation.donated / 1000))"
+        lbl_LeftBadge.text = "\(operation.treePlanted)"
     }
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        let path = UIBezierPath(ovalIn: self.lbl_LeftBadge.bounds)
-        self.backgroundLayer.path = path.cgPath
     }
-
 }
