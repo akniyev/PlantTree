@@ -9,18 +9,25 @@
 import UIKit
 
 class PaymentHistoryCell: UITableViewCell {
-    @IBOutlet weak var lblDate: UILabel!
-    @IBOutlet weak var lblCard: UILabel!
+    @IBOutlet weak var lbl_LeftBadge: UILabel!
     @IBOutlet weak var lblDonated: UILabel!
     @IBOutlet weak var lblTreeCount: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
+
+    let backgroundLayer : CAShapeLayer = CAShapeLayer()
     
     var operation : OperationInfo? = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.lbl_LeftBadge.layer.mask = self.backgroundLayer
         // Initialization code
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -29,20 +36,27 @@ class PaymentHistoryCell: UITableViewCell {
     }
     
     static func getCellHeight(cellWidth: CGFloat, projectName: String) -> CGFloat {
-        let l = UILabel()
-        l.font = UIFont(name: "System", size: 17.0)
-        l.numberOfLines = 0
-        l.text = projectName
-        let s = l.sizeThatFits(CGSize(width: cellWidth - 2 * 8, height: 1000000))
-        return 66.0 + s.height + 10.0
+        return 70
+//        let l = UILabel()
+//        l.font = UIFont(name: "System", size: 17.0)
+//        l.numberOfLines = 0
+//        l.text = projectName
+//        let s = l.sizeThatFits(CGSize(width: cellWidth - 2 * 8, height: 1000000))
+//        return 66.0 + s.height + 10.0
     }
     
     func setData(operation: OperationInfo) {
         self.operation = operation
         lblTitle.text = operation.projectTitle
-        lblDate.text = "\(operation.date.toRussianFormat())"
         lblDonated.text = "\(Int(operation.donated))р."
-        lblTreeCount.text = "\(operation.treePlanted)"
-        lblCard.text = "Карта: **** \(operation.cardLastDigits)"
+        lblTreeCount.text = "\(operation.treePlanted.withRussianCountWord(one: "дерево", tofour: "дерева", overfour: "деревьев"))"
+        lbl_LeftBadge.text = "\(Int(operation.donated / 1000))"
     }
+
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        let path = UIBezierPath(ovalIn: self.lbl_LeftBadge.bounds)
+        self.backgroundLayer.path = path.cgPath
+    }
+
 }

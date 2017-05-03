@@ -14,6 +14,20 @@ extension Date {
         return "\(String(format: "%02d", day)).\(String(format: "%02d", month)).\(year)"
     }
 
+    func toLongRussianFormat() -> String {
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: self)
+        let month = calendar.component(.month, from: self)
+        let year = calendar.component(.year, from: self)
+
+        let monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
+
+        if month < 0 || month > 11 {
+            return ""
+        }
+        return "\(String(format: "%02d", day)) \(monthNames[month - 1]) \(year)"
+    }
+
     static func fromRussianFormat(s : String) -> Date? {
         let segments = s.components(separatedBy: ".")
         if (segments.count == 3) {

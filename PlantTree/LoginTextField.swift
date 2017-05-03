@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable
+//@IBDesignable
 class LoginTextField : UITextField {
     //Initializers
     private let iconView = UIImageView()

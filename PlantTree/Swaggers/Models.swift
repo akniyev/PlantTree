@@ -310,6 +310,7 @@ class Decoders {
             }
             
             instance.paymentMethod = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["paymentMethod"] as AnyObject?)
+            instance.projectTitle = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["projectTitle"] as AnyObject?)
             return instance
         }
 

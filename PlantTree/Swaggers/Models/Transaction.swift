@@ -30,6 +30,7 @@ open class Transaction: JSONEncodable {
     public var finishedDate: Date?
     public var status: Status?
     public var paymentMethod: String?
+    public var projectTitle: String?
 
     public init() {}
 
@@ -46,6 +47,7 @@ open class Transaction: JSONEncodable {
         nillableDictionary["finishedDate"] = self.finishedDate?.encodeToJSON()
         nillableDictionary["status"] = self.status?.rawValue
         nillableDictionary["paymentMethod"] = self.paymentMethod
+        nillableDictionary["projectTitle"] = self.projectTitle
         let dictionary: [String:Any] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

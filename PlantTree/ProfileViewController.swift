@@ -31,6 +31,9 @@ class ProfileViewController : ReloadableViewController {
     }
     
     @IBAction func tap_OperationHistory(_ sender: Any) {
+        if let vc = PaymentHistoryViewController.storyboardInstance() {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func tap_LogOut(_ sender: Any) {
