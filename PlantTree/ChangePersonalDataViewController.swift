@@ -40,9 +40,12 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
     var pd : PersonalData? = nil
 
     override func viewDidLoad() {
+        let green = UIColor(red: 87/255, green: 188/255, blue: 125/255, alpha: 1)
+        
         super.viewDidLoad()
         self.tableView?.backgroundColor = UIColor(red: 230/255, green: 237/255, blue: 244/255, alpha: 1.0)
         self.navigationItem.title = "Личные данные"
+        self.tableView?.separatorStyle = .none
         self.form +++ Section() <<< UserPhotoEditRow() { row in
             row.tag = "photo"
             row.value = pd?.photoUrlSmall
@@ -71,7 +74,8 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
                         ],
                         completion: nil)
             }
-            } +++ Section("Личные данные") <<< TextRow() { row in
+        } +++ Section("Личные данные") <<< TextRow() { row in
+            
             row.tag = "firstname"
             row.placeholder = "Введите ваше имя"
             row.title = "Имя:"
@@ -85,6 +89,8 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
             //row.add(rule: RuleRequired())
             row.value = pd?.secondname ?? ""
         } <<< SegmentedRow<String>("gender") { row in
+            row.cell.tintColor = green
+            
             row.title = "Ваш пол:"
             row.options = ["Мужской", "Женский", "Не задан"]
             //row.add(rule: RuleRequired())
@@ -102,18 +108,35 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
             row.tag = "birthdate"
             //row.add(rule: RuleRequired())
             row.value = pd?.birthdate ?? nil
-        }
-        +++ Section() <<< ButtonRow() { row in
-            row.title = "Сменить пароль"
-            row.onCellSelection(self.changePasswordAction)
-        }
-        +++ Section() <<< ButtonRow() { row in
-            row.title = "Сохранить"
-            row.onCellSelection(self.personalDataSaveAction)
+        } +++ Section() <<< RoundButtonRow() { row in
+            row.value = "Сменить пароль"
+            
+            row.button?.borderColor = green
+            row.button?.borderColorPressed = UIColor(red: 87/255/2, green: 188/255/2, blue: 125/255/2, alpha: 1)
+            
+            row.button?.filled = false
+            row.button?.borderWidth = 2
+            row.button?.setTitleColor(green, for: .normal)
+            
+            row.action = {
+                self.changePasswordAction() //cell: row.cell, row: row)
+            }
+        } <<< RoundButtonRow() { row in
+            row.value = "Сохранить"
+            row.button?.fillColor = UIColor(red: 87/255, green: 188/255, blue: 125/255, alpha: 1)
+            row.button?.fillColorPressed = UIColor(red: 87/255/2, green: 188/255/2, blue: 125/255/2, alpha: 1)
+            
+            row.button?.filled = true
+            row.button?.borderWidth = 0
+            row.button?.setTitleColor(UIColor.white, for: .normal)
+            
+            row.action = {
+                self.personalDataSaveAction()
+            }
         }
     }
     
-    func changePasswordAction(cell: ButtonCellOf<String>, row: ButtonRow) {
+    func changePasswordAction() {//cell: ButtonCellOf<String>, row: ButtonRow) {
         self.performSegue(withIdentifier: "CHANGE_PASSWORD", sender: self)
     }
     
@@ -159,7 +182,7 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
         self.present(optionMenu, animated: true, completion: nil)
     }
     
-    func personalDataSaveAction(cell: ButtonCellOf<String>, row: ButtonRow) {
+    func personalDataSaveAction() {// cell: ButtonCellOf<String>, row: ButtonRow) {
         let errors = form.validate()
         var haveErrors = false
         for row in form.allRows {

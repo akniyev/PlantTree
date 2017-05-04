@@ -52,14 +52,19 @@ class UserPhotoEditCell: Cell<String>, CellType {
     
     override func update() {
         super.update()
+        let gray = UIColor(red: 133/255, green: 133/255, blue: 133/255, alpha: 1)
+        let red = UIColor(red: 250/255, green: 50/255, blue: 50/255, alpha: 1)
         
         if row.value?.isEmpty ?? true {
             imgPhoto.image = UIImage(named: "NoImage")
             btnDeletePhoto.isEnabled = false
+            btnDeletePhoto.setTitleColor(gray, for: .normal)
             noPhoto = true
         } else {
             let url = URL(string: row.value!)
             imgPhoto.kf.setImage(with: url)
+            btnDeletePhoto.isEnabled = true
+            btnDeletePhoto.setTitleColor(red, for: .normal)
             noPhoto = false
         }
     }

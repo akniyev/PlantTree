@@ -13,6 +13,7 @@ final class UserPhotoEditRow : Row<UserPhotoEditCell>, RowType {
     required init(tag: String?) {
         super.init(tag: tag)
         cellProvider = CellProvider<UserPhotoEditCell>(nibName: "UserPhotoEditCell")
+        self.baseCell.backgroundColor = UIColor.clear
     }
     
     func GetImage() -> UIImage? {

@@ -86,6 +86,9 @@
 		84AC71171E6181EE0023DDB7 /* TableViewUnauthorized.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AC71161E6181EE0023DDB7 /* TableViewUnauthorized.xib */; };
 		84B3A7481E55D350000CA32E /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3A7471E55D350000CA32E /* Server.swift */; };
 		84B3A74E1E563F8F000CA32E /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3A74D1E563F8F000CA32E /* RegistrationViewController.swift */; };
+		84BED8CB1EBB3A44008CF181 /* RoundButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BED8CA1EBB3A44008CF181 /* RoundButtonRow.swift */; };
+		84BED8CE1EBB3ACD008CF181 /* RoundButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BED8CC1EBB3ACD008CF181 /* RoundButtonCell.swift */; };
+		84BED8CF1EBB3ACD008CF181 /* RoundButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BED8CD1EBB3ACD008CF181 /* RoundButtonCell.xib */; };
 		84BF511B1E56508400B50ADB /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF511A1E56508400B50ADB /* Alerts.swift */; };
 		84BF511D1E5657A500B50ADB /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF511C1E5657A500B50ADB /* ForgotPasswordViewController.swift */; };
 		84BF511F1E56E3A000B50ADB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF511E1E56E3A000B50ADB /* SettingsViewController.swift */; };
@@ -197,6 +200,9 @@
 		84AC71161E6181EE0023DDB7 /* TableViewUnauthorized.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewUnauthorized.xib; sourceTree = "<group>"; };
 		84B3A7471E55D350000CA32E /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		84B3A74D1E563F8F000CA32E /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		84BED8CA1EBB3A44008CF181 /* RoundButtonRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonRow.swift; sourceTree = "<group>"; };
+		84BED8CC1EBB3ACD008CF181 /* RoundButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonCell.swift; sourceTree = "<group>"; };
+		84BED8CD1EBB3ACD008CF181 /* RoundButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoundButtonCell.xib; sourceTree = "<group>"; };
 		84BF511A1E56508400B50ADB /* Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		84BF511C1E5657A500B50ADB /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		84BF511E1E56E3A000B50ADB /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -361,6 +367,7 @@
 		848F96E21E59C72A00CC07CC /* EurekaRows */ = {
 			isa = PBXGroup;
 			children = (
+				84BED8C91EBB3A28008CF181 /* RoundButtonRow */,
 				849DEFD11E65B51A00A82EA9 /* UpDownRow */,
 				848F96EA1E59D7E400CC07CC /* UserPhotoEditRow */,
 				848F96E31E59C73300CC07CC /* UserInfoRow */,
@@ -525,7 +532,6 @@
 		84B3A7491E55D874000CA32E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				849759C11E5A461E0065BDCB /* Views */,
 				849DEFD81E67F71800A82EA9 /* ESTabBar Classes */,
 				58603135716173F73461979F /* ErrorType.swift */,
 				586030BA04E460DBB4F34CBC /* PersonalData.swift */,
@@ -561,6 +567,16 @@
 				58603B2DE796D0CFDEC3B538 /* ReloadableViewController.swift */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		84BED8C91EBB3A28008CF181 /* RoundButtonRow */ = {
+			isa = PBXGroup;
+			children = (
+				84BED8CA1EBB3A44008CF181 /* RoundButtonRow.swift */,
+				84BED8CC1EBB3ACD008CF181 /* RoundButtonCell.swift */,
+				84BED8CD1EBB3ACD008CF181 /* RoundButtonCell.xib */,
+			);
+			name = RoundButtonRow;
 			sourceTree = "<group>";
 		};
 		84BF51281E57143700B50ADB /* Settings */ = {
@@ -627,6 +643,7 @@
 				847FCAE01E977D2000BF6698 /* SwaggersExtensions */,
 				848F96E21E59C72A00CC07CC /* EurekaRows */,
 				84B3A74A1E563054000CA32E /* ViewControllers */,
+				849759C11E5A461E0065BDCB /* Views */,
 				84B3A7491E55D874000CA32E /* Classes */,
 				84B3A7461E55D31A000CA32E /* Server */,
 				849BB7601EB8FF5B005E85BB /* Storyboards */,
@@ -717,6 +734,7 @@
 				84DDFA801E546BCD0073DFFC /* LaunchScreen.storyboard in Resources */,
 				848F96EE1E59D82300CC07CC /* UserPhotoEditCell.xib in Resources */,
 				84AC710E1E61653C0023DDB7 /* ReloadView.xib in Resources */,
+				84BED8CF1EBB3ACD008CF181 /* RoundButtonCell.xib in Resources */,
 				84A4E79D1EB90DD20068CA9D /* PaymentHistoryHeader.xib in Resources */,
 				84DDFA7D1E546BCD0073DFFC /* Assets.xcassets in Resources */,
 				849BB75F1EB8FF53005E85BB /* PaymentHistory.storyboard in Resources */,
@@ -808,6 +826,7 @@
 				84A4E7C31EBA0A290068CA9D /* ProjectsAPI.swift in Sources */,
 				84DDFA7B1E546BCD0073DFFC /* PlantTree.xcdatamodeld in Sources */,
 				84AC71121E617B2D0023DDB7 /* ProjectListViewController.swift in Sources */,
+				84BED8CB1EBB3A44008CF181 /* RoundButtonRow.swift in Sources */,
 				84A4E7BC1EBA0A290068CA9D /* AlamofireImplementations.swift in Sources */,
 				84BF51211E5709E400B50ADB /* ChangePersonalDataViewController.swift in Sources */,
 				84F58C521E63827F0092EA82 /* PlantTreeViewController.swift in Sources */,
@@ -847,6 +866,7 @@
 				58603238B5DCC31835F33686 /* LoadingIndicatorView.swift in Sources */,
 				843FE0C81EB28407007ACFE5 /* ProfileViewController.swift in Sources */,
 				84A4E7CB1EBA0A290068CA9D /* Project.swift in Sources */,
+				84BED8CE1EBB3ACD008CF181 /* RoundButtonCell.swift in Sources */,
 				84A4E7C01EBA0A290068CA9D /* NewsAPI.swift in Sources */,
 				849DEFDA1E67F77700A82EA9 /* BigButtonContentView.swift in Sources */,
 				849DEFD41E65B5A100A82EA9 /* UpDownCellTableViewCell.swift in Sources */,

@@ -20,7 +20,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="453" height="234"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xnG-QY-tRy">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xnG-QY-tRy">
                         <rect key="frame" x="0.0" y="10" width="453" height="213.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UCa-9G-9ON">
@@ -33,18 +33,17 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="7rc-dP-sSc" firstAttribute="top" secondItem="UCa-9G-9ON" secondAttribute="top" id="2xI-zC-dfK"/>
                                     <constraint firstItem="7rc-dP-sSc" firstAttribute="centerX" secondItem="UCa-9G-9ON" secondAttribute="centerX" id="U13-da-akj"/>
                                     <constraint firstAttribute="bottom" secondItem="7rc-dP-sSc" secondAttribute="bottom" id="w23-z9-EzW"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="CGS-8g-yfk">
-                                <rect key="frame" x="0.0" y="182" width="453" height="31.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CGS-8g-yfk">
+                                <rect key="frame" x="149.5" y="182" width="154" height="31.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="260" verticalHuggingPriority="260" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CR3-lr-ws3">
-                                        <rect key="frame" x="0.0" y="0.0" width="226.5" height="31.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="72" height="31.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Загрузить">
                                             <color key="titleColor" red="0.3411764706" green="0.73725490199999999" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -54,7 +53,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="260" verticalHuggingPriority="260" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xz8-MA-mye">
-                                        <rect key="frame" x="226.5" y="0.0" width="226.5" height="31.5"/>
+                                        <rect key="frame" x="82" y="0.0" width="72" height="31.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Удалить">
                                             <color key="titleColor" red="0.84652343750000003" green="0.070455355410000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
