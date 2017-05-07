@@ -126,7 +126,7 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
                             self.parentViewControllerProjects[self.parentViewControllerProjectId].isLikedByMe = false
                             self.parentViewControllerProjects[self.parentViewControllerProjectId].likeCount = self.project?.likeCount ?? 0
                             self.project?.isLikedByMe = false
-                            cell.btnLike.setImage(UIImage(named: "LikeInactive"), for: .normal)
+                            cell.btnLike.setImage(UIImage(named: "project_details_like_glowing_inactive"), for: .normal)
                             cell.btnLike.isEnabled = true
                             cell.setLikeCountLabel(count: self.project?.likeCount ?? 0)
                         }, ERROR: {
@@ -138,7 +138,7 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
                             self.parentViewControllerProjects[self.parentViewControllerProjectId].likeCount = self.project?.likeCount ?? 0
                             self.parentViewControllerProjects[self.parentViewControllerProjectId].isLikedByMe = true
                             self.project?.isLikedByMe = true
-                            cell.btnLike.setImage(UIImage(named: "LikeActive"), for: .normal)
+                            cell.btnLike.setImage(UIImage(named: "project_details_like_glowing_active"), for: .normal)
                             cell.btnLike.isEnabled = true
                             cell.setLikeCountLabel(count: self.project?.likeCount ?? 0)
                         }, ERROR: {
@@ -176,7 +176,7 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
         if indexPath.row == 0 {
             return ProjectDetailsCell.getCellHeight(cellWidth: tableView.frame.width, text: project?.description ?? "123")
         } else if indexPath.row == 1 {
-            return 40
+            return 70
         } else {
             return ProjectNewsCell.getCellHeight(cellWidth: tableView.frame.width, title: project?.news[indexPath.row - 2].title ?? "123")
         }

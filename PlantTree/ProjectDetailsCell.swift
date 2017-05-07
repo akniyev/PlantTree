@@ -43,7 +43,6 @@ class ProjectDetailsCell: UITableViewCell {
 
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didOpenFullImage))
         slideshow.addGestureRecognizer(gestureRecognizer)
-
         slideshow.contentScaleMode = .scaleAspectFill
     }
 
@@ -67,9 +66,9 @@ class ProjectDetailsCell: UITableViewCell {
         slideshow.setImageInputs(slideshowSources)
 
         if pi.isLikedByMe == true {
-            btnLike.setImage(UIImage(named: "LikeActive"), for: .normal)
+            btnLike.setImage(UIImage(named: "project_details_like_glowing_active"), for: .normal)
         } else {
-            btnLike.setImage(UIImage(named: "LikeInactive"), for: .normal)
+            btnLike.setImage(UIImage(named: "project_details_like_glowing_inactive"), for: .normal)
         }
 
         switch pi.projectStatus {
