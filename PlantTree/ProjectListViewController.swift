@@ -206,9 +206,9 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         
         cell.id = indexPath.row
         cell.SetProjectInfo(newP: projects[indexPath.row])
-        cell.likeAction = { p, b, r in
-            self.likeProject(p: p, b: b, row: r)
-        }
+//        cell.likeAction = { p, b, r in
+//            self.likeProject(p: p, b: b, row: r)
+//        }
         
         return cell
     }

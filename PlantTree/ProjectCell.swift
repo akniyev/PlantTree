@@ -13,14 +13,14 @@ class ProjectCell: UITableViewCell {
     @IBOutlet weak var imgPicture: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblLikeCount: UILabel!
-    @IBOutlet weak var btnLike: UIButton!
+//    @IBOutlet weak var btnLike: UIButton!
     @IBOutlet weak var lblSponsorCount: UILabel!
     @IBOutlet weak var lblCount: UILabel!
     @IBOutlet weak var lblStatus: UILabel!
 
 
     var p : ProjectInfo? = nil
-    var likeAction : ((ProjectInfo, UIButton, Int) -> ())?
+//    var likeAction : ((ProjectInfo, UIButton, Int) -> ())?
     var id : Int = -1
 
     override func awakeFromNib() {
@@ -29,11 +29,11 @@ class ProjectCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    @IBAction func likeTouched(_ sender: Any) {
-        if let p = self.p {
-            likeAction?(p, btnLike, id)
-        }
-    }
+//    @IBAction func likeTouched(_ sender: Any) {
+//        if let p = self.p {
+//            likeAction?(p, btnLike, id)
+//        }
+//    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -48,7 +48,7 @@ class ProjectCell: UITableViewCell {
     
     func RefreshProjectInfo() {
         if let p = self.p {
-            btnLike.isEnabled = true
+//            btnLike.isEnabled = true
             lblTitle.text = p.name
             lblCount.text = p.projectStatus == ProjectStatus.active ? "\(p.reached)/\(p.goal)" : "\(p.reached)"
             if p.projectStatus == .active {
@@ -64,11 +64,11 @@ class ProjectCell: UITableViewCell {
             print(p.projectStatus)
             lblStatus.text = p.projectStatus == ProjectStatus.finished ? "посажено" : "собрано"
             lblLikeCount.text = "\(p.likeCount)"
-            if p.isLikedByMe == true {
-                btnLike.setImage(UIImage(named: "LikeActive"), for: .normal)
-            } else {
-                btnLike.setImage(UIImage(named: "LikeInactive"), for: .normal)
-            }
+//            if p.isLikedByMe == true {
+//                btnLike.setImage(UIImage(named: "LikeActive"), for: .normal)
+//            } else {
+//                btnLike.setImage(UIImage(named: "LikeInactive"), for: .normal)
+//            }
             lblSponsorCount.text = p.sponsorCount.withRussianCountWord(one: "спонсон", tofour: "спонсора", overfour: "спонсоров")
         }
     }

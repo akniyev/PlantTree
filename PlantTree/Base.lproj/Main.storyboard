@@ -842,7 +842,7 @@
                         <viewControllerLayoutGuide type="top" id="veo-3O-KYc"/>
                         <viewControllerLayoutGuide type="bottom" id="HhC-5l-zw1"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="NMt-T5-pVT">
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="NMt-T5-pVT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
