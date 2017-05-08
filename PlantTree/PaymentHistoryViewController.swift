@@ -110,7 +110,6 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
         return view!
     }
 
-
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 60 : 40
     }
@@ -119,5 +118,16 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
         return 20
     }
 
+    public func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        let groupName = self.groupDates[indexPath.section]
+        if let operation = self.groupedOperations[groupName]?[indexPath.row] {
+            print("highlight \(operation.projectTitle)")
+            if let vc = ProjectDetailsViewController.storyboardInstance() {
+                vc.projectId = operation.projectId
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        return false
+    }
 
 }

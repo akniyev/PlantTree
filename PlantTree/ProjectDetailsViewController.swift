@@ -17,7 +17,7 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
 
     var projectId : Int = -1
     
-    var parentViewControllerProjects : [ProjectInfo] = []
+    var parentViewControllerProjects : [ProjectInfo]? = nil
     var parentViewControllerProjectId = -1
     
     var projectDetailsCell : ProjectDetailsCell? = nil
@@ -128,8 +128,8 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
                     if l {
                         Server.Unlike(projectId: p.id, SUCCESS: {
                             self.project?.likeCount -= 1
-                            self.parentViewControllerProjects[self.parentViewControllerProjectId].isLikedByMe = false
-                            self.parentViewControllerProjects[self.parentViewControllerProjectId].likeCount = self.project?.likeCount ?? 0
+                            self.parentViewControllerProjects?[self.parentViewControllerProjectId].isLikedByMe = false
+                            self.parentViewControllerProjects?[self.parentViewControllerProjectId].likeCount = self.project?.likeCount ?? 0
                             self.project?.isLikedByMe = false
                             cell.btnLike.setImage(UIImage(named: "project_details_like_glowing_inactive"), for: .normal)
                             cell.btnLike.isEnabled = true
@@ -140,8 +140,8 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
                     } else {
                         Server.Like(projectId: p.id, SUCCESS: {
                             self.project?.likeCount += 1
-                            self.parentViewControllerProjects[self.parentViewControllerProjectId].likeCount = self.project?.likeCount ?? 0
-                            self.parentViewControllerProjects[self.parentViewControllerProjectId].isLikedByMe = true
+                            self.parentViewControllerProjects?[self.parentViewControllerProjectId].likeCount = self.project?.likeCount ?? 0
+                            self.parentViewControllerProjects?[self.parentViewControllerProjectId].isLikedByMe = true
                             self.project?.isLikedByMe = true
                             cell.btnLike.setImage(UIImage(named: "project_details_like_glowing_active"), for: .normal)
                             cell.btnLike.isEnabled = true

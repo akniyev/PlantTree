@@ -109,7 +109,6 @@
 		84D496DB1E6237E200AF0B67 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D496DA1E6237E200AF0B67 /* UIView.swift */; };
 		84D6B62F1E998D60002F38F8 /* DetailedUserInfo_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B62E1E998D60002F38F8 /* DetailedUserInfo_ext.swift */; };
 		84DDFA731E546BCD0073DFFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA721E546BCD0073DFFC /* AppDelegate.swift */; };
-		84DDFA751E546BCD0073DFFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA741E546BCD0073DFFC /* ViewController.swift */; };
 		84DDFA781E546BCD0073DFFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DDFA761E546BCD0073DFFC /* Main.storyboard */; };
 		84DDFA7B1E546BCD0073DFFC /* PlantTree.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFA791E546BCD0073DFFC /* PlantTree.xcdatamodeld */; };
 		84DDFA7D1E546BCD0073DFFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84DDFA7C1E546BCD0073DFFC /* Assets.xcassets */; };
@@ -226,7 +225,6 @@
 		84D6B62E1E998D60002F38F8 /* DetailedUserInfo_ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedUserInfo_ext.swift; sourceTree = "<group>"; };
 		84DDFA6F1E546BCD0073DFFC /* PlantTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DDFA721E546BCD0073DFFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84DDFA741E546BCD0073DFFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		84DDFA771E546BCD0073DFFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84DDFA7A1E546BCD0073DFFC /* PlantTree.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlantTree.xcdatamodel; sourceTree = "<group>"; };
 		84DDFA7C1E546BCD0073DFFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -655,7 +653,6 @@
 				849BB7601EB8FF5B005E85BB /* Storyboards */,
 				84A4E7A51EBA0A290068CA9D /* Swaggers */,
 				84DDFA721E546BCD0073DFFC /* AppDelegate.swift */,
-				84DDFA741E546BCD0073DFFC /* ViewController.swift */,
 				84DDFA7C1E546BCD0073DFFC /* Assets.xcassets */,
 				84DDFA7E1E546BCD0073DFFC /* LaunchScreen.storyboard */,
 				84DDFA811E546BCD0073DFFC /* Info.plist */,
@@ -821,7 +818,6 @@
 				848F96ED1E59D82300CC07CC /* UserPhotoEditCell.swift in Sources */,
 				849759C81E5A57CA0065BDCB /* ProjectsTableViewController.swift in Sources */,
 				8497B3E31E680CA100AD79A2 /* OrdinalButtonContentView.swift in Sources */,
-				84DDFA751E546BCD0073DFFC /* ViewController.swift in Sources */,
 				84D496CD1E618ECD00AF0B67 /* ProjectDetailsViewController.swift in Sources */,
 				84A4E7C11EBA0A290068CA9D /* PayAPI.swift in Sources */,
 				84A4E7CC1EBA0A290068CA9D /* RegisterModel.swift in Sources */,

@@ -1,7 +1,8 @@
 operation history
 	pagination
-	no selection
-	opening project
+	+arrow
+	+no selection
+	+opening project
 
 personal data
 	design

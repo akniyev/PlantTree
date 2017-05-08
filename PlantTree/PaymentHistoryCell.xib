@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="464" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="464" height="89.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="464" height="90"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="payment_history_header_shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="UKy-UY-uCd">
@@ -45,13 +45,13 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="744" text="Посадка деревьев в парке культуры и отдыха им. М. Горького" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.34999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Efv-Qk-plE">
-                                <rect key="frame" x="79.5" y="0.0" width="221.5" height="69.5"/>
+                                <rect key="frame" x="79.5" y="0.0" width="196.5" height="69.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ZQh-nM-xgf">
-                                <rect key="frame" x="311" y="0.0" width="133" height="69.5"/>
+                                <rect key="frame" x="286" y="0.0" width="133" height="69.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 000р" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="TTL-4x-ax2">
                                         <rect key="frame" x="0.0" y="0.0" width="133" height="35"/>
@@ -67,6 +67,12 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" alpha="0.45000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="payment_history_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="bBB-R4-Oqd">
+                                <rect key="frame" x="429" y="0.0" width="15" height="69.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="XGo-gL-XZl"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="ZQh-nM-xgf" firstAttribute="width" secondItem="dwC-aT-bWM" secondAttribute="width" multiplier="0.3" id="wJz-DU-roZ"/>
@@ -103,6 +109,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="payment_history_arrow" width="316" height="644"/>
         <image name="payment_history_header_shadow_top" width="74" height="115"/>
     </resources>
 </document>
