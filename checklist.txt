@@ -1,0 +1,34 @@
+operation history
+	pagination
+	no selection
+	opening project
+
+personal data
+	design
+
+change password
+	design
+
+account page
+	photo preview
+	confirm email error (when email is absent)
+
+forgot password
+	design
+
+registration
+	design
+
+about page
+	design (decide what to use html or iOS controls)
+
++project cell
+	+design
+	+remove favorites button
+
+project cell
+	design
+
+news page
+	share button
+	online link
