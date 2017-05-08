@@ -106,9 +106,19 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        projectToSegue = projects[indexPath.row]
-        projectIndexToSegue = indexPath.row
-        self.performSegue(withIdentifier: self.segueName, sender: self)
+        if let vc = ProjectDetailsViewController.storyboardInstance() {
+            let p = projects[indexPath.row]
+
+            vc.projectId = p.id
+            vc.parentViewControllerProjects = self.projects
+            vc.parentViewControllerProjectId = indexPath.row
+
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+
+//        projectToSegue = projects[indexPath.row]
+//        projectIndexToSegue = indexPath.row
+//        self.performSegue(withIdentifier: self.segueName, sender: self)
         return false
     }
 
@@ -261,12 +271,12 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         self.tableView.refreshControl?.addTarget(self, action: #selector(pullRefreshPage), for: .valueChanged)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination
-        if let detailVc = vc as? ProjectDetailsViewController {
-            detailVc.projectId = projectToSegue?.id ?? -1
-            detailVc.parentViewControllerProjects = projects
-            detailVc.parentViewControllerProjectId = projectIndexToSegue
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let vc = segue.destination
+//        if let detailVc = vc as? ProjectDetailsViewController {
+//            detailVc.projectId = projectToSegue?.id ?? -1
+//            detailVc.parentViewControllerProjects = projects
+//            detailVc.parentViewControllerProjectId = projectIndexToSegue
+//        }
+//    }
 }

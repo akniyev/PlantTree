@@ -10,6 +10,11 @@ import UIKit
 import Eureka
 
 class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+    static func storyboardInstance() -> ProjectDetailsViewController? {
+        let storyboard = UIStoryboard(name: "ProjectDetails", bundle: nil)
+        return storyboard.instantiateInitialViewController() as? ProjectDetailsViewController
+    }
+
     var projectId : Int = -1
     
     var parentViewControllerProjects : [ProjectInfo] = []
