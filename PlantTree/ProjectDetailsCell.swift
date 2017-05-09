@@ -96,7 +96,7 @@ class ProjectDetailsCell: UITableViewCell {
     }
 
     func setLikeCountLabel(count: Int) {
-        lblLikeCount.text = count.withRussianCountWord(one: "лайк", tofour: "лайка", overfour: "лайков")
+        lblLikeCount.text = "\(count)"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

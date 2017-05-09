@@ -497,6 +497,19 @@ class Server {
         })
     }
     
+    static func GetProjectNews(projectId: Int, page: Int, pageSize: Int, SUCCESS: (([NewsPiece])->())?, ERROR: ((ErrorType, String) -> ())?) {
+        let rb = NewsAPI.apiNewsGetWithRequestBuilder(projectId: Int32(projectId), page: Int32(page), pagesize: Int32(pageSize))
+        rb.execute { news, error in
+            if error != nil {
+                ERROR?(ErrorType.Unknown, "Не удается получить данные")
+            } else if let ns = news?.body {
+                SUCCESS?(ns.map{$0.toNewsPiece()})
+            } else {
+                ERROR?(ErrorType.Unknown, "Полученые некорректные данные")
+            }
+        }
+    }
+    
     static func GetProjectDetailInfo(projectId: Int, SUCCESS: ((ProjectInfo)->())?, ERROR: ((ErrorType, String) -> ())?) {
         MakeRequestWithOptionalAuthorization(SUCCESS: { c in
             let rb = ProjectsAPI.apiProjectsByIdGetWithRequestBuilder(id: Int32(projectId))
@@ -509,16 +522,7 @@ class Server {
                 } else {
                     if let project = r?.body {
                         let projectInfo = project.toProjectInfo()
-                        // TODO: make pagination for project news
-                        let rb = NewsAPI.apiNewsGet(projectId: project.id ?? -1, page: 1, pagesize: 10000, completion: { news_, error in
-                            if let error = e {
-                                projectInfo.news = []
-                            } else if let news = news_ {
-                                var newsInfo: [NewsPiece] = news.map {$0.toNewsPiece()}
-                                projectInfo.news = newsInfo
-                            }
-                            SUCCESS?(projectInfo)
-                        })
+                        SUCCESS?(projectInfo)
                     } else {
                         ERROR?(ErrorType.ServerError, "Получены некорректные данные!")
                     }

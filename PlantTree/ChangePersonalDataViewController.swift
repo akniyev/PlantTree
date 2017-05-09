@@ -15,7 +15,7 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
     var cell : UserPhotoEditCell? = nil
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let img = info[UIImagePickerControllerOriginalImage] as? UIImage
+        let img = (info[UIImagePickerControllerOriginalImage] as? UIImage)?.fixedOrientation()
         if let image = img {
             picker.dismiss(animated: true, completion: {
                 LoadingIndicatorView.show("Загрузка изображения...")

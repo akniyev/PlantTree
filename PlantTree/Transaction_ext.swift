@@ -12,7 +12,7 @@ extension Transaction {
 
         oi.id = Int(t.id ?? -1)
         oi.projectId = Int(t.projectId ?? -1)
-        oi.date = t.creationDate ?? Date()
+        oi.date = t.finishedDate ?? Date()
         oi.donated = t.amount ?? 0.0
         oi.projectTitle = t.projectTitle ?? ""
         oi.treePlanted = Int(t.treeCount ?? -1)

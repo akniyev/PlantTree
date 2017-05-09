@@ -51,7 +51,6 @@
         <!--Change Password View Controller-->
         <scene sceneID="RfS-Wn-2dO">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hdq-QF-bF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController hidesBottomBarWhenPushed="YES" id="T0k-BI-bSL" customClass="ChangePasswordViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RAL-wZ-sAU"/>
@@ -63,6 +62,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hdq-QF-bF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6225" y="1060"/>
         </scene>
@@ -293,7 +293,6 @@
         <!--Profile View Controller-->
         <scene sceneID="kbb-nJ-k3r">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gJP-wO-VIW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="BUI-i5-2J9" customClass="ProfileViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lyh-yO-Cs7"/>
@@ -319,7 +318,7 @@
                                                         <rect key="frame" x="0.0" y="40.5" width="60" height="86"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9g3-Nb-Zci" customClass="RoundImageView" customModule="PlantTree" customModuleProvider="target">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9g3-Nb-Zci" customClass="RoundImageView" customModule="PlantTree" customModuleProvider="target">
                                                         <rect key="frame" x="30" y="12" width="143" height="143"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                                         <constraints>
@@ -434,7 +433,7 @@
                                         <rect key="frame" x="34" y="370.5" width="275" height="122.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="irV-q9-hCr" customClass="RoundBorderButton" customModule="PlantTree" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="275" height="56"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="275" height="56.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="История операций">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -456,7 +455,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbj-lf-CTr" customClass="RoundBorderButton" customModule="PlantTree" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="66" width="275" height="56.5"/>
+                                                <rect key="frame" x="0.0" y="66.5" width="275" height="56"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="Выйти из аккаунта">
                                                     <color key="titleColor" red="0.84652343750000003" green="0.070455355410000003" blue="0.0" alpha="0.9491925336" colorSpace="custom" customColorSpace="sRGB"/>
@@ -524,13 +523,13 @@
                         <outlet property="stack_Container" destination="cgC-MA-0AM" id="pRf-hl-Yai"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gJP-wO-VIW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4404" y="1420"/>
         </scene>
         <!--Change Personal Data View Controller-->
         <scene sceneID="146-0B-hY6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vAv-gi-5T2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController hidesBottomBarWhenPushed="YES" id="IuV-T4-Lke" customClass="ChangePersonalDataViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="x9A-eW-reD"/>
@@ -547,6 +546,7 @@
                         </segue>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vAv-gi-5T2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5318" y="1061"/>
         </scene>

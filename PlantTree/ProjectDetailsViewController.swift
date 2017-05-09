@@ -23,6 +23,28 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     var projectDetailsCell : ProjectDetailsCell? = nil
     
     var newsIdForSegue = -1
+
+    let newsPageSize = 15
+    let newsUntilRefresh = 4
+    var newsPagesLoaded = 0
+    var isLoading = false
+    var endReached = false
+
+    func loadAdditionalPage() {
+        if !isLoading && !endReached, let p = self.project {
+            print("Loading additional news page!")
+            self.isLoading = true
+            Server.GetProjectNews(projectId: p.id, page: self.newsPagesLoaded + 1, pageSize: self.newsPageSize, SUCCESS: { [weak self] news in
+                p.news.append(contentsOf: news)
+                self?.isLoading = false
+                self?.endReached = news.count < (self?.newsPageSize ?? 0)
+                self?.tvDetails.reloadData()
+                self?.newsPagesLoaded += 1
+            }, ERROR: { [weak self] et, msg in
+                self?.isLoading = false
+            })
+        }
+    }
     
     var project: ProjectInfo? = nil
     @IBOutlet weak var tvDetails: UITableView!
@@ -30,7 +52,19 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var bottomTableViewConstraint: NSLayoutConstraint!
     
     var reloadView : ReloadView? = nil
-    
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let indexPaths = self.tvDetails.indexPathsForVisibleRows, let p = self.project {
+            let maxRow = indexPaths.map{$0.row}.max() ?? 0
+            let maxNewsRow = maxRow - 1
+            let totalNewsRows = p.news.count
+            let left = totalNewsRows - maxNewsRow
+            if left < 4 {
+                self.loadAdditionalPage()
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tvDetails.separatorStyle = .none
@@ -57,21 +91,22 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
         hideReloadView()
         if projectId != -1 {
             LoadingIndicatorView.show(self.view, loadingText: "Загрузка...")
-            Server.GetProjectDetailInfo(projectId: projectId, SUCCESS: { project in
-                self.project = project
-                self.tvDetails.reloadData()
+            Server.GetProjectDetailInfo(projectId: projectId, SUCCESS: { [weak self] project in
+                self?.project = project
+                self?.loadAdditionalPage()
+                self?.tvDetails.reloadData()
                 if project.projectStatus == .active {
-                    self.btnPlantTree.isHidden = false
-                    self.bottomTableViewConstraint.constant = self.btnPlantTree.frame.height - 1
+                    self?.btnPlantTree.isHidden = false
+                    self?.bottomTableViewConstraint.constant = (self?.btnPlantTree.frame.height ?? 0) - 1
                 } else {
-                    self.btnPlantTree.isHidden = true
-                    self.bottomTableViewConstraint.constant = 0
+                    self?.btnPlantTree.isHidden = true
+                    self?.bottomTableViewConstraint.constant = 0
                 }
                 LoadingIndicatorView.hide()
-            }, ERROR: { et, msg in
+            }, ERROR: { [weak self] et, msg in
                 //TODO: process this error in UI
                 LoadingIndicatorView.hide()
-                self.showReloadView()
+                self?.showReloadView()
             })
         }
     }
@@ -181,7 +216,7 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
         if indexPath.row == 0 {
             return ProjectDetailsCell.getCellHeight(cellWidth: tableView.frame.width, text: project?.description ?? "123")
         } else if indexPath.row == 1 {
-            return 70
+            return 50
         } else {
             return ProjectNewsCell.getCellHeight(cellWidth: tableView.frame.width, title: project?.news[indexPath.row - 2].title ?? "123")
         }

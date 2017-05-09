@@ -1,11 +1,32 @@
-operation history
-	pagination
++operation history
+	+pagination
 	+arrow
 	+no selection
 	+opening project
+	+pull to refresh
 
-personal data
-	design
++personal data
+	+design
+
++project cell
+	+design
+	+remove favorites button
+
++project news pagination
+
++about page
+	+design (decide what to use html or iOS controls)
+
+news page
+	share button
+	online link
+
+facebook login!
+
+reload page on viewDidAppear
+
+//All below demands new Eureka rows
+make normal round button cells!
 
 change password
 	design
@@ -19,17 +40,3 @@ forgot password
 
 registration
 	design
-
-about page
-	design (decide what to use html or iOS controls)
-
-+project cell
-	+design
-	+remove favorites button
-
-project cell
-	design
-
-news page
-	share button
-	online link

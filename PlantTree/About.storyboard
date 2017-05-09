@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="R0u-zQ-K21">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--О приложении-->
+        <scene sceneID="Jaf-AL-DGP">
+            <objects>
+                <viewController title="О приложении" id="fy4-e7-cMd" customClass="AboutViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wFO-Ue-odU"/>
+                        <viewControllerLayoutGuide type="bottom" id="Exp-rf-NSb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yBX-B0-2Ve">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hmg-Ts-gPd">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Exp-rf-NSb" firstAttribute="top" secondItem="Hmg-Ts-gPd" secondAttribute="bottom" id="Od8-Pi-OLI"/>
+                            <constraint firstAttribute="trailing" secondItem="Hmg-Ts-gPd" secondAttribute="trailing" id="Si5-Yw-2eh"/>
+                            <constraint firstItem="Hmg-Ts-gPd" firstAttribute="top" secondItem="yBX-B0-2Ve" secondAttribute="top" id="Stb-iT-c1d"/>
+                            <constraint firstItem="Hmg-Ts-gPd" firstAttribute="leading" secondItem="yBX-B0-2Ve" secondAttribute="leading" id="njx-XN-WuZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="О приложении" id="4aQ-VW-DGx"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="webView" destination="Hmg-Ts-gPd" id="nQC-RL-W4k"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x6d-3O-AWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="844" y="129"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sLy-Ku-d1a">
+            <objects>
+                <navigationController storyboardIdentifier="aboutViewController" automaticallyAdjustsScrollViewInsets="NO" id="R0u-zQ-K21" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mcI-jy-g9r">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fy4-e7-cMd" kind="relationship" relationship="rootViewController" id="MHu-m8-9yX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6jv-Se-Ilf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="46.5" y="129.5"/>
+        </scene>
+    </scenes>
+</document>

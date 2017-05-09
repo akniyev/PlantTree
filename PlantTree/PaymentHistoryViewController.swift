@@ -21,6 +21,13 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
     var groupedOperations: [String:[OperationInfo]] = [:]
     var groupDates: [String] = []
 
+    var pagesLoaded = 0
+    var isLoading = false
+    var endReached = false
+
+    let rowsOnPage = 12
+    let minimumLeftRows = 4
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,24 +39,67 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
         tableView.register(UINib(nibName: "PaymentHistoryFooter", bundle: nil), forHeaderFooterViewReuseIdentifier: "PaymentHistoryFooter")
         tableView.separatorStyle = .none
 
+        self.tableView.refreshControl = UIRefreshControl()
+        self.tableView.refreshControl?.addTarget(self, action: #selector(pullRefreshPage), for: .valueChanged)
+
         self.reloadAction()
+    }
+
+    func pullRefreshPage() {
+        // Resetting all to initial state
+        self.operations = []
+        self.groupedOperations = [:]
+        self.groupDates = []
+        self.pagesLoaded = 0
+        self.isLoading = false
+        self.endReached = false
+        self.tableView.reloadData()
+        // Loading first page
+        self.loadAdditionalPage()
+    }
+
+    func loadAdditionalPage() {
+        if self.isLoading || self.endReached {
+            return
+        }
+        print("loading additional news page!")
+        self.isLoading = true
+        Server.GetOperationHistory(page: pagesLoaded + 1, pagesize: rowsOnPage, SUCCESS: { [weak self] operations in
+            print("***********")
+            for o in operations {
+                print(o.date)
+            }
+            if let S = self {
+                S.operations.append(contentsOf: operations)
+                S.groupedOperations = S.getGroupedOperations(from: S.operations)
+                S.groupDates = S.groupedOperations.keys.sorted()
+                S.tableView.reloadData()
+                LoadingIndicatorView.hide()
+                S.hideReloadView()
+                S.pagesLoaded += 1
+                S.isLoading = false
+                if operations.count < S.rowsOnPage {
+                    S.endReached = true
+                }
+                S.tableView.refreshControl?.endRefreshing()
+            }
+        }, ERROR: { [weak self] et, msg in
+            self?.showReloadView()
+            self?.operations = []
+            self?.groupedOperations = [:]
+            self?.groupDates = []
+            self?.pagesLoaded = 0
+            LoadingIndicatorView.hide()
+            self?.isLoading = false
+            self?.endReached = false
+            self?.tableView.refreshControl?.endRefreshing()
+        })
     }
 
     override func reloadAction() {
         hideReloadView()
         LoadingIndicatorView.show(self.view, loadingText: "Загрузка...")
-        //TODO: add pagination
-        Server.GetOperationHistory(page: 1, pagesize: 10000, SUCCESS: { operations in
-            self.operations = operations
-            self.groupedOperations = self.getGroupedOperations(from: self.operations)
-            self.groupDates = self.groupedOperations.keys.sorted().reversed()
-            self.tableView.reloadData()
-            LoadingIndicatorView.hide()
-            self.hideReloadView()
-        }, ERROR: { et, msg in
-            self.showReloadView()
-            LoadingIndicatorView.hide()
-        })
+        loadAdditionalPage()
     }
 
     func getGroupedOperations(from operations: [OperationInfo]) -> [String:[OperationInfo]] {
@@ -62,6 +112,25 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
             }
         }
         return result
+    }
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let indexPaths = self.tableView.indexPathsForVisibleRows {
+            let maxSection = indexPaths.map{$0.section}.max() ?? 0
+            let maxRow = indexPaths.map{$0.row}.max() ?? 0
+
+            var numberOfRowsBeforeIndexPath = 0
+            for i in 0..<maxSection {
+                let d = self.groupDates[i]
+                let rowCount = self.groupedOperations[d]?.count ?? 0
+                numberOfRowsBeforeIndexPath += rowCount
+            }
+            numberOfRowsBeforeIndexPath += maxRow
+            let rowsLeft = operations.count - numberOfRowsBeforeIndexPath
+            if rowsLeft < self.minimumLeftRows {
+                self.loadAdditionalPage()
+            }
+        }
     }
 
     // Table View Delegate
@@ -121,7 +190,6 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
     public func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         let groupName = self.groupDates[indexPath.section]
         if let operation = self.groupedOperations[groupName]?[indexPath.row] {
-            print("highlight \(operation.projectTitle)")
             if let vc = ProjectDetailsViewController.storyboardInstance() {
                 vc.projectId = operation.projectId
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -129,5 +197,4 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
         }
         return false
     }
-
 }

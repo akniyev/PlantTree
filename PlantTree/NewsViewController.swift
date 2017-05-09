@@ -71,6 +71,7 @@ class NewsViewController : UIViewController, UITableViewDataSource, UITableViewD
     }
 
     // Table view delegate / data source
+
     public func numberOfSections(in tableView: UITableView) -> Int {
         return self.newsPiece == nil ? 0 : 1
     }
