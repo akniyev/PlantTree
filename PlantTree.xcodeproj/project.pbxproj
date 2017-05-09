@@ -122,6 +122,8 @@
 		9F8F52A21EC1C8E2008085E8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F8F52A11EC1C8E2008085E8 /* About.storyboard */; };
 		9F8F52A41EC1C9E3008085E8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F52A31EC1C9E3008085E8 /* AboutViewController.swift */; };
 		9F8F52A71EC1D482008085E8 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F52A61EC1D482008085E8 /* UIImage.swift */; };
+		9F8F52AA1EC1DE61008085E8 /* ReloadIndicatorFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8F52A91EC1DE61008085E8 /* ReloadIndicatorFooter.xib */; };
+		9F8F52AC1EC1DE6E008085E8 /* ReloadIndicatorFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F52AB1EC1DE6E008085E8 /* ReloadIndicatorFooter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -242,6 +244,8 @@
 		9F8F52A11EC1C8E2008085E8 /* About.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
 		9F8F52A31EC1C9E3008085E8 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		9F8F52A61EC1D482008085E8 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		9F8F52A91EC1DE61008085E8 /* ReloadIndicatorFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReloadIndicatorFooter.xib; sourceTree = "<group>"; };
+		9F8F52AB1EC1DE6E008085E8 /* ReloadIndicatorFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadIndicatorFooter.swift; sourceTree = "<group>"; };
 		EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTree.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree.release.xcconfig"; sourceTree = "<group>"; };
 		F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlantTree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -691,6 +695,8 @@
 		9F8F52A81EC1DCCD008085E8 /* ReloadIndicatorFooter */ = {
 			isa = PBXGroup;
 			children = (
+				9F8F52A91EC1DE61008085E8 /* ReloadIndicatorFooter.xib */,
+				9F8F52AB1EC1DE6E008085E8 /* ReloadIndicatorFooter.swift */,
 			);
 			name = ReloadIndicatorFooter;
 			sourceTree = "<group>";
@@ -779,6 +785,7 @@
 				84CCD9821EAE137D00A774CE /* NewsBodyCell.xib in Resources */,
 				586039F1DD6547E792258A96 /* ProjectDetailsCell.xib in Resources */,
 				5860394204723E6F4A511EEB /* PaymentHistoryCell.xib in Resources */,
+				9F8F52AA1EC1DE61008085E8 /* ReloadIndicatorFooter.xib in Resources */,
 				5860349D01AD0F7E81AF1019 /* ProjectNewsCell.xib in Resources */,
 				84CCD9861EAE139100A774CE /* NewsFooterCell.xib in Resources */,
 			);
@@ -900,6 +907,7 @@
 				84BED8CE1EBB3ACD008CF181 /* RoundButtonCell.swift in Sources */,
 				84A4E7C01EBA0A290068CA9D /* NewsAPI.swift in Sources */,
 				849DEFDA1E67F77700A82EA9 /* BigButtonContentView.swift in Sources */,
+				9F8F52AC1EC1DE6E008085E8 /* ReloadIndicatorFooter.swift in Sources */,
 				849DEFD41E65B5A100A82EA9 /* UpDownCellTableViewCell.swift in Sources */,
 				58603BAC16FB696E0F8962B4 /* ProjectInfo.swift in Sources */,
 				586032733EB1FDEFA0082231 /* ProjectStatus.swift in Sources */,
