@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ReloadIndicatorFooter : UITableViewHeaderFooterView {
+class ReloadIndicatorFooter : UITableViewCell {
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -17,7 +19,8 @@ class ReloadIndicatorFooter : UITableViewHeaderFooterView {
         super.init(coder: aDecoder)
     }
     
-    public override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.activityIndicator.startAnimating()
     }
 }

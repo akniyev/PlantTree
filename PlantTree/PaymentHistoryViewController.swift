@@ -21,6 +21,12 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
     var groupedOperations: [String:[OperationInfo]] = [:]
     var groupDates: [String] = []
 
+    var showReloadIndicator = false {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+
     var pagesLoaded = 0
     var isLoading = false
     var endReached = false
@@ -35,6 +41,7 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "PaymentHistoryCell", bundle: nil), forCellReuseIdentifier: "PaymentHistoryCell")
+        tableView.register(UINib(nibName: "ReloadIndicatorFooter", bundle: nil), forCellReuseIdentifier: "ReloadIndicatorFooter")
         tableView.register(UINib(nibName: "PaymentHistoryHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "PaymentHistoryHeader")
         tableView.register(UINib(nibName: "PaymentHistoryFooter", bundle: nil), forHeaderFooterViewReuseIdentifier: "PaymentHistoryFooter")
         tableView.separatorStyle = .none
@@ -62,13 +69,13 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
         if self.isLoading || self.endReached {
             return
         }
-        print("loading additional news page!")
+
+        if self.pagesLoaded > 0 {
+            self.showReloadIndicator = true
+        }
+
         self.isLoading = true
         Server.GetOperationHistory(page: pagesLoaded + 1, pagesize: rowsOnPage, SUCCESS: { [weak self] operations in
-            print("***********")
-            for o in operations {
-                print(o.date)
-            }
             if let S = self {
                 S.operations.append(contentsOf: operations)
                 S.groupedOperations = S.getGroupedOperations(from: S.operations)
@@ -82,6 +89,7 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
                     S.endReached = true
                 }
                 S.tableView.refreshControl?.endRefreshing()
+                S.showReloadIndicator = false
             }
         }, ERROR: { [weak self] et, msg in
             self?.showReloadView()
@@ -93,6 +101,7 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
             self?.isLoading = false
             self?.endReached = false
             self?.tableView.refreshControl?.endRefreshing()
+            self?.showReloadIndicator = false
         })
     }
 
@@ -133,18 +142,35 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
         }
     }
 
+    func reloadIndicatorIndexPath(indexPath: IndexPath) -> Bool {
+        let date = self.groupDates[indexPath.section]
+        return indexPath.section == self.groupDates.count - 1 && indexPath.row == self.groupedOperations[date]!.count
+    }
+
     // Table View Delegate
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.groupDates.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var reloadIndicatorDelta = 0
+        if section == groupDates.count - 1 && self.showReloadIndicator {
+            reloadIndicatorDelta = 1
+        }
         let date = self.groupDates[section]
-        return self.groupedOperations[date]?.count ?? 0
+        return (self.groupedOperations[date]?.count ?? 0) + reloadIndicatorDelta
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let date = self.groupDates[indexPath.section]
+
+        if self.reloadIndicatorIndexPath(indexPath: indexPath) {
+            let c : ReloadIndicatorFooter = tableView.dequeueReusableCell(withIdentifier: "ReloadIndicatorFooter") as! ReloadIndicatorFooter
+            c.backgroundColor = UIColor.clear
+            return c
+        }
+
         let c: PaymentHistoryCell = tableView.dequeueReusableCell(withIdentifier: "PaymentHistoryCell") as? PaymentHistoryCell ?? PaymentHistoryCell()
         c.setData(operation: self.groupedOperations[date]![indexPath.row])
         c.layoutSubviews()
@@ -152,6 +178,9 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.reloadIndicatorIndexPath(indexPath: indexPath) {
+            return 40
+        }
         return PaymentHistoryCell.getCellHeight(cellWidth: tableView.frame.width, projectName: "Посадка деревьев в парке культуры и отдыха им. М. Горького")
     }
 

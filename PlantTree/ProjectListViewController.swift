@@ -25,6 +25,12 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     var projectToSegue : ProjectInfo? = nil
     var projectIndexToSegue : Int = -1
 
+    var showReloadIndicator = false {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -106,6 +112,10 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == self.projects.count {
+            return false
+        }
+        
         if let vc = ProjectDetailsViewController.storyboardInstance() {
             let p = projects[indexPath.row]
 
@@ -123,7 +133,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return projects.count
+        return projects.count + (self.showReloadIndicator ? 1 : 0)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -149,6 +159,10 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         if !active { return }
         if currentlyLoading || endReached { return }
         print("loading page!")
+
+        if self.loadedPagesCount > 0 {
+            self.showReloadIndicator = true
+        }
         
         hideReloadView()
         
@@ -168,11 +182,13 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
             self?.currentlyLoading = false
             self?.tableView.reloadData()
             self?.tableView.refreshControl?.endRefreshing()
+            self?.showReloadIndicator = false
             LoadingIndicatorView.hide()
         }, ERROR: { [weak self] et, msg in
             self?.currentlyLoading = false
             self?.tableView.refreshControl?.endRefreshing()
             self?.showReloadView()
+            self?.showReloadIndicator = false
             LoadingIndicatorView.hide()
         })
     }
@@ -204,6 +220,11 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if self.showReloadIndicator && indexPath.row == projects.count {
+            var opCell = tableView.dequeueReusableCell(withIdentifier: "ReloadIndicatorFooter") as! ReloadIndicatorFooter
+            return opCell
+        }
+
         var opCell = tableView.dequeueReusableCell(withIdentifier: "ProjectListCell", for: indexPath) as? ProjectCell
         if opCell == nil {
             opCell = ProjectCell()
@@ -212,17 +233,14 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         
         cell.id = indexPath.row
         cell.SetProjectInfo(newP: projects[indexPath.row])
-//        cell.likeAction = { p, b, r in
-//            self.likeProject(p: p, b: b, row: r)
-//        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(rowHeight)
+        return indexPath.row == projects.count ? 40 : CGFloat(rowHeight)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         if projectListType == .favorites && !Db.isAuthorized() {
             active = false
@@ -262,6 +280,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: "ProjectCell", bundle: nil), forCellReuseIdentifier: "ProjectListCell")
+        self.tableView.register(UINib(nibName: "ReloadIndicatorFooter", bundle: nil), forCellReuseIdentifier: "ReloadIndicatorFooter")
         
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(pullRefreshPage), for: .valueChanged)

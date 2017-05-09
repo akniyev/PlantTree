@@ -11,14 +11,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="418" height="50"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ReloadIndicatorFooter" customModule="PlantTree" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="418" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="33G-HF-aVa">
-                    <rect key="frame" x="151.5" y="15" width="115.5" height="20"/>
+                    <rect key="frame" x="151.5" y="9.5" width="115.5" height="20"/>
                     <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eNZ-EP-XJM">
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eNZ-EP-XJM">
                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                         </activityIndicatorView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qc2-8c-lk5">
@@ -35,7 +35,10 @@
                 <constraint firstItem="33G-HF-aVa" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="MFC-nn-O8e"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="114" y="-81"/>
+            <connections>
+                <outlet property="activityIndicator" destination="eNZ-EP-XJM" id="GnX-4J-BIn"/>
+            </connections>
+            <point key="canvasLocation" x="114" y="-86.5"/>
         </view>
     </objects>
 </document>
