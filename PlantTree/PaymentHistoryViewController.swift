@@ -72,7 +72,7 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
             if let S = self {
                 S.operations.append(contentsOf: operations)
                 S.groupedOperations = S.getGroupedOperations(from: S.operations)
-                S.groupDates = S.groupedOperations.keys.sorted()
+                S.groupDates = S.groupedOperations.keys.sorted(by: {Date.fromRussianFormat(s: $0.0) ?? Date() > Date.fromRussianFormat(s: $0.1) ?? Date()})
                 S.tableView.reloadData()
                 LoadingIndicatorView.hide()
                 S.hideReloadView()
