@@ -25,6 +25,8 @@ facebook login!
 
 reload page on viewDidAppear
 
+loading indicator on news
+
 //All below demands new Eureka rows
 make normal round button cells!
 

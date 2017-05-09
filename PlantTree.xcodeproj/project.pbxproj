@@ -124,6 +124,9 @@
 		9F8F52A71EC1D482008085E8 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F52A61EC1D482008085E8 /* UIImage.swift */; };
 		9F8F52AA1EC1DE61008085E8 /* ReloadIndicatorFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8F52A91EC1DE61008085E8 /* ReloadIndicatorFooter.xib */; };
 		9F8F52AC1EC1DE6E008085E8 /* ReloadIndicatorFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F52AB1EC1DE6E008085E8 /* ReloadIndicatorFooter.swift */; };
+		9F8F52B01EC250D8008085E8 /* RoundButtonCellNewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F52AE1EC250D8008085E8 /* RoundButtonCellNewTableViewCell.swift */; };
+		9F8F52B11EC250D8008085E8 /* RoundButtonCellNewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8F52AF1EC250D8008085E8 /* RoundButtonCellNewTableViewCell.xib */; };
+		9F8F52B31EC25153008085E8 /* RoundButtonRowNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F52B21EC25153008085E8 /* RoundButtonRowNew.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -246,6 +249,9 @@
 		9F8F52A61EC1D482008085E8 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		9F8F52A91EC1DE61008085E8 /* ReloadIndicatorFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReloadIndicatorFooter.xib; sourceTree = "<group>"; };
 		9F8F52AB1EC1DE6E008085E8 /* ReloadIndicatorFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadIndicatorFooter.swift; sourceTree = "<group>"; };
+		9F8F52AE1EC250D8008085E8 /* RoundButtonCellNewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonCellNewTableViewCell.swift; sourceTree = "<group>"; };
+		9F8F52AF1EC250D8008085E8 /* RoundButtonCellNewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoundButtonCellNewTableViewCell.xib; sourceTree = "<group>"; };
+		9F8F52B21EC25153008085E8 /* RoundButtonRowNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonRowNew.swift; sourceTree = "<group>"; };
 		EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTree.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree.release.xcconfig"; sourceTree = "<group>"; };
 		F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlantTree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -380,6 +386,7 @@
 		848F96E21E59C72A00CC07CC /* EurekaRows */ = {
 			isa = PBXGroup;
 			children = (
+				9F8F52AD1EC250A9008085E8 /* RoundButtonRowNew */,
 				84BED8C91EBB3A28008CF181 /* RoundButtonRow */,
 				849DEFD11E65B51A00A82EA9 /* UpDownRow */,
 				848F96EA1E59D7E400CC07CC /* UserPhotoEditRow */,
@@ -701,6 +708,16 @@
 			name = ReloadIndicatorFooter;
 			sourceTree = "<group>";
 		};
+		9F8F52AD1EC250A9008085E8 /* RoundButtonRowNew */ = {
+			isa = PBXGroup;
+			children = (
+				9F8F52AE1EC250D8008085E8 /* RoundButtonCellNewTableViewCell.swift */,
+				9F8F52AF1EC250D8008085E8 /* RoundButtonCellNewTableViewCell.xib */,
+				9F8F52B21EC25153008085E8 /* RoundButtonRowNew.swift */,
+			);
+			name = RoundButtonRowNew;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -778,6 +795,7 @@
 				849DEFD51E65B5A100A82EA9 /* UpDownCellTableViewCell.xib in Resources */,
 				84CCD97D1EAE0B8B00A774CE /* NewsHeaderCell.xib in Resources */,
 				84AC71171E6181EE0023DDB7 /* TableViewUnauthorized.xib in Resources */,
+				9F8F52B11EC250D8008085E8 /* RoundButtonCellNewTableViewCell.xib in Resources */,
 				9F2AB8901EC05D08006DD6D5 /* Settings.storyboard in Resources */,
 				58603FA78CD5B5C0AA91BDC4 /* ProjectCell.xib in Resources */,
 				84A4E7A21EB9F6020068CA9D /* PaymentHistoryFooter.xib in Resources */,
@@ -884,7 +902,9 @@
 				84A4E7C71EBA0A290068CA9D /* ApiError.swift in Sources */,
 				84BF511D1E5657A500B50ADB /* ForgotPasswordViewController.swift in Sources */,
 				843FE0C21EB26F67007ACFE5 /* LoginViewController.swift in Sources */,
+				9F8F52B01EC250D8008085E8 /* RoundButtonCellNewTableViewCell.swift in Sources */,
 				84CCD9811EAE137D00A774CE /* NewsBodyCell.swift in Sources */,
+				9F8F52B31EC25153008085E8 /* RoundButtonRowNew.swift in Sources */,
 				84BF511B1E56508400B50ADB /* Alerts.swift in Sources */,
 				84CCD9851EAE139100A774CE /* NewsFooterCell.swift in Sources */,
 				849759C01E59DC950065BDCB /* UserPhotoEditRow.swift in Sources */,
