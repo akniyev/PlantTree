@@ -9,6 +9,6 @@
 import UIKit
 import Eureka
 
-class RoundButtonRowNew : Row<String>, RowType {
-    
-}
+//class RoundButtonRowNew : Row<String>, RowType {
+//    
+//}
