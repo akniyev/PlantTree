@@ -27,6 +27,8 @@ reload page on viewDidAppear
 
 loading indicator on news
 
+loading indicator inside tabs
+
 //All below demands new Eureka rows
 make normal round button cells!
 

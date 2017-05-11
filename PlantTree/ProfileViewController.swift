@@ -51,13 +51,16 @@ class ProfileViewController : ReloadableViewController {
                 message: "Вы действительно хотите заново выслать письмо для подтверждения email?",
                 preferredStyle: .alert,
                 actions: [
-                    UIAlertAction(title: "Да", style: .default, handler: { action in
-                        LoadingIndicatorView.show()
+                    UIAlertAction(title: "Да", style: .default, handler: { [weak self] action in
+                        if self == nil {
+                            return
+                        }
+                        LoadingIndicatorView.show(self!.view, loadingText: "Отправка...")
                         Server.confirmEmail(SUCCESS: {
                             LoadingIndicatorView.hide()
-                            Alerts.ShowErrorAlertWithOK(sender: self, title: "Готово", message: "Сообщение со ссылкой для подтверждения email успешно отправлено. Проверье вашу почту!", completion: nil)
+                            Alerts.ShowErrorAlertWithOK(sender: self!, title: "Готово", message: "Сообщение со ссылкой для подтверждения email успешно отправлено. Проверье вашу почту!", completion: nil)
                         }, ERROR: { et, msg in
-                            Alerts.ShowErrorAlertWithOK(sender: self, title: "Ошибка", message: "Произошла ошибка во время отправки письма", completion: nil)
+                            Alerts.ShowErrorAlertWithOK(sender: self!, title: "Ошибка", message: "Произошла ошибка во время отправки письма", completion: nil)
                             LoadingIndicatorView.hide()
                         })
                     }),
@@ -91,7 +94,7 @@ class ProfileViewController : ReloadableViewController {
     override func reloadAction() {
         self.hideReloadView()
         self.stack_Container.isHidden = true
-        LoadingIndicatorView.show()
+        LoadingIndicatorView.show(self.view, loadingText: "Загрузка...")
         Server.GetAccountInfo(SUCCESS: { [weak self] pi in
             LoadingIndicatorView.hide()
             self?.personalData = pi

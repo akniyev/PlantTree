@@ -27,7 +27,6 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     let newsPageSize = 15
     let newsUntilRefresh = 4
     var newsPagesLoaded = 0
-    var isLoading = false
     var endReached = false
 
     func loadAdditionalPage() {
@@ -50,8 +49,27 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var tvDetails: UITableView!
     @IBOutlet weak var btnPlantTree: UIButton!
     @IBOutlet weak var bottomTableViewConstraint: NSLayoutConstraint!
+
+    var isLoading = false {
+        didSet {
+            self.tvDetails.reloadData()
+        }
+    }
     
     var reloadView : ReloadView? = nil
+
+    func isLastRow(indexPath: IndexPath) -> Bool {
+        let row = indexPath.row
+        if let p = project {
+            if p.news.count > 0 {
+                return row == 2 + p.news.count
+            } else {
+                return row == 1
+            }
+        } else {
+            return false
+        }
+    }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if let indexPaths = self.tvDetails.indexPathsForVisibleRows, let p = self.project {
@@ -71,6 +89,8 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
         self.tvDetails.register(UINib(nibName: "ProjectDetailsCell", bundle: nil), forCellReuseIdentifier: "ProjectDetailsCell")
         self.tvDetails.register(UINib(nibName: "ProjectNewsCell", bundle: nil), forCellReuseIdentifier: "ProjectNewsCell")
         self.tvDetails.register(UINib(nibName: "NewsBandSeparatorCell", bundle: nil), forCellReuseIdentifier: "NewsBandSeparatorCell")
+        self.tvDetails.register(UINib(nibName: "ReloadIndicatorFooter", bundle: nil), forCellReuseIdentifier: "ReloadIndicatorFooter")
+
         self.tvDetails.dataSource = self
         self.tvDetails.delegate = self
         
@@ -135,10 +155,11 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let p = project {
+            var addition = self.isLoading ? 1 : 0
             if p.news.count > 0 {
-                return 2 + p.news.count
+                return 2 + p.news.count + addition
             } else {
-                return 1
+                return 1 + addition
             }
         } else {
             return 0
@@ -146,12 +167,12 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if self.isLastRow(indexPath: indexPath) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ReloadIndicatorFooter") as! ReloadIndicatorFooter
+            return cell
+        }
         if indexPath.row == 0 {
-            var opCell = tableView.dequeueReusableCell(withIdentifier: "ProjectDetailsCell", for: indexPath) as? ProjectDetailsCell
-            if opCell == nil {
-                opCell = ProjectDetailsCell()
-            }
-            let cell = opCell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectDetailsCell", for: indexPath) as! ProjectDetailsCell
             
             cell.setProjectInfo(pi: project!)
             projectDetailsCell = cell
@@ -213,6 +234,9 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.isLastRow(indexPath: indexPath) {
+            return 40
+        }
         if indexPath.row == 0 {
             return ProjectDetailsCell.getCellHeight(cellWidth: tableView.frame.width, text: project?.description ?? "123")
         } else if indexPath.row == 1 {
