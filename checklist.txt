@@ -17,6 +17,8 @@
 +about page
 	+design (decide what to use html or iOS controls)
 
+error when can't file email (maybe we should allow user to change email)
+
 news page
 	share button
 	online link

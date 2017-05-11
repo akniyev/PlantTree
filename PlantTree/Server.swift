@@ -436,6 +436,8 @@ class Server {
         }
     }
     
+    
+    
     // TODO: Make better error handling and error message display
     static func RegisterWithEmail(
         email: String,
