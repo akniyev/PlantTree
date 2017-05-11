@@ -24,10 +24,11 @@ news page
 facebook login!
 
 reload page on viewDidAppear
+fix reloadVisiblePages. Consider case when total number of items can change (may be problem with endReached)
 
-loading indicator on news
++loading indicator on news
 
-loading indicator inside tabs
++loading indicator inside tabs
 
 //All below demands new Eureka rows
 make normal round button cells!

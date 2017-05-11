@@ -9,10 +9,19 @@
 import UIKit
 
 class ProjectListViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var projects : [ProjectInfo] = []
+    var projectsGrouped : [[ProjectInfo]] = []
+    var projects : [ProjectInfo] {
+        get {
+            return Array(projectsGrouped.joined())
+        }
+    }
     let rowHeight : Double = 230
     let pageSize = 10
-    var loadedPagesCount = 0
+    var loadedPagesCount : Int {
+        get {
+            return self.projectsGrouped.count
+        }
+    }
     var endReached = false
     var currentlyLoading = false
     var signedOnLoading = true
@@ -49,7 +58,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     
     func refreshPage() {
         clearList()
-        loadAdditionalPage()
+        loadPage()
     }
     
     func showReloadView() {
@@ -144,21 +153,22 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         let pageCountFractional = bottomOfFrame / pageHeight
         
         if pageCountFractional - Double(self.loadedPagesCount - 1) > 0.7 {
-            self.loadAdditionalPage()
+            self.loadPage()
         }
     }
     
     func clearList() {
-        projects.removeAll()
-        loadedPagesCount = 0
+        projectsGrouped.removeAll()
         endReached = false
         self.tableView.reloadData()
     }
-    
-    func loadAdditionalPage() {
+
+    // page = 0, 1, ...
+    func loadPage(page: Int = -1) {
         if !active { return }
-        if currentlyLoading || endReached { return }
-        print("loading page!")
+        if page == -1 && (currentlyLoading || endReached) {
+            return
+        }
 
         if self.loadedPagesCount > 0 {
             self.showReloadIndicator = true
@@ -173,11 +183,14 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         signedOnLoading = Db.isAuthorized()
         
         currentlyLoading = true
-        let pageToLoadNumber = loadedPagesCount + 1
+        let pageToLoadNumber = page == -1 ? loadedPagesCount + 1 : page
         Server.GetProjectList(type: projectListType, page: pageToLoadNumber, pagesize: pageSize, SUCCESS: { [weak self] ps in
             if ps.count > (self?.pageSize ?? 0)! { return }
-            self?.projects.append(contentsOf: ps)
-            self?.loadedPagesCount = pageToLoadNumber
+            if page == -1 {
+                self?.projectsGrouped.append(ps)
+            } else {
+                self?.projectsGrouped[page] = ps
+            }
             self?.endReached = ps.count < self?.pageSize ?? 0
             self?.currentlyLoading = false
             self?.tableView.reloadData()
@@ -189,8 +202,25 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
             self?.tableView.refreshControl?.endRefreshing()
             self?.showReloadView()
             self?.showReloadIndicator = false
-            LoadingIndicatorView.hide()
-        })
+            LoadingIndicatorView.hide()      })
+    }
+
+    func visiblePages() -> [Int] {
+        let visibleItems : [IndexPath] = self.tableView.indexPathsForVisibleRows ?? []
+        let minRow = visibleItems.map{$0.row}.min() ?? 0
+        let maxRow = visibleItems.map{$0.row}.max() ?? 0
+
+        let minPage: Int = minRow / self.pageSize
+        let maxPage: Int = maxRow / self.pageSize
+        
+        return Array(minPage...maxPage)
+    }
+
+    func reloadVisiblePages() {
+        let pages = self.visiblePages()
+        for page in pages {
+            self.loadPage(page: page)
+        }
     }
     
     func likeProject(p : ProjectInfo, b : UIButton, row: Int) {
@@ -258,9 +288,10 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         if firstLaunch || (signedOnLoading != Db.isAuthorized()) {
             firstLaunch = false
             clearList()
-            loadAdditionalPage()
+            loadPage()
         } else {
             tableView.reloadData()
+//            self.reloadVisiblePages()
         }
     }
     
