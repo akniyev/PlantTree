@@ -96,6 +96,7 @@ class ProfileViewController : ReloadableViewController {
         self.stack_Container.isHidden = true
         LoadingIndicatorView.show(self.view, loadingText: "Загрузка...")
         Server.GetAccountInfo(SUCCESS: { [weak self] pi in
+            let cred = Db.readCredentials()!
             LoadingIndicatorView.hide()
             self?.personalData = pi
 
@@ -105,7 +106,7 @@ class ProfileViewController : ReloadableViewController {
             self?.lbl_ProjectsTitle.text = pi.donatedProjectCount.getRussianCountWord(one: "Проект", tofour: "Проекта", overfour: "Проектов")
             self?.stack_Container.isHidden = false
             self?.lbl_Email.text = pi.email
-            self?.stack_ConfirmEmail.isHidden = pi.email_confirmed
+            self?.stack_ConfirmEmail.isHidden = pi.email_confirmed || cred.loginType != .Email
             self?.img_ProfilePicture.isUserInteractionEnabled = true
 
             if !pi.photoUrlSmall.isEmpty {

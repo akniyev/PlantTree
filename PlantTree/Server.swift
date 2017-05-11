@@ -94,6 +94,39 @@ class Server {
         }
         let c = cq!
         
+        if c.loginType == .Facebook {
+            let rb = ConnectAPI.apiConnectTokenRefreshPostWithRequestBuilder(
+                refreshToken: c.refresh_token,
+                grantType: "external",
+                scope: "openid offline_access")
+            rb.execute{ response, error in
+                if let authToken = response?.body {
+                    if let at = authToken.accessToken,
+                        let rt = authToken.refreshToken,
+                        let expire = authToken.expiresIn {
+                        
+                        let c = Credentials()
+                        c.access_token =  at
+                        c.refresh_token = rt
+                        c.accessTokenExpireTime = Double(expire)
+                        c.access_token_created = Date()
+                        c.refresh_token_created = Date()
+                        c.loginType = LoginType.Facebook
+                        
+                        if Db.writeCredentials(c: c) {
+                            SUCCESS?(c)
+                        } else {
+                            ERROR?(ErrorType.DatabaseError, "Ошибка записи в базу данных")
+                        }
+                    } else {
+                        ERROR?(ErrorType.InvalidData, "Получены неверные данные с сервера!")
+                    }
+                } else {
+                    ERROR?(ErrorType.ServerError, "Не удаётся обновить информацию с сервера!")
+                }
+            }
+        }
+        
         let parameters : Parameters = [
             "refresh_token" : c.refresh_token,
             "scope" : "openid offline_access",
@@ -443,7 +476,6 @@ class Server {
             accessToken: facebookToken,
             grantType: "external",
             scope: "openid offline_access")
-        print(facebookToken)
         rb.execute { aToken, error in
             if let authToken = aToken?.body {
                 if let at = authToken.accessToken,
@@ -467,7 +499,6 @@ class Server {
                     ERROR?(ErrorType.InvalidData, "Получены неверные данные с сервера!")
                 }
             } else {
-                print(error!.localizedDescription)
                 ERROR?(ErrorType.AuthorizationError, "Не удалось зайти через Facebook!")
             }
         }
