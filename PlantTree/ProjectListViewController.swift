@@ -190,6 +190,11 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
                 self?.projectsGrouped.append(ps)
             } else {
                 self?.projectsGrouped[page] = ps
+                if let count = self?.projectsGrouped.count, let pageSize = self?.pageSize {
+                    if page == count - 1 && ps.count == pageSize {
+                        self?.endReached = false
+                    }
+                }
             }
             self?.endReached = ps.count < self?.pageSize ?? 0
             self?.currentlyLoading = false
@@ -216,12 +221,12 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
         return Array(minPage...maxPage)
     }
 
-    func reloadVisiblePages() {
-        let pages = self.visiblePages()
-        for page in pages {
-            self.loadPage(page: page)
-        }
-    }
+//    func reloadVisiblePages() {
+//        let pages = self.visiblePages()
+//        for page in pages {
+//            self.loadPage(page: page)
+//        }
+//    }
     
     func likeProject(p : ProjectInfo, b : UIButton, row: Int) {
         if Db.isAuthorized() && (p.isLikedByMe != nil) {
