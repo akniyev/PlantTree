@@ -41,6 +41,26 @@
 		843FE0C61EB27C54007ACFE5 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */; };
 		843FE0C81EB28407007ACFE5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C71EB28407007ACFE5 /* ProfileViewController.swift */; };
 		843FE0CA1EB3D95E007ACFE5 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FE0C91EB3D95E007ACFE5 /* RoundImageView.swift */; };
+		846102A91EC4C78600941E25 /* AlamofireImplementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102931EC4C78600941E25 /* AlamofireImplementations.swift */; };
+		846102AA1EC4C78600941E25 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102941EC4C78600941E25 /* APIHelper.swift */; };
+		846102AB1EC4C78600941E25 /* AccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102961EC4C78600941E25 /* AccountAPI.swift */; };
+		846102AC1EC4C78600941E25 /* ConnectAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102971EC4C78600941E25 /* ConnectAPI.swift */; };
+		846102AD1EC4C78600941E25 /* NewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102981EC4C78600941E25 /* NewsAPI.swift */; };
+		846102AE1EC4C78600941E25 /* PayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102991EC4C78600941E25 /* PayAPI.swift */; };
+		846102AF1EC4C78600941E25 /* PaymentsHandlerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461029A1EC4C78600941E25 /* PaymentsHandlerAPI.swift */; };
+		846102B01EC4C78600941E25 /* ProjectsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461029B1EC4C78600941E25 /* ProjectsAPI.swift */; };
+		846102B11EC4C78600941E25 /* TransactionsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461029C1EC4C78600941E25 /* TransactionsAPI.swift */; };
+		846102B21EC4C78600941E25 /* APIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461029D1EC4C78600941E25 /* APIs.swift */; };
+		846102B31EC4C78600941E25 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461029E1EC4C78600941E25 /* Extensions.swift */; };
+		846102B41EC4C78600941E25 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102A01EC4C78600941E25 /* ApiError.swift */; };
+		846102B51EC4C78600941E25 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102A11EC4C78600941E25 /* AuthToken.swift */; };
+		846102B61EC4C78600941E25 /* DetailedUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102A21EC4C78600941E25 /* DetailedUserInfo.swift */; };
+		846102B71EC4C78600941E25 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102A31EC4C78600941E25 /* News.swift */; };
+		846102B81EC4C78600941E25 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102A41EC4C78600941E25 /* Project.swift */; };
+		846102B91EC4C78600941E25 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102A51EC4C78600941E25 /* RegisterModel.swift */; };
+		846102BA1EC4C78600941E25 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102A61EC4C78600941E25 /* Transaction.swift */; };
+		846102BB1EC4C78600941E25 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102A71EC4C78600941E25 /* UserInfo.swift */; };
+		846102BC1EC4C78600941E25 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846102A81EC4C78600941E25 /* Models.swift */; };
 		847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FCAE11E977D3500BF6698 /* Project_ext.swift */; };
 		848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F96E41E59C75300CC07CC /* UserInfoCell.swift */; };
 		848F96E71E59C75300CC07CC /* UserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848F96E51E59C75300CC07CC /* UserInfoCell.xib */; };
@@ -59,26 +79,6 @@
 		84A4E79F1EB90DF40068CA9D /* PaymentHistoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E79E1EB90DF40068CA9D /* PaymentHistoryHeader.swift */; };
 		84A4E7A21EB9F6020068CA9D /* PaymentHistoryFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A4E7A11EB9F6010068CA9D /* PaymentHistoryFooter.xib */; };
 		84A4E7A41EB9F6190068CA9D /* PaymentHistoryFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7A31EB9F6190068CA9D /* PaymentHistoryFooter.swift */; };
-		84A4E7BC1EBA0A290068CA9D /* AlamofireImplementations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7A61EBA0A290068CA9D /* AlamofireImplementations.swift */; };
-		84A4E7BD1EBA0A290068CA9D /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7A71EBA0A290068CA9D /* APIHelper.swift */; };
-		84A4E7BE1EBA0A290068CA9D /* AccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7A91EBA0A290068CA9D /* AccountAPI.swift */; };
-		84A4E7BF1EBA0A290068CA9D /* ConnectAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7AA1EBA0A290068CA9D /* ConnectAPI.swift */; };
-		84A4E7C01EBA0A290068CA9D /* NewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7AB1EBA0A290068CA9D /* NewsAPI.swift */; };
-		84A4E7C11EBA0A290068CA9D /* PayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7AC1EBA0A290068CA9D /* PayAPI.swift */; };
-		84A4E7C21EBA0A290068CA9D /* PaymentsHandlerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7AD1EBA0A290068CA9D /* PaymentsHandlerAPI.swift */; };
-		84A4E7C31EBA0A290068CA9D /* ProjectsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7AE1EBA0A290068CA9D /* ProjectsAPI.swift */; };
-		84A4E7C41EBA0A290068CA9D /* TransactionsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7AF1EBA0A290068CA9D /* TransactionsAPI.swift */; };
-		84A4E7C51EBA0A290068CA9D /* APIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7B01EBA0A290068CA9D /* APIs.swift */; };
-		84A4E7C61EBA0A290068CA9D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7B11EBA0A290068CA9D /* Extensions.swift */; };
-		84A4E7C71EBA0A290068CA9D /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7B31EBA0A290068CA9D /* ApiError.swift */; };
-		84A4E7C81EBA0A290068CA9D /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7B41EBA0A290068CA9D /* AuthToken.swift */; };
-		84A4E7C91EBA0A290068CA9D /* DetailedUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7B51EBA0A290068CA9D /* DetailedUserInfo.swift */; };
-		84A4E7CA1EBA0A290068CA9D /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7B61EBA0A290068CA9D /* News.swift */; };
-		84A4E7CB1EBA0A290068CA9D /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7B71EBA0A290068CA9D /* Project.swift */; };
-		84A4E7CC1EBA0A290068CA9D /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7B81EBA0A290068CA9D /* RegisterModel.swift */; };
-		84A4E7CD1EBA0A290068CA9D /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7B91EBA0A290068CA9D /* Transaction.swift */; };
-		84A4E7CE1EBA0A290068CA9D /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7BA1EBA0A290068CA9D /* UserInfo.swift */; };
-		84A4E7CF1EBA0A290068CA9D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4E7BB1EBA0A290068CA9D /* Models.swift */; };
 		84AC710E1E61653C0023DDB7 /* ReloadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AC710D1E61653C0023DDB7 /* ReloadView.xib */; };
 		84AC71101E61654B0023DDB7 /* ReloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC710F1E61654B0023DDB7 /* ReloadView.swift */; };
 		84AC71121E617B2D0023DDB7 /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC71111E617B2D0023DDB7 /* ProjectListViewController.swift */; };
@@ -164,6 +164,26 @@
 		843FE0C51EB27C54007ACFE5 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		843FE0C71EB28407007ACFE5 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		843FE0C91EB3D95E007ACFE5 /* RoundImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
+		846102931EC4C78600941E25 /* AlamofireImplementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImplementations.swift; sourceTree = "<group>"; };
+		846102941EC4C78600941E25 /* APIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
+		846102961EC4C78600941E25 /* AccountAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountAPI.swift; sourceTree = "<group>"; };
+		846102971EC4C78600941E25 /* ConnectAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectAPI.swift; sourceTree = "<group>"; };
+		846102981EC4C78600941E25 /* NewsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsAPI.swift; sourceTree = "<group>"; };
+		846102991EC4C78600941E25 /* PayAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAPI.swift; sourceTree = "<group>"; };
+		8461029A1EC4C78600941E25 /* PaymentsHandlerAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsHandlerAPI.swift; sourceTree = "<group>"; };
+		8461029B1EC4C78600941E25 /* ProjectsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsAPI.swift; sourceTree = "<group>"; };
+		8461029C1EC4C78600941E25 /* TransactionsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsAPI.swift; sourceTree = "<group>"; };
+		8461029D1EC4C78600941E25 /* APIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
+		8461029E1EC4C78600941E25 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		846102A01EC4C78600941E25 /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		846102A11EC4C78600941E25 /* AuthToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
+		846102A21EC4C78600941E25 /* DetailedUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedUserInfo.swift; sourceTree = "<group>"; };
+		846102A31EC4C78600941E25 /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		846102A41EC4C78600941E25 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		846102A51EC4C78600941E25 /* RegisterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
+		846102A61EC4C78600941E25 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		846102A71EC4C78600941E25 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		846102A81EC4C78600941E25 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		847FCAE11E977D3500BF6698 /* Project_ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project_ext.swift; sourceTree = "<group>"; };
 		848F96E41E59C75300CC07CC /* UserInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
 		848F96E51E59C75300CC07CC /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
@@ -182,26 +202,6 @@
 		84A4E79E1EB90DF40068CA9D /* PaymentHistoryHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentHistoryHeader.swift; sourceTree = "<group>"; };
 		84A4E7A11EB9F6010068CA9D /* PaymentHistoryFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentHistoryFooter.xib; sourceTree = "<group>"; };
 		84A4E7A31EB9F6190068CA9D /* PaymentHistoryFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentHistoryFooter.swift; sourceTree = "<group>"; };
-		84A4E7A61EBA0A290068CA9D /* AlamofireImplementations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImplementations.swift; sourceTree = "<group>"; };
-		84A4E7A71EBA0A290068CA9D /* APIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
-		84A4E7A91EBA0A290068CA9D /* AccountAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountAPI.swift; sourceTree = "<group>"; };
-		84A4E7AA1EBA0A290068CA9D /* ConnectAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectAPI.swift; sourceTree = "<group>"; };
-		84A4E7AB1EBA0A290068CA9D /* NewsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsAPI.swift; sourceTree = "<group>"; };
-		84A4E7AC1EBA0A290068CA9D /* PayAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAPI.swift; sourceTree = "<group>"; };
-		84A4E7AD1EBA0A290068CA9D /* PaymentsHandlerAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsHandlerAPI.swift; sourceTree = "<group>"; };
-		84A4E7AE1EBA0A290068CA9D /* ProjectsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsAPI.swift; sourceTree = "<group>"; };
-		84A4E7AF1EBA0A290068CA9D /* TransactionsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsAPI.swift; sourceTree = "<group>"; };
-		84A4E7B01EBA0A290068CA9D /* APIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
-		84A4E7B11EBA0A290068CA9D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		84A4E7B31EBA0A290068CA9D /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
-		84A4E7B41EBA0A290068CA9D /* AuthToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
-		84A4E7B51EBA0A290068CA9D /* DetailedUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedUserInfo.swift; sourceTree = "<group>"; };
-		84A4E7B61EBA0A290068CA9D /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
-		84A4E7B71EBA0A290068CA9D /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		84A4E7B81EBA0A290068CA9D /* RegisterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
-		84A4E7B91EBA0A290068CA9D /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		84A4E7BA1EBA0A290068CA9D /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
-		84A4E7BB1EBA0A290068CA9D /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		84AC710D1E61653C0023DDB7 /* ReloadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReloadView.xib; sourceTree = "<group>"; };
 		84AC710F1E61654B0023DDB7 /* ReloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadView.swift; sourceTree = "<group>"; };
 		84AC71111E617B2D0023DDB7 /* ProjectListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
@@ -372,6 +372,49 @@
 			name = NewsHeaderCell;
 			sourceTree = "<group>";
 		};
+		846102921EC4C78600941E25 /* Swaggers */ = {
+			isa = PBXGroup;
+			children = (
+				846102931EC4C78600941E25 /* AlamofireImplementations.swift */,
+				846102941EC4C78600941E25 /* APIHelper.swift */,
+				846102951EC4C78600941E25 /* APIs */,
+				8461029D1EC4C78600941E25 /* APIs.swift */,
+				8461029E1EC4C78600941E25 /* Extensions.swift */,
+				8461029F1EC4C78600941E25 /* Models */,
+				846102A81EC4C78600941E25 /* Models.swift */,
+			);
+			path = Swaggers;
+			sourceTree = "<group>";
+		};
+		846102951EC4C78600941E25 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				846102961EC4C78600941E25 /* AccountAPI.swift */,
+				846102971EC4C78600941E25 /* ConnectAPI.swift */,
+				846102981EC4C78600941E25 /* NewsAPI.swift */,
+				846102991EC4C78600941E25 /* PayAPI.swift */,
+				8461029A1EC4C78600941E25 /* PaymentsHandlerAPI.swift */,
+				8461029B1EC4C78600941E25 /* ProjectsAPI.swift */,
+				8461029C1EC4C78600941E25 /* TransactionsAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		8461029F1EC4C78600941E25 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				846102A01EC4C78600941E25 /* ApiError.swift */,
+				846102A11EC4C78600941E25 /* AuthToken.swift */,
+				846102A21EC4C78600941E25 /* DetailedUserInfo.swift */,
+				846102A31EC4C78600941E25 /* News.swift */,
+				846102A41EC4C78600941E25 /* Project.swift */,
+				846102A51EC4C78600941E25 /* RegisterModel.swift */,
+				846102A61EC4C78600941E25 /* Transaction.swift */,
+				846102A71EC4C78600941E25 /* UserInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		847FCAE01E977D2000BF6698 /* SwaggersExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,49 +521,6 @@
 				84A4E7A31EB9F6190068CA9D /* PaymentHistoryFooter.swift */,
 			);
 			name = PaymentHistoryFooter;
-			sourceTree = "<group>";
-		};
-		84A4E7A51EBA0A290068CA9D /* Swaggers */ = {
-			isa = PBXGroup;
-			children = (
-				84A4E7A81EBA0A290068CA9D /* APIs */,
-				84A4E7B21EBA0A290068CA9D /* Models */,
-				84A4E7A61EBA0A290068CA9D /* AlamofireImplementations.swift */,
-				84A4E7A71EBA0A290068CA9D /* APIHelper.swift */,
-				84A4E7B01EBA0A290068CA9D /* APIs.swift */,
-				84A4E7B11EBA0A290068CA9D /* Extensions.swift */,
-				84A4E7BB1EBA0A290068CA9D /* Models.swift */,
-			);
-			path = Swaggers;
-			sourceTree = "<group>";
-		};
-		84A4E7A81EBA0A290068CA9D /* APIs */ = {
-			isa = PBXGroup;
-			children = (
-				84A4E7A91EBA0A290068CA9D /* AccountAPI.swift */,
-				84A4E7AA1EBA0A290068CA9D /* ConnectAPI.swift */,
-				84A4E7AB1EBA0A290068CA9D /* NewsAPI.swift */,
-				84A4E7AC1EBA0A290068CA9D /* PayAPI.swift */,
-				84A4E7AD1EBA0A290068CA9D /* PaymentsHandlerAPI.swift */,
-				84A4E7AE1EBA0A290068CA9D /* ProjectsAPI.swift */,
-				84A4E7AF1EBA0A290068CA9D /* TransactionsAPI.swift */,
-			);
-			path = APIs;
-			sourceTree = "<group>";
-		};
-		84A4E7B21EBA0A290068CA9D /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				84A4E7B31EBA0A290068CA9D /* ApiError.swift */,
-				84A4E7B41EBA0A290068CA9D /* AuthToken.swift */,
-				84A4E7B51EBA0A290068CA9D /* DetailedUserInfo.swift */,
-				84A4E7B61EBA0A290068CA9D /* News.swift */,
-				84A4E7B71EBA0A290068CA9D /* Project.swift */,
-				84A4E7B81EBA0A290068CA9D /* RegisterModel.swift */,
-				84A4E7B91EBA0A290068CA9D /* Transaction.swift */,
-				84A4E7BA1EBA0A290068CA9D /* UserInfo.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		84AC71081E61639A0023DDB7 /* TableViewReload */ = {
@@ -669,7 +669,7 @@
 				84B3A7491E55D874000CA32E /* Classes */,
 				84B3A7461E55D31A000CA32E /* Server */,
 				849BB7601EB8FF5B005E85BB /* Storyboards */,
-				84A4E7A51EBA0A290068CA9D /* Swaggers */,
+				846102921EC4C78600941E25 /* Swaggers */,
 				84DDFA721E546BCD0073DFFC /* AppDelegate.swift */,
 				84DDFA7C1E546BCD0073DFFC /* Assets.xcassets */,
 				84DDFA7E1E546BCD0073DFFC /* LaunchScreen.storyboard */,
@@ -865,43 +865,49 @@
 			buildActionMask = 2147483647;
 			files = (
 				848F96E91E59CA9300CC07CC /* UserInfoRow.swift in Sources */,
+				846102AC1EC4C78600941E25 /* ConnectAPI.swift in Sources */,
+				846102B01EC4C78600941E25 /* ProjectsAPI.swift in Sources */,
 				843FE0C41EB27C1F007ACFE5 /* RoundBorderButton.swift in Sources */,
 				848F96ED1E59D82300CC07CC /* UserPhotoEditCell.swift in Sources */,
 				849759C81E5A57CA0065BDCB /* ProjectsTableViewController.swift in Sources */,
+				846102B71EC4C78600941E25 /* News.swift in Sources */,
 				8497B3E31E680CA100AD79A2 /* OrdinalButtonContentView.swift in Sources */,
 				84D496CD1E618ECD00AF0B67 /* ProjectDetailsViewController.swift in Sources */,
-				84A4E7C11EBA0A290068CA9D /* PayAPI.swift in Sources */,
-				84A4E7CC1EBA0A290068CA9D /* RegisterModel.swift in Sources */,
 				84CCD97C1EAE0B8B00A774CE /* NewsHeaderCell.swift in Sources */,
 				849DEFD71E65B90700A82EA9 /* UpDownRow.swift in Sources */,
 				84DDFA731E546BCD0073DFFC /* AppDelegate.swift in Sources */,
 				84B3A7481E55D350000CA32E /* Server.swift in Sources */,
 				84BF51251E57137000B50ADB /* ChangePasswordViewController.swift in Sources */,
-				84A4E7C81EBA0A290068CA9D /* AuthToken.swift in Sources */,
-				84A4E7C31EBA0A290068CA9D /* ProjectsAPI.swift in Sources */,
+				846102BA1EC4C78600941E25 /* Transaction.swift in Sources */,
 				84DDFA7B1E546BCD0073DFFC /* PlantTree.xcdatamodeld in Sources */,
 				84AC71121E617B2D0023DDB7 /* ProjectListViewController.swift in Sources */,
 				84BED8CB1EBB3A44008CF181 /* RoundButtonRow.swift in Sources */,
-				84A4E7BC1EBA0A290068CA9D /* AlamofireImplementations.swift in Sources */,
+				846102B11EC4C78600941E25 /* TransactionsAPI.swift in Sources */,
 				84BF51211E5709E400B50ADB /* ChangePersonalDataViewController.swift in Sources */,
 				84F58C521E63827F0092EA82 /* PlantTreeViewController.swift in Sources */,
 				58603675DB7B89C392D9F207 /* Credentials.swift in Sources */,
 				84BF51231E57107900B50ADB /* ChangeEmailViewController.swift in Sources */,
 				84F58C4E1E6371CC0092EA82 /* NewsViewController.swift in Sources */,
+				846102B21EC4C78600941E25 /* APIs.swift in Sources */,
 				84D496DB1E6237E200AF0B67 /* UIView.swift in Sources */,
 				84F58C501E6378890092EA82 /* OperationInfo.swift in Sources */,
 				5860321E46D4171318DC8DED /* ErrorType.swift in Sources */,
 				84BF512E1E571E0500B50ADB /* MyTabBarController.swift in Sources */,
+				846102AD1EC4C78600941E25 /* NewsAPI.swift in Sources */,
+				846102B91EC4C78600941E25 /* RegisterModel.swift in Sources */,
 				847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */,
+				846102AA1EC4C78600941E25 /* APIHelper.swift in Sources */,
+				846102AE1EC4C78600941E25 /* PayAPI.swift in Sources */,
+				846102A91EC4C78600941E25 /* AlamofireImplementations.swift in Sources */,
 				84B3A74E1E563F8F000CA32E /* RegistrationViewController.swift in Sources */,
 				843FE0C61EB27C54007ACFE5 /* FacebookButton.swift in Sources */,
-				84A4E7BD1EBA0A290068CA9D /* APIHelper.swift in Sources */,
 				84D6B62F1E998D60002F38F8 /* DetailedUserInfo_ext.swift in Sources */,
 				58603FB0E67EDEC6EF6CB540 /* PersonalData.swift in Sources */,
+				846102AF1EC4C78600941E25 /* PaymentsHandlerAPI.swift in Sources */,
 				84BF511F1E56E3A000B50ADB /* SettingsViewController.swift in Sources */,
-				84A4E7C71EBA0A290068CA9D /* ApiError.swift in Sources */,
 				84BF511D1E5657A500B50ADB /* ForgotPasswordViewController.swift in Sources */,
 				843FE0C21EB26F67007ACFE5 /* LoginViewController.swift in Sources */,
+				846102BB1EC4C78600941E25 /* UserInfo.swift in Sources */,
 				9F8F52B01EC250D8008085E8 /* RoundButtonCellNewTableViewCell.swift in Sources */,
 				84CCD9811EAE137D00A774CE /* NewsBodyCell.swift in Sources */,
 				9F8F52B31EC25153008085E8 /* RoundButtonRowNew.swift in Sources */,
@@ -909,52 +915,46 @@
 				84CCD9851EAE139100A774CE /* NewsFooterCell.swift in Sources */,
 				849759C01E59DC950065BDCB /* UserPhotoEditRow.swift in Sources */,
 				84F58C591E6AD68F0092EA82 /* PlantTreeViewController2.swift in Sources */,
-				84A4E7CA1EBA0A290068CA9D /* News.swift in Sources */,
-				84A4E7CE1EBA0A290068CA9D /* UserInfo.swift in Sources */,
+				846102BC1EC4C78600941E25 /* Models.swift in Sources */,
+				846102AB1EC4C78600941E25 /* AccountAPI.swift in Sources */,
 				5860351528CE5E42FF05A832 /* Gender.swift in Sources */,
 				84AC71151E6181BD0023DDB7 /* TableViewUnauthorized.swift in Sources */,
 				5860310FAC58B23CBBD0FC0A /* ApiTargets.swift in Sources */,
 				9F8F52A41EC1C9E3008085E8 /* AboutViewController.swift in Sources */,
+				846102B81EC4C78600941E25 /* Project.swift in Sources */,
 				586038664639E0FC529136A4 /* Date.swift in Sources */,
 				84BF512C1E571DC100B50ADB /* Db.swift in Sources */,
-				84A4E7C21EBA0A290068CA9D /* PaymentsHandlerAPI.swift in Sources */,
 				84BF51271E5713D900B50ADB /* PaymentHistoryViewController.swift in Sources */,
-				84A4E7C41EBA0A290068CA9D /* TransactionsAPI.swift in Sources */,
 				848F96E61E59C75300CC07CC /* UserInfoCell.swift in Sources */,
 				58603238B5DCC31835F33686 /* LoadingIndicatorView.swift in Sources */,
 				843FE0C81EB28407007ACFE5 /* ProfileViewController.swift in Sources */,
-				84A4E7CB1EBA0A290068CA9D /* Project.swift in Sources */,
 				84BED8CE1EBB3ACD008CF181 /* RoundButtonCell.swift in Sources */,
-				84A4E7C01EBA0A290068CA9D /* NewsAPI.swift in Sources */,
 				849DEFDA1E67F77700A82EA9 /* BigButtonContentView.swift in Sources */,
 				9F8F52AC1EC1DE6E008085E8 /* ReloadIndicatorFooter.swift in Sources */,
 				849DEFD41E65B5A100A82EA9 /* UpDownCellTableViewCell.swift in Sources */,
+				846102B51EC4C78600941E25 /* AuthToken.swift in Sources */,
 				58603BAC16FB696E0F8962B4 /* ProjectInfo.swift in Sources */,
+				846102B61EC4C78600941E25 /* DetailedUserInfo.swift in Sources */,
 				586032733EB1FDEFA0082231 /* ProjectStatus.swift in Sources */,
 				84A4E7A41EB9F6190068CA9D /* PaymentHistoryFooter.swift in Sources */,
+				846102B31EC4C78600941E25 /* Extensions.swift in Sources */,
 				84AC71101E61654B0023DDB7 /* ReloadView.swift in Sources */,
 				84D496D41E61AD7300AF0B67 /* NewsPiece.swift in Sources */,
-				84A4E7BE1EBA0A290068CA9D /* AccountAPI.swift in Sources */,
 				5860362AF819362FBB73FB2C /* ProjectListType.swift in Sources */,
+				846102B41EC4C78600941E25 /* ApiError.swift in Sources */,
 				84A4E79F1EB90DF40068CA9D /* PaymentHistoryHeader.swift in Sources */,
 				58603A987F70AD3CB3D08BF7 /* Int.swift in Sources */,
 				843FE0CA1EB3D95E007ACFE5 /* RoundImageView.swift in Sources */,
 				58603AC6856FF5A342469512 /* ProjectCell.swift in Sources */,
-				84A4E7C91EBA0A290068CA9D /* DetailedUserInfo.swift in Sources */,
 				586031A91434045C034ABABC /* NewsBandSeparatorCell.swift in Sources */,
 				586032471BB1A211330BC18E /* ProjectDetailsCell.swift in Sources */,
 				9F8F52A71EC1D482008085E8 /* UIImage.swift in Sources */,
 				58603920EC618B4660EAD957 /* PaymentHistoryCell.swift in Sources */,
-				84A4E7CD1EBA0A290068CA9D /* Transaction.swift in Sources */,
-				84A4E7BF1EBA0A290068CA9D /* ConnectAPI.swift in Sources */,
 				5860346D34210FA8A50E5A66 /* ProjectNewsCell.swift in Sources */,
 				58603FE064F7C6E39F930625 /* News_ext.swift in Sources */,
-				84A4E7C51EBA0A290068CA9D /* APIs.swift in Sources */,
 				843FE0C01EB26EA9007ACFE5 /* LoginTextField.swift in Sources */,
-				84A4E7C61EBA0A290068CA9D /* Extensions.swift in Sources */,
 				586034FD900A39ABB47843BC /* SmallTabBarContentView.swift in Sources */,
 				5860381AC7C95E6FE26E042C /* DesignerColors.swift in Sources */,
-				84A4E7CF1EBA0A290068CA9D /* Models.swift in Sources */,
 				586035FE5542C8A1788BB366 /* Transaction_ext.swift in Sources */,
 				5860324F7805120FD45E9B14 /* ReloadableViewController.swift in Sources */,
 				58603AE0BA4215DEF176692B /* RoundLabel.swift in Sources */,

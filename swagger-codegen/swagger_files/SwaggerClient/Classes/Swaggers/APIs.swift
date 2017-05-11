@@ -7,7 +7,7 @@
 import Foundation
 
 open class SwaggerClientAPI {
-    open static var basePath = "http://rasuldev-001-site28.btempurl.com/"
+    open static var basePath = "https://rasuldev-001-site28.btempurl.com/"
     open static var credential: URLCredential?
     open static var customHeaders: [String:String] = [:]
     static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()

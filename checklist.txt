@@ -23,8 +23,8 @@ news page
 
 facebook login!
 
-reload page on viewDidAppear
-fix reloadVisiblePages. Consider case when total number of items can change (may be problem with endReached)
+-reload page on viewDidAppear
+-fix reloadVisiblePages. Consider case when total number of items can change (may be problem with endReached)
 
 +loading indicator on news
 
