@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FacebookCore
+import FacebookLogin
+
 
 class LoginViewController : ReloadableViewController, UITextFieldDelegate {
     @IBOutlet weak var v_Container: UIView!
@@ -64,6 +67,8 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        btn_Facebook.addTarget(self, action: #selector(self.facebookButtonClicked), for: .touchUpInside)
+
         self.navigationItem.title = "Аккаунт"
         tf_Email.delegate = self
         tf_Password.delegate = self
@@ -80,6 +85,33 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
         if Db.isAuthorized() {
             self.performSegue(withIdentifier: "LOGIN_WITHOUT_ANIMATION", sender: self)
         }
+    }
+
+    func facebookButtonClicked() {
+        let loginManager = LoginManager()
+        loginManager.logIn([.publicProfile], viewController: self, completion: { [weak self] loginResult in
+            switch loginResult {
+            case .failed(let error):
+                if let s = self {
+                    Alerts.ShowErrorAlertWithOK(sender: s, title: "Ошибка", message: "Произошла ошибка при попытке войти в аккаунт (\(error.localizedDescription))", completion: nil)
+                }
+            case .cancelled:
+                break
+            case .success(let grantedPermissions, let declinedPermissions, let facebookToken):
+                Server.SignInWithFacebook(
+                    facebookToken: facebookToken.authenticationToken,
+                    SUCCESS: { c in
+                        if let s = self {
+                            s.performSegue(withIdentifier: "LOGIN_WITHOUT_ANIMATION", sender: s)
+                        }
+                    },
+                    ERROR: { et, msg in
+                        if let s = self {
+                            Alerts.ShowErrorAlertWithOK(sender: s, title: "Ошибка", message: "Не удалось зайти через Facebook", completion: nil)
+                        }
+                    })
+            }
+        })
     }
 
     func keyboardShown(notification: NSNotification) {

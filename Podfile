@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'PlantTree' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -17,7 +17,10 @@ target 'PlantTree' do
   pod 'ImageSlideshow'
   pod 'ImageSlideshow/Kingfisher'
   pod 'ESTabBarController-swift'
-  # pod 'SwaggerClient', :path => 'SwaggerAPI/'
+  
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
 end
 
 post_install do |installer|
