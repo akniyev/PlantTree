@@ -21,16 +21,22 @@ class ForgotPasswordViewController : FormViewController {
                 row.add(rule: RuleRequired())
             }
             +++ Section()
-            <<< ButtonRow() { row in
-                row.title = "Сбросить пароль"
-                row.onCellSelection(self.resetPasswordAction)
+            <<< RoundButtonRowNew() { row in
+                row.titleForButton = "Сбросить пароль"
+                row.presetGreenBackground()
+                row.onCellSelection{[weak self] _,_ in
+                    self?.resetPasswordAction()
+                }
             }
     }
     
-    func resetPasswordAction(cell: ButtonCellOf<String>, row: ButtonRow) {
+    func resetPasswordAction() {
         let errors = form.validate()
         
         for row in form.allRows {
+            if row is RoundButtonRowNew {
+                continue
+            }
             if !row.isValid {
                 row.baseCell.backgroundColor = UIColor(red: 1, green: 0.8, blue: 0.8, alpha: 1)
             } else {

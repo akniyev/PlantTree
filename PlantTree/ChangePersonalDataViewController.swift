@@ -43,9 +43,13 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
         let green = UIColor(red: 87/255, green: 188/255, blue: 125/255, alpha: 1)
         
         super.viewDidLoad()
+        self.tableView?.delaysContentTouches = false
+//        for case let x as UIScrollView in self.tableView!.subviews {
+//            x.delaysContentTouches = false
+//        }
         self.tableView?.backgroundColor = UIColor(red: 230/255, green: 237/255, blue: 244/255, alpha: 1.0)
         self.navigationItem.title = "Личные данные"
-        self.tableView?.separatorStyle = .none
+//        self.tableView?.separatorStyle = .none
         self.form +++ Section() <<< UserPhotoEditRow() { row in
             row.tag = "photo"
             row.value = pd?.photoUrlSmall
@@ -108,32 +112,23 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
             row.tag = "birthdate"
             //row.add(rule: RuleRequired())
             row.value = pd?.birthdate ?? nil
-        } +++ Section() <<< RoundButtonRow() { row in
-            row.value = "Сменить пароль"
+        } +++ Section() <<< RoundButtonRowNew() { row in
+            row.titleForButton = "Сменить пароль"
+            row.presetGreenBorder()
             
-            row.button?.borderColor = green
-            row.button?.borderColorPressed = UIColor(red: 87/255/2, green: 188/255/2, blue: 125/255/2, alpha: 1)
-            
-            row.button?.filled = false
-            row.button?.borderWidth = 2
-            row.button?.setTitleColor(green, for: .normal)
-            
-            row.action = {
-                self.changePasswordAction() //cell: row.cell, row: row)
+            row.onCellSelection { cell ,row in
+                self.changePasswordAction()
             }
-        } <<< RoundButtonRow() { row in
-            row.value = "Сохранить"
-            row.button?.fillColor = UIColor(red: 87/255, green: 188/255, blue: 125/255, alpha: 1)
-            row.button?.fillColorPressed = UIColor(red: 87/255/2, green: 188/255/2, blue: 125/255/2, alpha: 1)
-            
-            row.button?.filled = true
-            row.button?.borderWidth = 0
-            row.button?.setTitleColor(UIColor.white, for: .normal)
-            
-            row.action = {
-                self.personalDataSaveAction()
-            }
+        } <<< RoundButtonRowNew() { row in
+                row.titleForButton = "Сохранить"
+                row.presetGreenBackground()
+                
+                row.onCellSelection { cell ,row in
+                    self.personalDataSaveAction()
+                }
         }
+        
+        
     }
     
     func changePasswordAction() {//cell: ButtonCellOf<String>, row: ButtonRow) {
@@ -198,7 +193,7 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
             let vs = form.values()
             let first_name = (vs["firstname"] as? String) ?? ""
             let second_name = (vs["secondname"] as? String) ?? ""
-            let birthdate = (vs["birthdate"] as? Date) ?? Date()
+            let birthdate: Date? = vs["birthdate"] as? Date
             let gender = Gender.fromRussianFormat(code: (vs["gender"] as? String) ?? "Не задан")
             var image : UIImage? = nil
             if let imgRow = (form.rowBy(tag: "photo") as? UserPhotoEditRow) {

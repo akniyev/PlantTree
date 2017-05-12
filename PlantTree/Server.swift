@@ -320,11 +320,11 @@ class Server {
         })
     }
 
-    static func changePersonalData(image: UIImage?, first_name: String, second_name: String, gender: Gender, birth_date: Date,
+    static func changePersonalData(image: UIImage?, first_name: String, second_name: String, gender: Gender, birth_date: Date?,
                                    SUCCESS: (()->())?, ERROR: ((ErrorType, String)->())?) {
         MakeAuthorizedRequest(SUCCESS: { cred in
             let userInfo = UserInfo()
-            userInfo.birthday = birth_date.toRussianFormat()
+            userInfo.birthday = birth_date?.toRussianFormat() ?? ""
             userInfo.name = first_name
             userInfo.lastName = second_name
             userInfo.gender = gender.toJsonCode()

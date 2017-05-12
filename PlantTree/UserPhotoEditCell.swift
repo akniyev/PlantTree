@@ -33,6 +33,11 @@ class UserPhotoEditCell: Cell<String>, CellType {
         super.init(coder: aDecoder)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.separatorInset = UIEdgeInsets(top: 0, left: self.bounds.width, bottom: 0, right: 0)
+    }
+    
     override func setup() {
         super.setup()
         // we do not want our cell to be selected in this case.

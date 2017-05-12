@@ -14,38 +14,44 @@ class ChangePasswordViewController : FormViewController {
         super.viewDidLoad()
         navigationItem.title = "Смена пароля"
         form
-            +++ Section()
-            <<< PasswordRow() { row in
-                row.tag = "password_old"
-                row.placeholder = "Введите старый пароль"
-                row.add(rule: RuleMinLength(minLength: 6))
-                row.add(rule: RuleRequired())
+        +++ Section()
+        <<< PasswordRow() { row in
+            row.tag = "password_old"
+            row.placeholder = "Введите старый пароль"
+            row.add(rule: RuleMinLength(minLength: 6))
+            row.add(rule: RuleRequired())
+        }
+        +++ Section()
+        <<< PasswordRow() { row in
+            row.tag = "password1"
+            row.placeholder = "Введите новый пароль"
+            row.add(rule: RuleMinLength(minLength: 6))
+            row.add(rule: RuleRequired())
+        }
+        <<< PasswordRow() { row in
+            row.tag = "password2"
+            row.placeholder = "Введите новый пароль еще раз"
+            row.add(rule: RuleEqualsToRow(form: form, tag: "password1"))
+            row.add(rule: RuleMinLength(minLength: 6))
+            row.add(rule: RuleRequired())
+        }
+        +++ Section()
+        <<< RoundButtonRowNew() { [weak self] row in
+            row.presetGreenBackground()
+            row.titleForButton = "Сменить пароль"
+            row.onCellSelection{_,_ in
+                self?.changePasswordAction()
             }
-            +++ Section()
-            <<< PasswordRow() { row in
-                row.tag = "password1"
-                row.placeholder = "Введите новый пароль"
-                row.add(rule: RuleMinLength(minLength: 6))
-                row.add(rule: RuleRequired())
-            }
-            <<< PasswordRow() { row in
-                row.tag = "password2"
-                row.placeholder = "Введите новый пароль еще раз"
-                row.add(rule: RuleEqualsToRow(form: form, tag: "password1"))
-                row.add(rule: RuleMinLength(minLength: 6))
-                row.add(rule: RuleRequired())
-            }
-            +++ Section()
-            <<< ButtonRow() { row in
-                row.title = "Изменить"
-                row.onCellSelection(self.changePasswordAction)
-            }
+        }
     }
     
-    func changePasswordAction(cell: ButtonCellOf<String>, row: ButtonRow) {
+    func changePasswordAction() {
         let _ = form.validate()
         var haveErrors = false
         for row in form.allRows {
+            if row is RoundButtonRowNew {
+                continue
+            }
             if !row.isValid {
                 row.baseCell.backgroundColor = UIColor(red: 1, green: 0.8, blue: 0.8, alpha: 1)
                 haveErrors = true

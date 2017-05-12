@@ -17,17 +17,15 @@
 +about page
 	+design (decide what to use html or iOS controls)
 
-error when can't file email (maybe we should allow user to change email)
 
-news page
-	share button
-	online link
 
 +facebook login!
 	add permissions to read user data from Facebook
 
-add ability to partially fill personal data (leave blank data field for example)
++add ability to partially fill personal data (leave blank data field for example)
 	add button to clear Date in personal settings
+
+
 
 -reload page on viewDidAppear
 -fix reloadVisiblePages. Consider case when total number of items can change (may be problem with endReached)
@@ -37,17 +35,27 @@ add ability to partially fill personal data (leave blank data field for example)
 +loading indicator inside tabs
 
 //All below demands new Eureka rows
-make normal round button cells!
++make normal round button cells!
 
-change password
-	design
++change password
+	+design
+
++forgot password
+	+design
+
++registration
+	+design
 
 account page
 	photo preview
 	confirm email error (when email is absent)
 
-forgot password
-	design
+news page
+	share button
+	online link
 
-registration
-	design
+make personal LoadingIndicatorView (now it's global and disappeared sometimes)
+
+remove extra line separators in eureka tables
+
+connect payment system

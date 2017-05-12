@@ -64,16 +64,22 @@ class RegistrationViewController : FormViewController {
                 row.add(rule: RuleRequired())
             }
             +++ Section()
-            <<< ButtonRow() { row in
-                row.title = "Зарегистрироваться"
-                row.onCellSelection(self.registerAction)
+            <<< RoundButtonRowNew() { row in
+                row.titleForButton = "Зарегистрироваться"
+                row.presetGreenBackground()
+                row.onCellSelection{[weak self] _,_ in
+                    self?.registerAction()
+                }
             }
     }
     
-    func registerAction(cell: ButtonCellOf<String>, row: ButtonRow) {
+    func registerAction() {
         let errors = form.validate()
         
         for row in form.allRows {
+            if row is RoundButtonRowNew {
+                continue
+            }
             if !row.isValid {
                 row.baseCell.backgroundColor = UIColor(red: 1, green: 0.8, blue: 0.8, alpha: 1)
             } else {
