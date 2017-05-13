@@ -54,6 +54,8 @@ news page
 	share button
 	online link
 
+select trees count page
+
 make personal LoadingIndicatorView (now it's global and disappeared sometimes)
 
 remove extra line separators in eureka tables
