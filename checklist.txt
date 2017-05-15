@@ -47,14 +47,16 @@
 	+design
 
 account page
-	photo preview
+	+photo preview
 	confirm email error (when email is absent)
 
 news page
 	share button
 	online link
 
-select trees count page
++select trees count page
+
+custom radio buttons for gender selection
 
 make personal LoadingIndicatorView (now it's global and disappeared sometimes)
 

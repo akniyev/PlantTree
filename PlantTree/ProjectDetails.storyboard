@@ -14,13 +14,12 @@
         <!--Project Details View Controller-->
         <scene sceneID="pgo-Be-LNh">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="B7P-qq-8ji" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ProjectDetailsViewController" hidesBottomBarWhenPushed="YES" id="wJ7-NO-Vur" customClass="ProjectDetailsViewController" customModule="PlantTree" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dDN-EL-gMD"/>
                         <viewControllerLayoutGuide type="bottom" id="j8z-Bc-9VS"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="KXt-6b-1Em">
+                    <view key="view" contentMode="scaleToFill" id="KXt-6b-1Em">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -35,7 +34,7 @@
                                     <color key="titleColor" white="0.86285607990000002" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ykO-Z4-MXQ" kind="show" id="QZC-cT-SVf"/>
+                                    <action selector="btnPlantTreeTouched:" destination="wJ7-NO-Vur" eventType="touchUpInside" id="jdL-RS-TLs"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ScY-Ix-Bm6">
@@ -61,8 +60,10 @@
                         <outlet property="btnPlantTree" destination="lwE-Nk-yyo" id="0M3-ur-USm"/>
                         <outlet property="tvDetails" destination="ScY-Ix-Bm6" id="yLk-jg-6Rp"/>
                         <segue destination="gK4-lb-hdL" kind="show" identifier="showNews" id="Zma-lC-v25"/>
+                        <segue destination="ykO-Z4-MXQ" kind="show" identifier="PAYMENT_SYSTEM" id="bY9-EU-awO"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B7P-qq-8ji" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="782" y="-137"/>
         </scene>
@@ -207,7 +208,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tV-jJ-efL">
-                                <rect key="frame" x="75" y="556" width="225" height="42"/>
+                                <rect key="frame" x="29" y="556" width="318.5" height="42"/>
                                 <color key="backgroundColor" red="0.3411764706" green="0.73725490199999999" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="UcJ-vL-u0s"/>
@@ -216,6 +217,9 @@
                                 <state key="normal" title="Оплатить">
                                     <color key="titleColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnPayTouched:" destination="ykO-Z4-MXQ" eventType="touchUpInside" id="4y7-vK-od2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -225,7 +229,7 @@
                             <constraint firstItem="7RL-qq-aiw" firstAttribute="leading" secondItem="spN-wc-Omc" secondAttribute="leading" id="DTH-v8-OLs"/>
                             <constraint firstItem="KA3-8f-mZ0" firstAttribute="top" secondItem="3tV-jJ-efL" secondAttribute="bottom" constant="20" id="L27-T4-EG7"/>
                             <constraint firstItem="hvY-V6-h0k" firstAttribute="leading" secondItem="spN-wc-Omc" secondAttribute="leadingMargin" constant="14" id="OND-wl-Dgy"/>
-                            <constraint firstItem="3tV-jJ-efL" firstAttribute="width" secondItem="spN-wc-Omc" secondAttribute="width" multiplier="0.6" id="SZP-cq-ORg"/>
+                            <constraint firstItem="3tV-jJ-efL" firstAttribute="width" secondItem="spN-wc-Omc" secondAttribute="width" multiplier="0.85" id="SZP-cq-ORg"/>
                             <constraint firstItem="hvY-V6-h0k" firstAttribute="top" secondItem="exR-UY-TTd" secondAttribute="bottom" constant="33" id="Zck-yK-SdF"/>
                             <constraint firstItem="KA3-8f-mZ0" firstAttribute="top" secondItem="hvY-V6-h0k" secondAttribute="bottom" constant="96" id="bQV-1Z-Q2P"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hvY-V6-h0k" secondAttribute="trailing" constant="15" id="mqd-uR-VHC"/>

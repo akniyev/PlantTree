@@ -53,7 +53,16 @@ class UserPhotoEditCell: Cell<String>, CellType {
         
         // set a light background color for our cell
         backgroundColor = UIColor(red:0.984, green:0.988, blue:0.976, alpha:1.00)
+        
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+//            target: self,
+//            action: #selector(self.openBigPhoto))
+//        self.imgPhoto.addGestureRecognizer(tap)
     }
+    
+//    func openBigPhoto() {
+//        (row as? UserPhotoEditRow)?.imageTapAction?()
+//    }
     
     override func update() {
         super.update()

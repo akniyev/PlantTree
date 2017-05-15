@@ -43,7 +43,7 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
         let green = UIColor(red: 87/255, green: 188/255, blue: 125/255, alpha: 1)
         
         super.viewDidLoad()
-        self.tableView?.delaysContentTouches = false
+//        self.tableView?.delaysContentTouches = false
 //        for case let x as UIScrollView in self.tableView!.subviews {
 //            x.delaysContentTouches = false
 //        }
@@ -181,6 +181,9 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
         let errors = form.validate()
         var haveErrors = false
         for row in form.allRows {
+            if row is RoundButtonRowNew {
+                continue
+            }
             if !row.isValid {
                 row.baseCell.backgroundColor = UIColor(red: 1, green: 0.8, blue: 0.8, alpha: 1)
                 haveErrors = true

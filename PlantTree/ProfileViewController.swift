@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import SKPhotoBrowser
 
 class ProfileViewController : ReloadableViewController {
     @IBOutlet weak var img_ProfilePicture: RoundImageView!
@@ -83,7 +84,14 @@ class ProfileViewController : ReloadableViewController {
     }
 
     func openBigPhoto() {
-        print("TODO: Make photo open in a new view!")
+        if let pd = self.personalData {
+            let photo = SKPhoto.photoWithImageURL(pd.photoUrl)
+            photo.shouldCachePhotoURLImage = true
+            let images = [photo]
+            let browser = SKPhotoBrowser(photos: images)
+            browser.initializePageIndex(0)
+            self.present(browser, animated: true, completion: nil)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

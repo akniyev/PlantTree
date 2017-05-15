@@ -15,6 +15,19 @@ class ProjectDetailsViewController : UIViewController, UITableViewDataSource, UI
         return storyboard.instantiateInitialViewController() as? ProjectDetailsViewController
     }
 
+    @IBAction func btnPlantTreeTouched(_ sender: Any) {
+        if Db.isAuthorized() {
+            self.performSegue(withIdentifier: "PAYMENT_SYSTEM", sender: self)
+        } else {
+            Alerts.ShowAlert(sender: self, title: "Ошибка", message: "Для совершения платежа необходимо войти в систему. Перейти на страницу входа?", preferredStyle: .alert, actions: [
+                UIAlertAction(title: "Да", style: .default, handler: { [weak self] alertAction in
+                    self?.tabBarController?.selectedIndex = 4
+                    self?.navigationController?.popToRootViewController(animated: false)
+                }),
+                UIAlertAction(title: "Нет", style: .default, handler: nil)
+                ], completion: nil)
+        }
+    }
     var projectId : Int = -1
     
     var parentViewControllerProjects : [ProjectInfo]? = nil

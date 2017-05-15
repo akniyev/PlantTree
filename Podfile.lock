@@ -48,6 +48,7 @@ PODS:
   - RealmSwift (2.5.1):
     - Realm (= 2.5.1)
   - Result (3.2.1)
+  - SKPhotoBrowser (4.0.1)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - Kingfisher
   - Moya
   - RealmSwift
+  - SKPhotoBrowser
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -85,8 +87,9 @@ SPEC CHECKSUMS:
   Realm: 32f86104d37c8521f864d4274050b38ba6190733
   RealmSwift: f719e7511c902b8908593e8f143f59e47931bdb6
   Result: 2453a22e5c5b11c0c3a478736e82cd02f763b781
+  SKPhotoBrowser: 3a7c6fc02aa1620ab17253a47a49fafda46536e8
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 1bedbb6a943dac5e785dba5e5c404217e4623b75
+PODFILE CHECKSUM: d94e931995b5bee2a6d84ebf8288e8feb29e1756
 
 COCOAPODS: 1.2.1

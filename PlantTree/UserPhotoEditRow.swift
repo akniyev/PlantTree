@@ -27,4 +27,6 @@ final class UserPhotoEditRow : Row<UserPhotoEditCell>, RowType {
     var imageSelectAction : ((UserPhotoEditCell) -> ())?
     
     var imageDeleteAction : ((UserPhotoEditCell) -> ())?
+//    
+//    var imageTapAction : (() -> ())?
 }

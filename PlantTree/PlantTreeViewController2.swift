@@ -27,6 +27,10 @@ class PlantTreeViewController2 : UIViewController {
         minus()
     }
     
+    @IBAction func btnPayTouched(_ sender: Any) {
+        
+    }
+    
     var project : ProjectInfo? = nil
     var value = 1
     var maxValue = 0
