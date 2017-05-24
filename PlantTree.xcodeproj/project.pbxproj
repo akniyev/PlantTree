@@ -127,6 +127,9 @@
 		9F8F52B01EC250D8008085E8 /* RoundButtonCellNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F52AE1EC250D8008085E8 /* RoundButtonCellNew.swift */; };
 		9F8F52B11EC250D8008085E8 /* RoundButtonCellNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8F52AF1EC250D8008085E8 /* RoundButtonCellNew.xib */; };
 		9F8F52B31EC25153008085E8 /* RoundButtonRowNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F52B21EC25153008085E8 /* RoundButtonRowNew.swift */; };
+		9F93415D1EC9C41D003884B6 /* GenderSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F93415B1EC9C41D003884B6 /* GenderSelectorCell.swift */; };
+		9F93415E1EC9C41D003884B6 /* GenderSelectorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F93415C1EC9C41D003884B6 /* GenderSelectorCell.xib */; };
+		9F9341601EC9C429003884B6 /* GenderSelectorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F93415F1EC9C429003884B6 /* GenderSelectorRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -252,6 +255,9 @@
 		9F8F52AE1EC250D8008085E8 /* RoundButtonCellNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonCellNew.swift; sourceTree = "<group>"; };
 		9F8F52AF1EC250D8008085E8 /* RoundButtonCellNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoundButtonCellNew.xib; sourceTree = "<group>"; };
 		9F8F52B21EC25153008085E8 /* RoundButtonRowNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonRowNew.swift; sourceTree = "<group>"; };
+		9F93415B1EC9C41D003884B6 /* GenderSelectorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderSelectorCell.swift; sourceTree = "<group>"; };
+		9F93415C1EC9C41D003884B6 /* GenderSelectorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenderSelectorCell.xib; sourceTree = "<group>"; };
+		9F93415F1EC9C429003884B6 /* GenderSelectorRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderSelectorRow.swift; sourceTree = "<group>"; };
 		EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantTree.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlantTree/Pods-PlantTree.release.xcconfig"; sourceTree = "<group>"; };
 		F8F4F29879DA40C265550933 /* Pods_PlantTree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlantTree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -429,6 +435,7 @@
 		848F96E21E59C72A00CC07CC /* EurekaRows */ = {
 			isa = PBXGroup;
 			children = (
+				9F93415A1EC9C3FC003884B6 /* GenderSelectorRow */,
 				9F8F52AD1EC250A9008085E8 /* RoundButtonRowNew */,
 				84BED8C91EBB3A28008CF181 /* RoundButtonRow */,
 				849DEFD11E65B51A00A82EA9 /* UpDownRow */,
@@ -670,11 +677,8 @@
 				84B3A7461E55D31A000CA32E /* Server */,
 				849BB7601EB8FF5B005E85BB /* Storyboards */,
 				846102921EC4C78600941E25 /* Swaggers */,
-				84DDFA721E546BCD0073DFFC /* AppDelegate.swift */,
+				9F016F891EC9C77A00BBB65D /* Supporting Files */,
 				84DDFA7C1E546BCD0073DFFC /* Assets.xcassets */,
-				84DDFA7E1E546BCD0073DFFC /* LaunchScreen.storyboard */,
-				84DDFA811E546BCD0073DFFC /* Info.plist */,
-				84DDFA791E546BCD0073DFFC /* PlantTree.xcdatamodeld */,
 			);
 			path = PlantTree;
 			sourceTree = "<group>";
@@ -686,6 +690,17 @@
 				EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		9F016F891EC9C77A00BBB65D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				84DDFA721E546BCD0073DFFC /* AppDelegate.swift */,
+				84DDFA7E1E546BCD0073DFFC /* LaunchScreen.storyboard */,
+				84DDFA811E546BCD0073DFFC /* Info.plist */,
+				84DDFA791E546BCD0073DFFC /* PlantTree.xcdatamodeld */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		9F8F52A51EC1D477008085E8 /* Extensions */ = {
@@ -716,6 +731,16 @@
 				9F8F52AF1EC250D8008085E8 /* RoundButtonCellNew.xib */,
 			);
 			name = RoundButtonRowNew;
+			sourceTree = "<group>";
+		};
+		9F93415A1EC9C3FC003884B6 /* GenderSelectorRow */ = {
+			isa = PBXGroup;
+			children = (
+				9F93415B1EC9C41D003884B6 /* GenderSelectorCell.swift */,
+				9F93415C1EC9C41D003884B6 /* GenderSelectorCell.xib */,
+				9F93415F1EC9C429003884B6 /* GenderSelectorRow.swift */,
+			);
+			name = GenderSelectorRow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -802,6 +827,7 @@
 				586034FF9C7B39092FE27636 /* NewsBandSeparatorCell.xib in Resources */,
 				84CCD9821EAE137D00A774CE /* NewsBodyCell.xib in Resources */,
 				586039F1DD6547E792258A96 /* ProjectDetailsCell.xib in Resources */,
+				9F93415E1EC9C41D003884B6 /* GenderSelectorCell.xib in Resources */,
 				5860394204723E6F4A511EEB /* PaymentHistoryCell.xib in Resources */,
 				9F8F52AA1EC1DE61008085E8 /* ReloadIndicatorFooter.xib in Resources */,
 				5860349D01AD0F7E81AF1019 /* ProjectNewsCell.xib in Resources */,
@@ -896,6 +922,7 @@
 				846102AD1EC4C78600941E25 /* NewsAPI.swift in Sources */,
 				846102B91EC4C78600941E25 /* RegisterModel.swift in Sources */,
 				847FCAE21E977D3500BF6698 /* Project_ext.swift in Sources */,
+				9F9341601EC9C429003884B6 /* GenderSelectorRow.swift in Sources */,
 				846102AA1EC4C78600941E25 /* APIHelper.swift in Sources */,
 				846102AE1EC4C78600941E25 /* PayAPI.swift in Sources */,
 				846102A91EC4C78600941E25 /* AlamofireImplementations.swift in Sources */,
@@ -956,6 +983,7 @@
 				586034FD900A39ABB47843BC /* SmallTabBarContentView.swift in Sources */,
 				5860381AC7C95E6FE26E042C /* DesignerColors.swift in Sources */,
 				586035FE5542C8A1788BB366 /* Transaction_ext.swift in Sources */,
+				9F93415D1EC9C41D003884B6 /* GenderSelectorCell.swift in Sources */,
 				5860324F7805120FD45E9B14 /* ReloadableViewController.swift in Sources */,
 				58603AE0BA4215DEF176692B /* RoundLabel.swift in Sources */,
 			);
