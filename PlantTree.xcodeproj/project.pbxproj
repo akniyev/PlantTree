@@ -469,7 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				84AC71131E6181A80023DDB7 /* TableViewUnauthorized */,
-				84AC71081E61639A0023DDB7 /* TableViewReload */,
+				84AC71081E61639A0023DDB7 /* ReloadView */,
 				58603388F7A6535B9FE7E124 /* Cells */,
 				843FE0C31EB27C1F007ACFE5 /* RoundBorderButton.swift */,
 				843FE0C91EB3D95E007ACFE5 /* RoundImageView.swift */,
@@ -530,13 +530,13 @@
 			name = PaymentHistoryFooter;
 			sourceTree = "<group>";
 		};
-		84AC71081E61639A0023DDB7 /* TableViewReload */ = {
+		84AC71081E61639A0023DDB7 /* ReloadView */ = {
 			isa = PBXGroup;
 			children = (
 				84AC710D1E61653C0023DDB7 /* ReloadView.xib */,
 				84AC710F1E61654B0023DDB7 /* ReloadView.swift */,
 			);
-			name = TableViewReload;
+			name = ReloadView;
 			sourceTree = "<group>";
 		};
 		84AC71131E6181A80023DDB7 /* TableViewUnauthorized */ = {
