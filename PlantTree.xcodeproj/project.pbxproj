@@ -778,7 +778,7 @@
 				TargetAttributes = {
 					84DDFA6E1E546BCC0073DFFC = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 67D4E7YPP9;
+						DevelopmentTeam = PU5N3VWAFS;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1107,11 +1107,11 @@
 			baseConfigurationReference = 180EB9DF55E29EA8A1AB54A4 /* Pods-PlantTree.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 67D4E7YPP9;
+				DEVELOPMENT_TEAM = PU5N3VWAFS;
 				INFOPLIST_FILE = PlantTree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.greenworld.PlantTree;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tooba.PlantTree;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1122,11 +1122,11 @@
 			baseConfigurationReference = EBFB193B7D14F4DC144DAF83 /* Pods-PlantTree.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 67D4E7YPP9;
+				DEVELOPMENT_TEAM = PU5N3VWAFS;
 				INFOPLIST_FILE = PlantTree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.greenworld.PlantTree;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tooba.PlantTree;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
