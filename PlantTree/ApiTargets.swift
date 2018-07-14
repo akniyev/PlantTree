@@ -27,6 +27,10 @@ enum ApiTargets {
 }
 
 extension ApiTargets : TargetType {
+    var headers: [String : String]? {
+        return [:]
+    }
+    
     var baseURL: URL {
         return URL(string: ApiTargets.SERVER)!
     }
@@ -169,9 +173,9 @@ extension ApiTargets : TargetType {
     var task: Task {
         switch self {
         case .registerWithEmail, .getTokenWithEmail, .getAccountInfo, .refreshAccessToken, .getProjectList, .like, .unlike, .getProjectDetailInfo, .getOperationHistory, .changeEmail, .changePassword, .changePersonalData, .confirm_email, .reset_password:
-            return .request
+            return .requestPlain
         default:
-            return .request
+            return .requestPlain
         }
     }
 }

@@ -112,13 +112,14 @@ class Db {
                 if rows.count > 0 {
                     let row = rows[0]
                     let cred = Credentials()
-                    cred.access_token = row.value(named: "accessToken")
-                    cred.set_access_token_created_from_unixtime(unixtime: row.value(named: "accessTokenCreated"))
-                    cred.refresh_token = row.value(named: "refreshToken")
-                    cred.set_refresh_token_created_from_unixtime(unixtime: row.value(named: "refreshTokenCreated"))
-                    cred.email = row.value(named: "email")
-                    cred.social_token = row.value(named: "socialToken")
-                    cred.loginType = LoginType.fromString(s: row.value(named: "loginType"))
+                    
+                    cred.access_token = row["accessToken"]
+                    cred.set_access_token_created_from_unixtime(unixtime: row["accessTokenCreated"])
+                    cred.refresh_token = row["refreshToken"]
+                    cred.set_refresh_token_created_from_unixtime(unixtime: row["refreshTokenCreated"])
+                    cred.email = row["email"]
+                    cred.social_token = row["socialToken"]
+                    cred.loginType = LoginType.fromString(s: row["loginType"])
                     result = cred
                 }
             }

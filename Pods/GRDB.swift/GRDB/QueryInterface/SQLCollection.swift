@@ -1,47 +1,20 @@
 // MARK: - SQLCollection
 
-/// This protocol is an implementation detail of the query interface.
-/// Do not use it directly.
-///
-/// See https://github.com/groue/GRDB.swift/#the-query-interface
-///
-/// # Low Level Query Interface
+/// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
 ///
 /// SQLCollection is the protocol for types that can be checked for inclusion.
+///
+/// :nodoc:
 public protocol SQLCollection {
-    /// This function is an implementation detail of the query interface.
-    /// Do not use it directly.
-    ///
-    /// See https://github.com/groue/GRDB.swift/#the-query-interface
-    ///
-    /// # Low Level Query Interface
+    /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
     ///
     /// Returns an SQL string that represents the collection.
-    ///
-    /// When the arguments parameter is nil, any value must be written down as
-    /// a literal in the returned SQL:
-    ///
-    ///     var arguments: StatementArguments? = nil
-    ///     let collection = SQLExpressionsArray([1,2,3])
-    ///     collection.collectionSQL(&arguments)  // "1,2,3"
-    ///
-    /// When the arguments parameter is not nil, then values may be replaced by
-    /// `?` or colon-prefixed tokens, and fed into arguments.
-    ///
-    ///     var arguments = StatementArguments()
-    ///     let collection = SQLExpressionsArray([1,2,3])
-    ///     collection.collectionSQL(&arguments)  // "?,?,?"
-    ///     arguments                             // [1,2,3]
-    func collectionSQL(_ arguments: inout StatementArguments?) -> String
+    func collectionSQL(_ context: inout SQLGenerationContext) -> String
     
+    /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
+    ///
     /// Returns an expression that check whether the collection contains
     /// the expression.
-    ///
-    /// The default implementation returns a SQLExpressionContains which applies
-    /// the `IN` operator:
-    ///
-    ///     let request = Person.select(Column("id"))
-    ///     request.contains(Column("id"))   // id IN (SELECT id FROM persons)
     func contains(_ value: SQLExpressible) -> SQLExpression
 }
 
@@ -49,10 +22,9 @@ public protocol SQLCollection {
 // MARK: Default Implementations
 
 extension SQLCollection {
-    /// Returns a SQLExpressionContains which applies the `IN` operator:
+    /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
     ///
-    ///     let request = Person.select(Column("id"))
-    ///     request.contains(Column("id"))   // id IN (SELECT id FROM persons)
+    /// Returns a SQLExpressionContains which applies the `IN` SQL operator.
     public func contains(_ value: SQLExpressible) -> SQLExpression {
         return SQLExpressionContains(value, self)
     }
@@ -71,8 +43,8 @@ struct SQLExpressionsArray : SQLCollection {
         self.expressions = expressions.map { $0.sqlExpression }
     }
     
-    func collectionSQL(_ arguments: inout StatementArguments?) -> String {
-        return (expressions.map { $0.expressionSQL(&arguments) } as [String]).joined(separator: ", ")
+    func collectionSQL(_ context: inout SQLGenerationContext) -> String {
+        return (expressions.map { $0.expressionSQL(&context) } as [String]).joined(separator: ", ")
     }
     
     func contains(_ value: SQLExpressible) -> SQLExpression {

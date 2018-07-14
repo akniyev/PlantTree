@@ -5,7 +5,23 @@ import UIKit
 #endif
 
 /// A DatabaseQueue serializes access to an SQLite database.
-public final class DatabaseQueue {
+public final class DatabaseQueue: DatabaseWriter {
+    private var writer: SerializedDatabase
+    #if os(iOS)
+    private weak var application: UIApplication?
+    #endif
+    
+    // MARK: - Configuration
+    
+    /// The database configuration
+    public var configuration: Configuration {
+        return writer.configuration
+    }
+    
+    /// The path to the database file; it is ":memory:" for in-memory databases.
+    public var path: String {
+        return writer.path
+    }
     
     // MARK: - Initializers
     
@@ -20,10 +36,11 @@ public final class DatabaseQueue {
     ///     - configuration: A configuration.
     /// - throws: A DatabaseError whenever an SQLite error occurs.
     public init(path: String, configuration: Configuration = Configuration()) throws {
-        serializedDatabase = try SerializedDatabase(
+        writer = try SerializedDatabase(
             path: path,
             configuration: configuration,
-            schemaCache: SimpleDatabaseSchemaCache())
+            schemaCache: SimpleDatabaseSchemaCache(),
+            label: configuration.label ?? "GRDB.DatabaseQueue")
     }
     
     /// Opens an in-memory SQLite database.
@@ -35,10 +52,11 @@ public final class DatabaseQueue {
     /// - parameter configuration: A configuration.
     public init(configuration: Configuration = Configuration()) {
         // Assume SQLite always succeeds creating an in-memory database
-        serializedDatabase = try! SerializedDatabase(
+        writer = try! SerializedDatabase(
             path: ":memory:",
             configuration: configuration,
-            schemaCache: SimpleDatabaseSchemaCache())
+            schemaCache: SimpleDatabaseSchemaCache(),
+            label: configuration.label ?? "GRDB.DatabaseQueue")
     }
     
     #if os(iOS)
@@ -50,80 +68,20 @@ public final class DatabaseQueue {
         NotificationCenter.default.removeObserver(self)
     }
     #endif
-    
-    
-    // MARK: - Configuration
-    
-    /// The database configuration
-    public var configuration: Configuration {
-        return serializedDatabase.configuration
-    }
-    
-    /// The path to the database file; it is ":memory:" for in-memory databases.
-    public var path: String {
-        return serializedDatabase.path
-    }
-    
-    
-    // MARK: - Database access
-    
-    /// Synchronously executes a block in a protected dispatch queue, and
-    /// returns its result.
-    ///
-    ///     let persons = try dbQueue.inDatabase { db in
-    ///         try Person.fetchAll(...)
-    ///     }
-    ///
-    /// This method is *not* reentrant.
-    ///
-    /// - parameter block: A block that accesses the database.
-    /// - throws: The error thrown by the block.
-    public func inDatabase<T>(_ block: (Database) throws -> T) rethrows -> T {
-        return try serializedDatabase.sync(block)
-    }
-    
-    /// Synchronously executes a block in a protected dispatch queue, wrapped
-    /// inside a transaction.
-    ///
-    /// If the block throws an error, the transaction is rollbacked and the
-    /// error is rethrown. If the block returns .rollback, the transaction is
-    /// also rollbacked, but no error is thrown.
-    ///
-    ///     try dbQueue.inTransaction { db in
-    ///         db.execute(...)
-    ///         return .commit
-    ///     }
-    ///
-    /// This method is *not* reentrant.
-    ///
-    /// - parameters:
-    ///     - kind: The transaction type (default nil). If nil, the transaction
-    ///       type is configuration.defaultTransactionKind, which itself
-    ///       defaults to .immediate. See https://www.sqlite.org/lang_transaction.html
-    ///       for more information.
-    ///     - block: A block that executes SQL statements and return either
-    ///       .commit or .rollback.
-    /// - throws: The error thrown by the block.
-    public func inTransaction(_ kind: Database.TransactionKind? = nil, _ block: (Database) throws -> Database.TransactionCompletion) throws {
-        try inDatabase { db in
-            try db.inTransaction(kind) {
-                try block(db)
-            }
-        }
-    }
-    
-    
+}
+
+extension DatabaseQueue {
+
     // MARK: - Memory management
-    
+
     /// Free as much memory as possible.
     ///
     /// This method blocks the current thread until all database accesses are completed.
     ///
     /// See also setupMemoryManagement(application:)
     public func releaseMemory() {
-        inDatabase { $0.releaseMemory() }
+        writer.sync { $0.releaseMemory() }
     }
-    
     
     #if os(iOS)
     /// Listens to UIApplicationDidEnterBackgroundNotification and
@@ -139,8 +97,6 @@ public final class DatabaseQueue {
         center.addObserver(self, selector: #selector(DatabaseQueue.applicationDidReceiveMemoryWarning(_:)), name: .UIApplicationDidReceiveMemoryWarning, object: nil)
         center.addObserver(self, selector: #selector(DatabaseQueue.applicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: nil)
     }
-    
-    private var application: UIApplication?
     
     @objc private func applicationDidEnterBackground(_ notification: NSNotification) {
         guard let application = application else {
@@ -168,111 +124,224 @@ public final class DatabaseQueue {
         }
     }
     #endif
-    
-    
-    // MARK: - Not public
-
-    // https://www.sqlite.org/isolation.html
-    //
-    // > Within a single database connection X, a SELECT statement always
-    // > sees all changes to the database that are completed prior to the
-    // > start of the SELECT statement, whether committed or uncommitted.
-    // > And the SELECT statement obviously does not see any changes that
-    // > occur after the SELECT statement completes. But what about changes
-    // > that occur while the SELECT statement is running? What if a SELECT
-    // > statement is started and the sqlite3_step() interface steps through
-    // > roughly half of its output, then some UPDATE statements are run by
-    // > the application that modify the table that the SELECT statement is
-    // > reading, then more calls to sqlite3_step() are made to finish out
-    // > the SELECT statement? Will the later steps of the SELECT statement
-    // > see the changes made by the UPDATE or not? The answer is that this
-    // > behavior is undefined.
-    //
-    // This is why we use a serialized database:
-    fileprivate var serializedDatabase: SerializedDatabase
 }
-
-
-// =========================================================================
-// MARK: - Encryption
 
 #if SQLITE_HAS_CODEC
     extension DatabaseQueue {
-        
+
+        // MARK: - Encryption
+
         /// Changes the passphrase of an encrypted database
         public func change(passphrase: String) throws {
-            try inDatabase { try $0.change(passphrase: passphrase) }
+            try writer.sync { try $0.change(passphrase: passphrase) }
         }
     }
 #endif
 
-
-// =========================================================================
-// MARK: - DatabaseReader
-
-extension DatabaseQueue : DatabaseReader {
+extension DatabaseQueue {
     
-    // MARK: - DatabaseReader Protocol Adoption
+    // MARK: - Reading from Database
     
     /// Synchronously executes a read-only block in a protected dispatch queue,
     /// and returns its result.
     ///
-    ///     let persons = try dbQueue.read { db in
-    ///         try Person.fetchAll(...)
+    ///     let players = try dbQueue.read { db in
+    ///         try Player.fetchAll(db)
     ///     }
     ///
     /// This method is *not* reentrant.
     ///
-    /// Starting iOS 8.2, OSX 10.10, and with custom SQLite builds and
-    /// SQLCipher, attempts to write in the database throw a DatabaseError whose
-    /// resultCode is `SQLITE_READONLY`.
+    /// Starting SQLite 3.8.0 (iOS 8.2+, OSX 10.10+, custom SQLite builds and
+    /// SQLCipher), attempts to write in the database from this meethod throw a
+    /// DatabaseError of resultCode `SQLITE_READONLY`.
     ///
     /// - parameter block: A block that accesses the database.
     /// - throws: The error thrown by the block.
     public func read<T>(_ block: (Database) throws -> T) rethrows -> T {
-        // query_only pragma was added in SQLite 3.8.0 http://www.sqlite.org/changes.html#version_3_8_0
-        // It is available from iOS 8.2 and OS X 10.10 https://github.com/yapstudios/YapDatabase/wiki/SQLite-version-(bundled-with-OS)
-        #if USING_CUSTOMSQLITE || USING_SQLCIPHER
-            return try inDatabase { try readOnly($0, block) }
-        #else
-            if #available(iOS 8.2, OSX 10.10, *) {
-                return try inDatabase { try readOnly($0, block) }
-            } else {
-                return try inDatabase(block)
-            }
-        #endif
+        return try writer.sync { db in
+            try db.readOnly { try block(db) }
+        }
     }
     
-    /// Alias for `inDatabase`. See `DatabaseReader.unsafeRead`.
+    /// Synchronously executes a block in a protected dispatch queue, and
+    /// returns its result.
+    ///
+    ///     let players = try dbQueue.unsafeRead { db in
+    ///         try Player.fetchAll(db)
+    ///     }
+    ///
+    /// This method is *not* reentrant.
+    ///
+    /// - parameter block: A block that accesses the database.
+    /// - throws: The error thrown by the block.
+    ///
+    /// :nodoc:
     public func unsafeRead<T>(_ block: (Database) throws -> T) rethrows -> T {
-        return try inDatabase(block)
+        return try writer.sync(block)
     }
     
+    /// Synchronously executes a block in a protected dispatch queue, and
+    /// returns its result.
+    ///
+    ///     let players = try dbQueue.unsafeReentrantRead { db in
+    ///         try Player.fetchAll(db)
+    ///     }
+    ///
+    /// This method is reentrant. It is unsafe because it fosters dangerous
+    /// concurrency practices.
+    ///
+    /// :nodoc:
+    public func unsafeReentrantRead<T>(_ block: (Database) throws -> T) throws -> T {
+        return try writer.reentrantSync(block)
+    }
+    
+    /// Synchronously executes *block*.
+    ///
+    /// This method must be called from the protected database dispatch queue,
+    /// outside of a transaction. You'll get a fatal error otherwise.
+    ///
+    /// Starting SQLite 3.8.0 (iOS 8.2+, OSX 10.10+, custom SQLite builds and
+    /// SQLCipher), attempts to write in the database from this meethod throw a
+    /// DatabaseError of resultCode `SQLITE_READONLY`.
+    ///
+    /// See `DatabaseWriter.readFromCurrentState`.
+    ///
+    /// :nodoc:
+    public func readFromCurrentState(_ block: @escaping (Database) -> Void) {
+        // Check that we're on the correct queue...
+        writer.execute { db in
+            // ... and that no transaction is opened.
+            GRDBPrecondition(!db.isInsideTransaction, "readFromCurrentState must not be called from inside a transaction.")
+            db.readOnly { block(db) }
+        }
+    }
+    
+    // MARK: - Writing in Database
+    
+    /// Synchronously executes a block in a protected dispatch queue, wrapped
+    /// inside a transaction.
+    ///
+    /// If the block throws an error, the transaction is rollbacked and the
+    /// error is rethrown.
+    ///
+    ///     try dbQueue.write { db in
+    ///         try Player(...).insert(db)
+    ///     }
+    ///
+    /// This method is *not* reentrant.
+    ///
+    /// - parameter block: A block that executes SQL statements.
+    /// - throws: An eventual database error, or the error thrown by the block.
+    public func write<T>(_ block: (Database) throws -> T) rethrows -> T {
+        return try writer.sync { db in
+            var result: T? = nil
+            try db.inTransaction {
+                result = try block(db)
+                return .commit
+            }
+            return result!
+        }
+    }
+    
+    /// Synchronously executes a block in a protected dispatch queue, wrapped
+    /// inside a transaction.
+    ///
+    /// If the block throws an error, the transaction is rollbacked and the
+    /// error is rethrown. If the block returns .rollback, the transaction is
+    /// also rollbacked, but no error is thrown.
+    ///
+    ///     try dbQueue.inTransaction { db in
+    ///         try Player(...).insert(db)
+    ///         return .commit
+    ///     }
+    ///
+    /// This method is *not* reentrant.
+    ///
+    /// - parameters:
+    ///     - kind: The transaction type (default nil). If nil, the transaction
+    ///       type is configuration.defaultTransactionKind, which itself
+    ///       defaults to .deferred. See https://www.sqlite.org/lang_transaction.html
+    ///       for more information.
+    ///     - block: A block that executes SQL statements and return either
+    ///       .commit or .rollback.
+    /// - throws: The error thrown by the block.
+    public func inTransaction(_ kind: Database.TransactionKind? = nil, _ block: (Database) throws -> Database.TransactionCompletion) throws {
+        try writer.sync { db in
+            try db.inTransaction(kind) {
+                try block(db)
+            }
+        }
+    }
+    
+    /// Synchronously executes a block in a protected dispatch queue, and
+    /// returns its result.
+    ///
+    ///     let players = try dbQueue.writeWithoutTransaction { db in
+    ///         try Player(...).insert(db)
+    ///     }
+    ///
+    /// This method is *not* reentrant.
+    ///
+    /// - parameter block: A block that accesses the database.
+    /// - throws: The error thrown by the block.
+    ///
+    /// :nodoc:
+    public func writeWithoutTransaction<T>(_ block: (Database) throws -> T) rethrows -> T {
+        return try writer.sync(block)
+    }
+
+    /// Synchronously executes a block in a protected dispatch queue, and
+    /// returns its result.
+    ///
+    ///     // INSERT INTO player ...
+    ///     let players = try dbQueue.inDatabase { db in
+    ///         try Player(...).insert(db)
+    ///     }
+    ///
+    /// This method is *not* reentrant.
+    ///
+    /// - parameter block: A block that accesses the database.
+    /// - throws: The error thrown by the block.
+    public func inDatabase<T>(_ block: (Database) throws -> T) rethrows -> T {
+        return try writer.sync(block)
+    }
+    
+    /// Synchronously executes a block in a protected dispatch queue, and
+    /// returns its result.
+    ///
+    ///     // INSERT INTO player ...
+    ///     try dbQueue.unsafeReentrantWrite { db in
+    ///         try Player(...).insert(db)
+    ///     }
+    ///
+    /// This method is reentrant. It is unsafe because it fosters dangerous
+    /// concurrency practices.
+    public func unsafeReentrantWrite<T>(_ block: (Database) throws -> T) rethrows -> T {
+        return try writer.reentrantSync(block)
+    }
     
     // MARK: - Functions
     
     /// Add or redefine an SQL function.
     ///
-    ///     let fn = DatabaseFunction("succ", argumentCount: 1) { databaseValues in
-    ///         let dbv = databaseValues.first!
-    ///         guard let int = dbv.value() as Int? else {
+    ///     let fn = DatabaseFunction("succ", argumentCount: 1) { dbValues in
+    ///         guard let int = Int.fromDatabaseValue(dbValues[0]) else {
     ///             return nil
     ///         }
     ///         return int + 1
     ///     }
     ///     dbQueue.add(function: fn)
-    ///     try dbQueue.inDatabase { db in
+    ///     try dbQueue.read { db in
     ///         try Int.fetchOne(db, "SELECT succ(1)") // 2
     ///     }
     public func add(function: DatabaseFunction) {
-        inDatabase { $0.add(function: function) }
+        writer.sync { $0.add(function: function) }
     }
     
     /// Remove an SQL function.
     public func remove(function: DatabaseFunction) {
-        inDatabase { $0.remove(function: function) }
+        writer.sync { $0.remove(function: function) }
     }
-    
     
     // MARK: - Collations
     
@@ -282,74 +351,16 @@ extension DatabaseQueue : DatabaseReader {
     ///         return (string1 as NSString).localizedStandardCompare(string2)
     ///     }
     ///     dbQueue.add(collation: collation)
-    ///     try dbQueue.inDatabase { db in
-    ///         try db.execute("CREATE TABLE files (name TEXT COLLATE LOCALIZED_STANDARD")
+    ///     try dbQueue.write { db in
+    ///         try db.execute("CREATE TABLE file (name TEXT COLLATE LOCALIZED_STANDARD")
     ///     }
     public func add(collation: DatabaseCollation) {
-        inDatabase { $0.add(collation: collation) }
+        writer.sync { $0.add(collation: collation) }
     }
     
     /// Remove a collation.
     public func remove(collation: DatabaseCollation) {
-        inDatabase { $0.remove(collation: collation) }
+        writer.sync { $0.remove(collation: collation) }
     }
 }
-
-
-// =========================================================================
-// MARK: - DatabaseWriter
-
-extension DatabaseQueue : DatabaseWriter {
-    
-    // MARK: - DatabaseWriter Protocol Adoption
-    
-    /// Alias for `inDatabase`. See `DatabaseWriter.write`.
-    public func write<T>(_ block: (Database) throws -> T) rethrows -> T {
-        return try inDatabase(block)
-    }
-    
-    /// Synchronously executes *block*.
-    ///
-    /// Starting iOS 8.2, OSX 10.10, and with custom SQLite builds and
-    /// SQLCipher, attempts to write in the database throw a DatabaseError whose
-    /// resultCode is `SQLITE_READONLY`.
-    ///
-    /// This method must be called from the protected database dispatch queue.
-    /// See `DatabaseWriter.readFromCurrentState`.
-    public func readFromCurrentState(_ block: @escaping (Database) -> Void) {
-        // query_only pragma was added in SQLite 3.8.0 http://www.sqlite.org/changes.html#version_3_8_0
-        // It is available from iOS 8.2 and OS X 10.10 https://github.com/yapstudios/YapDatabase/wiki/SQLite-version-(bundled-with-OS)
-        #if USING_CUSTOMSQLITE || USING_SQLCIPHER
-            serializedDatabase.execute { readOnly($0, block) }
-        #else
-            if #available(iOS 8.2, OSX 10.10, *) {
-                serializedDatabase.execute { readOnly($0, block) }
-            } else {
-                serializedDatabase.execute(block)
-            }
-        #endif
-    }
-    
-    /// Returns an optional database connection. If not nil, the caller is
-    /// executing on the protected database dispatch queue.
-    public var availableDatabaseConnection: Database? {
-        return serializedDatabase.availableDatabaseConnection
-    }
-}
-
-// Wraps the block between two `PRAGMA query_only` statements.
-//
-// This method is unsafe because the two calls to `PRAGMA query_only` are
-// not guaranteed to be serialized (some other thread could mess with this).
-private func readOnly<T>(_ db: Database, _ block: (Database) throws -> T) rethrows -> T {
-    if db.configuration.readonly {
-        return try block(db)
-    } else {
-        try! db.execute("PRAGMA query_only = 1")    // Assume can't fail
-        let result = try block(db)
-        try! db.execute("PRAGMA query_only = 0")    // Assume can't fail
-        return result
-    }
-}
-
 

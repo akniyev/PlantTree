@@ -1,17 +1,25 @@
 // MARK: - Egality and Identity Operators (=, <>, IS, IS NOT)
 
-extension SQLBinaryOperator {
-    /// The `=` binary operator
-    static let equal = SQLBinaryOperator("=", negated: "<>")
-    
-    /// The `<>` binary operator
-    static let notEqual = SQLBinaryOperator("<>", negated: "=")
-    
-    /// The `IS` binary operator
-    static let `is` = SQLBinaryOperator("IS", negated: "IS NOT")
-    
-    /// The `IS NOT` binary operator
-    static let isNot = SQLBinaryOperator("IS NOT", negated: "IS")
+// Outputs "x = y" or "x IS NULL"
+private func isEqual(_ lhs: SQLExpression, _ rhs: SQLExpression) -> SQLExpression {
+    switch (lhs, rhs) {
+    case (let lhs, let rhs as DatabaseValue):
+        switch rhs.storage {
+        case .null:
+            return SQLExpressionEqual(.is, lhs, rhs)
+        default:
+            return SQLExpressionEqual(.equal, lhs, rhs)
+        }
+    case (let lhs as DatabaseValue, let rhs):
+        switch lhs.storage {
+        case .null:
+            return SQLExpressionEqual(.is, rhs, lhs)
+        default:
+            return SQLExpressionEqual(.equal, lhs, rhs)
+        }
+    default:
+        return SQLExpressionEqual(.equal, lhs, rhs)
+    }
 }
 
 /// An SQL expression that compares two expressions with the `=` SQL operator.
@@ -24,11 +32,7 @@ extension SQLBinaryOperator {
 ///     // name IS NULL
 ///     Column("name") == nil
 public func == (lhs: SQLSpecificExpressible, rhs: SQLExpressible?) -> SQLExpression {
-    if let rhs = rhs {
-        return SQLExpressionBinary(.equal, lhs.sqlExpression, rhs.sqlExpression)
-    } else {
-        return SQLExpressionBinary(.`is`, lhs.sqlExpression, DatabaseValue.null)
-    }
+    return isEqual(lhs.sqlExpression, rhs?.sqlExpression ?? DatabaseValue.null)
 }
 
 /// An SQL expression that compares two expressions with the `=` SQL operator.
@@ -71,11 +75,7 @@ public func == (lhs: SQLSpecificExpressible, rhs: Bool) -> SQLExpression {
 ///     // name IS NULL
 ///     nil == Column("name")
 public func == (lhs: SQLExpressible?, rhs: SQLSpecificExpressible) -> SQLExpression {
-    if let lhs = lhs {
-        return SQLExpressionBinary(.equal, lhs.sqlExpression, rhs.sqlExpression)
-    } else {
-        return SQLExpressionBinary(.`is`, rhs.sqlExpression, DatabaseValue.null)
-    }
+    return isEqual(lhs?.sqlExpression ?? DatabaseValue.null, rhs.sqlExpression)
 }
 
 /// An SQL expression that compares two expressions with the `=` SQL operator.
@@ -113,7 +113,7 @@ public func == (lhs: Bool, rhs: SQLSpecificExpressible) -> SQLExpression {
 ///     // email = login
 ///     Column("email") == Column("login")
 public func == (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
-    return SQLExpressionBinary(.equal, lhs.sqlExpression, rhs.sqlExpression)
+    return isEqual(lhs.sqlExpression, rhs.sqlExpression)
 }
 
 /// An SQL expression that compares two expressions with the `<>` SQL operator.
@@ -126,11 +126,7 @@ public func == (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQL
 ///     // name IS NOT NULL
 ///     Column("name") != nil
 public func != (lhs: SQLSpecificExpressible, rhs: SQLExpressible?) -> SQLExpression {
-    if let rhs = rhs {
-        return SQLExpressionBinary(.notEqual, lhs.sqlExpression, rhs.sqlExpression)
-    } else {
-        return SQLExpressionBinary(.isNot, lhs.sqlExpression, DatabaseValue.null)
-    }
+    return isEqual(lhs.sqlExpression, rhs?.sqlExpression ?? DatabaseValue.null).negated
 }
 
 /// An SQL expression that compares two expressions with the `<>` SQL operator.
@@ -173,11 +169,7 @@ public func != (lhs: SQLSpecificExpressible, rhs: Bool) -> SQLExpression {
 ///     // name IS NOT NULL
 ///     nil != Column("name")
 public func != (lhs: SQLExpressible?, rhs: SQLSpecificExpressible) -> SQLExpression {
-    if let lhs = lhs {
-        return SQLExpressionBinary(.notEqual, lhs.sqlExpression, rhs.sqlExpression)
-    } else {
-        return SQLExpressionBinary(.isNot, rhs.sqlExpression, DatabaseValue.null)
-    }
+    return isEqual(lhs?.sqlExpression ?? DatabaseValue.null, rhs.sqlExpression).negated
 }
 
 /// An SQL expression that compares two expressions with the `<>` SQL operator.
@@ -215,7 +207,7 @@ public func != (lhs: Bool, rhs: SQLSpecificExpressible) -> SQLExpression {
 ///     // email <> login
 ///     Column("email") != Column("login")
 public func != (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
-    return SQLExpressionBinary(.notEqual, lhs.sqlExpression, rhs.sqlExpression)
+    return isEqual(lhs.sqlExpression, rhs.sqlExpression).negated
 }
 
 /// An SQL expression that compares two expressions with the `IS` SQL operator.
@@ -223,7 +215,7 @@ public func != (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQL
 ///     // name IS 'Arthur'
 ///     Column("name") === "Arthur"
 public func === (lhs: SQLSpecificExpressible, rhs: SQLExpressible?) -> SQLExpression {
-    return SQLExpressionBinary(.`is`, lhs.sqlExpression, rhs?.sqlExpression ?? DatabaseValue.null)
+    return SQLExpressionEqual(.is, lhs.sqlExpression, rhs?.sqlExpression ?? DatabaseValue.null)
 }
 
 /// An SQL expression that compares two expressions with the `IS` SQL operator.
@@ -240,9 +232,9 @@ public func === (lhs: SQLCollatedExpression, rhs: SQLExpressible?) -> SQLExpress
 ///     "Arthur" === Column("name")
 public func === (lhs: SQLExpressible?, rhs: SQLSpecificExpressible) -> SQLExpression {
     if let lhs = lhs {
-        return SQLExpressionBinary(.`is`, lhs.sqlExpression, rhs.sqlExpression)
+        return SQLExpressionEqual(.is, lhs.sqlExpression, rhs.sqlExpression)
     } else {
-        return SQLExpressionBinary(.`is`, rhs.sqlExpression, DatabaseValue.null)
+        return SQLExpressionEqual(.is, rhs.sqlExpression, DatabaseValue.null)
     }
 }
 
@@ -251,7 +243,7 @@ public func === (lhs: SQLExpressible?, rhs: SQLSpecificExpressible) -> SQLExpres
 ///     // name IS 'Arthur' COLLATE NOCASE
 ///     "Arthur" === Column("name").collating(.nocase)
 public func === (lhs: SQLExpressible?, rhs: SQLCollatedExpression) -> SQLExpression {
-    return SQLExpressionCollate(lhs == rhs.expression, collationName: rhs.collationName)
+    return SQLExpressionCollate(lhs === rhs.expression, collationName: rhs.collationName)
 }
 
 /// An SQL expression that compares two expressions with the `IS` SQL operator.
@@ -259,7 +251,7 @@ public func === (lhs: SQLExpressible?, rhs: SQLCollatedExpression) -> SQLExpress
 ///     // email IS login
 ///     Column("email") === Column("login")
 public func === (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
-    return SQLExpressionBinary(.`is`, lhs.sqlExpression, rhs.sqlExpression)
+    return SQLExpressionEqual(.is, lhs.sqlExpression, rhs.sqlExpression)
 }
 
 /// An SQL expression that compares two expressions with the `IS NOT` SQL operator.
@@ -267,7 +259,7 @@ public func === (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQ
 ///     // name IS NOT 'Arthur'
 ///     Column("name") !== "Arthur"
 public func !== (lhs: SQLSpecificExpressible, rhs: SQLExpressible?) -> SQLExpression {
-    return SQLExpressionBinary(.isNot, lhs.sqlExpression, rhs?.sqlExpression ?? DatabaseValue.null)
+    return SQLExpressionEqual(.isNot, lhs.sqlExpression, rhs?.sqlExpression ?? DatabaseValue.null)
 }
 
 /// An SQL expression that compares two expressions with the `IS NOT` SQL operator.
@@ -284,9 +276,9 @@ public func !== (lhs: SQLCollatedExpression, rhs: SQLExpressible?) -> SQLExpress
 ///     "Arthur" !== Column("name")
 public func !== (lhs: SQLExpressible?, rhs: SQLSpecificExpressible) -> SQLExpression {
     if let lhs = lhs {
-        return SQLExpressionBinary(.isNot, lhs.sqlExpression, rhs.sqlExpression)
+        return SQLExpressionEqual(.isNot, lhs.sqlExpression, rhs.sqlExpression)
     } else {
-        return SQLExpressionBinary(.isNot, rhs.sqlExpression, DatabaseValue.null)
+        return SQLExpressionEqual(.isNot, rhs.sqlExpression, DatabaseValue.null)
     }
 }
 
@@ -303,7 +295,7 @@ public func !== (lhs: SQLExpressible?, rhs: SQLCollatedExpression) -> SQLExpress
 ///     // email IS NOT login
 ///     Column("email") !== Column("login")
 public func !== (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
-    return SQLExpressionBinary(.isNot, lhs.sqlExpression, rhs.sqlExpression)
+    return SQLExpressionEqual(.isNot, lhs.sqlExpression, rhs.sqlExpression)
 }
 
 
@@ -325,8 +317,8 @@ extension SQLBinaryOperator {
 
 /// An SQL expression that compares two expressions with the `<` SQL operator.
 ///
-///     // age < 18
-///     Column("age") < 18
+///     // score < 18
+///     Column("score") < 18
 public func < (lhs: SQLSpecificExpressible, rhs: SQLExpressible) -> SQLExpression {
     return SQLExpressionBinary(.lessThan, lhs.sqlExpression, rhs.sqlExpression)
 }
@@ -341,8 +333,8 @@ public func < (lhs: SQLCollatedExpression, rhs: SQLExpressible) -> SQLExpression
 
 /// An SQL expression that compares two expressions with the `<` SQL operator.
 ///
-///     // 18 < age
-///     18 < Column("age")
+///     // 18 < score
+///     18 < Column("score")
 public func < (lhs: SQLExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
     return SQLExpressionBinary(.lessThan, lhs.sqlExpression, rhs.sqlExpression)
 }
@@ -365,8 +357,8 @@ public func < (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQLE
 
 /// An SQL expression that compares two expressions with the `<=` SQL operator.
 ///
-///     // age <= 18
-///     Column("age") <= 18
+///     // score <= 18
+///     Column("score") <= 18
 public func <= (lhs: SQLSpecificExpressible, rhs: SQLExpressible) -> SQLExpression {
     return SQLExpressionBinary(.lessThanOrEqual, lhs.sqlExpression, rhs.sqlExpression)
 }
@@ -381,8 +373,8 @@ public func <= (lhs: SQLCollatedExpression, rhs: SQLExpressible) -> SQLExpressio
 
 /// An SQL expression that compares two expressions with the `<=` SQL operator.
 ///
-///     // 18 <= age
-///     18 <= Column("age")
+///     // 18 <= score
+///     18 <= Column("score")
 public func <= (lhs: SQLExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
     return SQLExpressionBinary(.lessThanOrEqual, lhs.sqlExpression, rhs.sqlExpression)
 }
@@ -405,15 +397,15 @@ public func <= (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQL
 
 /// An SQL expression that compares two expressions with the `>` SQL operator.
 ///
-///     // age > 18
-///     Column("age") > 18
+///     // score > 18
+///     Column("score") > 18
 public func > (lhs: SQLSpecificExpressible, rhs: SQLExpressible) -> SQLExpression {
     return SQLExpressionBinary(.greaterThan, lhs.sqlExpression, rhs.sqlExpression)
 }
 
 /// An SQL expression that compares two expressions with the `>` SQL operator.
 ///
-///     // age > 'Arthur' COLLATE NOCASE
+///     // name > 'Arthur' COLLATE NOCASE
 ///     Column("name").collating(.nocase) > "Arthur"
 public func > (lhs: SQLCollatedExpression, rhs: SQLExpressible) -> SQLExpression {
     return SQLExpressionCollate(lhs.expression > rhs, collationName: lhs.collationName)
@@ -421,8 +413,8 @@ public func > (lhs: SQLCollatedExpression, rhs: SQLExpressible) -> SQLExpression
 
 /// An SQL expression that compares two expressions with the `>` SQL operator.
 ///
-///     // 18 > age
-///     18 > Column("age")
+///     // 18 > score
+///     18 > Column("score")
 public func > (lhs: SQLExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
     return SQLExpressionBinary(.greaterThan, lhs.sqlExpression, rhs.sqlExpression)
 }
@@ -445,8 +437,8 @@ public func > (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQLE
 
 /// An SQL expression that compares two expressions with the `>=` SQL operator.
 ///
-///     // age >= 18
-///     Column("age") >= 18
+///     // score >= 18
+///     Column("score") >= 18
 public func >= (lhs: SQLSpecificExpressible, rhs: SQLExpressible) -> SQLExpression {
     return SQLExpressionBinary(.greaterThanOrEqual, lhs.sqlExpression, rhs.sqlExpression)
 }
@@ -461,16 +453,16 @@ public func >= (lhs: SQLCollatedExpression, rhs: SQLExpressible) -> SQLExpressio
 
 /// An SQL expression that compares two expressions with the `>=` SQL operator.
 ///
-///     // 18 >= age
-///     18 >= Column("age")
+///     // 18 >= score
+///     18 >= Column("score")
 public func >= (lhs: SQLExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
     return SQLExpressionBinary(.greaterThanOrEqual, lhs.sqlExpression, rhs.sqlExpression)
 }
 
 /// An SQL expression that compares two expressions with the `>=` SQL operator.
 ///
-///     // 'Arthur' >= age COLLATE NOCASE
-///     "Arthur" >= Column("age").collating(.nocase)
+///     // 'Arthur' >= name COLLATE NOCASE
+///     "Arthur" >= Column("name").collating(.nocase)
 public func >= (lhs: SQLExpressible, rhs: SQLCollatedExpression) -> SQLExpression {
     return SQLExpressionCollate(lhs >= rhs.expression, collationName: rhs.collationName)
 }
@@ -581,7 +573,7 @@ extension SQLBinaryOperator {
 
 extension SQLUnaryOperator {
     /// The `-` unary operator
-    public static let minus = SQLUnaryOperator("-", needsRightSpace: false)
+    static let minus = SQLUnaryOperator("-", needsRightSpace: false)
 }
 
 /// An SQL arithmetic multiplication.
@@ -691,25 +683,12 @@ public func - (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQLE
 
 // MARK: - Logical Operators (AND, OR, NOT)
 
-extension SQLBinaryOperator {
-    /// The `AND` binary operator
-    static let and = SQLBinaryOperator("AND")
-    
-    /// The `OR` binary operator
-    static let or = SQLBinaryOperator("OR")
-}
-
-extension SQLUnaryOperator {
-    /// The `NOT` unary operator
-    public static let not = SQLUnaryOperator("NOT", needsRightSpace: true)
-}
-
 /// A logical SQL expression with the `AND` SQL operator.
 ///
 ///     // favorite AND 0
 ///     Column("favorite") && false
 public func && (lhs: SQLSpecificExpressible, rhs: SQLExpressible) -> SQLExpression {
-    return SQLExpressionBinary(.and, lhs.sqlExpression, rhs.sqlExpression)
+    return SQLExpressionAnd([lhs.sqlExpression, rhs.sqlExpression])
 }
 
 /// A logical SQL expression with the `AND` SQL operator.
@@ -717,7 +696,7 @@ public func && (lhs: SQLSpecificExpressible, rhs: SQLExpressible) -> SQLExpressi
 ///     // 0 AND favorite
 ///     false && Column("favorite")
 public func && (lhs: SQLExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
-    return SQLExpressionBinary(.and, lhs.sqlExpression, rhs.sqlExpression)
+    return SQLExpressionAnd([lhs.sqlExpression, rhs.sqlExpression])
 }
 
 /// A logical SQL expression with the `AND` SQL operator.
@@ -725,7 +704,7 @@ public func && (lhs: SQLExpressible, rhs: SQLSpecificExpressible) -> SQLExpressi
 ///     // email IS NOT NULL AND favorite
 ///     Column("email") != nil && Column("favorite")
 public func && (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
-    return SQLExpressionBinary(.and, lhs.sqlExpression, rhs.sqlExpression)
+    return SQLExpressionAnd([lhs.sqlExpression, rhs.sqlExpression])
 }
 
 /// A logical SQL expression with the `OR` SQL operator.
@@ -733,7 +712,7 @@ public func && (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQL
 ///     // favorite OR 1
 ///     Column("favorite") || true
 public func || (lhs: SQLSpecificExpressible, rhs: SQLExpressible) -> SQLExpression {
-    return SQLExpressionBinary(.or, lhs.sqlExpression, rhs.sqlExpression)
+    return SQLExpressionOr([lhs.sqlExpression, rhs.sqlExpression])
 }
 
 /// A logical SQL expression with the `OR` SQL operator.
@@ -741,7 +720,7 @@ public func || (lhs: SQLSpecificExpressible, rhs: SQLExpressible) -> SQLExpressi
 ///     // 0 OR favorite
 ///     true || Column("favorite")
 public func || (lhs: SQLExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
-    return SQLExpressionBinary(.or, lhs.sqlExpression, rhs.sqlExpression)
+    return SQLExpressionOr([lhs.sqlExpression, rhs.sqlExpression])
 }
 
 /// A logical SQL expression with the `OR` SQL operator.
@@ -749,7 +728,7 @@ public func || (lhs: SQLExpressible, rhs: SQLSpecificExpressible) -> SQLExpressi
 ///     // email IS NULL OR hidden
 ///     Column("email") == nil || Column("hidden")
 public func || (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQLExpression {
-    return SQLExpressionBinary(.or, lhs.sqlExpression, rhs.sqlExpression)
+    return SQLExpressionOr([lhs.sqlExpression, rhs.sqlExpression])
 }
 
 /// A negated logical SQL expression with the `NOT` SQL operator.
@@ -763,6 +742,43 @@ public func || (lhs: SQLSpecificExpressible, rhs: SQLSpecificExpressible) -> SQL
 ///     !((1...10).contains(Column("id")))
 public prefix func ! (value: SQLSpecificExpressible) -> SQLExpression {
     return value.sqlExpression.negated
+}
+
+public enum SQLLogicalBinaryOperator {
+    case and, or
+}
+
+extension Sequence where Element == SQLExpression {
+    /// Returns an expression by joining all elements with an SQL
+    /// logical operator.
+    ///
+    /// For example:
+    ///
+    ///     // SELECT * FROM player
+    ///     // WHERE (registered
+    ///     //        AND (score >= 1000)
+    ///     //        AND (name IS NOT NULL))
+    ///     let conditions = [
+    ///         Column("registered"),
+    ///         Column("score") >= 1000,
+    ///         Column("name") != nil]
+    ///     Player.filter(conditions.joined(operator: .and))
+    ///
+    /// When the sequence is empty, `joined(operator: .and)` returns true,
+    /// and `joined(operator: .or)` returns false:
+    ///
+    ///     // SELECT * FROM player WHERE 1
+    ///     Player.filter([].joined(operator: .and))
+    ///
+    ///     // SELECT * FROM player WHERE 0
+    ///     Player.filter([].joined(operator: .or))
+    public func joined(operator: SQLLogicalBinaryOperator) -> SQLExpression {
+        let expressions = Array(self)
+        switch `operator` {
+        case .and: return SQLExpressionAnd(expressions)
+        case .or: return SQLExpressionOr(expressions)
+        }
+    }
 }
 
 

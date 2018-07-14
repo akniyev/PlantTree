@@ -2,7 +2,7 @@ extension Row {
     @available(*, unavailable, renamed:"fetchCursor")
     public static func fetch(_ statement: SelectStatement, arguments: StatementArguments? = nil, adapter: RowAdapter? = nil) -> Any { preconditionFailure() }
     @available(*, unavailable, renamed:"fetchCursor")
-    public static func fetch(_ db: Database, _ request: Request) -> Any { preconditionFailure() }
+    public static func fetch<Request: FetchRequest>(_ db: Database, _ request: Request) -> Any { preconditionFailure() }
     @available(*, unavailable, renamed:"fetchCursor")
     public static func fetch(_ db: Database, _ sql: String, arguments: StatementArguments? = nil, adapter: RowAdapter? = nil) -> Any { preconditionFailure() }
 }
@@ -11,7 +11,7 @@ extension DatabaseValueConvertible {
     @available(*, unavailable, renamed:"fetchCursor")
     public static func fetch(_ statement: SelectStatement, arguments: StatementArguments? = nil, adapter: RowAdapter? = nil) -> Any { preconditionFailure() }
     @available(*, unavailable, renamed:"fetchCursor")
-    public static func fetch(_ db: Database, _ request: Request) -> Any { preconditionFailure() }
+    public static func fetch<Request: FetchRequest>(_ db: Database, _ request: Request) -> Any { preconditionFailure() }
     @available(*, unavailable, renamed:"fetchCursor")
     public static func fetch(_ db: Database, _ sql: String, arguments: StatementArguments? = nil, adapter: RowAdapter? = nil) -> Any { preconditionFailure() }
 }
@@ -20,7 +20,7 @@ extension Optional where Wrapped: DatabaseValueConvertible {
     @available(*, unavailable, renamed:"fetchCursor")
     public static func fetch(_ statement: SelectStatement, arguments: StatementArguments? = nil, adapter: RowAdapter? = nil) -> Any { preconditionFailure() }
     @available(*, unavailable, renamed:"fetchCursor")
-    public static func fetch(_ db: Database, _ request: Request) -> Any { preconditionFailure() }
+    public static func fetch<Request: FetchRequest>(_ db: Database, _ request: Request) -> Any { preconditionFailure() }
     @available(*, unavailable, renamed:"fetchCursor")
     public static func fetch(_ db: Database, _ sql: String, arguments: StatementArguments? = nil, adapter: RowAdapter? = nil) -> Any { preconditionFailure() }
 }
@@ -30,16 +30,16 @@ extension QueryInterfaceRequest {
     public func fetch(_ db: Database) -> Any { preconditionFailure() }
 }
 
-extension RowConvertible {
+extension FetchableRecord {
     @available(*, unavailable, renamed:"fetchCursor")
     public static func fetch(_ statement: SelectStatement, arguments: StatementArguments? = nil, adapter: RowAdapter? = nil) -> Any { preconditionFailure() }
     @available(*, unavailable, renamed:"fetchCursor")
-    public static func fetch(_ db: Database, _ request: Request) -> Any { preconditionFailure() }
+    public static func fetch<Request: FetchRequest>(_ db: Database, _ request: Request) -> Any { preconditionFailure() }
     @available(*, unavailable, renamed:"fetchCursor")
     public static func fetch(_ db: Database, _ sql: String, arguments: StatementArguments? = nil, adapter: RowAdapter? = nil) -> Any { preconditionFailure() }
 }
 
-extension RowConvertible where Self: TableMapping {
+extension FetchableRecord where Self: TableRecord {
     @available(*, unavailable, renamed:"fetchCursor")
     public static func fetch(_ db: Database) -> Any { preconditionFailure() }
     @available(*, unavailable, renamed:"fetchCursor")
@@ -48,8 +48,8 @@ extension RowConvertible where Self: TableMapping {
     public static func fetch(_ db: Database, keys: [[String: DatabaseValueConvertible?]]) -> Any { preconditionFailure() }
 }
 
-@available(*, unavailable, message:"DatabaseSequence has been replaced by DatabaseCursor.")
+@available(*, unavailable, message:"DatabaseSequence has been replaced by Cursor.")
 public struct DatabaseSequence<T> { }
 
-@available(*, unavailable, message:"DatabaseIterator has been replaced by DatabaseCursor.")
+@available(*, unavailable, message:"DatabaseIterator has been replaced by Cursor.")
 public struct DatabaseIterator<T> { }

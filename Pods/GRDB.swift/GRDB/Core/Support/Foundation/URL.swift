@@ -1,5 +1,6 @@
 import Foundation
 
+#if !os(Linux)
 /// NSURL stores its absoluteString in the database.
 extension NSURL : DatabaseValueConvertible {
     
@@ -9,14 +10,15 @@ extension NSURL : DatabaseValueConvertible {
         return absoluteString?.databaseValue ?? .null
     }
     
-    /// Returns an NSURL initialized from *databaseValue*, if possible.
-    public static func fromDatabaseValue(_ databaseValue: DatabaseValue) -> Self? {
-        guard let string = String.fromDatabaseValue(databaseValue) else {
+    /// Returns an NSURL initialized from *dbValue*, if possible.
+    public static func fromDatabaseValue(_ dbValue: DatabaseValue) -> Self? {
+        guard let string = String.fromDatabaseValue(dbValue) else {
             return nil
         }
         return cast(URL(string: string))
     }
 }
+#endif
 
 /// URL stores its absoluteString in the database.
 extension URL : DatabaseValueConvertible { }

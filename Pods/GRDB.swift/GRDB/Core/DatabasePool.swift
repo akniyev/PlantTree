@@ -1,13 +1,36 @@
 import Foundation
-
+#if SWIFT_PACKAGE
+    import CSQLite
+#elseif !GRDBCUSTOMSQLITE && !GRDBCIPHER
+    import SQLite3
+#endif
 #if os(iOS)
     import UIKit
 #endif
 
 /// A DatabasePool grants concurrent accesses to an SQLite database.
-public final class DatabasePool {
+public final class DatabasePool: DatabaseWriter {
+    private let writer: SerializedDatabase
+    private var readerConfig: Configuration
+    private var readerPool: Pool<SerializedDatabase>!
     
-    // MARK: - Initializers
+    private var functions = Set<DatabaseFunction>()
+    private var collations = Set<DatabaseCollation>()
+    
+    var snapshotCount = ReadWriteBox(0)
+    
+    #if os(iOS)
+    private weak var application: UIApplication?
+    #endif
+    
+    // MARK: - Database Information
+    
+    /// The path to the database.
+    public var path: String {
+        return writer.path
+    }
+    
+    // MARK: - Initializer
     
     /// Opens the SQLite database at path *path*.
     ///
@@ -18,19 +41,16 @@ public final class DatabasePool {
     /// - parameters:
     ///     - path: The path to the database file.
     ///     - configuration: A configuration.
-    ///     - maximumReaderCount: The maximum number of readers. Default is 5.
     /// - throws: A DatabaseError whenever an SQLite error occurs.
     public init(path: String, configuration: Configuration = Configuration()) throws {
         GRDBPrecondition(configuration.maximumReaderCount > 0, "configuration.maximumReaderCount must be at least 1")
-        
-        // Writer and readers share the same database schema cache
-        let sharedSchemaCache = SharedDatabaseSchemaCache()
         
         // Writer
         writer = try SerializedDatabase(
             path: path,
             configuration: configuration,
-            schemaCache: sharedSchemaCache)
+            schemaCache: SimpleDatabaseSchemaCache(),
+            label: (configuration.label ?? "GRDB.DatabasePool") + ".writer")
         
         // Activate WAL Mode unless readonly
         if !configuration.readonly {
@@ -58,26 +78,19 @@ public final class DatabasePool {
         // Readers
         readerConfig = configuration
         readerConfig.readonly = true
-        readerConfig.defaultTransactionKind = .deferred // Make it the default. Other transaction kinds are forbidden by SQLite in read-only connections.
-        
-        readerPool = Pool<SerializedDatabase>(maximumCount: configuration.maximumReaderCount)
-        readerPool.makeElement = { [unowned self] in
+        readerConfig.defaultTransactionKind = .deferred // Make it the default for readers. Other transaction kinds are forbidden by SQLite in read-only connections.
+        readerConfig.allowsUnsafeTransactions = false   // Because there's no guarantee that one can get the same reader in order to close its opened transaction.
+        var readerCount = 0
+        readerPool = Pool(maximumCount: configuration.maximumReaderCount, makeElement: { [unowned self] in
+            readerCount += 1 // protected by pool's ReadWriteBox (undocumented behavior and protection)
             let reader = try SerializedDatabase(
                 path: path,
                 configuration: self.readerConfig,
-                schemaCache: sharedSchemaCache)
-            
-            reader.sync { db in
-                for function in self.functions {
-                    db.add(function: function)
-                }
-                for collation in self.collations {
-                    db.add(collation: collation)
-                }
-            }
-            
+                schemaCache: SimpleDatabaseSchemaCache(),
+                label: (self.readerConfig.label ?? "GRDB.DatabasePool") + ".reader.\(readerCount)")
+            reader.sync { self.setupDatabase($0) }
             return reader
-        }
+        })
     }
     
     #if os(iOS)
@@ -90,17 +103,20 @@ public final class DatabasePool {
     }
     #endif
     
-    
-    // MARK: - Configuration
-    
-    /// The path to the database.
-    public var path: String {
-        return writer.path
+    private func setupDatabase(_ db: Database) {
+        for function in self.functions {
+            db.add(function: function)
+        }
+        for collation in self.collations {
+            db.add(collation: collation)
+        }
     }
-    
-    
-    // MARK: - WAL Management
-    
+}
+
+extension DatabasePool {
+
+    // MARK: - WAL Checkpoints
+
     /// Runs a WAL checkpoint
     ///
     /// See https://www.sqlite.org/wal.html and
@@ -109,7 +125,7 @@ public final class DatabasePool {
     ///
     /// - parameter kind: The checkpoint mode (default passive)
     public func checkpoint(_ kind: Database.CheckpointMode = .passive) throws {
-        try write { db in
+        try writer.sync { db in
             // TODO: read https://www.sqlite.org/c3ref/wal_checkpoint_v2.html and
             // check whether we need a busy handler on writer and/or readers
             // when kind is not .Passive.
@@ -119,10 +135,12 @@ public final class DatabasePool {
             }
         }
     }
-    
-    
+}
+
+extension DatabasePool {
+
     // MARK: - Memory management
-    
+
     /// Free as much memory as possible.
     ///
     /// This method blocks the current thread until all database accesses are completed.
@@ -130,7 +148,7 @@ public final class DatabasePool {
     /// See also setupMemoryManagement(application:)
     public func releaseMemory() {
         // TODO: test that this method blocks the current thread until all database accesses are completed.
-        write { $0.releaseMemory() }
+        writer.sync { $0.releaseMemory() }
         readerPool.forEach { reader in
             reader.sync { $0.releaseMemory() }
         }
@@ -152,8 +170,6 @@ public final class DatabasePool {
         center.addObserver(self, selector: #selector(DatabasePool.applicationDidReceiveMemoryWarning(_:)), name: .UIApplicationDidReceiveMemoryWarning, object: nil)
         center.addObserver(self, selector: #selector(DatabasePool.applicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: nil)
     }
-    
-    private var application: UIApplication!
     
     @objc private func applicationDidEnterBackground(_ notification: NSNotification) {
         guard let application = application else {
@@ -181,48 +197,32 @@ public final class DatabasePool {
         }
     }
     #endif
-    
-    
-    // MARK: - Not public
-    
-    fileprivate let writer: SerializedDatabase
-    fileprivate var readerConfig: Configuration
-    fileprivate let readerPool: Pool<SerializedDatabase>
-    
-    fileprivate var functions = Set<DatabaseFunction>()
-    fileprivate var collations = Set<DatabaseCollation>()
 }
-
-
-// =========================================================================
-// MARK: - Encryption
 
 #if SQLITE_HAS_CODEC
     extension DatabasePool {
+
+        // MARK: - Encryption
         
         /// Changes the passphrase of an encrypted database
         public func change(passphrase: String) throws {
             try readerPool.clear(andThen: {
-                try write { try $0.change(passphrase: passphrase) }
+                try writer.sync { try $0.change(passphrase: passphrase) }
                 readerConfig.passphrase = passphrase
             })
         }
     }
 #endif
 
-
-// =========================================================================
-// MARK: - DatabaseReader
-
 extension DatabasePool : DatabaseReader {
     
-    // MARK: - Read From Database
-    
+    // MARK: - Reading from Database
+
     /// Synchronously executes a read-only block in a protected dispatch queue,
     /// and returns its result. The block is wrapped in a deferred transaction.
     ///
-    ///     let persons = try dbPool.read { db in
-    ///         try Person.fetchAll(...)
+    ///     let players = try dbPool.read { db in
+    ///         try Player.fetchAll(...)
     ///     }
     ///
     /// The block is completely isolated. Eventual concurrent database updates
@@ -230,14 +230,14 @@ extension DatabasePool : DatabaseReader {
     ///
     ///     try dbPool.read { db in
     ///         // Those two values are guaranteed to be equal, even if the
-    ///         // `wines` table is modified between the two requests:
-    ///         let count1 = try Int.fetchOne(db, "SELECT COUNT(*) FROM wines")!
-    ///         let count2 = try Int.fetchOne(db, "SELECT COUNT(*) FROM wines")!
+    ///         // `wine` table is modified between the two requests:
+    ///         let count1 = try Int.fetchOne(db, "SELECT COUNT(*) FROM wine")!
+    ///         let count2 = try Int.fetchOne(db, "SELECT COUNT(*) FROM wine")!
     ///     }
     ///
     ///     try dbPool.read { db in
     ///         // Now this value may be different:
-    ///         let count = try Int.fetchOne(db, "SELECT COUNT(*) FROM wines")!
+    ///         let count = try Int.fetchOne(db, "SELECT COUNT(*) FROM wine")!
     ///     }
     ///
     /// This method is *not* reentrant.
@@ -246,12 +246,15 @@ extension DatabasePool : DatabaseReader {
     /// - throws: The error thrown by the block, or any DatabaseError that would
     ///   happen while establishing the read access to the database.
     public func read<T>(_ block: (Database) throws -> T) throws -> T {
-        // The block isolation comes from the DEFERRED transaction.
-        // See DatabasePoolTests.testReadMethodIsolationOfBlock().
+        GRDBPrecondition(currentReader == nil, "Database methods are not reentrant.")
         return try readerPool.get { reader in
             try reader.sync { db in
                 var result: T? = nil
+                // The block isolation comes from the DEFERRED transaction.
+                // See DatabasePoolTests.testReadMethodIsolationOfBlock().
                 try db.inTransaction(.deferred) {
+                    // Reset the schema cache before running user code in snapshot isolation
+                    db.schemaCache = SimpleDatabaseSchemaCache()
                     result = try block(db)
                     return .commit
                 }
@@ -269,8 +272,8 @@ extension DatabasePool : DatabaseReader {
     ///     try dbPool.unsafeRead { db in
     ///         // Those two values may be different because some other thread
     ///         // may have inserted or deleted a wine between the two requests:
-    ///         let count1 = try Int.fetchOne(db, "SELECT COUNT(*) FROM wines")!
-    ///         let count2 = try Int.fetchOne(db, "SELECT COUNT(*) FROM wines")!
+    ///         let count1 = try Int.fetchOne(db, "SELECT COUNT(*) FROM wine")!
+    ///         let count2 = try Int.fetchOne(db, "SELECT COUNT(*) FROM wine")!
     ///     }
     ///
     /// Cursor iteration is safe, though:
@@ -287,84 +290,191 @@ extension DatabasePool : DatabaseReader {
     /// - throws: The error thrown by the block, or any DatabaseError that would
     ///   happen while establishing the read access to the database.
     public func unsafeRead<T>(_ block: (Database) throws -> T) throws -> T {
+        GRDBPrecondition(currentReader == nil, "Database methods are not reentrant.")
         return try readerPool.get { reader in
-            try reader.sync(block)
+            try reader.sync { db in
+                // No schema cache when snapshot isolation is not established
+                db.schemaCache = EmptyDatabaseSchemaCache()
+                return try block(db)
+            }
         }
     }
     
-    
-    // MARK: - Functions
-    
-    /// Add or redefine an SQL function.
+    /// Synchronously executes a read-only block in a protected dispatch queue,
+    /// and returns its result.
     ///
-    ///     let fn = DatabaseFunction("succ", argumentCount: 1) { databaseValues in
-    ///         let dbv = databaseValues.first!
-    ///         guard let int = dbv.value() as Int? else {
-    ///             return nil
-    ///         }
-    ///         return int + 1
-    ///     }
-    ///     dbPool.add(function: fn)
-    ///     try dbPool.read { db in
-    ///         try Int.fetchOne(db, "SELECT succ(1)") // 2
-    ///     }
-    public func add(function: DatabaseFunction) {
-        functions.update(with: function)
-        write { $0.add(function: function) }
-        readerPool.forEach { reader in
-            reader.sync { $0.add(function: function) }
-        }
-    }
-    
-    /// Remove an SQL function.
-    public func remove(function: DatabaseFunction) {
-        functions.remove(function)
-        write { $0.remove(function: function) }
-        readerPool.forEach { reader in
-            reader.sync { $0.remove(function: function) }
-        }
-    }
-    
-    
-    // MARK: - Collations
-    
-    /// Add or redefine a collation.
+    /// The block argument is not isolated: eventual concurrent database updates
+    /// are visible inside the block:
     ///
-    ///     let collation = DatabaseCollation("localized_standard") { (string1, string2) in
-    ///         return (string1 as NSString).localizedStandardCompare(string2)
+    ///     try dbPool.unsafeReentrantRead { db in
+    ///         // Those two values may be different because some other thread
+    ///         // may have inserted or deleted a wine between the two requests:
+    ///         let count1 = try Int.fetchOne(db, "SELECT COUNT(*) FROM wine")!
+    ///         let count2 = try Int.fetchOne(db, "SELECT COUNT(*) FROM wine")!
     ///     }
-    ///     dbPool.add(collation: collation)
+    ///
+    /// Cursor iteration is safe, though:
+    ///
+    ///     try dbPool.unsafeReentrantRead { db in
+    ///         // No concurrent update can mess with this iteration:
+    ///         let rows = try Row.fetchCursor(db, "SELECT ...")
+    ///         while let row = try rows.next() { ... }
+    ///     }
+    ///
+    /// This method is reentrant. It is unsafe because it fosters dangerous
+    /// concurrency practices.
+    ///
+    /// - parameter block: A block that accesses the database.
+    /// - throws: The error thrown by the block, or any DatabaseError that would
+    ///   happen while establishing the read access to the database.
+    public func unsafeReentrantRead<T>(_ block: (Database) throws -> T) throws -> T {
+        if let reader = currentReader {
+            return try reader.reentrantSync(block)
+        } else {
+            return try readerPool.get { reader in
+                try reader.sync { db in
+                    // No schema cache when snapshot isolation is not established
+                    db.schemaCache = EmptyDatabaseSchemaCache()
+                    return try block(db)
+                }
+            }
+        }
+    }
+    
+    /// Asynchronously executes a read-only block in a protected dispatch queue,
+    /// wrapped in a deferred transaction.
+    ///
+    /// This method must be called from the writing dispatch queue, outside of a
+    /// transaction. You'll get a fatal error otherwise.
+    ///
+    /// The *block* argument is guaranteed to see the database in the last
+    /// committed state at the moment this method is called. Eventual concurrent
+    /// database updates are *not visible* inside the block.
+    ///
     ///     try dbPool.write { db in
-    ///         try db.execute("CREATE TABLE files (name TEXT COLLATE LOCALIZED_STANDARD")
+    ///         try db.execute("DELETE FROM player")
+    ///         try dbPool.readFromCurrentState { db in
+    ///             // Guaranteed to be zero
+    ///             try Int.fetchOne(db, "SELECT COUNT(*) FROM player")!
+    ///         }
+    ///         try db.execute("INSERT INTO player ...")
     ///     }
-    public func add(collation: DatabaseCollation) {
-        collations.update(with: collation)
-        write { $0.add(collation: collation) }
-        readerPool.forEach { reader in
-            reader.sync { $0.add(collation: collation) }
+    ///
+    /// This method blocks the current thread until the isolation guarantee has
+    /// been established, and before the block argument has run.
+    ///
+    /// - parameter block: A block that accesses the database.
+    /// - throws: The error thrown by the block, or any DatabaseError that would
+    ///   happen while establishing the read access to the database.
+    public func readFromCurrentState(_ block: @escaping (Database) -> Void) throws {
+        // https://www.sqlite.org/isolation.html
+        //
+        // > In WAL mode, SQLite exhibits "snapshot isolation". When a read
+        // > transaction starts, that reader continues to see an unchanging
+        // > "snapshot" of the database file as it existed at the moment in time
+        // > when the read transaction started. Any write transactions that
+        // > commit while the read transaction is active are still invisible to
+        // > the read transaction, because the reader is seeing a snapshot of
+        // > database file from a prior moment in time.
+        //
+        // That's exactly what we need. But what does "when read transaction
+        // starts" mean?
+        //
+        // http://www.sqlite.org/lang_transaction.html
+        //
+        // > Deferred [transaction] means that no locks are acquired on the
+        // > database until the database is first accessed. [...] Locks are not
+        // > acquired until the first read or write operation. [...] Because the
+        // > acquisition of locks is deferred until they are needed, it is
+        // > possible that another thread or process could create a separate
+        // > transaction and write to the database after the BEGIN on the
+        // > current thread has executed.
+        //
+        // Now that's precise enough: SQLite defers "snapshot isolation" until
+        // the first SELECT:
+        //
+        //     Reader                       Writer
+        //     BEGIN DEFERRED TRANSACTION
+        //                                  UPDATE ... (1)
+        //     Here the change (1) is visible
+        //     SELECT ...
+        //                                  UPDATE ... (2)
+        //     Here the change (2) is not visible
+        //
+        // The readFromCurrentState method says that no change should be visible
+        // at all. We thus have to perform a select that establishes the
+        // snapshot isolation before we release the writer queue:
+        //
+        //     Reader                       Writer
+        //     BEGIN DEFERRED TRANSACTION
+        //     SELECT anything
+        //                                  UPDATE ...
+        //     Here the change is not visible by GRDB user
+        
+        // Check that we're on the writer queue...
+        writer.execute { db in
+            // ... and that no transaction is opened.
+            GRDBPrecondition(!db.isInsideTransaction, "readFromCurrentState must not be called from inside a transaction. If this error is raised from a DatabasePool.write block, use DatabasePool.writeWithoutTransaction instead (and use transactions when needed).")
+        }
+        
+        // The semaphore that blocks the writing dispatch queue until snapshot
+        // isolation has been established:
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        var readError: Error? = nil
+        try readerPool.get { reader in
+            reader.async { db in
+                do {
+                    try db.beginTransaction(.deferred)
+                    assert(db.isInsideTransaction)
+                    try db.makeSelectStatement("SELECT rootpage FROM sqlite_master").cursor().next()
+                } catch {
+                    readError = error
+                    semaphore.signal() // Release the writer queue and rethrow error
+                    return
+                }
+                semaphore.signal() // We can release the writer queue now that we are isolated for good
+                
+                // Reset the schema cache before running user code in snapshot isolation
+                db.schemaCache = SimpleDatabaseSchemaCache()
+                block(db)
+                
+                _ = try? db.commit() // Ignore commit error
+            }
+        }
+        _ = semaphore.wait(timeout: .distantFuture)
+        if let readError = readError {
+            // TODO: write a test for this
+            throw readError
         }
     }
-    
-    /// Remove a collation.
-    public func remove(collation: DatabaseCollation) {
-        collations.remove(collation)
-        write { $0.remove(collation: collation) }
+
+    /// Returns a reader that can be used from the current dispatch queue,
+    /// if any.
+    private var currentReader: SerializedDatabase? {
+        var readers: [SerializedDatabase] = []
         readerPool.forEach { reader in
-            reader.sync { $0.remove(collation: collation) }
+            // We can't check for reader.onValidQueue here because
+            // Pool.forEach() runs its closure argument in some arbitrary
+            // dispatch queue. We thus extract the reader so that we can query
+            // it below.
+            readers.append(reader)
         }
+        
+        // Now the readers array contains some readers. The pool readers may
+        // already be different, because some other thread may have started
+        // a new read, for example.
+        //
+        // This doesn't matter: the reader we are looking for is already on
+        // its own dispatch queue. If it exists, is still in use, thus still
+        // in the pool, and thus still relevant for our check:
+        return readers.first { $0.onValidQueue }
     }
-}
-
-
-// =========================================================================
-// MARK: - DatabaseWriter
-
-extension DatabasePool : DatabaseWriter {
     
     // MARK: - Writing in Database
     
     /// Synchronously executes an update block in a protected dispatch queue,
-    /// and returns its result.
+    /// wrapped inside a transaction, and returns the result of the block.
     ///
     /// Eventual concurrent database updates are postponed until the block
     /// has executed.
@@ -373,16 +483,41 @@ extension DatabasePool : DatabaseWriter {
     ///         try db.execute(...)
     ///     }
     ///
-    /// To maintain database integrity, and preserve eventual concurrent reads
-    /// from seeing an inconsistent database state, prefer the
-    /// writeInTransaction method.
+    /// Eventual concurrent reads are guaranteed not to see any changes
+    /// performed in the block until they are all saved in the database.
+    ///
+    /// This method is *not* reentrant.
+    ///
+    /// - parameters block: A block that executes SQL statements.
+    /// - throws: The error thrown by the block, or by the wrapping transaction.
+    public func write<T>(_ block: (Database) throws -> T) throws -> T {
+        return try writer.sync { db in
+            var result: T? = nil
+            try db.inTransaction {
+                result = try block(db)
+                return .commit
+            }
+            return result!
+        }
+    }
+    
+    /// Synchronously executes a block that takes a database connection, and
+    /// returns its result.
+    ///
+    /// Eventual concurrent database updates are postponed until the block
+    /// has executed.
+    ///
+    /// Eventual concurrent reads may see changes performed in the block before
+    /// the block completes.
+    ///
+    /// The block is guaranteed to be executed outside of a transaction.
     ///
     /// This method is *not* reentrant.
     ///
     /// - parameters block: A block that executes SQL statements and return
     ///   either .commit or .rollback.
     /// - throws: The error thrown by the block.
-    public func write<T>(_ block: (Database) throws -> T) rethrows -> T {
+    public func writeWithoutTransaction<T>(_ block: (Database) throws -> T) rethrows -> T {
         return try writer.sync(block)
     }
     
@@ -401,127 +536,182 @@ extension DatabasePool : DatabaseWriter {
     ///         return .commit
     ///     }
     ///
-    /// Eventual concurrent readers do not see partial changes:
-    ///
-    ///     dbPool.writeInTransaction { db in
-    ///         // Eventually preserve a zero balance
-    ///         try db.execute(db, "INSERT INTO credits ...", arguments: [amount])
-    ///         try db.execute(db, "INSERT INTO debits ...", arguments: [amount])
-    ///     }
-    ///
-    ///     dbPool.read { db in
-    ///         // Here the balance is guaranteed to be zero
-    ///     }
+    /// Eventual concurrent reads are guaranteed not to see any changes
+    /// performed in the block until they are all saved in the database.
     ///
     /// This method is *not* reentrant.
     ///
     /// - parameters:
     ///     - kind: The transaction type (default nil). If nil, the transaction
     ///       type is configuration.defaultTransactionKind, which itself
-    ///       defaults to .immediate. See https://www.sqlite.org/lang_transaction.html
+    ///       defaults to .deferred. See https://www.sqlite.org/lang_transaction.html
     ///       for more information.
     ///     - block: A block that executes SQL statements and return either
     ///       .commit or .rollback.
     /// - throws: The error thrown by the block, or any error establishing the
     ///   transaction.
     public func writeInTransaction(_ kind: Database.TransactionKind? = nil, _ block: (Database) throws -> Database.TransactionCompletion) throws {
-        try write { db in
+        try writer.sync { db in
             try db.inTransaction(kind) {
                 try block(db)
             }
         }
     }
     
-    /// Returns an optional database connection. If not nil, the caller is
-    /// executing on the serialized writer dispatch queue.
-    public var availableDatabaseConnection: Database? {
-        return writer.availableDatabaseConnection
-    }
-    
-    
-    // MARK: - Reading from Database
-    
-    /// Asynchronously executes a read-only block in a protected dispatch queue,
-    /// wrapped in a deferred transaction.
+    /// Synchronously executes an update block in a protected dispatch queue,
+    /// and returns its result.
     ///
-    /// This method must be called from the writing dispatch queue.
+    /// Eventual concurrent database updates are postponed until the block
+    /// has executed.
     ///
-    /// The *block* argument is guaranteed to see the database in the last
-    /// committed state at the moment this method is called. Eventual concurrent
-    /// database updates are *not visible* inside the block.
-    ///
-    ///     try dbPool.write { db in
-    ///         try db.execute("DELETE FROM persons")
-    ///         try dbPool.readFromCurrentState { db in
-    ///             // Guaranteed to be zero
-    ///             try Int.fetchOne(db, "SELECT COUNT(*) FROM persons")!
-    ///         }
-    ///         try db.execute("INSERT INTO persons ...")
+    ///     try dbPool.unsafeReentrantWrite { db in
+    ///         try db.execute(...)
     ///     }
     ///
-    /// This method blocks the current thread until the isolation guarantee has
-    /// been established, and before the block argument has run.
+    /// Eventual concurrent reads may see changes performed in the block before
+    /// the block completes.
     ///
-    /// - parameter block: A block that accesses the database.
-    /// - throws: The error thrown by the block, or any DatabaseError that would
-    ///   happen while establishing the read access to the database.
-    public func readFromCurrentState(_ block: @escaping (Database) -> Void) throws {
-        writer.preconditionValidQueue()
-        let semaphore = DispatchSemaphore(value: 0)
-        var readError: Error? = nil
-        try readerPool.get { reader in
-            reader.async { db in
-                // https://www.sqlite.org/isolation.html
-                //
-                // > In WAL mode, SQLite exhibits "snapshot isolation". When a
-                // > read transaction starts, that reader continues to see an
-                // > unchanging "snapshot" of the database file as it existed at
-                // > the moment in time when the read transaction started.
-                // > Any write transactions that commit while the read
-                // > transaction is active are still invisible to the read
-                // > transaction, because the reader is seeing a snapshot of
-                // > database file from a prior moment in time.
-                //
-                // This documentation is NOT accurate. SQLite actually defers
-                // isolation until the first SELECT:
-                //
-                //     Reader                       Writer
-                //     BEGIN DEFERRED TRANSACTION
-                //                                  UPDATE ... (1)
-                //     Here the change (1) is visible
-                //     SELECT ...
-                //                                  UPDATE ... (2)
-                //     Here the change (2) is not visible
-                //
-                // This is not the guarantee expected by this method: no change
-                // at all should be visible.
-                //
-                // Workaround: perform an initial read before releasing the
-                // writer queue:
-                //
-                //     Reader                       Writer
-                //     BEGIN DEFERRED TRANSACTION
-                //     SELECT anything -- the work around
-                //                                  UPDATE ...
-                //     Here the change is not visible by GRDB user
-                do {
-                    try db.beginTransaction(.deferred)
-                    assert(db.isInsideTransaction)
-                    try db.makeSelectStatement("SELECT rootpage FROM sqlite_master").fetchCursor().next() // doesn't work with cached statement
-                } catch {
-                    readError = error
-                    semaphore.signal() // Release the writer queue and rethrow error
-                    return
-                }
-                semaphore.signal() // We can release the writer queue now that we are isolated for good
-                block(db)
-                _ = try? db.commit() // Ignore commit error
+    /// This method is reentrant. It is unsafe because it fosters dangerous
+    /// concurrency practices.
+    public func unsafeReentrantWrite<T>(_ block: (Database) throws -> T) rethrows -> T {
+        return try writer.reentrantSync(block)
+    }
+    
+    // MARK: - Functions
+    
+    /// Add or redefine an SQL function.
+    ///
+    ///     let fn = DatabaseFunction("succ", argumentCount: 1) { dbValues in
+    ///         guard let int = Int.fromDatabaseValue(dbValues[0]) else {
+    ///             return nil
+    ///         }
+    ///         return int + 1
+    ///     }
+    ///     dbPool.add(function: fn)
+    ///     try dbPool.read { db in
+    ///         try Int.fetchOne(db, "SELECT succ(1)") // 2
+    ///     }
+    public func add(function: DatabaseFunction) {
+        functions.update(with: function)
+        writer.sync { $0.add(function: function) }
+        readerPool.forEach { reader in
+            reader.sync { $0.add(function: function) }
+        }
+    }
+    
+    /// Remove an SQL function.
+    public func remove(function: DatabaseFunction) {
+        functions.remove(function)
+        writer.sync { $0.remove(function: function) }
+        readerPool.forEach { reader in
+            reader.sync { $0.remove(function: function) }
+        }
+    }
+    
+    // MARK: - Collations
+    
+    /// Add or redefine a collation.
+    ///
+    ///     let collation = DatabaseCollation("localized_standard") { (string1, string2) in
+    ///         return (string1 as NSString).localizedStandardCompare(string2)
+    ///     }
+    ///     dbPool.add(collation: collation)
+    ///     try dbPool.write { db in
+    ///         try db.execute("CREATE TABLE file (name TEXT COLLATE LOCALIZED_STANDARD")
+    ///     }
+    public func add(collation: DatabaseCollation) {
+        collations.update(with: collation)
+        writer.sync { $0.add(collation: collation) }
+        readerPool.forEach { reader in
+            reader.sync { $0.add(collation: collation) }
+        }
+    }
+    
+    /// Remove a collation.
+    public func remove(collation: DatabaseCollation) {
+        collations.remove(collation)
+        writer.sync { $0.remove(collation: collation) }
+        readerPool.forEach { reader in
+            reader.sync { $0.remove(collation: collation) }
+        }
+    }
+}
+
+extension DatabasePool {
+    
+    // MARK: - Snapshots
+    
+    /// Creates a database snapshot.
+    ///
+    /// The snapshot sees an unchanging database content, as it existed at the
+    /// moment it was created.
+    ///
+    /// When you want to control the latest committed changes seen by a
+    /// snapshot, create it from the pool's writer protected dispatch queue:
+    ///
+    ///     let snapshot1 = try dbPool.write { db -> DatabaseSnapshot in
+    ///         try Player.deleteAll()
+    ///         return try dbPool.makeSnapshot()
+    ///     }
+    ///     // <- Other threads may modify the database here
+    ///     let snapshot2 = try dbPool.makeSnapshot()
+    ///
+    ///     try snapshot1.read { db in
+    ///         // Guaranteed to be zero
+    ///         try Player.fetchCount(db)
+    ///     }
+    ///
+    ///     try snapshot2.read { db in
+    ///         // Could be anything
+    ///         try Player.fetchCount(db)
+    ///     }
+    ///
+    /// It is forbidden to create a snapshot from the writer protected dispatch
+    /// queue when a transaction is opened, though, because it is likely a
+    /// programmer error:
+    ///
+    ///     try dbPool.write { db in
+    ///         try db.inTransaction {
+    ///             try Player.deleteAll()
+    ///             // fatal error: makeSnapshot() must not be called from inside a transaction
+    ///             let snapshot = try dbPool.makeSnapshot()
+    ///             return .commit
+    ///         }
+    ///     }
+    ///
+    /// To avoid this fatal error, create the snapshot *before* or *after* the
+    /// transaction:
+    ///
+    ///     try dbPool.writeWithoutTransaction { db in
+    ///         // OK
+    ///         let snapshot = try dbPool.makeSnapshot()
+    ///
+    ///         try db.inTransaction {
+    ///             try Player.deleteAll()
+    ///             return .commit
+    ///         }
+    ///
+    ///         // OK
+    ///         let snapshot = try dbPool.makeSnapshot()
+    ///     }
+    ///
+    /// You can create as many snapshots as you need, regardless of the maximum
+    /// number of reader connections in the pool.
+    ///
+    /// For more information, read about "snapshot isolation" at https://sqlite.org/isolation.html
+    public func makeSnapshot() throws -> DatabaseSnapshot {
+        // Sanity check
+        if writer.onValidQueue {
+            writer.execute { db in
+                GRDBPrecondition(!db.isInsideTransaction, "makeSnapshot() must not be called from inside a transaction.")
             }
         }
-        _ = semaphore.wait(timeout: .distantFuture)
-        if let readError = readError {
-            // TODO: write a test for this
-            throw readError
-        }
+        
+        let snapshot = try DatabaseSnapshot(
+            path: path,
+            configuration: writer.configuration,
+            labelSuffix: ".snapshot.\(snapshotCount.increment())")
+        snapshot.read { setupDatabase($0) }
+        return snapshot
     }
 }

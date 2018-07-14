@@ -89,7 +89,7 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
 
     func facebookButtonClicked() {
         let loginManager = LoginManager()
-        loginManager.logIn([.publicProfile], viewController: self, completion: { [weak self] loginResult in
+        loginManager.logIn(readPermissions: [.publicProfile], viewController: self, completion: { [weak self] loginResult in
             switch loginResult {
             case .failed(let error):
                 if let s = self {

@@ -1,114 +1,80 @@
 // MARK: - SQLSelectable
 
-/// This protocol is an implementation detail of the query interface.
-/// Do not use it directly.
-///
-/// See https://github.com/groue/GRDB.swift/#the-query-interface
-///
-/// # Low Level Query Interface
+/// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
 ///
 /// SQLSelectable is the protocol for types that can be selected, as
 /// described at https://www.sqlite.org/syntax/result-column.html
+///
+/// :nodoc:
 public protocol SQLSelectable {
-    func resultColumnSQL(_ arguments: inout StatementArguments?) -> String
-    func countedSQL(_ arguments: inout StatementArguments?) -> String
-    func countingSelectable(distinct: Bool, from tableName: String, aliased alias: String?) -> SQLSelectable?
+    /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
+    func resultColumnSQL(_ context: inout SQLGenerationContext) -> String
+    
+    /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
+    func countedSQL(_ context: inout SQLGenerationContext) -> String
+    
+    /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
+    func count(distinct: Bool) -> SQLCount?
+    
+    /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
+    func columnCount(_ db: Database) throws -> Int
+    
+    /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
+    func qualifiedSelectable(with alias: TableAlias) -> SQLSelectable
 }
 
+// MARK: - SQLSelectionLiteral
 
-// MARK: - SQLStar
-
-struct SQLStar : SQLSelectable {
-    fileprivate init() {
+struct SQLSelectionLiteral : SQLSelectable {
+    let sql: String
+    let arguments: StatementArguments?
+    
+    init(_ sql: String, arguments: StatementArguments? = nil) {
+        self.sql = sql
+        self.arguments = arguments
     }
     
-    func resultColumnSQL(_ arguments: inout StatementArguments?) -> String {
-        return "*"
-    }
-    
-    func countedSQL(_ arguments: inout StatementArguments?) -> String {
-        return "*"
-    }
-    
-    public func countingSelectable(distinct: Bool, from tableName: String, aliased alias: String?) -> SQLSelectable? {
-        // SELECT DISTINCT * FROM tableName ...
-        guard !distinct else {
-            return nil
+    func resultColumnSQL(_ context: inout SQLGenerationContext) -> String {
+        if let arguments = arguments {
+            if context.appendArguments(arguments) == false {
+                // GRDB limitation: we don't know how to look for `?` in sql and
+                // replace them with with literals.
+                fatalError("Not implemented")
+            }
         }
-        
-        // SELECT * FROM tableName ...
-        // ->
-        // SELECT COUNT(*) FROM tableName ...
-        return SQLExpressionCount(self)
+        return sql
+    }
+    
+    func countedSQL(_ context: inout SQLGenerationContext) -> String {
+        fatalError("Selection literals can't be counted. To resolve this error, select one or several SQLExpressionLiteral instead.")
+    }
+    
+    func count(distinct: Bool) -> SQLCount? {
+        fatalError("Selection literals can't be counted. To resolve this error, select one or several SQLExpressionLiteral instead.")
+    }
+    
+    func columnCount(_ db: Database) throws -> Int {
+        fatalError("Selection literals don't known how many columns they contain. To resolve this error, select one or several SQLExpressionLiteral instead.")
+    }
+    
+    func qualifiedSelectable(with alias: TableAlias) -> SQLSelectable {
+        return self
     }
 }
 
-let star = SQLStar()
+// MARK: - Counting
 
-
-// MARK: - SQLAliasedExpression
-
-struct SQLAliasedExpression : SQLSelectable {
-    let expression: SQLExpression
-    let alias: String
+/// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
+///
+/// :nodoc:
+public enum SQLCount {
+    /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
+    ///
+    /// Represents COUNT(*)
+    case all
     
-    init(_ expression: SQLExpression, alias: String) {
-        self.expression = expression
-        self.alias = alias
-    }
-    
-    func resultColumnSQL(_ arguments: inout StatementArguments?) -> String {
-        return expression.resultColumnSQL(&arguments) + " AS " + alias.quotedDatabaseIdentifier
-    }
-    
-    func countedSQL(_ arguments: inout StatementArguments?) -> String {
-        return expression.countedSQL(&arguments)
-    }
-    
-    public func countingSelectable(distinct: Bool, from tableName: String, aliased alias: String?) -> SQLSelectable? {
-        return expression.countingSelectable(distinct: distinct, from: tableName, aliased: alias)
-    }
-}
-
-
-// MARK: - SQLExpressible
-
-extension SQLExpressible where Self: SQLSelectable {
-    
-    /// This method is an implementation detail of the query interface.
-    /// Do not use it directly.
+    /// [**Experimental**](http://github.com/groue/GRDB.swift#what-are-experimental-features)
     ///
-    /// See https://github.com/groue/GRDB.swift/#the-query-interface
-    ///
-    /// # Low Level Query Interface
-    ///
-    /// See SQLSelectable.resultColumnSQL(_)
-    public func resultColumnSQL(_ arguments: inout StatementArguments?) -> String {
-        return sqlExpression.expressionSQL(&arguments)
-    }
-    
-    /// This method is an implementation detail of the query interface.
-    /// Do not use it directly.
-    ///
-    /// See https://github.com/groue/GRDB.swift/#the-query-interface
-    ///
-    /// # Low Level Query Interface
-    ///
-    /// See SQLSelectable.countedSQL(_)
-    public func countedSQL(_ arguments: inout StatementArguments?) -> String {
-        return sqlExpression.expressionSQL(&arguments)
-    }
-    
-    
-    /// This method is an implementation detail of the query interface.
-    /// Do not use it directly.
-    ///
-    /// See https://github.com/groue/GRDB.swift/#the-query-interface
-    ///
-    /// # Low Level Query Interface
-    ///
-    /// See SQLSelectable.countingSelectable(distinct:from:aliased:)
-    public func countingSelectable(distinct: Bool, from tableName: String, aliased alias: String?) -> SQLSelectable? {
-        return sqlExpression.countingSelectable(distinct: distinct, from: tableName, aliased: alias)
-    }
+    /// Represents COUNT(DISTINCT expression)
+    case distinct(SQLExpression)
 }

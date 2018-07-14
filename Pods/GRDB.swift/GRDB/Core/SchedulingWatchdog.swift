@@ -1,3 +1,5 @@
+import Dispatch
+
 /// SchedulingWatchdog makes sure that databases connections are used on correct
 /// dispatch queues, and warns the user with a fatal error whenever she misuses
 /// a database connection.
@@ -14,47 +16,43 @@
 ///   of the dispatch queue, a SchedulingWatchdog that allows that database only.
 ///
 ///   Later on, the queue can be shared by several databases with the method
-///   allowing(databases:execute:). See SerializedDatabase.sync() for
-///   an example.
+///   inheritingAllowedDatabases(from:execute:). See SerializedDatabase.sync()
+///   for an example.
 ///
 /// - preconditionValidQueue() crashes whenever a database is used in an invalid
 ///   dispatch queue.
 final class SchedulingWatchdog {
     private static let specificKey = DispatchSpecificKey<SchedulingWatchdog>()
     private(set) var allowedDatabases: [Database]
+    var databaseObservationBroker: DatabaseObservationBroker?
     
     private init(allowedDatabase database: Database) {
         allowedDatabases = [database]
     }
     
-    static func makeSerializedQueue(allowingDatabase database: Database) -> DispatchQueue {
-        let queue = DispatchQueue(label: "GRDB.SerializedDatabase")
+    static func makeSerializedQueue(allowingDatabase database: Database, label: String) -> DispatchQueue {
+        let queue = DispatchQueue(label: label)
         let watchdog = SchedulingWatchdog(allowedDatabase: database)
         queue.setSpecific(key: specificKey, value: watchdog)
         return queue
     }
     
-    // Temporarily allows `databases` while executing `body`
-    func allowing<T>(databases: [Database], execute body: () throws -> T) rethrows -> T {
+    func inheritingAllowedDatabases<T>(from other: SchedulingWatchdog, execute body: () throws -> T) rethrows -> T {
         let backup = allowedDatabases
-        allowedDatabases.append(contentsOf: databases)
+        allowedDatabases.append(contentsOf: other.allowedDatabases)
         defer { allowedDatabases = backup }
         return try body()
     }
     
     static func preconditionValidQueue(_ db: Database, _ message: @autoclosure() -> String = "Database was not used on the correct thread.", file: StaticString = #file, line: UInt = #line) {
-        GRDBPrecondition(allows(db), message, file: file, line: line)
-    }
-    
-    static func allows(_ db: Database) -> Bool {
-        return current?.allows(db) ?? false
-    }
-    
-    func allows(_ db: Database) -> Bool {
-        return allowedDatabases.contains { $0 === db }
+        GRDBPrecondition(current?.allows(db) ?? false, message, file: file, line: line)
     }
     
     static var current: SchedulingWatchdog? {
         return DispatchQueue.getSpecific(key: specificKey)
+    }
+    
+    func allows(_ db: Database) -> Bool {
+        return allowedDatabases.contains { $0 === db }
     }
 }

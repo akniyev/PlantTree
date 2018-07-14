@@ -1,3 +1,4 @@
+#if !os(Linux)
 import Foundation
 
 /// NSData is convertible to and from DatabaseValue.
@@ -8,12 +9,13 @@ extension NSData : DatabaseValueConvertible {
         return (self as Data).databaseValue
     }
     
-    /// Returns an NSData initialized from *databaseValue*, if it contains
+    /// Returns an NSData initialized from *dbValue*, if it contains
     /// a Blob.
-    public static func fromDatabaseValue(_ databaseValue: DatabaseValue) -> Self? {
-        guard let data = Data.fromDatabaseValue(databaseValue) else {
+    public static func fromDatabaseValue(_ dbValue: DatabaseValue) -> Self? {
+        guard let data = Data.fromDatabaseValue(dbValue) else {
             return nil
         }
         return cast(data)
     }
 }
+#endif

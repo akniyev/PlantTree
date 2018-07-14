@@ -2,11 +2,11 @@ extension Database {
     
     // MARK: - Database Schema
     
-    #if USING_CUSTOMSQLITE || USING_SQLCIPHER
+    #if GRDBCUSTOMSQLITE || GRDBCIPHER
     /// Creates a database table.
     ///
-    ///     try db.create(table: "pointOfInterests") { t in
-    ///         t.column("id", .integer).primaryKey()
+    ///     try db.create(table: "place") { t in
+    ///         t.autoIncrementedPrimaryKey("id")
     ///         t.column("title", .text)
     ///         t.column("favorite", .boolean).notNull().default(false)
     ///         t.column("longitude", .double).notNull()
@@ -19,7 +19,9 @@ extension Database {
     /// - parameters:
     ///     - name: The table name.
     ///     - temporary: If true, creates a temporary table.
-    ///     - ifNotExists: If false, no error is thrown if table already exists.
+    ///     - ifNotExists: If false (the default), an error is thrown if the
+    ///       table already exists. Otherwise, the table is created unless it
+    ///       already exists.
     ///     - withoutRowID: If true, uses WITHOUT ROWID optimization.
     ///     - body: A closure that defines table columns and constraints.
     /// - throws: A DatabaseError whenever an SQLite error occurs.
@@ -32,8 +34,8 @@ extension Database {
     #else
     /// Creates a database table.
     ///
-    ///     try db.create(table: "pointOfInterests") { t in
-    ///         t.column("id", .integer).primaryKey()
+    ///     try db.create(table: "place") { t in
+    ///         t.autoIncrementedPrimaryKey("id")
     ///         t.column("title", .text)
     ///         t.column("favorite", .boolean).notNull().default(false)
     ///         t.column("longitude", .double).notNull()
@@ -46,7 +48,9 @@ extension Database {
     /// - parameters:
     ///     - name: The table name.
     ///     - temporary: If true, creates a temporary table.
-    ///     - ifNotExists: If false, no error is thrown if table already exists.
+    ///     - ifNotExists: If false (the default), an error is thrown if the
+    ///       table already exists. Otherwise, the table is created unless it
+    ///       already exists.
     ///     - withoutRowID: If true, uses WITHOUT ROWID optimization.
     ///     - body: A closure that defines table columns and constraints.
     /// - throws: A DatabaseError whenever an SQLite error occurs.
@@ -62,8 +66,8 @@ extension Database {
     
     /// Creates a database table.
     ///
-    ///     try db.create(table: "pointOfInterests") { t in
-    ///         t.column("id", .integer).primaryKey()
+    ///     try db.create(table: "place") { t in
+    ///         t.autoIncrementedPrimaryKey("id")
     ///         t.column("title", .text)
     ///         t.column("favorite", .boolean).notNull().default(false)
     ///         t.column("longitude", .double).notNull()
@@ -75,7 +79,9 @@ extension Database {
     /// - parameters:
     ///     - name: The table name.
     ///     - temporary: If true, creates a temporary table.
-    ///     - ifNotExists: If false, no error is thrown if table already exists.
+    ///     - ifNotExists: If false (the default), an error is thrown if the
+    ///       table already exists. Otherwise, the table is created unless it
+    ///       already exists.
     ///     - body: A closure that defines table columns and constraints.
     /// - throws: A DatabaseError whenever an SQLite error occurs.
     public func create(table name: String, temporary: Bool = false, ifNotExists: Bool = false, body: (TableDefinition) -> Void) throws {
@@ -97,7 +103,7 @@ extension Database {
     
     /// Modifies a database table.
     ///
-    ///     try db.alter(table: "persons") { t in
+    ///     try db.alter(table: "player") { t in
     ///         t.add(column: "url", .text)
     ///     }
     ///
@@ -123,10 +129,10 @@ extension Database {
         try execute("DROP TABLE \(name.quotedDatabaseIdentifier)")
     }
     
-    #if USING_CUSTOMSQLITE || USING_SQLCIPHER
+    #if GRDBCUSTOMSQLITE || GRDBCIPHER
     /// Creates an index.
     ///
-    ///     try db.create(index: "personByEmail", on: "person", columns: ["email"])
+    ///     try db.create(index: "playerByEmail", on: "player", columns: ["email"])
     ///
     /// SQLite can also index expressions (https://www.sqlite.org/expridx.html)
     /// and use specific collations. To create such an index, use a raw SQL
@@ -154,7 +160,7 @@ extension Database {
     #else
     /// Creates an index.
     ///
-    ///     try db.create(index: "personByEmail", on: "person", columns: ["email"])
+    ///     try db.create(index: "playerByEmail", on: "player", columns: ["email"])
     ///
     /// SQLite can also index expressions (https://www.sqlite.org/expridx.html)
     /// and use specific collations. To create such an index, use a raw SQL
@@ -180,7 +186,7 @@ extension Database {
     
     /// Creates a partial index.
     ///
-    ///     try db.create(index: "personByEmail", on: "person", columns: ["email"], condition: Column("email") != nil)
+    ///     try db.create(index: "playerByEmail", on: "player", columns: ["email"], condition: Column("email") != nil)
     ///
     /// See https://www.sqlite.org/lang_createindex.html, and
     /// https://www.sqlite.org/partialindex.html
@@ -217,7 +223,7 @@ extension Database {
 /// You don't create instances of this class. Instead, you use the Database
 /// `create(table:)` method:
 ///
-///     try db.create(table: "persons") { t in // t is TableDefinition
+///     try db.create(table: "player") { t in // t is TableDefinition
 ///         t.column(...)
 ///     }
 ///
@@ -242,20 +248,52 @@ public final class TableDefinition {
         self.withoutRowID = withoutRowID
     }
     
+    /// Defines the auto-incremented primary key.
+    ///
+    ///     try db.create(table: "player") { t in
+    ///         t.autoIncrementedPrimaryKey("id")
+    ///     }
+    ///
+    /// The auto-incremented primary key is an integer primary key that
+    /// automatically generates unused values when you do not explicitly
+    /// provide one, and prevents the reuse of ids over the lifetime of
+    /// the database.
+    ///
+    /// **It is the preferred way to define a numeric primary key**.
+    ///
+    /// The fact that an auto-incremented primary key prevents the reuse of
+    /// ids is an excellent guard against data races that could happen when your
+    /// application processes ids in an asynchronous way. The auto-incremented
+    /// primary key provides the guarantee that a given id can't reference a row
+    /// that is different from the one it used to be at the beginning of the
+    /// asynchronous process, even if this row gets deleted and a new one is
+    /// inserted in between.
+    ///
+    /// See https://www.sqlite.org/lang_createtable.html#primkeyconst and
+    /// https://www.sqlite.org/lang_createtable.html#rowid
+    ///
+    /// - parameter conflitResolution: An optional conflict resolution
+    ///   (see https://www.sqlite.org/lang_conflict.html).
+    /// - returns: Self so that you can further refine the column definition.
+    @discardableResult
+    public func autoIncrementedPrimaryKey(_ name: String, onConflict conflictResolution: Database.ConflictResolution? = nil) -> ColumnDefinition {
+        return column(name, .integer).primaryKey(onConflict: conflictResolution, autoincrement: true)
+    }
+
     /// Appends a table column.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("name", .text)
     ///     }
     ///
     /// See https://www.sqlite.org/lang_createtable.html#tablecoldef
     ///
     /// - parameter name: the column name.
-    /// - parameter type: the column type.
+    /// - parameter type: the eventual column type.
     /// - returns: An ColumnDefinition that allows you to refine the
     ///   column definition.
     @discardableResult
-    public func column(_ name: String, _ type: Database.ColumnType) -> ColumnDefinition {
+    public func column(_ name: String, _ type: Database.ColumnType? = nil) -> ColumnDefinition {
         let column = ColumnDefinition(name: name, type: type)
         columns.append(column)
         return column
@@ -263,10 +301,10 @@ public final class TableDefinition {
     
     /// Defines the table primary key.
     ///
-    ///     try db.create(table: "citizenships") { t in
-    ///         t.column("personID", .integer)
+    ///     try db.create(table: "citizenship") { t in
+    ///         t.column("citizenID", .integer)
     ///         t.column("countryCode", .text)
-    ///         t.primaryKey(["personID", "countryCode"])
+    ///         t.primaryKey(["citizenID", "countryCode"])
     ///     }
     ///
     /// See https://www.sqlite.org/lang_createtable.html#primkeyconst and
@@ -285,7 +323,7 @@ public final class TableDefinition {
     
     /// Adds a unique key.
     ///
-    ///     try db.create(table: "pointOfInterests") { t in
+    ///     try db.create(table: "place") { t in
     ///         t.column("latitude", .double)
     ///         t.column("longitude", .double)
     ///         t.uniqueKey(["latitude", "longitude"])
@@ -304,9 +342,9 @@ public final class TableDefinition {
     ///
     ///     try db.create(table: "passport") { t in
     ///         t.column("issueDate", .date)
-    ///         t.column("personID", .integer)
+    ///         t.column("citizenID", .integer)
     ///         t.column("countryCode", .text)
-    ///         t.foreignKey(["personID", "countryCode"], references: "citizenships", onDelete: .cascade)
+    ///         t.foreignKey(["citizenID", "countryCode"], references: "citizenship", onDelete: .cascade)
     ///     }
     ///
     /// See https://www.sqlite.org/foreignkeys.html
@@ -327,7 +365,7 @@ public final class TableDefinition {
     
     /// Adds a CHECK constraint.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("personalPhone", .text)
     ///         t.column("workPhone", .text)
     ///         let personalPhone = Column("personalPhone")
@@ -344,7 +382,7 @@ public final class TableDefinition {
     
     /// Adds a CHECK constraint.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("personalPhone", .text)
     ///         t.column("workPhone", .text)
     ///         t.check(sql: "personalPhone IS NOT NULL OR workPhone IS NOT NULL")
@@ -354,99 +392,115 @@ public final class TableDefinition {
     ///
     /// - parameter sql: An SQL snippet
     public func check(sql: String) {
-        checkConstraints.append(SQLExpressionLiteral(sql))
+        var expression = SQLExpressionLiteral(sql)
+        expression.unsafeRaw = true // It's safe because this expression can't be composed with others
+        checkConstraints.append(expression)
     }
     
     fileprivate func sql(_ db: Database) throws -> String {
-        var chunks: [String] = []
-        chunks.append("CREATE")
-        if temporary {
-            chunks.append("TEMPORARY")
-        }
-        chunks.append("TABLE")
-        if ifNotExists {
-            chunks.append("IF NOT EXISTS")
-        }
-        chunks.append(name.quotedDatabaseIdentifier)
-        
-        let primaryKeyColumns: [String]
-        if let (columns, _) = primaryKeyConstraint {
-            primaryKeyColumns = columns
-        } else if let index = columns.index(where: { $0.primaryKey != nil }) {
-            primaryKeyColumns = [columns[index].name]
-        } else {
-            primaryKeyColumns = []
-        }
+        var statements: [String] = []
         
         do {
-            var items: [String] = []
-            try items.append(contentsOf: columns.map { try $0.sql(db, tableName: name, primaryKeyColumns: primaryKeyColumns) })
+            var chunks: [String] = []
+            chunks.append("CREATE")
+            if temporary {
+                chunks.append("TEMPORARY")
+            }
+            chunks.append("TABLE")
+            if ifNotExists {
+                chunks.append("IF NOT EXISTS")
+            }
+            chunks.append(name.quotedDatabaseIdentifier)
             
-            if let (columns, conflictResolution) = primaryKeyConstraint {
-                var chunks: [String] = []
-                chunks.append("PRIMARY KEY")
-                chunks.append("(\((columns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
-                if let conflictResolution = conflictResolution {
-                    chunks.append("ON CONFLICT")
-                    chunks.append(conflictResolution.rawValue)
-                }
-                items.append(chunks.joined(separator: " "))
+            let primaryKeyColumns: [String]
+            if let (columns, _) = primaryKeyConstraint {
+                primaryKeyColumns = columns
+            } else if let index = columns.index(where: { $0.primaryKey != nil }) {
+                primaryKeyColumns = [columns[index].name]
+            } else {
+                // WITHOUT ROWID optimization requires a primary key. If the
+                // user sets withoutRowID, but does not define a primary key,
+                // this is undefined behavior.
+                //
+                // We thus can use the rowId column even when the withoutRowID
+                // flag is set ;-)
+                primaryKeyColumns = [Column.rowID.name]
             }
             
-            for (columns, conflictResolution) in uniqueKeyConstraints {
-                var chunks: [String] = []
-                chunks.append("UNIQUE")
-                chunks.append("(\((columns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
-                if let conflictResolution = conflictResolution {
-                    chunks.append("ON CONFLICT")
-                    chunks.append(conflictResolution.rawValue)
+            do {
+                var items: [String] = []
+                try items.append(contentsOf: columns.map { try $0.sql(db, tableName: name, primaryKeyColumns: primaryKeyColumns) })
+                
+                if let (columns, conflictResolution) = primaryKeyConstraint {
+                    var chunks: [String] = []
+                    chunks.append("PRIMARY KEY")
+                    chunks.append("(\((columns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
+                    if let conflictResolution = conflictResolution {
+                        chunks.append("ON CONFLICT")
+                        chunks.append(conflictResolution.rawValue)
+                    }
+                    items.append(chunks.joined(separator: " "))
                 }
-                items.append(chunks.joined(separator: " "))
+                
+                for (columns, conflictResolution) in uniqueKeyConstraints {
+                    var chunks: [String] = []
+                    chunks.append("UNIQUE")
+                    chunks.append("(\((columns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
+                    if let conflictResolution = conflictResolution {
+                        chunks.append("ON CONFLICT")
+                        chunks.append(conflictResolution.rawValue)
+                    }
+                    items.append(chunks.joined(separator: " "))
+                }
+                
+                for (columns, table, destinationColumns, deleteAction, updateAction, deferred) in foreignKeyConstraints {
+                    var chunks: [String] = []
+                    chunks.append("FOREIGN KEY")
+                    chunks.append("(\((columns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
+                    chunks.append("REFERENCES")
+                    if let destinationColumns = destinationColumns {
+                        chunks.append("\(table.quotedDatabaseIdentifier)(\((destinationColumns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
+                    } else if table == name {
+                        chunks.append("\(table.quotedDatabaseIdentifier)(\((primaryKeyColumns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
+                    } else {
+                        let primaryKey = try db.primaryKey(table)
+                        chunks.append("\(table.quotedDatabaseIdentifier)(\((primaryKey.columns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
+                    }
+                    if let deleteAction = deleteAction {
+                        chunks.append("ON DELETE")
+                        chunks.append(deleteAction.rawValue)
+                    }
+                    if let updateAction = updateAction {
+                        chunks.append("ON UPDATE")
+                        chunks.append(updateAction.rawValue)
+                    }
+                    if deferred {
+                        chunks.append("DEFERRABLE INITIALLY DEFERRED")
+                    }
+                    items.append(chunks.joined(separator: " "))
+                }
+                
+                for checkExpression in checkConstraints {
+                    var chunks: [String] = []
+                    chunks.append("CHECK")
+                    chunks.append("(" + checkExpression.sql + ")")
+                    items.append(chunks.joined(separator: " "))
+                }
+                
+                chunks.append("(\(items.joined(separator: ", ")))")
             }
             
-            for (columns, table, destinationColumns, deleteAction, updateAction, deferred) in foreignKeyConstraints {
-                var chunks: [String] = []
-                chunks.append("FOREIGN KEY")
-                chunks.append("(\((columns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
-                chunks.append("REFERENCES")
-                if let destinationColumns = destinationColumns {
-                    chunks.append("\(table.quotedDatabaseIdentifier)(\((destinationColumns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
-                } else if table == name {
-                    chunks.append("\(table.quotedDatabaseIdentifier)(\((primaryKeyColumns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
-                } else if let primaryKey = try db.primaryKey(table) {
-                    chunks.append("\(table.quotedDatabaseIdentifier)(\((primaryKey.columns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
-                } else {
-                    // Programmer error
-                    fatalError("explicit referenced column(s) required, since table \(table) has no primary key")
-                }
-                if let deleteAction = deleteAction {
-                    chunks.append("ON DELETE")
-                    chunks.append(deleteAction.rawValue)
-                }
-                if let updateAction = updateAction {
-                    chunks.append("ON UPDATE")
-                    chunks.append(updateAction.rawValue)
-                }
-                if deferred {
-                    chunks.append("DEFERRABLE INITIALLY DEFERRED")
-                }
-                items.append(chunks.joined(separator: " "))
+            if withoutRowID {
+                chunks.append("WITHOUT ROWID")
             }
-            
-            for checkExpression in checkConstraints {
-                var chunks: [String] = []
-                chunks.append("CHECK")
-                chunks.append("(" + checkExpression.sql + ")")
-                items.append(chunks.joined(separator: " "))
-            }
-            
-            chunks.append("(\(items.joined(separator: ", ")))")
+            statements.append(chunks.joined(separator: " "))
         }
         
-        if withoutRowID {
-            chunks.append("WITHOUT ROWID")
-        }
-        return chunks.joined(separator: " ")
+        let indexStatements = columns
+            .compactMap { $0.indexDefinition(in: name) }
+            .map { $0.sql() }
+        statements.append(contentsOf: indexStatements)
+        return statements.joined(separator: "; ")
     }
 }
 
@@ -455,7 +509,7 @@ public final class TableDefinition {
 /// You don't create instances of this class. Instead, you use the Database
 /// `alter(table:)` method:
 ///
-///     try db.alter(table: "persons") { t in // t is TableAlteration
+///     try db.alter(table: "player") { t in // t is TableAlteration
 ///         t.add(column: ...)
 ///     }
 ///
@@ -470,7 +524,7 @@ public final class TableAlteration {
     
     /// Appends a column to the table.
     ///
-    ///     try db.alter(table: "persons") { t in
+    ///     try db.alter(table: "player") { t in
     ///         t.add(column: "url", .text)
     ///     }
     ///
@@ -481,7 +535,7 @@ public final class TableAlteration {
     /// - returns: An ColumnDefinition that allows you to refine the
     ///   column definition.
     @discardableResult
-    public func add(column name: String, _ type: Database.ColumnType) -> ColumnDefinition {
+    public func add(column name: String, _ type: Database.ColumnType? = nil) -> ColumnDefinition {
         let column = ColumnDefinition(name: name, type: type)
         addedColumns.append(column)
         return column
@@ -495,9 +549,13 @@ public final class TableAlteration {
             chunks.append("ALTER TABLE")
             chunks.append(name.quotedDatabaseIdentifier)
             chunks.append("ADD COLUMN")
-            try chunks.append(column.sql(db, tableName: nil, primaryKeyColumns: nil))
+            try chunks.append(column.sql(db, tableName: name, primaryKeyColumns: nil))
             let statement = chunks.joined(separator: " ")
             statements.append(statement)
+            
+            if let indexDefinition = column.indexDefinition(in: name) {
+                statements.append(indexDefinition.sql())
+            }
         }
         
         return statements.joined(separator: "; ")
@@ -508,35 +566,40 @@ public final class TableAlteration {
 ///
 /// You get instances of this class when you create or alter a database table:
 ///
-///     try db.create(table: "persons") { t in
+///     try db.create(table: "player") { t in
 ///         t.column(...)      // ColumnDefinition
 ///     }
 ///
-///     try db.alter(table: "persons") { t in
+///     try db.alter(table: "player") { t in
 ///         t.add(column: ...) // ColumnDefinition
 ///     }
 ///
 /// See https://www.sqlite.org/lang_createtable.html and
 /// https://www.sqlite.org/lang_altertable.html
 public final class ColumnDefinition {
+    enum Index {
+        case none
+        case index
+        case unique(Database.ConflictResolution)
+    }
     fileprivate let name: String
-    private let type: Database.ColumnType
+    private let type: Database.ColumnType?
     fileprivate var primaryKey: (conflictResolution: Database.ConflictResolution?, autoincrement: Bool)?
+    private var index: Index = .none
     private var notNullConflictResolution: Database.ConflictResolution?
-    private var uniqueConflictResolution: Database.ConflictResolution?
     private var checkConstraints: [SQLExpression] = []
     private var foreignKeyConstraints: [(table: String, column: String?, deleteAction: Database.ForeignKeyAction?, updateAction: Database.ForeignKeyAction?, deferred: Bool)] = []
     private var defaultExpression: SQLExpression?
     private var collationName: String?
     
-    init(name: String, type: Database.ColumnType) {
+    init(name: String, type: Database.ColumnType?) {
         self.name = name
         self.type = type
     }
     
     /// Adds a primary key constraint on the column.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("id", .integer).primaryKey()
     ///     }
     ///
@@ -556,7 +619,7 @@ public final class ColumnDefinition {
     
     /// Adds a NOT NULL constraint on the column.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("name", .text).notNull()
     ///     }
     ///
@@ -573,7 +636,7 @@ public final class ColumnDefinition {
     
     /// Adds a UNIQUE constraint on the column.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("email", .text).unique()
     ///     }
     ///
@@ -584,13 +647,30 @@ public final class ColumnDefinition {
     /// - returns: Self so that you can further refine the column definition.
     @discardableResult
     public func unique(onConflict conflictResolution: Database.ConflictResolution? = nil) -> Self {
-        uniqueConflictResolution = conflictResolution ?? .abort
+        index = .unique(conflictResolution ?? .abort)
+        return self
+    }
+    
+    /// Adds an index of the column.
+    ///
+    ///     try db.create(table: "player") { t in
+    ///         t.column("email", .text).indexed()
+    ///     }
+    ///
+    /// See https://www.sqlite.org/lang_createtable.html#uniqueconst
+    ///
+    /// - returns: Self so that you can further refine the column definition.
+    @discardableResult
+    public func indexed() -> Self {
+        if case .none = index {
+            self.index = .index
+        }
         return self
     }
     
     /// Adds a CHECK constraint on the column.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("name", .text).check { length($0) > 0 }
     ///     }
     ///
@@ -607,7 +687,7 @@ public final class ColumnDefinition {
     
     /// Adds a CHECK constraint on the column.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("name", .text).check(sql: "LENGTH(name) > 0")
     ///     }
     ///
@@ -617,13 +697,15 @@ public final class ColumnDefinition {
     /// - returns: Self so that you can further refine the column definition.
     @discardableResult
     public func check(sql: String) -> Self {
-        checkConstraints.append(SQLExpressionLiteral(sql))
+        var expression = SQLExpressionLiteral(sql)
+        expression.unsafeRaw = true // It's safe because this expression can't be composed with others
+        checkConstraints.append(expression)
         return self
     }
     
     /// Defines the default column value.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("name", .text).defaults(to: "Anonymous")
     ///     }
     ///
@@ -639,7 +721,7 @@ public final class ColumnDefinition {
     
     /// Defines the default column value.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("creationDate", .DateTime).defaults(sql: "CURRENT_TIMESTAMP")
     ///     }
     ///
@@ -649,13 +731,15 @@ public final class ColumnDefinition {
     /// - returns: Self so that you can further refine the column definition.
     @discardableResult
     public func defaults(sql: String) -> Self {
-        defaultExpression = SQLExpressionLiteral(sql)
+        var expression = SQLExpressionLiteral(sql)
+        expression.unsafeRaw = true // It's safe because this expression can't be composed with others
+        defaultExpression = expression
         return self
     }
     
     // Defines the default column collation.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("email", .text).collate(.nocase)
     ///     }
     ///
@@ -671,7 +755,7 @@ public final class ColumnDefinition {
     
     // Defines the default column collation.
     ///
-    ///     try db.create(table: "persons") { t in
+    ///     try db.create(table: "player") { t in
     ///         t.column("name", .text).collate(.localizedCaseInsensitiveCompare)
     ///     }
     ///
@@ -687,8 +771,8 @@ public final class ColumnDefinition {
     
     /// Defines a foreign key.
     ///
-    ///     try db.create(table: "books") { t in
-    ///         t.column("authorId", .integer).references("authors", onDelete: .cascade)
+    ///     try db.create(table: "book") { t in
+    ///         t.column("authorId", .integer).references("author", onDelete: .cascade)
     ///     }
     ///
     /// See https://www.sqlite.org/foreignkeys.html
@@ -708,10 +792,12 @@ public final class ColumnDefinition {
         return self
     }
     
-    fileprivate func sql(_ db: Database, tableName: String?, primaryKeyColumns: [String]?) throws -> String {
+    fileprivate func sql(_ db: Database, tableName: String, primaryKeyColumns: [String]?) throws -> String {
         var chunks: [String] = []
         chunks.append(name.quotedDatabaseIdentifier)
-        chunks.append(type.rawValue)
+        if let type = type {
+            chunks.append(type.rawValue)
+        }
         
         if let (conflictResolution, autoincrement) = primaryKey {
             chunks.append("PRIMARY KEY")
@@ -734,14 +820,19 @@ public final class ColumnDefinition {
             chunks.append(conflictResolution.rawValue)
         }
         
-        switch uniqueConflictResolution {
+        switch index {
         case .none:
             break
-        case .abort?:
-            chunks.append("UNIQUE")
-        case let conflictResolution?:
-            chunks.append("UNIQUE ON CONFLICT")
-            chunks.append(conflictResolution.rawValue)
+        case .unique(let conflictResolution):
+            switch conflictResolution {
+            case .abort:
+                chunks.append("UNIQUE")
+            default:
+                chunks.append("UNIQUE ON CONFLICT")
+                chunks.append(conflictResolution.rawValue)
+            }
+        case .index:
+            break
         }
         
         for checkConstraint in checkConstraints {
@@ -762,14 +853,16 @@ public final class ColumnDefinition {
         for (table, column, deleteAction, updateAction, deferred) in foreignKeyConstraints {
             chunks.append("REFERENCES")
             if let column = column {
+                // explicit reference
                 chunks.append("\(table.quotedDatabaseIdentifier)(\(column.quotedDatabaseIdentifier))")
-            } else if let tableName = tableName, let primaryKeyColumns = primaryKeyColumns, table == tableName {
+            } else if table.lowercased() == tableName.lowercased() {
+                // implicit autoreference
+                let primaryKeyColumns = try primaryKeyColumns ?? db.primaryKey(table).columns
                 chunks.append("\(table.quotedDatabaseIdentifier)(\((primaryKeyColumns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
-            } else if let primaryKey = try db.primaryKey(table) {
-                chunks.append("\(table.quotedDatabaseIdentifier)(\((primaryKey.columns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
             } else {
-                // Programmer error
-                fatalError("explicit referenced column required, since table \(table) has no primary key")
+                // implicit external reference
+                let primaryKeyColumns = try db.primaryKey(table).columns
+                chunks.append("\(table.quotedDatabaseIdentifier)(\((primaryKeyColumns.map { $0.quotedDatabaseIdentifier } as [String]).joined(separator: ", ")))")
             }
             if let deleteAction = deleteAction {
                 chunks.append("ON DELETE")
@@ -785,6 +878,21 @@ public final class ColumnDefinition {
         }
         
         return chunks.joined(separator: " ")
+    }
+    
+    fileprivate func indexDefinition(in table: String) -> IndexDefinition? {
+        switch index {
+        case .none: return nil
+        case .unique: return nil
+        case .index:
+            return IndexDefinition(
+                name: "\(table)_on_\(name)",
+                table: table,
+                columns: [name],
+                unique: false,
+                ifNotExists: false,
+                condition: nil)
+        }
     }
 }
 

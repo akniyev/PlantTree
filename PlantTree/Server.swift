@@ -12,7 +12,7 @@ import SwiftyJSON
 import Alamofire
 
 class Server {
-    static let provider = MoyaProvider<ApiTargets>(endpointClosure: { (target: ApiTargets) -> Endpoint<ApiTargets> in
+    static let provider = MoyaProvider<ApiTargets>(endpointClosure: { (target: ApiTargets) -> Endpoint in
         let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
         switch target {
         case .getTokenWithEmail:

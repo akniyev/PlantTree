@@ -1,6 +1,6 @@
 /// An FTS3 tokenizer, suitable for FTS3 and FTS4 table definitions:
 ///
-///     db.create(virtualTable: "books", using: FTS4()) { t in
+///     db.create(virtualTable: "book", using: FTS4()) { t in
 ///         t.tokenizer = .simple // FTS3TokenizerDescriptor
 ///     }
 ///
@@ -16,7 +16,7 @@ public struct FTS3TokenizerDescriptor {
     
     /// The "simple" tokenizer.
     ///
-    ///     db.create(virtualTable: "books", using: FTS4()) { t in
+    ///     db.create(virtualTable: "book", using: FTS4()) { t in
     ///         t.tokenizer = .simple
     ///     }
     ///
@@ -25,17 +25,17 @@ public struct FTS3TokenizerDescriptor {
     
     /// The "porter" tokenizer.
     ///
-    ///     db.create(virtualTable: "books", using: FTS4()) { t in
+    ///     db.create(virtualTable: "book", using: FTS4()) { t in
     ///         t.tokenizer = .porter
     ///     }
     ///
     /// See https://www.sqlite.org/fts3.html#tokenizer
     public static let porter = FTS3TokenizerDescriptor("porter")
     
-    #if USING_CUSTOMSQLITE || USING_SQLCIPHER
+    #if GRDBCUSTOMSQLITE || GRDBCIPHER
     /// The "unicode61" tokenizer.
     ///
-    ///     db.create(virtualTable: "books", using: FTS4()) { t in
+    ///     db.create(virtualTable: "book", using: FTS4()) { t in
     ///         t.tokenizer = .unicode61()
     ///     }
     ///
@@ -54,7 +54,7 @@ public struct FTS3TokenizerDescriptor {
     #else
     /// The "unicode61" tokenizer.
     ///
-    ///     db.create(virtualTable: "books", using: FTS4()) { t in
+    ///     db.create(virtualTable: "book", using: FTS4()) { t in
     ///         t.tokenizer = .unicode61()
     ///     }
     ///
@@ -91,7 +91,7 @@ public struct FTS3TokenizerDescriptor {
         return FTS3TokenizerDescriptor("unicode61", arguments: arguments)
     }
     
-    #if USING_CUSTOMSQLITE || USING_SQLCIPHER
+    #if GRDBCUSTOMSQLITE || GRDBCIPHER
     func tokenize(_ string: String) -> [String] {
         return _tokenize(string)
     }

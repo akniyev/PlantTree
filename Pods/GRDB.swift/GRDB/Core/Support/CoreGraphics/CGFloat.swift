@@ -1,3 +1,4 @@
+#if !os(Linux)
 import CoreGraphics
 
 /// CGFloat adopts DatabaseValueConvertible
@@ -8,11 +9,12 @@ extension CGFloat : DatabaseValueConvertible {
         return Double(self).databaseValue
     }
     
-    /// Returns a CGFloat initialized from *databaseValue*, if possible.
-    public static func fromDatabaseValue(_ databaseValue: DatabaseValue) -> CGFloat? {
-        guard let double = Double.fromDatabaseValue(databaseValue) else {
+    /// Returns a CGFloat initialized from *dbValue*, if possible.
+    public static func fromDatabaseValue(_ dbValue: DatabaseValue) -> CGFloat? {
+        guard let double = Double.fromDatabaseValue(dbValue) else {
             return nil
         }
         return CGFloat(double)
     }
 }
+#endif

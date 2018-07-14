@@ -1,88 +1,96 @@
-/// The protocol for schema cache.
-///
-/// This protocol must not contain values that are valid for a single connection
-/// only, because several connections can share the same schema cache.
-///
-/// Statements can't be cached here, for example.
+/// The protocol for database schema cache.
 protocol DatabaseSchemaCache {
     mutating func clear()
     
-    func primaryKey(_ tableName: String) -> PrimaryKeyInfo??
-    mutating func set(primaryKey: PrimaryKeyInfo?, for tableName: String)
+    func canonicalTableName(_ table: String) -> String?
+    mutating func set(canonicalTableName: String, forTable table: String)
+
+    func primaryKey(_ table: String) -> PrimaryKeyInfo?
+    mutating func set(primaryKey: PrimaryKeyInfo, forTable table: String)
     
-    func columns(in tableName: String) -> [ColumnInfo]?
-    mutating func set(columns: [ColumnInfo], forTableName tableName: String)
+    func columns(in table: String) -> [ColumnInfo]?
+    mutating func set(columns: [ColumnInfo], forTable table: String)
     
-    func indexes(on tableName: String) -> [IndexInfo]?
-    mutating func set(indexes: [IndexInfo], forTableName tableName: String)
+    func indexes(on table: String) -> [IndexInfo]?
+    mutating func set(indexes: [IndexInfo], forTable table: String)
+    
+    func foreignKeys(on table: String) -> [ForeignKeyInfo]?
+    mutating func set(foreignKeys: [ForeignKeyInfo], forTable table: String)
 }
 
 /// A thread-unsafe database schema cache
-final class SimpleDatabaseSchemaCache: DatabaseSchemaCache {
-    private var primaryKeys: [String: PrimaryKeyInfo?] = [:]
+struct SimpleDatabaseSchemaCache: DatabaseSchemaCache {
+    private var canonicalTableNames: [String: String] = [:]
+    private var primaryKeys: [String: PrimaryKeyInfo] = [:]
     private var columns: [String: [ColumnInfo]] = [:]
     private var indexes: [String: [IndexInfo]] = [:]
+    private var foreignKeys: [String: [ForeignKeyInfo]] = [:]
     
-    func clear() {
+    mutating func clear() {
+        canonicalTableNames = [:]
         primaryKeys = [:]
         columns = [:]
         indexes = [:]
+        foreignKeys = [:]
     }
     
-    func primaryKey(_ tableName: String) -> PrimaryKeyInfo?? {
-        return primaryKeys[tableName]
+    func canonicalTableName(_ table: String) -> String? {
+        return canonicalTableNames[table]
     }
     
-    func set(primaryKey: PrimaryKeyInfo?, for tableName: String) {
-        primaryKeys[tableName] = primaryKey
+    mutating func set(canonicalTableName: String, forTable table: String) {
+        canonicalTableNames[table] = table
     }
     
-    func columns(in tableName: String) -> [ColumnInfo]? {
-        return columns[tableName]
+    func primaryKey(_ table: String) -> PrimaryKeyInfo? {
+        return primaryKeys[table]
     }
     
-    func set(columns: [ColumnInfo], forTableName tableName: String) {
-        self.columns[tableName] = columns
+    mutating func set(primaryKey: PrimaryKeyInfo, forTable table: String) {
+        primaryKeys[table] = primaryKey
     }
     
-    func indexes(on tableName: String) -> [IndexInfo]? {
-        return indexes[tableName]
+    func columns(in table: String) -> [ColumnInfo]? {
+        return columns[table]
     }
     
-    func set(indexes: [IndexInfo], forTableName tableName: String) {
-        self.indexes[tableName] = indexes
+    mutating func set(columns: [ColumnInfo], forTable table: String) {
+        self.columns[table] = columns
+    }
+    
+    func indexes(on table: String) -> [IndexInfo]? {
+        return indexes[table]
+    }
+    
+    mutating func set(indexes: [IndexInfo], forTable table: String) {
+        self.indexes[table] = indexes
+    }
+    
+    func foreignKeys(on table: String) -> [ForeignKeyInfo]? {
+        return foreignKeys[table]
+    }
+    
+    mutating func set(foreignKeys: [ForeignKeyInfo], forTable table: String) {
+        self.foreignKeys[table] = foreignKeys
     }
 }
 
-/// A thread-safe database schema cache
-final class SharedDatabaseSchemaCache: DatabaseSchemaCache {
-    private let cache = ReadWriteBox(SimpleDatabaseSchemaCache())
+/// An always empty database schema cache
+struct EmptyDatabaseSchemaCache: DatabaseSchemaCache {
+    func clear() { }
     
-    func clear() {
-        cache.write { $0.clear() }
-    }
+    func canonicalTableName(_ table: String) -> String? { return nil }
+    func set(canonicalTableName: String, forTable table: String) { }
     
-    func primaryKey(_ tableName: String) -> PrimaryKeyInfo?? {
-        return cache.read { $0.primaryKey(tableName) }
-    }
+    func primaryKey(_ table: String) -> PrimaryKeyInfo? { return nil }
+    func set(primaryKey: PrimaryKeyInfo, forTable table: String) { }
     
-    func set(primaryKey: PrimaryKeyInfo?, for tableName: String) {
-        cache.write { $0.set(primaryKey: primaryKey, for: tableName) }
-    }
+    func columns(in table: String) -> [ColumnInfo]? { return nil }
+    func set(columns: [ColumnInfo], forTable table: String) { }
     
-    func columns(in tableName: String) -> [ColumnInfo]? {
-        return cache.read { $0.columns(in: tableName) }
-    }
+    func indexes(on table: String) -> [IndexInfo]? { return nil }
+    func set(indexes: [IndexInfo], forTable table: String) { }
     
-    func set(columns: [ColumnInfo], forTableName tableName: String) {
-        cache.write { $0.set(columns: columns, forTableName: tableName) }
-    }
-    
-    func indexes(on tableName: String) -> [IndexInfo]? {
-        return cache.read { $0.indexes(on: tableName) }
-    }
-    
-    func set(indexes: [IndexInfo], forTableName tableName: String) {
-        cache.write { $0.set(indexes: indexes, forTableName: tableName) }
-    }
+    func foreignKeys(on table: String) -> [ForeignKeyInfo]? { return nil }
+    func set(foreignKeys: [ForeignKeyInfo], forTable table: String) { }
 }

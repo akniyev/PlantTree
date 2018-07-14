@@ -44,6 +44,19 @@
             try? self.init(rawPattern: "\"" + tokens.joined(separator: " ") + "\"")
         }
         
+        /// Creates a pattern that matches a contiguous string prefix; returns
+        /// nil if no pattern could be built.
+        ///
+        ///     FTS5Pattern(matchingPrefixPhrase: "")        // nil
+        ///     FTS5Pattern(matchingPrefixPhrase: "foo bar") // ^"foo bar"
+        ///
+        /// - parameter string: The string to turn into an FTS5 pattern
+        public init?(matchingPrefixPhrase string: String) {
+            guard let tokens = try? DatabaseQueue().inDatabase({ db in try db.makeTokenizer(.ascii()).nonSynonymTokens(in: string, for: .query) }) else { return nil }
+            guard !tokens.isEmpty else { return nil }
+            try? self.init(rawPattern: "^\"" + tokens.joined(separator: " ") + "\"")
+        }
+
         init(rawPattern: String, allowedColumns: [String] = []) throws {
             // Correctness above all: use SQLite to validate the pattern.
             //
@@ -52,7 +65,7 @@
             // that pattern.
             do {
                 try DatabaseQueue().inDatabase { db in
-                    try db.create(virtualTable: "documents", using: FTS5()) { t in
+                    try db.create(virtualTable: "document", using: FTS5()) { t in
                         if allowedColumns.isEmpty {
                             t.column("__grdb__")
                         } else {
@@ -61,8 +74,8 @@
                             }
                         }
                     }
-                    try db.makeSelectStatement("SELECT * FROM documents WHERE documents MATCH ?")
-                        .fetchCursor(arguments: [rawPattern])
+                    try db.makeSelectStatement("SELECT * FROM document WHERE document MATCH ?")
+                        .cursor(arguments: [rawPattern])
                         .next() // error on next() for invalid patterns
                 }
             } catch let error as DatabaseError {
@@ -77,13 +90,15 @@
 
     extension Database {
         
+        // MARK: - FTS5
+        
         /// Creates a pattern from a raw pattern string; throws DatabaseError on
         /// invalid syntax.
         ///
         /// The pattern syntax is documented at https://www.sqlite.org/fts5.html#full_text_query_syntax
         ///
-        ///     try db.makeFTS5Pattern(rawPattern: "and", forTable: "documents") // OK
-        ///     try db.makeFTS5Pattern(rawPattern: "AND", forTable: "documents") // malformed MATCH expression: [AND]
+        ///     try db.makeFTS5Pattern(rawPattern: "and", forTable: "document") // OK
+        ///     try db.makeFTS5Pattern(rawPattern: "AND", forTable: "document") // malformed MATCH expression: [AND]
         public func makeFTS5Pattern(rawPattern: String, forTable table: String) throws -> FTS5Pattern {
             return try FTS5Pattern(rawPattern: rawPattern, allowedColumns: columns(in: table).map { $0.name })
         }
@@ -95,62 +110,12 @@
             return rawPattern.databaseValue
         }
         
-        /// Returns an FTS5Pattern initialized from *databaseValue*, if it
+        /// Returns an FTS5Pattern initialized from *dbValue*, if it
         /// contains a suitable value.
-        public static func fromDatabaseValue(_ databaseValue: DatabaseValue) -> FTS5Pattern? {
+        public static func fromDatabaseValue(_ dbValue: DatabaseValue) -> FTS5Pattern? {
             return String
-                .fromDatabaseValue(databaseValue)
+                .fromDatabaseValue(dbValue)
                 .flatMap { try? FTS5Pattern(rawPattern: $0) }
-        }
-    }
-
-    extension QueryInterfaceRequest {
-        
-        // MARK: Full Text Search
-        
-        /// Returns a new QueryInterfaceRequest with a matching predicate added
-        /// to the eventual set of already applied predicates.
-        ///
-        ///     // SELECT * FROM books WHERE books MATCH '...'
-        ///     var request = Book.all()
-        ///     request = request.matching(pattern)
-        ///
-        /// If the search pattern is nil, the request does not match any
-        /// database row.
-        public func matching(_ pattern: FTS5Pattern?) -> QueryInterfaceRequest<T> {
-            switch query.source {
-            case .table(let name, let alias)?:
-                if let pattern = pattern {
-                    return filter(SQLExpressionBinary(.match, Column(alias ?? name), pattern))
-                } else {
-                    return filter(false)
-                }
-            default:
-                // Programmer error
-                fatalError("fts5 match requires a table")
-            }
-        }
-    }
-
-    extension TableMapping {
-        
-        // MARK: Full Text Search
-        
-        /// Returns a QueryInterfaceRequest with a matching predicate.
-        ///
-        ///     // SELECT * FROM books WHERE books MATCH '...'
-        ///     var request = Book.matching(pattern)
-        ///
-        /// If the `selectsRowID` type property is true, then the selection
-        /// includes the hidden "rowid" column:
-        ///
-        ///     // SELECT *, rowid FROM books WHERE books MATCH '...'
-        ///     var request = Book.matching(pattern)
-        ///
-        /// If the search pattern is nil, the request does not match any
-        /// database row.
-        public static func matching(_ pattern: FTS5Pattern?) -> QueryInterfaceRequest<Self> {
-            return all().matching(pattern)
         }
     }
 #endif
