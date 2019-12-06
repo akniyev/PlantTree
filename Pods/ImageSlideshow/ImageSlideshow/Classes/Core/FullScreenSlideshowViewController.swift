@@ -14,7 +14,7 @@ open class FullScreenSlideshowViewController: UIViewController {
         let slideshow = ImageSlideshow()
         slideshow.zoomEnabled = true
         slideshow.contentScaleMode = UIViewContentMode.scaleAspectFit
-        slideshow.pageControlPosition = PageControlPosition.insideScrollView
+        slideshow.pageIndicatorPosition = PageIndicatorPosition(horizontal: .center, vertical: .bottom)
         // turns off the timer
         slideshow.slideshowInterval = 0
         slideshow.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
@@ -48,6 +48,15 @@ open class FullScreenSlideshowViewController: UIViewController {
     }
 
     fileprivate var isInit = true
+
+    convenience init() {
+        self.init(nibName:nil, bundle:nil)
+
+        if #available(iOS 13.0, *) {
+            self.modalPresentationStyle = .fullScreen
+            self.isModalInPresentation = true
+        }
+    }
 
     override open func viewDidLoad() {
         super.viewDidLoad()

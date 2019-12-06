@@ -25,7 +25,7 @@ class ReloadView : UIView {
         self.addGestureRecognizer(tap)
     }
     
-    func tapped() {
+    @objc func tapped() {
         reloadAction?()
     }
 }

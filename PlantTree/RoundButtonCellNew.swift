@@ -84,7 +84,7 @@ class RoundButtonCellNew: Cell<String>, CellType {
         if self.fillBackground {
             let backgroundAnimation = CABasicAnimation(keyPath: "backgroundColor")
             backgroundAnimation.isRemovedOnCompletion = false
-            backgroundAnimation.fillMode = kCAFillModeForwards
+            backgroundAnimation.fillMode = CAMediaTimingFillMode.forwards
             backgroundAnimation.fromValue = self.fillColor.cgColor
             backgroundAnimation.toValue = self.fillColorPressed?.cgColor ?? self.fillColor.withAlphaComponent(0.5).cgColor
             backgroundAnimation.duration = self.animationDuration
@@ -94,7 +94,7 @@ class RoundButtonCellNew: Cell<String>, CellType {
         
         let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
         borderColorAnimation.isRemovedOnCompletion = false
-        borderColorAnimation.fillMode = kCAFillModeForwards
+        borderColorAnimation.fillMode = CAMediaTimingFillMode.forwards
         borderColorAnimation.fromValue = self.borderColor.cgColor
         borderColorAnimation.toValue = self.borderColorPressed?.cgColor ?? self.borderColor.withAlphaComponent(0.5).cgColor
         borderColorAnimation.repeatCount = 1
@@ -108,7 +108,7 @@ class RoundButtonCellNew: Cell<String>, CellType {
         if self.fillBackground {
             let backgroundAnimation = CABasicAnimation(keyPath: "backgroundColor")
             backgroundAnimation.isRemovedOnCompletion = false
-            backgroundAnimation.fillMode = kCAFillModeForwards
+            backgroundAnimation.fillMode = CAMediaTimingFillMode.forwards
             backgroundAnimation.fromValue = self.fillColorPressed?.cgColor ?? self.fillColor.withAlphaComponent(0.5).cgColor
             backgroundAnimation.toValue = self.fillColor.cgColor
             backgroundAnimation.duration = self.animationDuration
@@ -118,7 +118,7 @@ class RoundButtonCellNew: Cell<String>, CellType {
         
         let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
         borderColorAnimation.isRemovedOnCompletion = false
-        borderColorAnimation.fillMode = kCAFillModeForwards
+        borderColorAnimation.fillMode = CAMediaTimingFillMode.forwards
         borderColorAnimation.fromValue = self.borderColorPressed?.cgColor ?? self.borderColor.withAlphaComponent(0.5).cgColor
         borderColorAnimation.toValue = self.borderColor.cgColor
         borderColorAnimation.repeatCount = 1

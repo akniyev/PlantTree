@@ -83,7 +83,7 @@ class ProfileViewController : ReloadableViewController {
         self.img_ProfilePicture.addGestureRecognizer(tap)
     }
 
-    func openBigPhoto() {
+    @objc func openBigPhoto() {
         if let pd = self.personalData {
             let photo = SKPhoto.photoWithImageURL(pd.photoUrl)
             photo.shouldCachePhotoURLImage = true
@@ -120,7 +120,7 @@ class ProfileViewController : ReloadableViewController {
             if !pi.photoUrlSmall.isEmpty {
                 let url = URL(string: pi.photoUrlSmall)
                 self?.img_ProfilePicture.kf.indicatorType = .activity
-                self?.img_ProfilePicture.kf.setImage(with: url, placeholder: UIImage(named: "NoImage"), options: nil, progressBlock: nil, completionHandler: nil)
+                self?.img_ProfilePicture.kf.setImage(with: url, placeholder: UIImage(named: "NoImage"), options: nil, progressBlock: nil, completionHandler: { x in })
             } else {
                 self?.img_ProfilePicture.image = UIImage(named: "NoImage")
             }

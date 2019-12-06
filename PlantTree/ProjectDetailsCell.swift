@@ -46,7 +46,7 @@ class ProjectDetailsCell: UITableViewCell {
         slideshow.contentScaleMode = .scaleAspectFill
     }
 
-    func didOpenFullImage() {
+    @objc func didOpenFullImage() {
         if let pvc = self.parentViewController {
             slideshow.presentFullScreenController(from: pvc)
         }

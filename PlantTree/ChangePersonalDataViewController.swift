@@ -15,26 +15,27 @@ class ChangePersonalDataViewController : FormViewController, UINavigationControl
     var cell : UserPhotoEditCell? = nil
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let img = (info[UIImagePickerControllerOriginalImage] as? UIImage)?.fixedOrientation()
-        if let image = img {
-            picker.dismiss(animated: true, completion: {
-                LoadingIndicatorView.show("Загрузка изображения...")
-                Server.UploadUserpic(image: image, SUCCESS: { [weak self] in
-                    if let iv = self?.cellImageView {
-                        iv.image = image
-                    }
-                    if let c = self?.cell {
-                        c.noPhoto = false
-                    }
-                    LoadingIndicatorView.hide()
-                }, ERROR: { [weak self] et, msg in
-                    LoadingIndicatorView.hide()
-                    if let _self = self {
-                        Alerts.ShowErrorAlertWithOK(sender: _self, title: "Ошибка загрузки", message: "Не удаётся загрузить изображение", completion: nil)
-                    }
-                })
-            })
-        }
+        print("Finish this ChangePersonalDataViewController.swift")
+//        let img = (info[UIImagePickerControllerOriginalImage] as? UIImage)?.fixedOrientation()
+//        if let image = img {
+//            picker.dismiss(animated: true, completion: {
+//                LoadingIndicatorView.show("Загрузка изображения...")
+//                Server.UploadUserpic(image: image, SUCCESS: { [weak self] in
+//                    if let iv = self?.cellImageView {
+//                        iv.image = image
+//                    }
+//                    if let c = self?.cell {
+//                        c.noPhoto = false
+//                    }
+//                    LoadingIndicatorView.hide()
+//                }, ERROR: { [weak self] et, msg in
+//                    LoadingIndicatorView.hide()
+//                    if let _self = self {
+//                        Alerts.ShowErrorAlertWithOK(sender: _self, title: "Ошибка загрузки", message: "Не удаётся загрузить изображение", completion: nil)
+//                    }
+//                })
+//            })
+//        }
     }
 
     var pd : PersonalData? = nil

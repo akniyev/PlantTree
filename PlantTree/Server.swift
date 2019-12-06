@@ -251,7 +251,7 @@ class Server {
             
             Alamofire.upload(multipartFormData: { multipartData in
                 if let img = image {
-                    multipartData.append(UIImageJPEGRepresentation(img, 0.9)!, withName: "userpic", mimeType: "image/jpeg")
+                    multipartData.append(img.jpegData(compressionQuality: 0.9)!, withName: "userpic", mimeType: "image/jpeg")
                 }
                 multipartData.append(first_name.data(using: .utf8)!, withName: "first_name")
                 multipartData.append(second_name.data(using: .utf8)!, withName: "second_name")
@@ -284,7 +284,7 @@ class Server {
                 let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
                 let filepath = "\(paths[0])/my_temp_image.png"
 
-                try! UIImagePNGRepresentation(img)?.write(to: URL(fileURLWithPath: filepath))
+                try! img.pngData()?.write(to: URL(fileURLWithPath: filepath))
                 AccountAPI.apiAccountPhotoPost(photo: URL(fileURLWithPath: filepath), authorization: "Bearer \(cred.access_token)", completion: { error in
                     if error == nil {
                         SUCCESS?()
@@ -613,8 +613,8 @@ class Server {
 
     static func GetNewsInfo(newsId: Int, SUCCESS: ((NewsPiece) -> ())?, ERROR: (() -> ())?) {
         let rb = NewsAPI.apiNewsByIdGetWithRequestBuilder(id: Int32(newsId))
-        rb.execute { response in
-            if let news = response.0?.body {
+        rb.execute { response,arg  in
+            if let news = response?.body {
                 SUCCESS?(news.toNewsPiece())
             } else {
                 ERROR?()

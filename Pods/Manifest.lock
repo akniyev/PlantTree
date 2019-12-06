@@ -1,55 +1,58 @@
 PODS:
-  - Alamofire (4.7.3)
-  - Bolts (1.9.0):
-    - Bolts/AppLinks (= 1.9.0)
-    - Bolts/Tasks (= 1.9.0)
-  - Bolts/AppLinks (1.9.0):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.9.0)
-  - ESTabBarController-swift (2.6.2)
-  - Eureka (4.2.0)
-  - FacebookCore (0.3.1):
-    - Bolts (~> 1.8)
-    - FBSDKCoreKit (~> 4.33)
-  - FacebookLogin (0.3.1):
-    - Bolts (~> 1.8)
-    - FacebookCore (~> 0.3.1)
-    - FBSDKCoreKit (~> 4.33)
-    - FBSDKLoginKit (~> 4.33)
-  - FacebookShare (0.3.1):
-    - Bolts (~> 1.8)
-    - FacebookCore (~> 0.3.1)
-    - FBSDKCoreKit (~> 4.33)
-    - FBSDKShareKit (~> 4.33)
-  - FBSDKCoreKit (4.34.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.34.0):
-    - FBSDKCoreKit
-  - FBSDKShareKit (4.34.0):
-    - FBSDKCoreKit (~> 4.34.0)
-  - GRDB.swift (3.2.0)
-  - ImageRow (3.1.0):
-    - Eureka (~> 4.0)
-  - ImageSlideshow (1.6.1):
-    - ImageSlideshow/Core (= 1.6.1)
-  - ImageSlideshow/Core (1.6.1)
-  - ImageSlideshow/Kingfisher (1.6.1):
+  - Alamofire (4.9.1)
+  - ESTabBarController-swift (2.7)
+  - Eureka (5.1.0)
+  - FacebookCore (0.9.0):
+    - FBSDKCoreKit (~> 5.0)
+  - FacebookLogin (0.9.0):
+    - FacebookCore (~> 0.9.0)
+    - FBSDKCoreKit (~> 5.0)
+    - FBSDKLoginKit (~> 5.0)
+  - FacebookShare (0.9.0):
+    - FacebookCore (~> 0.9.0)
+    - FBSDKCoreKit (~> 5.0)
+    - FBSDKShareKit (~> 5.0)
+  - FBSDKCoreKit (5.12.0):
+    - FBSDKCoreKit/Basics (= 5.12.0)
+    - FBSDKCoreKit/Core (= 5.12.0)
+  - FBSDKCoreKit/Basics (5.12.0)
+  - FBSDKCoreKit/Core (5.12.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.11.1):
+    - FBSDKLoginKit/Login (= 5.11.1)
+  - FBSDKLoginKit/Login (5.11.1):
+    - FBSDKCoreKit (~> 5.0)
+  - FBSDKShareKit (5.11.1):
+    - FBSDKShareKit/Share (= 5.11.1)
+  - FBSDKShareKit/Share (5.11.1):
+    - FBSDKCoreKit (~> 5.0)
+  - GRDB.swift (4.6.2):
+    - GRDB.swift/standard (= 4.6.2)
+  - GRDB.swift/standard (4.6.2)
+  - ImageRow (4.0.0):
+    - Eureka (~> 5.0)
+  - ImageSlideshow (1.8.1):
+    - ImageSlideshow/Core (= 1.8.1)
+  - ImageSlideshow/Core (1.8.1)
+  - ImageSlideshow/Kingfisher (1.8.1):
     - ImageSlideshow/Core
     - Kingfisher (> 3.0)
-  - Kingfisher (4.8.0)
-  - Moya (11.0.2):
-    - Moya/Core (= 11.0.2)
-  - Moya/Core (11.0.2):
+  - Kingfisher (5.11.0):
+    - Kingfisher/Core (= 5.11.0)
+  - Kingfisher/Core (5.11.0)
+  - Moya (13.0.1):
+    - Moya/Core (= 13.0.1)
+  - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
-    - Result (~> 3.0)
-  - Realm (3.7.4):
-    - Realm/Headers (= 3.7.4)
-  - Realm/Headers (3.7.4)
-  - RealmSwift (3.7.4):
-    - Realm (= 3.7.4)
-  - Result (3.2.4)
-  - SKPhotoBrowser (5.1.0)
-  - SwiftyJSON (4.1.0)
+    - Result (~> 4.1)
+  - Realm (4.1.1):
+    - Realm/Headers (= 4.1.1)
+  - Realm/Headers (4.1.1)
+  - RealmSwift (4.1.1):
+    - Realm (= 4.1.1)
+  - Result (4.1.0)
+  - SKPhotoBrowser (6.1.0)
+  - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -68,28 +71,49 @@ DEPENDENCIES:
   - SKPhotoBrowser
   - SwiftyJSON
 
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - ESTabBarController-swift
+    - Eureka
+    - FacebookCore
+    - FacebookLogin
+    - FacebookShare
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
+    - GRDB.swift
+    - ImageRow
+    - ImageSlideshow
+    - Kingfisher
+    - Moya
+    - Realm
+    - RealmSwift
+    - Result
+    - SKPhotoBrowser
+    - SwiftyJSON
+
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  ESTabBarController-swift: f0a8679e43df1e60b7b36bbcaf1dc98ba6273c7d
-  Eureka: 0748c7bbb2560130e43c7bfa83e99c98854a1f42
-  FacebookCore: 33078ef1d7d76b73f7e8c990dca7d3ea6db8d22f
-  FacebookLogin: 6f15bf4fefd7a8865abbfa8fcd7f3dfd87aa275f
-  FacebookShare: c9ee8e5399d961fda00ded9befccacfe04fccf93
-  FBSDKCoreKit: 0ff57f093b85c8c9d5aba697d3edf68a8960ce78
-  FBSDKLoginKit: 8c78f57a145afb756e4755e69195ebe08a42466e
-  FBSDKShareKit: 511d1dfc71204c0a8d69e6c5e3c964dcf0d4f3d9
-  GRDB.swift: c5bb04b25a9931fec937920e913787e45f96124f
-  ImageRow: 1ea483078bfa3d880a7fc76fdfcddfd5f29a9e6b
-  ImageSlideshow: f0f33e1a20668e83d77f5fb7729e4ae4437c0759
-  Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
-  Moya: a725035953bc1c0eb1be505ab903984501d82440
-  Realm: a469bb59e33f9926102ccaea4349822c53b9117e
-  RealmSwift: a45861b21c180f5cf0f122144b9759fa8dde3e9e
-  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  SKPhotoBrowser: c20c1da34d737b4e3e101feead6c8dd92ebf860a
-  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  ESTabBarController-swift: 4fb52ad03d94d0717ef97bc9eb09a5abfdded0a2
+  Eureka: 18a5076dcf0c41f9cd9748aa1c42f4d11434bdae
+  FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
+  FacebookLogin: 6cee9fd6e1fe976fe8f7eec199e27b28b14f5d63
+  FacebookShare: 85968ad1b1606c4944fb154924e425fd29184ea5
+  FBSDKCoreKit: fa3ac4dc9b1afc9ae70b3de4dd704d1b6aeeed0d
+  FBSDKLoginKit: 0e4572e0279e477103b57978e3ea05fac1dd673d
+  FBSDKShareKit: 2b4435ecb134e2af8a636524e43b7813e3d60a0b
+  GRDB.swift: 258520e10b49ff55307cbb0bec701af0742ae621
+  ImageRow: e65b2e1a33f89062bf2a553a2aad61d975eb7428
+  ImageSlideshow: 634865d7d4e96f21e3830a31b51bde768cc94cea
+  Kingfisher: 4569606189149e19c7d9439f47e885d0679b7a90
+  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  Realm: 25f0a8244cbb1c2271c922963ea8666fc2d8104d
+  RealmSwift: 9e2657b33764f80e4a4dffd6d440e24715782052
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  SKPhotoBrowser: 343de95d89dc7913763c5dda243cc6e606e4a168
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: d94e931995b5bee2a6d84ebf8288e8feb29e1756
+PODFILE CHECKSUM: 08174626dab8373d9b9cf8acc141aca6356927a2
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.8.4

@@ -25,7 +25,7 @@ class ProjectsTableViewController : UITableViewController {
     
     var projectListType : ProjectListType = .active
     
-    func pullRefreshPage() {
+    @objc func pullRefreshPage() {
         refreshPage()
     }
     

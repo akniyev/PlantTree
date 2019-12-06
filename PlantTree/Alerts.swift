@@ -18,7 +18,7 @@ class Alerts {
         sender : UIViewController,
         title : String,
         message : String,
-        preferredStyle : UIAlertControllerStyle,
+        preferredStyle : UIAlertController.Style,
         actions : [UIAlertAction],
         completion : (() -> ())?) {
         let alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)

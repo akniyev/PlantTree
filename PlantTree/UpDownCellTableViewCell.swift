@@ -50,7 +50,7 @@ class UpDownCellTableViewCell: Cell<Int>, CellType {
         super.init(coder: aDecoder)
     }
     
-    required init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    required init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     

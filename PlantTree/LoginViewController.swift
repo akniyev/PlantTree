@@ -58,7 +58,7 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
 
     func checkInput() -> Bool {
         if let email = self.tf_Email.text, let password = self.tf_Password.text {
-            return email.characters.count > 3 && password.characters.count > 0
+            return email.count > 3 && password.count > 0
         } else {
             return false
         }
@@ -73,8 +73,8 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
         tf_Email.delegate = self
         tf_Password.delegate = self
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShown), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHidden), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShown), name: UIResponder.keyboardWillShowNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHidden), name: UIResponder.keyboardWillHideNotification, object: nil);
 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
                 target: self,
@@ -87,9 +87,9 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
         }
     }
 
-    func facebookButtonClicked() {
+    @objc func facebookButtonClicked() {
         let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [.publicProfile], viewController: self, completion: { [weak self] loginResult in
+        loginManager.logIn(permissions: [.publicProfile], viewController: self, completion: { [weak self] loginResult in
             switch loginResult {
             case .failed(let error):
                 if let s = self {
@@ -97,31 +97,33 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
                 }
             case .cancelled:
                 break
-            case .success(let grantedPermissions, let declinedPermissions, let facebookToken):
-                Server.SignInWithFacebook(
-                    facebookToken: facebookToken.authenticationToken,
-                    SUCCESS: { c in
-                        if let s = self {
-                            s.performSegue(withIdentifier: "LOGIN_WITHOUT_ANIMATION", sender: s)
-                        }
-                    },
-                    ERROR: { et, msg in
-                        if let s = self {
-                            Alerts.ShowErrorAlertWithOK(sender: s, title: "Ошибка", message: "Не удалось зайти через Facebook", completion: nil)
-                        }
-                    })
+            case .success(let grantedPermissions, let declinedPermissions, let facebookToken): break
+                print("Finish this")
+                // TODO: Finish this code
+//                Server.SignInWithFacebook(
+//                    facebookToken: ,
+//                    SUCCESS: { c in
+//                        if let s = self {
+//                            s.performSegue(withIdentifier: "LOGIN_WITHOUT_ANIMATION", sender: s)
+//                        }
+//                    },
+//                    ERROR: { et, msg in
+//                        if let s = self {
+//                            Alerts.ShowErrorAlertWithOK(sender: s, title: "Ошибка", message: "Не удалось зайти через Facebook", completion: nil)
+//                        }
+//                    })
             }
         })
     }
 
-    func keyboardShown(notification: NSNotification) {
+    @objc func keyboardShown(notification: NSNotification) {
         let info = notification.userInfo!
-        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         self.keyboardRect = keyboardFrame
         self.setContraintForLoginFields()
     }
 
-    func keyboardHidden(notification: NSNotification) {
+    @objc func keyboardHidden(notification: NSNotification) {
         self.setContraintForLoginFields(reset: true)
     }
 
@@ -143,7 +145,7 @@ class LoginViewController : ReloadableViewController, UITextFieldDelegate {
     }
 
 
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.tf_Email.resignFirstResponder()
         self.tf_Password.resignFirstResponder()
     }

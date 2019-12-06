@@ -10,7 +10,7 @@ import GRDB
 
 class Db {
     static func GetDbDirectoryPath() -> String {
-        var paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         return paths[0]
     }
     
@@ -35,7 +35,7 @@ class Db {
             let dbQueue = try DatabaseQueue(path: GetDbFilePath())
             try dbQueue.inDatabase { db in
                 try db.execute(
-                    "CREATE TABLE credentials (" +
+                    sql: "CREATE TABLE credentials (" +
                         "id INTEGER PRIMARY KEY, " +
                         "email TEXT NOT NULL, " +
                         //"password TEXT NOT NULL, " +
@@ -71,13 +71,13 @@ class Db {
             
             try dbQueue.inDatabase { db in
                 try db.execute(
-                    "DELETE FROM credentials"
+                    sql: "DELETE FROM credentials"
                 )
                 
                 if let cred = c {
                     print("email: " + cred.email)
                     try db.execute(
-                        "INSERT INTO credentials (email, accessToken, accessTokenCreated, refreshToken, refreshTokenCreated, socialToken, loginType) " +
+                        sql: "INSERT INTO credentials (email, accessToken, accessTokenCreated, refreshToken, refreshTokenCreated, socialToken, loginType) " +
                         "VALUES(?, ?, ?, ?, ?, ?, ?)",
                         arguments:  [cred.email,
                                      cred.access_token,
@@ -108,7 +108,7 @@ class Db {
             let dbQueue = try DatabaseQueue(path: GetDbFilePath())
             
             try dbQueue.inDatabase { db in
-                let rows = try Row.fetchAll(db, "SELECT * FROM credentials")
+                let rows = try Row.fetchAll(db, sql: "SELECT * FROM credentials")
                 if rows.count > 0 {
                     let row = rows[0]
                     let cred = Credentials()

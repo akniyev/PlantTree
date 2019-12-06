@@ -52,7 +52,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
     
     var projectListType : ProjectListType = .active
     
-    func pullRefreshPage() {
+    @objc func pullRefreshPage() {
         refreshPage()
     }
     
@@ -256,7 +256,7 @@ class ProjectListViewController : UIViewController, UITableViewDelegate, UITable
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if self.showReloadIndicator && indexPath.row == projects.count {
-            var opCell = tableView.dequeueReusableCell(withIdentifier: "ReloadIndicatorFooter") as! ReloadIndicatorFooter
+            let opCell = tableView.dequeueReusableCell(withIdentifier: "ReloadIndicatorFooter") as! ReloadIndicatorFooter
             return opCell
         }
 

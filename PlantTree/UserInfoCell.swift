@@ -16,7 +16,7 @@ final class UserInfoCell: Cell<PersonalData>, CellType {
     @IBOutlet weak var lblBirthdate: UILabel!
     @IBOutlet weak var lblGender: UILabel!
 
-    required init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    required init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     

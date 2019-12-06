@@ -52,7 +52,7 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
         self.reloadAction()
     }
 
-    func pullRefreshPage() {
+    @objc func pullRefreshPage() {
         // Resetting all to initial state
         self.operations = []
         self.groupedOperations = [:]
@@ -79,7 +79,7 @@ class PaymentHistoryViewController : ReloadableViewController, UITableViewDelega
             if let S = self {
                 S.operations.append(contentsOf: operations)
                 S.groupedOperations = S.getGroupedOperations(from: S.operations)
-                S.groupDates = S.groupedOperations.keys.sorted(by: {Date.fromRussianFormat(s: $0.0) ?? Date() > Date.fromRussianFormat(s: $0.1) ?? Date()})
+                S.groupDates = S.groupedOperations.keys.sorted(by: { first, last in Date.fromRussianFormat(s: first) ?? Date() > Date.fromRussianFormat(s: last) ?? Date()})
                 S.tableView.reloadData()
                 LoadingIndicatorView.hide()
                 S.hideReloadView()

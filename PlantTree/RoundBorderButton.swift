@@ -67,7 +67,7 @@ class RoundBorderButton : UIButton {
         if self.filled {
             let backgroundAnimation = CABasicAnimation(keyPath: "backgroundColor")
             backgroundAnimation.isRemovedOnCompletion = false
-            backgroundAnimation.fillMode = kCAFillModeForwards
+            backgroundAnimation.fillMode = CAMediaTimingFillMode.forwards
             backgroundAnimation.fromValue = self.fillColor.cgColor
             backgroundAnimation.toValue = self.fillColorPressed.cgColor
             backgroundAnimation.duration = 0.1
@@ -77,7 +77,7 @@ class RoundBorderButton : UIButton {
         
         let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
         borderColorAnimation.isRemovedOnCompletion = false
-        borderColorAnimation.fillMode = kCAFillModeForwards
+        borderColorAnimation.fillMode = CAMediaTimingFillMode.forwards
         borderColorAnimation.fromValue = self.borderColor.cgColor
         borderColorAnimation.toValue = self.borderColorPressed.cgColor
         borderColorAnimation.repeatCount = 1
@@ -90,7 +90,7 @@ class RoundBorderButton : UIButton {
         if self.filled {
             let backgroundAnimation = CABasicAnimation(keyPath: "backgroundColor")
             backgroundAnimation.isRemovedOnCompletion = false
-            backgroundAnimation.fillMode = kCAFillModeForwards
+            backgroundAnimation.fillMode = CAMediaTimingFillMode.forwards
             backgroundAnimation.fromValue = self.fillColorPressed.cgColor
             backgroundAnimation.toValue = self.fillColor.cgColor
             backgroundAnimation.duration = 0.1
@@ -100,7 +100,7 @@ class RoundBorderButton : UIButton {
         
         let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
         borderColorAnimation.isRemovedOnCompletion = false
-        borderColorAnimation.fillMode = kCAFillModeForwards
+        borderColorAnimation.fillMode = CAMediaTimingFillMode.forwards
         borderColorAnimation.fromValue = self.borderColorPressed.cgColor
         borderColorAnimation.toValue = self.borderColor.cgColor
         borderColorAnimation.repeatCount = 1

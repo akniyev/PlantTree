@@ -42,8 +42,8 @@ class LoginTextField : UITextField {
                 NSMutableAttributedString(
                     string: newValue ?? "",
                     attributes: [
-                        NSFontAttributeName: font,
-                        NSForegroundColorAttributeName: fontColor]
+                        NSAttributedString.Key.font: font,
+                        NSAttributedString.Key.foregroundColor: fontColor]
             )
             self.attributedPlaceholder = attributedPlaceholderText
         }

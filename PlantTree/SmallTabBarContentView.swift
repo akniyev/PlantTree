@@ -23,7 +23,7 @@ class SmallTabBarContentView : ESTabBarItemContentView {
         self.renderingMode = .alwaysOriginal
         self.addSubview(self.selectedView)
         self.selectedView.backgroundColor = DesignerColors.green
-        self.sendSubview(toBack: self.selectedView)
+        self.sendSubviewToBack(self.selectedView)
 
     }
 

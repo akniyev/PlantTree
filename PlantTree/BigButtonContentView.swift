@@ -25,7 +25,7 @@ class BigButtonContentView : ESTabBarItemMoreContentView {
         
         let transform = CGAffineTransform.identity
         self.imageView.transform = transform
-        self.superview?.bringSubview(toFront: self)
+        self.superview?.bringSubviewToFront(self)
         
         textColor = UIColor.init(white: 255.0 / 255.0, alpha: 1.0)
         highlightTextColor = UIColor.init(white: 255.0 / 255.0, alpha: 1.0)
